@@ -36,9 +36,13 @@ namespace XML_Adapter
         public string xmlns = "http://www.gbxml.org/schema";
 
         public DocumentHistory DocumentHistory = new DocumentHistory();
+        [XmlElement("Zone")]
         public List<Zone> Zone = new List<Zone> { new Zone() };
+        [XmlElement("Material")]
         public List<Material> Material = new List<Material> { new Material() };
+        [XmlElement("Layer")]
         public List<Layer> Layer = new List<Layer> { new Layer() };
+        [XmlElement("Construction")]
         public List<Construction> Construction = new List<Construction> { new Construction() };
         public Campus Campus = new Campus();
         public List<string> input
@@ -127,13 +131,14 @@ namespace XML_Adapter
         public string id = "CampusID";
         public string Name = "Campus";
         public Location Location = new Location();
+        [XmlElement("Building")]
         public List<Building> Building = new List<Building> { new Building() };
+        [XmlElement("Surface")]
         public List<Surface> Surface = new List<Surface> { new Surface() };
     }
     [Serializable]
     public class Location : gbXMLObject
     {
-        [XmlAttribute]
         public string Name = "Location";
         public float Longitude = 0;
         public float Latitude = 0;
@@ -148,7 +153,9 @@ namespace XML_Adapter
         [XmlAttribute]
         public string buildingType = "Unknown";
         public string Name = "Building";
+        [XmlElement("BuildingStorey")]
         public List<BuildingStorey> BuildingStorey = new List<BuildingStorey> { new BuildingStorey() };
+        [XmlElement("Space")]
         public List<Space> Space = new List<Space> { new Space() };
         public float Area = 0;
     }
@@ -184,16 +191,19 @@ namespace XML_Adapter
     [Serializable]
     public class ClosedShell : gbXMLObject
     {
-        public List<Polyloop> CartesianPoint = new List<Polyloop> { new Polyloop() };
+        [XmlElement("Polyloop")]
+        public List<Polyloop> Polyloop = new List<Polyloop> { new Polyloop() };
     }
     [Serializable]
     public class Polyloop : gbXMLObject
     {
+        [XmlElement("CartesianPoint")]
         public List<CartesianPoint> CartesianPoint = new List<CartesianPoint> { new CartesianPoint() };
     }
     [Serializable]
     public class CartesianPoint : gbXMLObject
     {
+        [XmlElement("Coordinate")]
         public List<float> Coordinate = new List<float> { 0 };
     }
     [Serializable]
@@ -206,7 +216,9 @@ namespace XML_Adapter
         [XmlAttribute]
         public string surfaceType = "Unknown";
         public string Name = "Surface";
+        [XmlElement("AdjacentSpaceId")]
         public List<AdjacentSpaceId> AdjacentSpaceId = new List<AdjacentSpaceId> { new AdjacentSpaceId() };
+        public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
     [Serializable]
     public class AdjacentSpaceId : gbXMLObject
@@ -217,6 +229,8 @@ namespace XML_Adapter
     [Serializable]
     public class PlanarGeometry : gbXMLObject
     {
+        [XmlAttribute]
+        public string id = "PlanarGeometryID";
         public Polyloop Polyloop = new Polyloop();
     }
 }

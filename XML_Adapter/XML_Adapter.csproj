@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="gbXMLWriter.cs" />
     <Compile Include="gbXMLSerializer.cs" />
-    <Compile Include="gbXMLobjects.cs" />
+    <Compile Include="gbXMLObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
