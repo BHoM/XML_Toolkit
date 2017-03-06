@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using XML_Adapter;
+using XML_Adapter.gbXML;
 using BHoM.Base;
 using System.Xml.Serialization;
 
 
-namespace XML_Adapter
+namespace XML_Adapter.gbXML
 {
     public abstract class gbXMLObject
     {
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class gbXML : gbXMLObject
     {
-        // Default attributes for gbXML file.
-
+        [XmlAttribute(AttributeName = "schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+        public string schemaLocation = "gbXML http://www.gbxml.org/schema";
         [XmlAttribute]
         public string temperatureUnit = "C";
         [XmlAttribute]
@@ -30,11 +31,7 @@ namespace XML_Adapter
         public string useSIUnitsForResults = "true";
         [XmlAttribute]
         public string version = "0.37";
-        [XmlAttribute]
-        public string schemaLocation = "gbXML http://www.gbxml.org/schema";
-        [XmlAttribute]
-        public string xmlns = "http://www.gbxml.org/schema";
-
+        [XmlElement("DocumentHistory")]
         public DocumentHistory DocumentHistory = new DocumentHistory();
         [XmlElement("Zone")]
         public List<Zone> Zone = new List<Zone> { new Zone() };
@@ -44,6 +41,7 @@ namespace XML_Adapter
         public List<Layer> Layer = new List<Layer> { new Layer() };
         [XmlElement("Construction")]
         public List<Construction> Construction = new List<Construction> { new Construction() };
+        [XmlElement("Campus")]
         public Campus Campus = new Campus();
         public List<string> input
         {
@@ -54,24 +52,53 @@ namespace XML_Adapter
 
     // DocumentHistory Objects
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class DocumentHistory : gbXMLObject
     {
+        [XmlElement("ProgramInfo")]
         public ProgramInfo ProgramInfo = new ProgramInfo();
+        [XmlElement("CreatedBy")]
+        public CreatedBy CreatedBy = new CreatedBy();
+        [XmlElement("PersonInfo")]
+        public PersonInfo PersonInfo = new PersonInfo();
     }
-
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class ProgramInfo : gbXMLObject
     {
         [XmlAttribute]
         public string id = "BHoMgbXML";
+        [XmlElement("CompanyName")]
         public string CompanyName = "BuroHappold Engineering";
+        [XmlElement("ProductName")]
         public string ProductName = "BHoMgbXML";
+        [XmlElement("Version")]
         public string Version = "0.0.1";
+        [XmlElement("Platform")]
         public string Platform = "Microsoft Windows";
+    }
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class CreatedBy : gbXMLObject
+    {
+        [XmlAttribute]
+        public string personId = "BuroHappold";
+        [XmlAttribute]
+        public string programId = "BHoMgbXML";
+        [XmlAttribute]
+        public string date = "00-00-00";
+    }
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class PersonInfo : gbXMLObject
+    {
+        [XmlAttribute]
+        public string id = "BuroHappold";
     }
 
     // Zone Objects
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Zone : gbXMLObject
     {
         [XmlAttribute]
@@ -81,17 +108,19 @@ namespace XML_Adapter
 
     // Material Objects
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Material : gbXMLObject
     {
         [XmlAttribute]
         public string id = "MaterialID";
         public string Name = "Material";
-        public string Thickness = "0";
+        public double Thickness = 0.001;
     }
 
     // Layer Objects
 
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Layer : gbXMLObject
     {
         [XmlAttribute]
@@ -100,6 +129,7 @@ namespace XML_Adapter
         public MaterialId MaterialId = new MaterialId();
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class MaterialId : gbXMLObject
     {
         [XmlAttribute]
@@ -109,6 +139,7 @@ namespace XML_Adapter
     // Construction Objects
 
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Construction : gbXMLObject
     {
         [XmlAttribute]
@@ -117,6 +148,7 @@ namespace XML_Adapter
         public LayerId LayerId = new LayerId();
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class LayerId : gbXMLObject
     {
         [XmlAttribute]
@@ -125,6 +157,7 @@ namespace XML_Adapter
 
     // Campus Objects
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Campus : gbXMLObject
     {
         [XmlAttribute]
@@ -137,15 +170,17 @@ namespace XML_Adapter
         public List<Surface> Surface = new List<Surface> { new Surface() };
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Location : gbXMLObject
     {
         public string Name = "Location";
-        public float Longitude = 0;
-        public float Latitude = 0;
-        public float Elevation = 0;
-        public float CADModelAzimuth = 0;
+        public double Longitude = 0;
+        public double Latitude = 0;
+        public double Elevation = 0;
+        public double CADModelAzimuth = 0;
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Building : gbXMLObject
     {
         [XmlAttribute]
@@ -160,6 +195,7 @@ namespace XML_Adapter
         public float Area = 0;
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class BuildingStorey : gbXMLObject
     {
         [XmlAttribute]
@@ -168,6 +204,7 @@ namespace XML_Adapter
         public float Level = 0;
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Space : gbXMLObject
     {
         [XmlAttribute]
@@ -180,33 +217,38 @@ namespace XML_Adapter
         public ShellGeometry ShellGeometry = new ShellGeometry();
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class ShellGeometry : gbXMLObject
     {
         [XmlAttribute]
         public string id = "ShellGeometryID";
-        public string Name = "ShellGeometry";
         public ClosedShell ClosedShell = new ClosedShell();
 
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class ClosedShell : gbXMLObject
     {
-        [XmlElement("Polyloop")]
-        public List<Polyloop> Polyloop = new List<Polyloop> { new Polyloop() };
+        [XmlElement("PolyLoop")]
+        public List<Polyloop> PolyLoop = new List<Polyloop> { new Polyloop() };
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Polyloop : gbXMLObject
     {
+
         [XmlElement("CartesianPoint")]
         public List<CartesianPoint> CartesianPoint = new List<CartesianPoint> { new CartesianPoint() };
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class CartesianPoint : gbXMLObject
     {
         [XmlElement("Coordinate")]
-        public List<float> Coordinate = new List<float> { 0 };
+        public List<double> Coordinate = new List<double> { 0 };
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Surface : gbXMLObject
     {
         [XmlAttribute]
@@ -221,16 +263,18 @@ namespace XML_Adapter
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class AdjacentSpaceId : gbXMLObject
     {
         [XmlAttribute]
         public string spaceIdRef = "SpaceID";
     }
     [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class PlanarGeometry : gbXMLObject
     {
         [XmlAttribute]
         public string id = "PlanarGeometryID";
-        public Polyloop Polyloop = new Polyloop();
+        public Polyloop PolyLoop = new Polyloop();
     }
 }
