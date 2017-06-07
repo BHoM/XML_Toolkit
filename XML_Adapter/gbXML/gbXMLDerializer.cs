@@ -19,13 +19,17 @@ namespace XML_Adapter.gbXML
         private static BHG.Group<BHG.Curve> MakeCurveGroup(Polyloop ploop)
         {
             List<BHG.Point> pts = new List<BHoM.Geometry.Point>();
-            foreach (CartesianPoint Cpt in ploop.CartesianPoint)
+            if ( 1 <= ploop.CartesianPoint.Count())
             {
-                BHG.Point pt = new BHG.Point();
-                pt.X = Cpt.Coordinate[0];
-                pt.Y = Cpt.Coordinate[1];
-                pt.Z = Cpt.Coordinate[2];
-                pts.Add(pt);
+                foreach (CartesianPoint Cpt in ploop.CartesianPoint)
+                {
+                    BHG.Point pt = new BHG.Point();
+                    pt.X = Convert.ToDouble(Cpt.Coordinate[0]);
+                    pt.Y = Convert.ToDouble(Cpt.Coordinate[1]);
+                    pt.Z = Convert.ToDouble(Cpt.Coordinate[2]);
+                    pts.Add(pt);
+                }
+                pts.Add((BHG.Point)pts[0].Duplicate());
             }
             BHG.Polyline pline = new BHG.Polyline(pts);
             BHG.Group<BHG.Curve> crvs = new BHG.Group<BHoM.Geometry.Curve>();
@@ -35,13 +39,17 @@ namespace XML_Adapter.gbXML
         private static BHG.Polyline MakePolyline(Polyloop ploop)
         {
             List<BHG.Point> pts = new List<BHoM.Geometry.Point>();
-            foreach (CartesianPoint Cpt in ploop.CartesianPoint)
+            if (1 <= ploop.CartesianPoint.Count())
             {
-                BHG.Point pt = new BHG.Point();
-                pt.X = Cpt.Coordinate[0];
-                pt.Y = Cpt.Coordinate[1];
-                pt.Z = Cpt.Coordinate[2];
-                pts.Add(pt);
+                foreach (CartesianPoint Cpt in ploop.CartesianPoint)
+                {
+                    BHG.Point pt = new BHG.Point();
+                    pt.X = Convert.ToDouble(Cpt.Coordinate[0]);
+                    pt.Y = Convert.ToDouble(Cpt.Coordinate[1]);
+                    pt.Z = Convert.ToDouble(Cpt.Coordinate[2]);
+                    pts.Add(pt);
+                }
+                pts.Add((BHG.Point)pts[0].Duplicate());
             }
             BHG.Polyline pline = new BHG.Polyline(pts);
             return pline;
@@ -49,8 +57,8 @@ namespace XML_Adapter.gbXML
         public static List<BHoMObject> Deserialize(gbXML gbx)
         { 
             List<BHoMObject> bhomObjects = new List<BHoMObject>();
-            List<XML.Surface> srfs = gbx.Campus.Surface;
-            List<XML.Space> spaces = gbx.Campus.Building[0].Space;
+            List<XML.Surface> srfs = gbx.Campus.Surface.ToList();
+            List<XML.Space> spaces = gbx.Campus.Building[0].Space.ToList();
             // Generate gbXMLSurfaces
             if (srfs !=null)
             {
@@ -74,9 +82,17 @@ namespace XML_Adapter.gbXML
                     BHE.Space xspace = new BHE.Space();
                     xspace.Name = space.Name;
                     xspace.CustomData.Add("gbXML-ID", space.id);
-                    foreach (XML.Polyloop ploop in space.ShellGeometry.ClosedShell.PolyLoop)
+                    if (4<=space.ShellGeometry.ClosedShell.PolyLoop.Count())
                     {
-                        xspace.Polylines.Add(MakePolyline(ploop));
+                        List<BHG.Polyline> plines = new List<BHG.Polyline>();
+                        foreach (XML.Polyloop ploop in space.ShellGeometry.ClosedShell.PolyLoop)
+                        {
+                            if (3 <= ploop.CartesianPoint.Count())
+                            {
+                                plines.Add(MakePolyline(ploop));
+                            }
+                        }
+                        xspace.Polylines = plines;
                     }
                     bhomObjects.Add(xspace);
                 }
