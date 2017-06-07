@@ -5,27 +5,48 @@ using System.Text;
 using System.Threading.Tasks;
 using BHE = BHoM.Environmental.Elements;
 using BHG = BHoM.Geometry;
+using BHB = BHoM.Base;
 
 namespace XML_Adapter.gbXML
 {
     public class AdjSolver
     {
 
-        public static List<BHE.Panel> AdjacensiesSolver(List<BHE.Panel> pans, List<BHE.Space> spaces)
+        public static List<BHE.Panel> AdjacensiesSolver(List<BHE.Panel> pansin, List<BHE.Space> spacesin)
         {
-            //int adj1 = 0;
-            //int adj2 = 0;
-            for (int i = 0; i < pans.Count - 1 ; i++)
+
+            List<BHE.Space> spaces = new List<BHE.Space>();
+            List<BHE.Panel> pans = new List<BHE.Panel>();
+
+            foreach (BHE.Panel pan in pansin)
             {
-                for (int j = 0; j < spaces.Count - 1 ; j++)
+                pans.Add((BHE.Panel)pan.ShallowClone());
+            }
+
+            foreach (BHE.Space space in spacesin)
+            {
+                BHE.Space spaceout = (BHE.Space)space.ShallowClone();
+                spaceout.Polylines = new List<BHG.Polyline>();
+                for (int i = 0; i < space.Polylines.Count; i++)
+                {
+                    spaceout.Polylines.Add((BHG.Polyline)space.Polylines[i].Duplicate());
+                }
+                spaces.Add(spaceout);
+            }
+
+            for (int i = 0; i < pans.Count ; i++)
+            {
+                pans[i].adjSpaces.Clear();
+
+                for (int j = 0; j < spaces.Count ; j++)
                 {
                     if (pans[i].adjSpaces.Count >= 2)
                     {
                         break;
                     }
-                    for (int k = 0; k < spaces[j].Polylines.Count - 1 ; k++)
+                    for (int k = 0; k < spaces[j].Polylines.Count ; k++)
                     {
-                        if (pans[i].External_Contours[0].ControlPoints.Count == spaces[j].Polylines[k].PointCount)
+                        if (pans[i].External_Contours[0].ControlPoints.Count == spaces[j].Polylines[k].ControlPoints.Count)
                         {
                             bool adjFound = true;
                             for (int l = 0; l < pans[i].External_Contours[0].ControlPoints.Count; l++)
@@ -33,7 +54,6 @@ namespace XML_Adapter.gbXML
                                 bool breakout = true;
                                 for (int m = 0; m < spaces[j].Polylines[k].PointCount; m++)
                                 {
-                                    
                                     if (pans[i].External_Contours[0].ControlPoints[l].DistanceTo(spaces[j].Polylines[k][m]) <= 0.001)
                                     {
                                         breakout = false;
@@ -50,15 +70,6 @@ namespace XML_Adapter.gbXML
                             {
                                 pans[i].adjSpaces.Add(spaces[j].BHoM_Guid.ToString());
                                 spaces[j].Polylines.RemoveAt(k);
-                                //if (pans[i].adjSpaces.Count == 1)
-                                //{
-                                //    adj1 = adj1 + 1;
-                                //}
-                                //if (pans[i].adjSpaces.Count == 2)
-                                //{
-                                //    adj1 = adj1 - 1;
-                                //    adj2 = adj2 + 1;
-                                //}
                                 break;
                             }
                         }

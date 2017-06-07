@@ -34,20 +34,15 @@ namespace XML_Adapter.gbXML
         [XmlElement("DocumentHistory")]
         public DocumentHistory DocumentHistory = new DocumentHistory();
         [XmlElement("Zone")]
-        public List<Zone> Zone = new List<Zone> { new Zone() };
+        public Zone[] Zone = new List<Zone> { new Zone() }.ToArray();
         [XmlElement("Material")]
-        public List<Material> Material = new List<Material> { new Material() };
+        public Material[] Material = new List<Material> { new Material() }.ToArray();
         [XmlElement("Layer")]
-        public List<Layer> Layer = new List<Layer> { new Layer() };
+        public Layer[] Layer = new List<Layer> { new Layer() }.ToArray();
         [XmlElement("Construction")]
-        public List<Construction> Construction = new List<Construction> { new Construction() };
+        public Construction[] Construction = new List<Construction> { new Construction() }.ToArray();
         [XmlElement("Campus")]
         public Campus Campus = new Campus();
-        public List<string> input
-        {
-            get;
-            set;
-        }
     }
 
     // DocumentHistory Objects
@@ -103,6 +98,7 @@ namespace XML_Adapter.gbXML
     {
         [XmlAttribute]
         public string id = "ZoneID";
+        [XmlElement]
         public string Name = "Zone";
     }
 
@@ -113,7 +109,9 @@ namespace XML_Adapter.gbXML
     {
         [XmlAttribute]
         public string id = "MaterialID";
+        [XmlElement]
         public string Name = "Material";
+        [XmlElement]
         public double Thickness = 0.001;
     }
 
@@ -125,7 +123,9 @@ namespace XML_Adapter.gbXML
     {
         [XmlAttribute]
         public string id = "LayerID";
+        [XmlElement]
         public string Name = "Layer";
+        [XmlElement]
         public MaterialId MaterialId = new MaterialId();
     }
     [Serializable]
@@ -144,7 +144,9 @@ namespace XML_Adapter.gbXML
     {
         [XmlAttribute]
         public string id = "ConstructionID";
+        [XmlElement]
         public string Name = "Construction";
+        [XmlElement]
         public LayerId LayerId = new LayerId();
     }
     [Serializable]
@@ -162,21 +164,28 @@ namespace XML_Adapter.gbXML
     {
         [XmlAttribute]
         public string id = "CampusID";
+        [XmlElement]
         public string Name = "Campus";
+        [XmlElement]
         public Location Location = new Location();
         [XmlElement("Building")]
-        public List<Building> Building = new List<Building> { new Building() };
+        public Building[] Building = new List<Building> { new Building() }.ToArray();
         [XmlElement("Surface")]
-        public List<Surface> Surface = new List<Surface> { new Surface() };
+        public Surface[] Surface = new List<Surface> { new Surface() }.ToArray();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Location : gbXMLObject
     {
+        [XmlElement]
         public string Name = "Location";
+        [XmlElement]
         public double Longitude = 0;
+        [XmlElement]
         public double Latitude = 0;
+        [XmlElement]
         public double Elevation = 0;
+        [XmlElement]
         public double CADModelAzimuth = 0;
     }
     [Serializable]
@@ -187,11 +196,13 @@ namespace XML_Adapter.gbXML
         public string id = "BuildingID";
         [XmlAttribute]
         public string buildingType = "Unknown";
+        [XmlElement]
         public string Name = "Building";
         [XmlElement("BuildingStorey")]
-        public List<BuildingStorey> BuildingStorey = new List<BuildingStorey> { new BuildingStorey() };
+        public BuildingStorey[] BuildingStorey = new List<BuildingStorey> { new BuildingStorey() }.ToArray();
         [XmlElement("Space")]
-        public List<Space> Space = new List<Space> { new Space() };
+        public Space[] Space = new List<Space> { new XML_Adapter.gbXML.Space() }.ToArray() ;
+        [XmlElement]
         public float Area = 0;
     }
     [Serializable]
@@ -200,7 +211,9 @@ namespace XML_Adapter.gbXML
     {
         [XmlAttribute]
         public string id = "StoreyID";
+        [XmlElement]
         public string Name = "Storey";
+        [XmlElement]
         public float Level = 0;
     }
     [Serializable]
@@ -213,7 +226,9 @@ namespace XML_Adapter.gbXML
         public string zoneIdRef = "ZoneID";
         [XmlAttribute]
         public string buildingStoreyIdRef = "StoreyID";
+        [XmlElement]
         public string Name = "Space";
+        [XmlElement]
         public ShellGeometry ShellGeometry = new ShellGeometry();
     }
     [Serializable]
@@ -222,6 +237,7 @@ namespace XML_Adapter.gbXML
     {
         [XmlAttribute]
         public string id = "ShellGeometryID";
+        [XmlElement]
         public ClosedShell ClosedShell = new ClosedShell();
 
     }
@@ -230,22 +246,21 @@ namespace XML_Adapter.gbXML
     public class ClosedShell : gbXMLObject
     {
         [XmlElement("PolyLoop")]
-        public List<Polyloop> PolyLoop = new List<Polyloop> { new Polyloop() };
+        public Polyloop[] PolyLoop = new List<Polyloop> {new Polyloop()}.ToArray();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Polyloop : gbXMLObject
     {
-
         [XmlElement("CartesianPoint")]
-        public List<CartesianPoint> CartesianPoint = new List<CartesianPoint> { new CartesianPoint() };
+        public CartesianPoint[] CartesianPoint = new List<CartesianPoint> {new CartesianPoint() }.ToArray();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class CartesianPoint : gbXMLObject
     {
         [XmlElement("Coordinate")]
-        public List<double> Coordinate = new List<double> { 0 };
+        public string[] Coordinate = new List<string> { "0" }.ToArray();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -257,9 +272,11 @@ namespace XML_Adapter.gbXML
         public string constructionIdRef = "ConstructionID";
         [XmlAttribute]
         public string surfaceType = "Unknown";
+        [XmlElement("Name")]
         public string Name = "Surface";
         [XmlElement("AdjacentSpaceId")]
-        public List<AdjacentSpaceId> AdjacentSpaceId = new List<AdjacentSpaceId> { new AdjacentSpaceId() };
+        public AdjacentSpaceId[] AdjacentSpaceId = new List<AdjacentSpaceId> { new AdjacentSpaceId() }.ToArray();
+        [XmlElement("PlanarGeometry")]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
     [Serializable]
@@ -275,6 +292,7 @@ namespace XML_Adapter.gbXML
     {
         [XmlAttribute]
         public string id = "PlanarGeometryID";
+        [XmlElement("PolyLoop")]
         public Polyloop PolyLoop = new Polyloop();
     }
 }
