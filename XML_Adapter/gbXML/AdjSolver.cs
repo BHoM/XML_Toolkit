@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHE = BHoM.Environmental.Elements;
-using BHG = BHoM.Geometry;
-using BHB = BHoM.Base;
+using BHE = BH.oM.Environmental.Elements;
+using BHG = BH.oM.Geometry;
+using BHB = BH.oM.Base;
 
 namespace XML_Adapter.gbXML
 {

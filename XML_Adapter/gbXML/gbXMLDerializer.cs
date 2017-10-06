@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XML = XML_Adapter.gbXML;
-using BHoM.Base;
-using BHE = BHoM.Environmental.Elements;
-using BHG = BHoM.Geometry;
+using BH.oM.Base;
+using BHE = BH.oM.Environmental.Elements;
+using BHG = BH.oM.Geometry;
 using System.Xml.Serialization;
 
 
@@ -18,7 +18,7 @@ namespace XML_Adapter.gbXML
     {
         private static BHG.Group<BHG.Curve> MakeCurveGroup(Polyloop ploop)
         {
-            List<BHG.Point> pts = new List<BHoM.Geometry.Point>();
+            List<BHG.Point> pts = new List<BH.oM.Geometry.Point>();
             if ( 1 <= ploop.CartesianPoint.Count())
             {
                 foreach (CartesianPoint Cpt in ploop.CartesianPoint)
@@ -32,13 +32,13 @@ namespace XML_Adapter.gbXML
                 pts.Add((BHG.Point)pts[0].Duplicate());
             }
             BHG.Polyline pline = new BHG.Polyline(pts);
-            BHG.Group<BHG.Curve> crvs = new BHG.Group<BHoM.Geometry.Curve>();
+            BHG.Group<BHG.Curve> crvs = new BHG.Group<BH.oM.Geometry.Curve>();
             crvs.Add(pline);
             return crvs;
         }
         private static BHG.Polyline MakePolyline(Polyloop ploop)
         {
-            List<BHG.Point> pts = new List<BHoM.Geometry.Point>();
+            List<BHG.Point> pts = new List<BH.oM.Geometry.Point>();
             if (1 <= ploop.CartesianPoint.Count())
             {
                 foreach (CartesianPoint Cpt in ploop.CartesianPoint)
