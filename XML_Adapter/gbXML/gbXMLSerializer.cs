@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XML = XML_Adapter.gbXML;
-using BHoM.Base;
-using BHE = BHoM.Environmental.Elements;
-using BHG = BHoM.Geometry;
+using BH.oM.Base;
+using BHE = BH.oM.Environmental.Elements;
+using BHG = BH.oM.Geometry;
 using System.Xml.Serialization;
 
 
