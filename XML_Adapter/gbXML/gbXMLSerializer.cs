@@ -12,8 +12,6 @@ using System.Xml.Serialization;
 
 namespace XML_Adapter.gbXML
 {
-
-
     public class gbXMLSerializer
     {
         private static XML.Polyloop MakePolyloop(List<BHG.Point> pts)
@@ -37,7 +35,7 @@ namespace XML_Adapter.gbXML
         {
             gbXML gbx = new gbXML();
 
-            List<BHE.Panel> pans = bhomObjects.Where(x => x is BHE.Panel).Select(x => x as BHE.Panel).ToList();
+            List<BHE.BuildingElementPanel> pans = bhomObjects.Where(x => x is BHE.BuildingElementPanel).Select(x => x as BHE.BuildingElementPanel).ToList();
             List<BHE.Space> spaces = bhomObjects.Where(x => x is BHE.Space).Select(x => x as BHE.Space).ToList();
 
             // Generate gbXMLSurfaces
@@ -48,19 +46,19 @@ namespace XML_Adapter.gbXML
                 {
                     XML.Surface xpanel = new XML.Surface();
                     xpanel.Name = pans[i].Name;
-                    xpanel.surfaceType = pans[i].Type;
+                    //xpanel.surfaceType = pans[i].type;
                     xpanel.id = "Panel-" + pans[i].BHoM_Guid.ToString();
                     PlanarGeometry plGeo = new PlanarGeometry();
                     plGeo.id = "PlanarGeometry" + i.ToString();
-                    plGeo.PolyLoop = MakePolyloop(pans[i].External_Contours[0].ControlPoints);
+                    //plGeo.PolyLoop = MakePolyloop(pans[i].PolyCurve[0].ControlPoints);
                     xpanel.PlanarGeometry = plGeo;
                     List<XML.AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
-                    foreach (string adjSpace in pans[i].adjSpaces)
-                    {
-                        AdjacentSpaceId adjId = new AdjacentSpaceId();
-                        adjId.spaceIdRef = "Space-" + adjSpace;
-                        adspace.Add(adjId);
-                    }
+                    //foreach (string adjSpace in pans[i].adjSpaces)
+                    //{
+                    //    AdjacentSpaceId adjId = new AdjacentSpaceId();
+                    //    adjId.spaceIdRef = "Space-" + adjSpace;
+                    //    adspace.Add(adjId);
+                    //}
                     xpanel.AdjacentSpaceId = adspace.ToArray();
                     srfs.Add(xpanel);
                     }
@@ -80,10 +78,10 @@ namespace XML_Adapter.gbXML
                     xspace.Name = space.Name;
                     xspace.id = "Space-" + space.BHoM_Guid.ToString();
                     List<XML.Polyloop> ploops = new List<Polyloop>();
-                    foreach (BHG.Polyline pline in space.Polylines)
-                    {
-                        ploops.Add(MakePolyloop(pline.ControlPoints));
-                    }
+                    //foreach (BHG.Polyline pline in space.Polylines)
+                    //{
+                    //    ploops.Add(MakePolyloop(pline.ControlPoints));
+                    //}
                     xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
                     xspaces.Add(xspace);
                 }
