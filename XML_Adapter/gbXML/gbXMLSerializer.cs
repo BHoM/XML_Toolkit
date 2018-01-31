@@ -18,9 +18,10 @@ namespace XML_Adapter.gbXML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static gbXML Serialize(List<IObject> bhomObjects)
+        //public static gbXML Serialize(List<IObject> bhomObjects)
+        public static void Serialize(List<IObject> bhomObjects, gbXML gbx)
         {
-            gbXML gbx = new gbXML();
+            //gbXML gbx = new gbXML();
 
             List<BHE.BuildingElementPanel> bHoMPanels = bhomObjects.Where(x => x is BHE.BuildingElementPanel).Select(x => x as BHE.BuildingElementPanel).ToList();
             List<BHE.Space> spaces = bhomObjects.Where(x => x is BHE.Space).Select(x => x as BHE.Space).ToList();
@@ -49,9 +50,11 @@ namespace XML_Adapter.gbXML
                     //    adspace.Add(adjId);
                     //}
                     xmlPanel.AdjacentSpaceId = adspace.ToArray();
-                    srfs.Add(xmlPanel);
+                    //srfs.Add(xmlPanel);
+                    gbx.Campus.Surface.Add(xmlPanel);    
                     }
-                gbx.Campus.Surface = srfs.ToArray();
+
+                //gbx.Campus.Surface = srfs.ToArray();
 
                 }
 
@@ -72,11 +75,13 @@ namespace XML_Adapter.gbXML
                     //    ploops.Add(MakePolyloop(pline.ControlPoints));
                     //}
                     xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
-                    xspaces.Add(xspace);
+                    //    xspaces.Add(xspace);
+                    gbx.Campus.Building[0].Space.Add(xspace);
                 }
-                gbx.Campus.Building[0].Space = xspaces.ToArray();
+                //gbx.Campus.Building[0].Space = xspaces.ToArray();
+                
             }
-            return gbx;
+            //return gbx;
         }
 
 
