@@ -172,7 +172,8 @@ namespace XML_Adapter.gbXML
         [XmlElement("Building")]
         public Building[] Building = new List<Building> { new Building() }.ToArray();
         [XmlElement("Surface")]
-        public Surface[] Surface = new List<Surface> { new Surface() }.ToArray();
+        //public Surface[] Surface = new List<Surface> { new Surface() }.ToArray();
+        public List<Surface> Surface = new List<Surface>();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -202,7 +203,8 @@ namespace XML_Adapter.gbXML
         [XmlElement("BuildingStorey")]
         public BuildingStorey[] BuildingStorey = new List<BuildingStorey> { new BuildingStorey() }.ToArray();
         [XmlElement("Space")]
-        public Space[] Space = new List<Space> { new XML_Adapter.gbXML.Space() }.ToArray() ;
+        //public Space[] Space = new List<Space> { new XML_Adapter.gbXML.Space() }.ToArray() ;
+        public List<Space> Space = new List<Space>();
         [XmlElement]
         public float Area = 0;
     }
