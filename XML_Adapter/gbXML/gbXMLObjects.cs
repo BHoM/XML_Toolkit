@@ -15,6 +15,7 @@ namespace XML_Adapter.gbXML
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+
     public class gbXML : gbXMLObject
     {
         [XmlAttribute(AttributeName = "schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
