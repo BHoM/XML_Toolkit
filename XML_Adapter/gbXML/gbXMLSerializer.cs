@@ -18,17 +18,15 @@ namespace XML_Adapter.gbXML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        //public static gbXML Serialize(List<IObject> bhomObjects)
         public static void Serialize(List<IObject> bhomObjects, gbXML gbx)
         {
-            //gbXML gbx = new gbXML();
 
             List<BHE.BuildingElementPanel> bHoMPanels = bhomObjects.Where(x => x is BHE.BuildingElementPanel).Select(x => x as BHE.BuildingElementPanel).ToList();
             List<BHE.Space> spaces = bhomObjects.Where(x => x is BHE.Space).Select(x => x as BHE.Space).ToList();
 
             // Generate gbXMLSurfaces
             if (bHoMPanels !=null)
-                {
+             {
                 List<Surface> srfs = new List<Surface>();
                 for (int i = 0; i < bHoMPanels.Count; i++)
                 {
@@ -50,13 +48,10 @@ namespace XML_Adapter.gbXML
                     //    adspace.Add(adjId);
                     //}
                     xmlPanel.AdjacentSpaceId = adspace.ToArray();
-                    //srfs.Add(xmlPanel);
                     gbx.Campus.Surface.Add(xmlPanel);    
-                    }
-
-                //gbx.Campus.Surface = srfs.ToArray();
-
                 }
+
+             }
 
 
 
@@ -70,18 +65,17 @@ namespace XML_Adapter.gbXML
                     xspace.Name = space.Name;
                     xspace.id = "Space-" + space.BHoM_Guid.ToString();
                     List<XML.Polyloop> ploops = new List<Polyloop>();
-                    //foreach (BHG.Polyline pline in space.Polylines)
-                    //{
-                    //    ploops.Add(MakePolyloop(pline.ControlPoints));
-                    //}
-                    xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
-                    //    xspaces.Add(xspace);
+
+                    IEnumerable<BHG.PolyCurve> bePanel = space.BuildingElementPanel.Select(x => x.PolyCurve);
+
+                    foreach (BHG.PolyCurve pline in bePanel)
+                    {
+                        ploops.Add(MakePolyloop(BH.Engine.Geometry.Query.ControlPoints(pline)));
+                        xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
+                    }
                     gbx.Campus.Building[0].Space.Add(xspace);
                 }
-                //gbx.Campus.Building[0].Space = xspaces.ToArray();
-                
             }
-            //return gbx;
         }
 
 
