@@ -21,59 +21,73 @@ namespace XML_Adapter.gbXML
         public static void Serialize(List<IObject> bhomObjects, gbXML gbx)
         {
 
-            List<BHE.BuildingElementPanel> bHoMPanels = bhomObjects.Where(x => x is BHE.BuildingElementPanel).Select(x => x as BHE.BuildingElementPanel).ToList();
-            List<BHE.Space> spaces = bhomObjects.Where(x => x is BHE.Space).Select(x => x as BHE.Space).ToList();
+            foreach (IObject obj in bhomObjects)
+            {
 
-            // Generate gbXMLSurfaces
-            if (bHoMPanels !=null)
-             {
-                List<Surface> srfs = new List<Surface>();
-                for (int i = 0; i < bHoMPanels.Count; i++)
+                List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
+
+                //List<BHE.BuildingElementPanel> bHoMPanels = bhomObjects.Where(x => x is BHE.BuildingElementPanel).Select(x => x as BHE.BuildingElementPanel).ToList();
+                if (obj.GetType() == typeof(BHE.Space))
                 {
-                    Surface xmlPanel = new Surface();
-                    xmlPanel.Name = bHoMPanels[i].Name;
-                    //xpanel.surfaceType = pans[i].type;
-                    xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
-                    PlanarGeometry plGeo = new PlanarGeometry();
-                    plGeo.id = "PlanarGeometry" + i.ToString();
+                    BHE.Space bHoMSpace = obj as BHE.Space;
+                    bHoMPanels = bHoMSpace.BuildingElementPanel;
 
-                    plGeo.PolyLoop = MakePolyloop(bHoMPanels[i].PolyCurve.ControlPoints());
-
-                    xmlPanel.PlanarGeometry = plGeo;
-                    List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
-                    //foreach (string adjSpace in pans[i].adjSpaces)
-                    //{
-                    //    AdjacentSpaceId adjId = new AdjacentSpaceId();
-                    //    adjId.spaceIdRef = "Space-" + adjSpace;
-                    //    adspace.Add(adjId);
-                    //}
-                    xmlPanel.AdjacentSpaceId = adspace.ToArray();
-                    gbx.Campus.Surface.Add(xmlPanel);    
                 }
 
-             }
 
+                List<BHE.Space> spaces = bhomObjects.Where(x => x is BHE.Space).Select(x => x as BHE.Space).ToList();
 
-
-        // Generate gbXMLSpaces
-            if (spaces != null)
-            {
-                List<XML.Space> xspaces = new List<Space>();
-                foreach (BHE.Space space in spaces)
+                // Generate gbXMLSurfaces
+                if (bHoMPanels != null)
                 {
-                    XML.Space xspace = new XML.Space();
-                    xspace.Name = space.Name;
-                    xspace.id = "Space-" + space.BHoM_Guid.ToString();
-                    List<XML.Polyloop> ploops = new List<Polyloop>();
-
-                    IEnumerable<BHG.PolyCurve> bePanel = space.BuildingElementPanel.Select(x => x.PolyCurve);
-
-                    foreach (BHG.PolyCurve pline in bePanel)
+                    List<Surface> srfs = new List<Surface>();
+                    for (int i = 0; i < bHoMPanels.Count; i++)
                     {
-                        ploops.Add(MakePolyloop(BH.Engine.Geometry.Query.ControlPoints(pline)));
-                        xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
+                        Surface xmlPanel = new Surface();
+                        xmlPanel.Name = bHoMPanels[i].Name;
+                        //xpanel.surfaceType = pans[i].type;
+                        xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
+                        PlanarGeometry plGeo = new PlanarGeometry();
+                        plGeo.id = "PlanarGeometry" + i.ToString();
+
+                        plGeo.PolyLoop = MakePolyloop(bHoMPanels[i].PolyCurve.ControlPoints());
+
+                        xmlPanel.PlanarGeometry = plGeo;
+                        List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
+                        //foreach (string adjSpace in pans[i].adjSpaces)
+                        //{
+                        //    AdjacentSpaceId adjId = new AdjacentSpaceId();
+                        //    adjId.spaceIdRef = "Space-" + adjSpace;
+                        //    adspace.Add(adjId);
+                        //}
+                        xmlPanel.AdjacentSpaceId = adspace.ToArray();
+                        gbx.Campus.Surface.Add(xmlPanel);
                     }
-                    gbx.Campus.Building[0].Space.Add(xspace);
+
+                }
+
+
+
+                // Generate gbXMLSpaces
+                if (spaces != null)
+                {
+                    List<XML.Space> xspaces = new List<Space>();
+                    foreach (BHE.Space space in spaces)
+                    {
+                        XML.Space xspace = new XML.Space();
+                        xspace.Name = space.Name;
+                        xspace.id = "Space-" + space.BHoM_Guid.ToString();
+                        List<XML.Polyloop> ploops = new List<Polyloop>();
+
+                        IEnumerable<BHG.PolyCurve> bePanel = space.BuildingElementPanel.Select(x => x.PolyCurve);
+
+                        foreach (BHG.PolyCurve pline in bePanel)
+                        {
+                            ploops.Add(MakePolyloop(BH.Engine.Geometry.Query.ControlPoints(pline)));
+                            xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
+                        }
+                        gbx.Campus.Building[0].Space.Add(xspace);
+                    }
                 }
             }
         }

@@ -34,17 +34,17 @@
 //                spaces.Add(spaceout);
 //            }
 
-//            for (int i = 0; i < pans.Count ; i++)
+//            for (int i = 0; i < pans.Count; i++)
 //            {
 //                pans[i].adjSpaces.Clear();
 
-//                for (int j = 0; j < spaces.Count ; j++)
+//                for (int j = 0; j < spaces.Count; j++)
 //                {
 //                    if (pans[i].adjSpaces.Count >= 2)
 //                    {
 //                        break;
 //                    }
-//                    for (int k = 0; k < spaces[j].Polylines.Count ; k++)
+//                    for (int k = 0; k < spaces[j].Polylines.Count; k++)
 //                    {
 //                        if (pans[i].External_Contours[0].ControlPoints.Count == spaces[j].Polylines[k].ControlPoints.Count)
 //                        {
