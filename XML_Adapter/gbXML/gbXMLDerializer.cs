@@ -50,15 +50,21 @@ namespace XML_Adapter.gbXML
                     xspace.CustomData.Add("gbXML-ID", space.id);
                     if (4 <= space.ShellGeometry.ClosedShell.PolyLoop.Count())
                     {
+                        List<BHE.BuildingElementPanel> bHomPanel = new List<BHE.BuildingElementPanel>(); //
                         List<BHG.Polyline> plines = new List<BHG.Polyline>();
-                        //foreach (XML.Polyloop ploop in space.ShellGeometry.ClosedShell.PolyLoop)
-                        //{
-                        //    if (3 <= ploop.CartesianPoint.Count())
-                        //    {
-                        //        plines.Add(MakePolyline(ploop));
-                        //    }
-                        //}
+                        foreach (XML.Polyloop ploop in space.ShellGeometry.ClosedShell.PolyLoop)
+                        {
+                            if (3 <= ploop.CartesianPoint.Count())
+                            {
+                                plines.Add(MakePolyline(ploop));
+                            }    
+                        }
+
+                        bHomPanel.AddRange(plines.Select(x => new BHE.BuildingElementPanel { PolyCurve = Create.PolyCurve( new List<BHG.Polyline> { x }) }));  //
+
                         //xspace.Polylines = plines;
+                        xspace.BuildingElementPanel = bHomPanel; //
+
                     }
                     bhomObjects.Add(xspace);
                 }

@@ -53,20 +53,21 @@ namespace XML_Adapter.gbXML
                         plGeo.PolyLoop = MakePolyloop(bHoMPanels[i].PolyCurve.ControlPoints());
 
                         xmlPanel.PlanarGeometry = plGeo;
+
+                        // Adjacent Spaces
                         List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
-                        //foreach (string adjSpace in pans[i].adjSpaces)
+                        //foreach (string adjSpace in bHoMPanels[i].adjSpaces)
                         //{
                         //    AdjacentSpaceId adjId = new AdjacentSpaceId();
                         //    adjId.spaceIdRef = "Space-" + adjSpace;
                         //    adspace.Add(adjId);
                         //}
+
                         xmlPanel.AdjacentSpaceId = adspace.ToArray();
                         gbx.Campus.Surface.Add(xmlPanel);
                     }
 
                 }
-
-
 
                 // Generate gbXMLSpaces
                 if (spaces != null)
@@ -98,15 +99,16 @@ namespace XML_Adapter.gbXML
         /***************************************************/
         private static Polyloop MakePolyloop(List<BHG.Point> pts)
         {
+
             Polyloop ploop = new Polyloop();
             List<CartesianPoint> cartpoint = new List<CartesianPoint>();
-            for (int i = 0; i < pts.Count - 1; i++)
+            for (int i = 0; i < pts.Count-1; i++)
             {
                 CartesianPoint cpt = new CartesianPoint();
                 List<string> coord = new List<string>();
-                coord.Add(Math.Round(pts[i].X, 9).ToString());
-                coord.Add(Math.Round(pts[i].Y, 9).ToString());
-                coord.Add(Math.Round(pts[i].Z, 9).ToString());
+                coord.Add(Math.Round(pts[i].X, 6).ToString());
+                coord.Add(Math.Round(pts[i].Y, 6).ToString());
+                coord.Add(Math.Round(pts[i].Z, 6).ToString());
                 cpt.Coordinate = coord.ToArray();
                 cartpoint.Add(cpt);
             }
