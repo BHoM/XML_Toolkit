@@ -9,6 +9,7 @@ using BHE = BH.oM.Environmental.Elements;
 using BHG = BH.oM.Geometry;
 using System.Xml.Serialization;
 using BH.Engine.Geometry;
+using BH.Engine.Environment;
 
 namespace XML_Adapter.gbXML
 {
@@ -25,13 +26,12 @@ namespace XML_Adapter.gbXML
             {
 
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
+                List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
 
-                //List<BHE.BuildingElementPanel> bHoMPanels = bhomObjects.Where(x => x is BHE.BuildingElementPanel).Select(x => x as BHE.BuildingElementPanel).ToList();
                 if (obj.GetType() == typeof(BHE.Space))
                 {
                     BHE.Space bHoMSpace = obj as BHE.Space;
-                    bHoMPanels = bHoMSpace.BuildingElementPanel;
-
+                    bHoMPanels.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
                 }
 
 
@@ -80,7 +80,9 @@ namespace XML_Adapter.gbXML
                         xspace.id = "Space-" + space.BHoM_Guid.ToString();
                         List<XML.Polyloop> ploops = new List<Polyloop>();
 
-                        IEnumerable<BHG.PolyCurve> bePanel = space.BuildingElementPanel.Select(x => x.PolyCurve);
+                        //Just works for polycurves at the moment. ToDo: fix this for all type of curves
+                        IEnumerable<BHG.PolyCurve> bePanel = space.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
+                            
 
                         foreach (BHG.PolyCurve pline in bePanel)
                         {
