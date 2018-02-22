@@ -50,7 +50,8 @@ namespace XML_Adapter.gbXML
                     xspace.CustomData.Add("gbXML-ID", space.id);
                     if (4 <= space.ShellGeometry.ClosedShell.PolyLoop.Count())
                     {
-                        List<BHE.BuildingElementPanel> bHomPanel = new List<BHE.BuildingElementPanel>(); //
+                        List<BHE.BuildingElementPanel> bHomPanel = new List<BHE.BuildingElementPanel>();
+                        List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
                         List<BHG.Polyline> plines = new List<BHG.Polyline>();
                         foreach (XML.Polyloop ploop in space.ShellGeometry.ClosedShell.PolyLoop)
                         {
@@ -61,10 +62,9 @@ namespace XML_Adapter.gbXML
                         }
 
                         bHomPanel.AddRange(plines.Select(x => new BHE.BuildingElementPanel { PolyCurve = Create.PolyCurve( new List<BHG.Polyline> { x }) }));  //
-
-                        //xspace.Polylines = plines;
-                        xspace.BuildingElementPanel = bHomPanel; //
-
+                        bHoMBuildingElement.AddRange(bHomPanel.Select(x => new BHE.BuildingElement { BuildingElementGeometry = x }));
+                        
+                        xspace.BuildingElements = bHoMBuildingElement;
                     }
                     bhomObjects.Add(xspace);
                 }
@@ -91,7 +91,7 @@ namespace XML_Adapter.gbXML
                 }
                 pts.Add((BHG.Point)pts[0].Clone());
             }
-            //BHG.Polyline pline = new BHG.Polyline(pts);
+
             BHG.Polyline pline = Create.Polyline(pts);
             List<BHG.ICurve> crvs = new List<BHG.ICurve>();
             crvs.Add(pline);
