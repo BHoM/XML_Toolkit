@@ -32,6 +32,7 @@ namespace XML_Adapter.gbXML
                 {
                     BHE.Space bHoMSpace = obj as BHE.Space;
                     bHoMPanels.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
+                    bHoMBuildingElement.AddRange(bHoMSpace.BuildingElements);
                 }
 
 
@@ -47,8 +48,10 @@ namespace XML_Adapter.gbXML
                         xmlPanel.Name = bHoMPanels[i].Name;
                         xmlPanel.surfaceType = bHoMPanels[i].ElementType;
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
+                        xmlPanel.surfaceType =bHoMBuildingElement[i].BuildingElementProperties.BuildingElementType.ToString();
                         PlanarGeometry plGeo = new PlanarGeometry();
                         plGeo.id = "PlanarGeometry" + i.ToString();
+
 
                         plGeo.PolyLoop = MakePolyloop(bHoMPanels[i].PolyCurve.ControlPoints());
 
