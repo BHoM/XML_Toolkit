@@ -19,10 +19,10 @@ namespace XML_Adapter.gbXML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize(List<IObject> bhomObjects, gbXML gbx)
+        public static void Serialize(List<IBHoMObject> bhomObjects, gbXML gbx)
         {
 
-            foreach (IObject obj in bhomObjects)
+            foreach (IBHoMObject obj in bhomObjects)
             {
 
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
