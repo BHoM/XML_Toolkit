@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gbXML\AdjSolver.cs" />
+    <Compile Include="Query\GetSurfaceType.cs" />
     <Compile Include="XMLReader.cs" />
     <Compile Include="gbXML\gbXMLDerializer.cs" />
     <Compile Include="XMLWriter.cs" />
