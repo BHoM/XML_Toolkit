@@ -6,6 +6,7 @@
 //using BHE = BH.oM.Environmental.Elements;
 //using BHG = BH.oM.Geometry;
 //using BHB = BH.oM.Base;
+//using BH.Engine.Geometry;
 
 //namespace XML_Adapter.gbXML
 //{
@@ -20,13 +21,13 @@
 
 //            foreach (BHE.BuildingElementPanel pan in pansin)
 //            {
-//                pans.Add((BHE.BuildingElementPanel)pan.ShallowClone());
+//                pans.Add((BHE.BuildingElementPanel)pan.GetShallowClone());
 //            }
 
 //            foreach (BHE.Space space in spacesin)
 //            {
-//                BHE.Space spaceout = (BHE.Space)space.ShallowClone();
-//                spaceout.Polylines = new List<BHG.Polyline>();
+//                BHE.Space spaceout = (BHE.Space)space.GetShallowClone();
+//                //spaceout.Polylines = new List<BHG.Polyline>(); oscar
 //                for (int i = 0; i < space.Polylines.Count; i++)
 //                {
 //                    spaceout.Polylines.Add((BHG.Polyline)space.Polylines[i].Duplicate());
