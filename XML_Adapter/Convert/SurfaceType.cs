@@ -7,11 +7,11 @@ using BHE = BH.oM.Environmental;
 
 namespace XML_Adapter.gbXML
 {
-    public static partial class Query
+    public static partial class Convert
     {
         /***************************************************/
 
-        public static string GetSurfaceType(BHE.Elements.BuildingElementPanel bHoMPanel)
+        public static string ToGbXMLSurfaceType(BHE.Elements.BuildingElementPanel bHoMPanel)
         {
 
             if (bHoMPanel.ElementType == "EXTERNALWALL")

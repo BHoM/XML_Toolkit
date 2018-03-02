@@ -48,7 +48,7 @@ namespace XML_Adapter.gbXML
                     {
                         Surface xmlPanel = new Surface();
                         xmlPanel.Name = bHoMPanels[i].Name;
-                        xmlPanel.surfaceType = Query.GetSurfaceType(bHoMPanels[i]);
+                        xmlPanel.surfaceType = Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString(); 
                         PlanarGeometry plGeo = new PlanarGeometry();
                         plGeo.id = "PlanarGeometry" + i.ToString();
