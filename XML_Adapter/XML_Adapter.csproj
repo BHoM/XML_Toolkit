@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gbXML\AdjSolver.cs" />
-    <Compile Include="Query\GetSurfaceType.cs" />
+    <Compile Include="Convert\SurfaceType.cs" />
     <Compile Include="XMLReader.cs" />
     <Compile Include="gbXML\gbXMLDerializer.cs" />
     <Compile Include="XMLWriter.cs" />
@@ -59,6 +59,7 @@
     <Compile Include="gbXML\gbXMLObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
