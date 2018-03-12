@@ -14,33 +14,35 @@ namespace XML_Adapter.gbXML
         public static string ToGbXMLSurfaceType(BHE.Elements.BuildingElementPanel bHoMPanel)
         {
 
-            if (bHoMPanel.ElementType == "EXTERNALWALL")
-                return "ExteriorWall";
-            else if (bHoMPanel.ElementType == "INTERNALWALL")
-                return "InteriorWall";
-            else if (bHoMPanel.ElementType == "ROOFELEMENT")
-                return "Roof";
-            else if (bHoMPanel.ElementType == "INTERNALFLOOR")
-                return "InteriorFloor";
-            else if (bHoMPanel.ElementType == "EXPOSEDFLOOR")
-                return "ExposedFloor";
-            else if (bHoMPanel.ElementType == "SHADEELEMENT")
-                return "Shade";
-            else if (bHoMPanel.ElementType == "UNDERGROUNDWALL")
-                return "UndergroundWall";
-            else if (bHoMPanel.ElementType == "UNDERGROUNDSLAB")
-                return "UndergroundSlab";
-            else if (bHoMPanel.ElementType == "CEILING")
-                return "Ceiling";
-            else if (bHoMPanel.ElementType == "UNDERGROUNDCEILING")
-                return "UndergroundCeiling";
-            else if (bHoMPanel.ElementType == "RAISEDFLOOR")
-                return "RaisedFloor";
-            else if (bHoMPanel.ElementType == "SLABONGRADE")
-                return "SlabOnGrade";
-            else
-                return ""; //Adiabatic
-
+            switch (bHoMPanel.ElementType)
+            {
+                case "EXTERNALWALL":
+                    return "ExteriorWall";
+                case "INTERNALWALL":
+                        return "InteriorWall";
+                case "ROOFELEMENT":
+                        return "Roof";
+                case "INTERNALFLOOR":
+                        return "InteriorFloor";
+                case "EXPOSEDFLOOR":
+                        return "ExposedFloor";
+                case "SHADEELEMENT":
+                        return "Shade";
+                case "UNDERGROUNDWALL":
+                        return "UndergroundWall";
+                case "UNDERGROUNDSLAB":
+                        return "UndergroundSlab";
+                case "CEILING":
+                        return "Ceiling";
+                case "UNDERGROUNDCEILING":
+                        return "UndergroundCeiling";
+                case "RAISEDFLOOR":
+                        return "RaisedFloor";
+                case "SLABONGRADE":
+                        return "SlabOnGrade";
+                default:
+                        return ""; //Adiabatic
+            }
 
         }
 
