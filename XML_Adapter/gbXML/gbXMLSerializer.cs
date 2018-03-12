@@ -33,11 +33,9 @@ namespace XML_Adapter.gbXML
                     BHE.Space bHoMSpace = obj as BHE.Space;
                     bHoMPanels.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
                     bHoMBuildingElement.AddRange(bHoMSpace.BuildingElements);
-                    //BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(bHoMSpace);
                 }
 
-                BHG.Point spaceCentrePoint = GetSpaceCentrePoint(bHoMPanels);
-                //BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(obj as BHE.Space);
+                BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(obj as BHE.Space);
 
                 List<BHE.Space> spaces = bhomObjects.Where(x => x is BHE.Space).Select(x => x as BHE.Space).ToList();
                
@@ -62,7 +60,6 @@ namespace XML_Adapter.gbXML
                         BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanels[i].PolyCurve.ControlPoints() }; //TODO: Change to ToPolyline method
 
                         if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
-                       // if(!IsCounterClockwise(bHoMPanels[i].PolyCurve, spaceCentrePoint))
                         {
                             var pts = new List<BHG.Point>(pline.DiscontinuityPoints());
                             pts.Reverse();
@@ -111,7 +108,6 @@ namespace XML_Adapter.gbXML
                             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() }; //TODO: Change to ToPolyline method
 
                             if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
-                            //if(!IsCounterClockwise(pCrv, spaceCentrePoint))
                             {
                                 var pts = new List<BHG.Point>(pline.DiscontinuityPoints());
                                 pts.Reverse();
@@ -150,38 +146,6 @@ namespace XML_Adapter.gbXML
             }
             ploop.CartesianPoint = cartpoint.ToArray();
             return ploop;
-        }
-
-
-        /***************************************************/
-
-        //private static bool IsCounterClockwise(BHG.PolyCurve plCurve, BHG.Point spaceCentrePoint)
-        //{
-        //    List<BHG.Point> controlpoints = BH.Engine.Geometry.Query.IControlPoints(plCurve);
-        //    List<BHG.Point> pts = BH.Engine.Geometry.Query.DiscontinuityPoints(new BHG.Polyline() {ControlPoints = controlpoints });
-        //    BHG.Plane plane = BH.Engine.Geometry.Create.Plane(pts[0], pts[1], pts[2]);
-
-        //    /* Dot product of the normal and a vector from the center of the space. Positive dotproduct for clockwise
-        //     * and negative for anticlockwise (but this depends on the handedness of the coordinate system)*/
-        //    BHG.Vector centreVector = (controlpoints[0] - spaceCentrePoint).Normalise();
-        //    double dotProduct = plane.Normal * centreVector;
-        //    if (dotProduct < 0)
-        //        return true;
-
-        //    return false;
-        //}
-
-        ///***************************************************/
-
-        private static BHG.Point GetSpaceCentrePoint(List<BHE.BuildingElementPanel> bHoMPanels) //This does only work for convex spaces. we need to change this method later
-        {
-            List<BHG.Point> spacePts = new List<BHG.Point>();
-            foreach (BHE.BuildingElementPanel panel in bHoMPanels)
-            {
-                spacePts.AddRange(panel.PolyCurve.ControlPoints());
-            }
-            BHG.Point centrePt = BH.Engine.Geometry.Query.Bounds(spacePts).Centre();
-            return centrePt;
         }
 
         /***************************************************/
