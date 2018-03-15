@@ -218,6 +218,8 @@ namespace XML_Adapter.gbXML
         public string Name = "Storey";
         [XmlElement]
         public float Level = 0;
+        [XmlElement]
+        public PlanarGeometry PlanarGeoemtry = new PlanarGeometry();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -232,7 +234,13 @@ namespace XML_Adapter.gbXML
         [XmlElement]
         public string Name = "Space";
         [XmlElement]
+        public double Area = 0;
+        [XmlElement]
+        public double Volume = 0;
+        [XmlElement]
         public ShellGeometry ShellGeometry = new ShellGeometry();
+        [XmlElement]
+        public PlanarGeometry PlanarGeoemtry = new PlanarGeometry();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -281,6 +289,10 @@ namespace XML_Adapter.gbXML
         public AdjacentSpaceId[] AdjacentSpaceId = new List<AdjacentSpaceId> { new AdjacentSpaceId() }.ToArray();
         [XmlElement("PlanarGeometry")]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
+        [XmlElement("RectangularGeometry")]
+        public RectangularGeometry RectangularGeometry = new RectangularGeometry();
+        [XmlElement("Opening")]
+        public Opening Opening = new Opening();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -297,5 +309,41 @@ namespace XML_Adapter.gbXML
         public string id = "PlanarGeometryID";
         [XmlElement("PolyLoop")]
         public Polyloop PolyLoop = new Polyloop();
+    }
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class RectangularGeometry : gbXMLObject
+    {
+        [XmlAttribute]
+        public string id = "RectangularGeometryID";
+        [XmlAttribute]
+        public string unit = "UnitID";
+        [XmlElement]
+        public double Azimuth = 0;
+        [XmlElement("Tilt")]
+        public double Tilt = 0;
+        [XmlElement("Width")]
+        public double Width = 0;
+        [XmlElement("Height")]
+        public double Height = 0;
+        [XmlElement("CartesianPoint")]
+        public CartesianPoint CartesianPoint = new CartesianPoint();
+        [XmlElement("PolyLoop")]
+        public Polyloop Polyloop = new Polyloop();
+    }
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class Opening : gbXMLObject
+    {
+        [XmlAttribute]
+        public string openingType = "unknown";
+        [XmlAttribute]
+        public string id = "OpeningID";
+        [XmlElement("Name")]
+        public string Name = "Opening";
+        [XmlAttribute]
+        public RectangularGeometry RectangularGeometry = new RectangularGeometry();
+        [XmlAttribute]
+        public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
 }
