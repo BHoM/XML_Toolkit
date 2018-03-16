@@ -52,9 +52,9 @@ namespace XML_Adapter.gbXML
                         xmlPanel.surfaceType = Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
                         RectangularGeometry xmlRectangularGeom = new RectangularGeometry();
-                        xmlRectangularGeom.Tilt = BH.Engine.Environment.Query.IInclination(bHoMPanels[i]);
-                        xmlRectangularGeom.Azimuth = BH.Engine.Environment.Query.IOrientation(bHoMPanels[i]);
-                        xmlRectangularGeom.Height = BH.Engine.Environment.Query.IAltitudeRange(bHoMPanels[i]);
+                        xmlRectangularGeom.Tilt = BH.Engine.Environment.Query.Inclination(bHoMPanels[i]);
+                        xmlRectangularGeom.Azimuth = BH.Engine.Environment.Query.Orientation(bHoMPanels[i]);
+                        xmlRectangularGeom.Height = BH.Engine.Environment.Query.AltitudeRange(bHoMPanels[i]);
                        
                         PlanarGeometry plGeo = new PlanarGeometry();
                         plGeo.id = "PlanarGeometry" + i.ToString();
@@ -86,15 +86,17 @@ namespace XML_Adapter.gbXML
 
                         // Openings
                         /***************************************************/
-                        if (bHoMPanels[i].Openings != null)
-                        {
-                            Opening xmlOpening = new Opening();
-                            foreach (BHE.BuildingElementOpening opening in bHoMPanels[i].Openings)
-                            {
-                                xmlOpening.PlanarGeometry.PolyLoop = MakePolyloop(opening.PolyCurve.ControlPoints());
-                            }
-                            xmlPanel.Opening = xmlOpening; 
-                        }
+
+
+                        //if (bHoMPanels[i].Openings != null)
+                        //{
+                        //    Opening xmlOpening = new Opening();
+                        //    foreach (BHE.BuildingElementOpening opening in bHoMPanels[i].Openings)
+                        //    {
+                        //        xmlOpening.PlanarGeometry.PolyLoop = MakePolyloop(opening.PolyCurve.ControlPoints());
+                        //    }
+                        //    xmlPanel.Opening = xmlOpening;
+                        //}
 
 
                         // Adjacent Spaces
@@ -205,6 +207,22 @@ namespace XML_Adapter.gbXML
 
             return cartpoint;
         }
+        /***************************************************/
+
+        //private static List<BHG.Point> BoundaryPoints(BHG.Polyline pline)
+        //{
+
+        //    List<BHG.Point> pts = pline.ControlPoints();
+        //    List<BHG.Point> boundingPts = new List<BH.oM.Geometry.Point>();
+
+        //    BHG.Plane plane = pts.FitPlane();
+            
+           
+
+
+
+        //    return boundingPts;
+        //}
         /***************************************************/
 
     }

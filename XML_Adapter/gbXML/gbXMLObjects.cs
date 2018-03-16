@@ -291,7 +291,7 @@ namespace XML_Adapter.gbXML
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
         [XmlElement("RectangularGeometry")]
         public RectangularGeometry RectangularGeometry = new RectangularGeometry();
-        [XmlElement("Opening")]
+        [XmlElement]
         public Opening Opening = new Opening();
     }
     [Serializable]
@@ -341,9 +341,9 @@ namespace XML_Adapter.gbXML
         public string id = "OpeningID";
         [XmlElement("Name")]
         public string Name = "Opening";
-        [XmlAttribute]
+        [XmlElement]
         public RectangularGeometry RectangularGeometry = new RectangularGeometry();
-        [XmlAttribute]
+        [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
 }
