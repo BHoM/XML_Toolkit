@@ -88,15 +88,15 @@ namespace XML_Adapter.gbXML
                         /***************************************************/
 
 
-                        //if (bHoMPanels[i].Openings != null)
-                        //{
-                        //    Opening xmlOpening = new Opening();
-                        //    foreach (BHE.BuildingElementOpening opening in bHoMPanels[i].Openings)
-                        //    {
-                        //        xmlOpening.PlanarGeometry.PolyLoop = MakePolyloop(opening.PolyCurve.ControlPoints());
-                        //    }
-                        //    xmlPanel.Opening = xmlOpening;
-                        //}
+                        if (bHoMPanels[i].Openings.Count > 0)
+                        {
+                            Opening xmlOpening = new Opening();
+                            foreach (BHE.BuildingElementOpening opening in bHoMPanels[i].Openings)
+                            {
+                                xmlOpening.PlanarGeometry.PolyLoop = MakePolyloop(opening.PolyCurve.ControlPoints());
+                            }
+                            xmlPanel.Opening = xmlOpening;
+                        }
 
 
                         // Adjacent Spaces
