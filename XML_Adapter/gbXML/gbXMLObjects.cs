@@ -292,7 +292,7 @@ namespace XML_Adapter.gbXML
         [XmlElement("RectangularGeometry")]
         public RectangularGeometry RectangularGeometry = new RectangularGeometry();
         [XmlElement("Opening")]
-        public Opening Opening;
+        public Opening[] Opening;
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]

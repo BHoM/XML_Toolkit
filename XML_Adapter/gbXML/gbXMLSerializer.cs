@@ -84,18 +84,20 @@ namespace XML_Adapter.gbXML
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
 
 
+
                         // Openings
                         /***************************************************/
 
 
                         if (bHoMPanels[i].Openings.Count > 0)
                         {
-                            Opening xmlOpening = new Opening();
+                            List<Opening> xmlOpening = new List<Opening>();
                             foreach (BHE.BuildingElementOpening opening in bHoMPanels[i].Openings)
                             {
-                                xmlOpening.PlanarGeometry.PolyLoop = MakePolyloop(opening.PolyCurve.ControlPoints());
+                                xmlOpening.Add(new Opening());
+                                xmlOpening.Last().PlanarGeometry.PolyLoop = MakePolyloop(opening.PolyCurve.ControlPoints());
                             }
-                            xmlPanel.Opening = xmlOpening;
+                            xmlPanel.Opening = xmlOpening.ToArray();
                         }
 
 
