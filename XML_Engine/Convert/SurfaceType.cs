@@ -43,8 +43,22 @@ namespace BH.Engine.XML
                 default:
                         return ""; //Adiabatic
             }
-
         }
+
+        /***************************************************/
+
+        //public static string ToGbXMLSurfaceType(BHE.Elements.BuildingElement bHoMBuildingElement)
+        //{
+        //    switch (bHoMBuildingElement.BuildingElementProperties.BuildingElementType)
+        //    {
+        //        case BHE.Elements.BuildingElementType.Ceiling:
+        //            return "Ceiling";
+        //        case BHE.Elements.BuildingElementType.Roof:
+        //            return "Roof";
+        //        default:
+        //            return "";
+        //    }
+        //}
 
         /***************************************************/
     }

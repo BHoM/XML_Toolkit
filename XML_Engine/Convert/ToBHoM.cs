@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XML_Adapter.gbXML;
-using BH.oM.Base;
-using BHE = BH.oM.Environmental.Elements;
 using BHG = BH.oM.Geometry;
-using System.Xml.Serialization;
 using BH.Engine.Geometry;
-using BH.Engine.Environment;
-using BH.Engine.XML;
 
 namespace BH.Engine.XML
 {

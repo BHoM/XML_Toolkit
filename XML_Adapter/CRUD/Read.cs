@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XML = XML_Adapter.gbXML;
 using BH.oM.Base;
 using BHE = BH.oM.Environmental.Elements;
 using BHG = BH.oM.Geometry;
-using System.Xml.Serialization;
 using BH.Engine.Geometry;
 
 
@@ -30,7 +27,6 @@ namespace XML_Adapter.gbXML
             {
                 foreach (Surface srf in srfs)
                 {
-
                     BHE.BuildingElementPanel pan = new BHE.BuildingElementPanel();
                     pan.Name = srf.Name;
                     //pan.Type = srf.surfaceType;
@@ -57,7 +53,7 @@ namespace XML_Adapter.gbXML
                         {
                             if (3 <= ploop.CartesianPoint.Count())
                             {
-                                plines.Add(MakePolyline(ploop));
+                                plines.Add(BH.Engine.XML.Convert.ToBHoM(ploop));
                             }    
                         }
 
@@ -98,25 +94,8 @@ namespace XML_Adapter.gbXML
             return Create.PolyCurve(crvs);
         }
 
+        /***************************************************/
 
-
-        private static BHG.Polyline MakePolyline(Polyloop ploop)
-        {
-            List<BHG.Point> pts = new List<BH.oM.Geometry.Point>();
-            if (1 <= ploop.CartesianPoint.Count())
-            {
-                foreach (CartesianPoint Cpt in ploop.CartesianPoint)
-                {
-                    BHG.Point pt = new BHG.Point();
-                    pt.X = System.Convert.ToDouble(Cpt.Coordinate[0]);
-                    pt.Y = System.Convert.ToDouble(Cpt.Coordinate[1]);
-                    pt.Z = System.Convert.ToDouble(Cpt.Coordinate[2]);
-                    pts.Add(pt);
-                }
-                pts.Add((BHG.Point)pts[0].Clone());
-            }
-            BHG.Polyline pline = Create.Polyline(pts);
-            return pline;
-        }
+      
     }
 }

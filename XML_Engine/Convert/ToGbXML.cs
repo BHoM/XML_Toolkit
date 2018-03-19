@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XML_Adapter.gbXML;
-using BH.oM.Base;
 using BHE = BH.oM.Environmental.Elements;
 using BHG = BH.oM.Geometry;
-using System.Xml.Serialization;
 using BH.Engine.Geometry;
-using BH.Engine.Environment;
-using BH.Engine.XML;
 
 namespace BH.Engine.XML
 {
@@ -105,8 +99,8 @@ namespace BH.Engine.XML
             Space xmlSpace = new Space();
 
             xmlSpace.Name = bHoMSpace.Name;
-            xmlSpace.Area = BH.Engine.Environment.Query.FloorArea(bHoMSpace);
-            xmlSpace.Volume = BH.Engine.Environment.Query.Volume(bHoMSpace);
+            xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
+            xmlSpace.Volume = Environment.Query.Volume(bHoMSpace);
             xmlSpace.id = "Space-" + bHoMSpace.BHoM_Guid.ToString();
 
             return xmlSpace;

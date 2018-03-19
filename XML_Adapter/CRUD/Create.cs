@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using XML = XML_Adapter.gbXML;
 using BH.oM.Base;
 using BHE = BH.oM.Environmental.Elements;
+using BHP = BH.oM.Environmental.Properties;
 using BHG = BH.oM.Geometry;
-using System.Xml.Serialization;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
-using BH.Engine.XML;
 
 namespace XML_Adapter.gbXML
 {
@@ -26,12 +23,14 @@ namespace XML_Adapter.gbXML
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
                 List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
+                List<BHP.BuildingElementProperties> bHoMBuildingElementProperties = new List<BHP.BuildingElementProperties>();
 
                 if (obj.GetType() == typeof(BHE.Space))
                 {
                     BHE.Space bHoMSpace = obj as BHE.Space;
                     bHoMPanels.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
                     bHoMBuildingElement.AddRange(bHoMSpace.BuildingElements);
+                    bHoMBuildingElementProperties.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementProperties as BHP.BuildingElementProperties));
                 }
 
                 BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(obj as BHE.Space);
@@ -74,9 +73,10 @@ namespace XML_Adapter.gbXML
 
                         xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(BH.Engine.Geometry.Query.Centre(pline));
 
+                       
                         xmlPanel.PlanarGeometry = plGeo;
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
-
+                        
 
                         // Create openings
                         if (bHoMPanels[i].Openings.Count > 0)
@@ -107,7 +107,6 @@ namespace XML_Adapter.gbXML
                     }
 
                 }
-
 
 
                 // Generate gbXMLSpaces
