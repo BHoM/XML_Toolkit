@@ -33,11 +33,12 @@ namespace BH.Engine.XML
 
             return cartpoint;
         }
-
         /***************************************************/
 
-        public static Polyloop ToGbXML(List<BHG.Point> pts)
+        public static Polyloop ToGbXML(BHG.Polyline polyLine)
         {
+            List<BHG.Point> pts = polyLine.DiscontinuityPoints();
+
             int count = pts.First().SquareDistance(pts.Last()) < BH.oM.Geometry.Tolerance.SqrtDist ? pts.Count - 1 : pts.Count;
             Polyloop ploop = new Polyloop();
             List<CartesianPoint> cartpoint = new List<CartesianPoint>();
@@ -53,8 +54,35 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
+        public static Opening ToGbXML(BHE.BuildingElementOpening opening)
+        {
+            Opening gbXMLOpening = new Opening();
 
+            gbXMLOpening.id = opening.BHoM_Guid.ToString();
+            gbXMLOpening.Name = opening.Name;
+
+            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
+
+            gbXMLOpening.PlanarGeometry.PolyLoop = ToGbXML(pline);
+            gbXMLOpening.RectangularGeometry.Polyloop = ToGbXML(pline);
+
+            return gbXMLOpening;
+        }
 
         /***************************************************/
+
+        public static RectangularGeometry ToGbXML(BHE.BuildingElementPanel bHoMPanel)
+        {
+            RectangularGeometry rectangularGeometry = new RectangularGeometry();
+
+            rectangularGeometry.Tilt = Environment.Query.Inclination(bHoMPanel);
+            rectangularGeometry.Azimuth = Environment.Query.Orientation(bHoMPanel);
+            rectangularGeometry.Height = Environment.Query.AltitudeRange(bHoMPanel);
+
+            return rectangularGeometry;
+        }
+
+        /***************************************************/
+      
     }
 }
