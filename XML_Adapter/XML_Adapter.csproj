@@ -48,17 +48,18 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="XML_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Build\XML_Engine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Convert\ToBHoM.cs" />
-    <Compile Include="Convert\ToGbXML.cs" />
-    <Compile Include="gbXML\AdjSolver.cs" />
-    <Compile Include="Convert\SurfaceType.cs" />
+    <Compile Include="CRUD\AdjSolver.cs" />
     <Compile Include="XMLReader.cs" />
-    <Compile Include="gbXML\gbXMLDerializer.cs" />
+    <Compile Include="CRUD\Read.cs" />
     <Compile Include="XMLWriter.cs" />
-    <Compile Include="gbXML\gbXMLSerializer.cs" />
-    <Compile Include="gbXML\gbXMLObjects.cs" />
+    <Compile Include="CRUD\Create.cs" />
+    <Compile Include="CRUD\gbXMLObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BHE = BH.oM.Environmental;
 
-namespace XML_Adapter.gbXML
+namespace BH.Engine.XML
 {
     public static partial class Convert
     {

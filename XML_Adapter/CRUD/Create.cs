@@ -10,6 +10,7 @@ using BHG = BH.oM.Geometry;
 using System.Xml.Serialization;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
+using BH.Engine.XML;
 
 namespace XML_Adapter.gbXML
 {
@@ -49,7 +50,7 @@ namespace XML_Adapter.gbXML
                     {
                         Surface xmlPanel = new Surface();
                         xmlPanel.Name = bHoMPanels[i].Name;
-                        xmlPanel.surfaceType = Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
+                        xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
                         RectangularGeometry xmlRectangularGeom = new RectangularGeometry();
                         xmlRectangularGeom.Tilt = BH.Engine.Environment.Query.Inclination(bHoMPanels[i]);
@@ -69,16 +70,16 @@ namespace XML_Adapter.gbXML
                         {
                             var pts = new List<BHG.Point>(pline.DiscontinuityPoints());
                             pts.Reverse();
-                            plGeo.PolyLoop = MakePolyloop(pts);
-                            xmlRectangularGeom.Polyloop = MakePolyloop(pts); //TODO: for boundingbox
+                            plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pts);
+                            xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pts); //TODO: for boundingbox
                         }
                         else
                         {
-                            plGeo.PolyLoop = MakePolyloop(pline.DiscontinuityPoints());
-                            xmlRectangularGeom.Polyloop = MakePolyloop(pline.DiscontinuityPoints()); //TODO: for boundingbox
+                            plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.DiscontinuityPoints());
+                            xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline.DiscontinuityPoints()); //TODO: for boundingbox
                         }
 
-                        xmlRectangularGeom.CartesianPoint = ToCartesian(BH.Engine.Geometry.Query.Centre(pline));
+                        xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(BH.Engine.Geometry.Query.Centre(pline));
 
                         xmlPanel.PlanarGeometry = plGeo;
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
@@ -138,10 +139,10 @@ namespace XML_Adapter.gbXML
                             {
                                 var pts = new List<BHG.Point>(pline.DiscontinuityPoints());
                                 pts.Reverse();
-                                ploops.Add(MakePolyloop(pts));
+                                ploops.Add(BH.Engine.XML.Convert.ToGbXML(pts));
                             }
                             else
-                                ploops.Add(MakePolyloop(pline.DiscontinuityPoints()));
+                                ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline.DiscontinuityPoints()));
 
                         }
                         xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
@@ -162,39 +163,8 @@ namespace XML_Adapter.gbXML
         }
 
 
-        /***************************************************/
-        /**** Private Methods                           ****/
-        /***************************************************/
-        private static Polyloop MakePolyloop(List<BHG.Point> pts)
-        {
-            int count = pts.First().SquareDistance(pts.Last()) < BH.oM.Geometry.Tolerance.SqrtDist ? pts.Count-1 : pts.Count;
-            Polyloop ploop = new Polyloop();
-            List<CartesianPoint> cartpoint = new List<CartesianPoint>();
-            for (int i = 0; i < count; i++)
-            {
-                CartesianPoint cpt = ToCartesian(pts[i]);
-                List<string> coord = new List<string>();
-                cartpoint.Add(cpt);
-            }
-            ploop.CartesianPoint = cartpoint.ToArray();
-            return ploop;
-        }
-
-        /***************************************************/
-
-        private static CartesianPoint ToCartesian(BHG.Point pt)
-        {
-            CartesianPoint cartpoint = new CartesianPoint();
-            List<string> coord = new List<string>();
-
-            coord.Add(Math.Round(pt.X, 6).ToString());
-            coord.Add(Math.Round(pt.Y, 6).ToString());
-            coord.Add(Math.Round(pt.Z, 6).ToString());
-
-            cartpoint.Coordinate = coord.ToArray();
-
-            return cartpoint;
-        }
+      
+        //Openings
         /***************************************************/
 
         private static List<Opening> AddOpening(List<BHE.BuildingElementOpening> openings, BHG.Point spaceCentrePoint)
@@ -209,13 +179,13 @@ namespace XML_Adapter.gbXML
                 {
                     var pts = new List<BHG.Point>(opening.PolyCurve.ControlPoints());
                     pts.Reverse();
-                    xmlOpening.Last().PlanarGeometry.PolyLoop = MakePolyloop(pts);
-                    xmlOpening.Last().RectangularGeometry.Polyloop = MakePolyloop(pts);
+                    xmlOpening.Last().PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pts);
+                    xmlOpening.Last().RectangularGeometry.Polyloop = BH.Engine.XML.Convert.ToGbXML(pts);
                 }
                 else
                 {
-                    xmlOpening.Last().PlanarGeometry.PolyLoop = MakePolyloop(opening.PolyCurve.ControlPoints());
-                    xmlOpening.Last().RectangularGeometry.Polyloop = MakePolyloop(opening.PolyCurve.ControlPoints());
+                    xmlOpening.Last().PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGbXML(opening.PolyCurve.ControlPoints());
+                    xmlOpening.Last().RectangularGeometry.Polyloop = BH.Engine.XML.Convert.ToGbXML(opening.PolyCurve.ControlPoints());
                 }
 
                     xmlOpening.Last().id = "Opening" + xmlOpening.Count().ToString();
