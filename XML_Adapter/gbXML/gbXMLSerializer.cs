@@ -84,24 +84,17 @@ namespace XML_Adapter.gbXML
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
 
 
-
                         // Openings
                         /***************************************************/
 
-
                         if (bHoMPanels[i].Openings.Count > 0)
                         {
-                            List<Opening> xmlOpening = new List<Opening>();
-                            foreach (BHE.BuildingElementOpening opening in bHoMPanels[i].Openings)
-                            {
-                                xmlOpening.Add(new Opening());
-                                xmlOpening.Last().PlanarGeometry.PolyLoop = MakePolyloop(opening.PolyCurve.ControlPoints());
-                            }
-                            xmlPanel.Opening = xmlOpening.ToArray();
+                            xmlPanel.Opening = AddOpening(bHoMPanels[i].Openings, spaceCentrePoint).ToArray();
                         }
 
 
                         // Adjacent Spaces
+                        /***************************************************/
                         List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
                         //foreach (string adjSpace in bHoMPanels[i].adjSpaces)
                         //{
@@ -150,7 +143,6 @@ namespace XML_Adapter.gbXML
                             else
                                 ploops.Add(MakePolyloop(pline.DiscontinuityPoints()));
 
-
                         }
                         xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
 
@@ -166,7 +158,6 @@ namespace XML_Adapter.gbXML
 
             DocumentHistory DocumentHistory = new DocumentHistory();
             DocumentHistory.CreatedBy.date = DateTime.Now.ToString();
-
             gbx.DocumentHistory = DocumentHistory;
         }
 
@@ -181,12 +172,8 @@ namespace XML_Adapter.gbXML
             List<CartesianPoint> cartpoint = new List<CartesianPoint>();
             for (int i = 0; i < count; i++)
             {
-                CartesianPoint cpt = new CartesianPoint();
+                CartesianPoint cpt = ToCartesian(pts[i]);
                 List<string> coord = new List<string>();
-                coord.Add(Math.Round(pts[i].X, 6).ToString());
-                coord.Add(Math.Round(pts[i].Y, 6).ToString());
-                coord.Add(Math.Round(pts[i].Z, 6).ToString());
-                cpt.Coordinate = coord.ToArray();
                 cartpoint.Add(cpt);
             }
             ploop.CartesianPoint = cartpoint.ToArray();
@@ -197,7 +184,6 @@ namespace XML_Adapter.gbXML
 
         private static CartesianPoint ToCartesian(BHG.Point pt)
         {
-
             CartesianPoint cartpoint = new CartesianPoint();
             List<string> coord = new List<string>();
 
@@ -211,20 +197,36 @@ namespace XML_Adapter.gbXML
         }
         /***************************************************/
 
-        //private static List<BHG.Point> BoundaryPoints(BHG.Polyline pline)
-        //{
+        private static List<Opening> AddOpening(List<BHE.BuildingElementOpening> openings, BHG.Point spaceCentrePoint)
+        {
+             List<Opening> xmlOpening = new List<Opening>();
 
-        //    List<BHG.Point> pts = pline.ControlPoints();
-        //    List<BHG.Point> boundingPts = new List<BH.oM.Geometry.Point>();
+             foreach (BHE.BuildingElementOpening opening in openings)
+             {
+                xmlOpening.Add(new Opening());
 
-        //    BHG.Plane plane = pts.FitPlane();
-            
-           
+                if (BH.Engine.Geometry.Query.IsClockwise(opening.PolyCurve, spaceCentrePoint))
+                {
+                    var pts = new List<BHG.Point>(opening.PolyCurve.ControlPoints());
+                    pts.Reverse();
+                    xmlOpening.Last().PlanarGeometry.PolyLoop = MakePolyloop(pts);
+                    xmlOpening.Last().RectangularGeometry.Polyloop = MakePolyloop(pts);
+                }
+                else
+                {
+                    xmlOpening.Last().PlanarGeometry.PolyLoop = MakePolyloop(opening.PolyCurve.ControlPoints());
+                    xmlOpening.Last().RectangularGeometry.Polyloop = MakePolyloop(opening.PolyCurve.ControlPoints());
+                }
 
+                    xmlOpening.Last().id = "Opening" + xmlOpening.Count().ToString();
+                    xmlOpening.Last().Name = "OpeningName" + xmlOpening.Count().ToString();
 
+             }
 
-        //    return boundingPts;
-        //}
+            return xmlOpening;
+        }
+
+        
         /***************************************************/
 
     }

@@ -341,8 +341,8 @@ namespace XML_Adapter.gbXML
         public string id = "OpeningID";
         [XmlElement("Name")]
         public string Name = "Opening";
-        //[XmlElement]
-        //public RectangularGeometry RectangularGeometry = new RectangularGeometry();
+        [XmlElement]
+        public RectangularGeometry RectangularGeometry = new RectangularGeometry();
         [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
