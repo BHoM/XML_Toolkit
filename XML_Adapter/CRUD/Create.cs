@@ -22,10 +22,8 @@ namespace XML_Adapter.gbXML
 
         public static void Serialize(List<IBHoMObject> bhomObjects, gbXML gbx)
         {
-
             foreach (IBHoMObject obj in bhomObjects)
             {
-
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
                 List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
 
@@ -54,7 +52,6 @@ namespace XML_Adapter.gbXML
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
-                       
                         PlanarGeometry plGeo = new PlanarGeometry();
                         plGeo.id = "PlanarGeometry" + i.ToString();
 
@@ -67,12 +64,12 @@ namespace XML_Adapter.gbXML
                         if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.Flip());
-                            xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline.Flip()); //TODO: for boundingbox
+                            xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline.Flip()); //TODO: for bounding curve
                         }
                         else
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline);
-                            xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline); //TODO: for boundingbox
+                            xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline); //TODO: for bounding curve
                         }
 
                         xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(BH.Engine.Geometry.Query.Centre(pline));
@@ -111,6 +108,8 @@ namespace XML_Adapter.gbXML
 
                 }
 
+
+
                 // Generate gbXMLSpaces
                 /***************************************************/
                 if (spaces != null)
@@ -118,31 +117,22 @@ namespace XML_Adapter.gbXML
                     List<XML.Space> xspaces = new List<Space>();
                     foreach (BHE.Space space in spaces)
                     {
-                        XML.Space xspace = new XML.Space();
-                        xspace.Name = space.Name;
-                        xspace.Area = BH.Engine.Environment.Query.FloorArea(space);
-                        xspace.Volume = BH.Engine.Environment.Query.Volume(space);
-                        xspace.id = "Space-" + space.BHoM_Guid.ToString();
+                        XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(space);
                         List<XML.Polyloop> ploops = new List<Polyloop>();
 
                         //Just works for polycurves at the moment. ToDo: fix this for all type of curves
                         IEnumerable<BHG.PolyCurve> bePanel = space.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
-                            
 
                         foreach (BHG.PolyCurve pCrv in bePanel)
                         {
                             /* Ensure that all of the surface coordinates are listed in a counterclockwise order
                             * This is a requirement of gbXML Polyloop definitions */
-
                             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() }; //TODO: Change to ToPolyline method
 
                             if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
-                            {
                                 ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
-                            }
                             else
                                 ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline));
-
                         }
                         xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
 
@@ -152,16 +142,15 @@ namespace XML_Adapter.gbXML
             }
 
 
-
             // Document History                          
             /***************************************************/
 
             DocumentHistory DocumentHistory = new DocumentHistory();
             DocumentHistory.CreatedBy.date = DateTime.Now.ToString();
             gbx.DocumentHistory = DocumentHistory;
-        }
-       
-        /***************************************************/
 
+
+        }
     }
+      
 }

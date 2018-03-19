@@ -329,7 +329,7 @@ namespace XML_Adapter.gbXML
         [XmlElement("CartesianPoint")]
         public CartesianPoint CartesianPoint = new CartesianPoint();
         [XmlElement("PolyLoop")]
-        public Polyloop Polyloop = new Polyloop();
+        public Polyloop Polyloop;
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]

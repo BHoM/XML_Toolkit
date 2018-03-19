@@ -20,7 +20,7 @@ namespace BH.Engine.XML
         /**** Public Methods - Geometry                 ****/
         /***************************************************/
 
-        public static CartesianPoint ToGbXML(BHG.Point pt)
+        public static CartesianPoint ToGbXML(this BHG.Point pt)
         {
             CartesianPoint cartpoint = new CartesianPoint();
             List<string> coord = new List<string>();
@@ -35,7 +35,7 @@ namespace BH.Engine.XML
         }
         /***************************************************/
 
-        public static Polyloop ToGbXML(BHG.Polyline polyLine)
+        public static Polyloop ToGbXML(this BHG.Polyline polyLine)
         {
             List<BHG.Point> pts = polyLine.DiscontinuityPoints();
 
@@ -53,8 +53,20 @@ namespace BH.Engine.XML
         }
 
         /***************************************************/
+        
+        //public static Surface ToGbXML(BHE.BuildingElementPanel bHoMPanel)
+        //{
+        //    Surface xmlPanel = new Surface();
 
-        public static Opening ToGbXML(BHE.BuildingElementOpening opening)
+        //    xmlPanel.Name = bHoMPanel.Name;
+        //    xmlPanel.surfaceType = ToGbXMLSurfaceType(bHoMPanel);
+
+        //    return xmlPanel;
+        //}
+
+        /***************************************************/
+
+        public static Opening ToGbXML(this BHE.BuildingElementOpening opening)
         {
             Opening gbXMLOpening = new Opening();
 
@@ -64,25 +76,43 @@ namespace BH.Engine.XML
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
 
             gbXMLOpening.PlanarGeometry.PolyLoop = ToGbXML(pline);
-            gbXMLOpening.RectangularGeometry.Polyloop = ToGbXML(pline);
+            gbXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
 
             return gbXMLOpening;
         }
 
         /***************************************************/
 
-        public static RectangularGeometry ToGbXML(BHE.BuildingElementPanel bHoMPanel)
+        public static RectangularGeometry ToGbXML(this BHE.BuildingElementPanel bHoMPanel) //TODO: change to PolyCurve. Add query methods in Environment engine for PolyCurves
         {
             RectangularGeometry rectangularGeometry = new RectangularGeometry();
+
+            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanel.PolyCurve.ControlPoints() };
 
             rectangularGeometry.Tilt = Environment.Query.Inclination(bHoMPanel);
             rectangularGeometry.Azimuth = Environment.Query.Orientation(bHoMPanel);
             rectangularGeometry.Height = Environment.Query.AltitudeRange(bHoMPanel);
+            rectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
+            rectangularGeometry.Polyloop = pline.ToGbXML();
 
             return rectangularGeometry;
         }
 
         /***************************************************/
-      
+
+        public static Space ToGbXML(this BHE.Space bHoMSpace)
+        {
+            Space xmlSpace = new Space();
+
+            xmlSpace.Name = bHoMSpace.Name;
+            xmlSpace.Area = BH.Engine.Environment.Query.FloorArea(bHoMSpace);
+            xmlSpace.Volume = BH.Engine.Environment.Query.Volume(bHoMSpace);
+            xmlSpace.id = "Space-" + bHoMSpace.BHoM_Guid.ToString();
+
+            return xmlSpace;
+        }
+
+        /***************************************************/
+
     }
 }
