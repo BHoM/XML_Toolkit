@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_Adapter", "XML_Adapter\XML_Adapter.csproj", "{1A7282CF-923C-471B-B9D4-AADE4A0BE364}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_Engine", "XML_Engine\XML_Engine.csproj", "{DC706F55-E26D-4463-9EC3-5A9827B24BC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_Adapter", "XML_Adapter\XML_Adapter.csproj", "{1A7282CF-923C-471B-B9D4-AADE4A0BE364}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DC706F55-E26D-4463-9EC3-5A9827B24BC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC706F55-E26D-4463-9EC3-5A9827B24BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC706F55-E26D-4463-9EC3-5A9827B24BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC706F55-E26D-4463-9EC3-5A9827B24BC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
