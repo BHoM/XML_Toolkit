@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using XML_Adapter.gbXML;
+using BH.oM.XML;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 

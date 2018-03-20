@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using XML = XML_Adapter.gbXML;
+using BH.oM.XML;
 using BH.oM.Base;
 using BHE = BH.oM.Environmental.Elements;
 using BHG = BH.oM.Geometry;
@@ -16,11 +16,11 @@ namespace XML_Adapter.gbXML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BHoMObject> Deserialize(gbXML gbx)
+        public static List<BHoMObject> Deserialize(BH.oM.XML.gbXML gbx)
         {
             List<BHoMObject> bhomObjects = new List<BHoMObject>();
-            List<XML.Surface> srfs = gbx.Campus.Surface.ToList();
-            List<XML.Space> spaces = gbx.Campus.Building[0].Space.ToList();
+            List<BH.oM.XML.Surface> srfs = gbx.Campus.Surface.ToList();
+            List<BH.oM.XML.Space> spaces = gbx.Campus.Building[0].Space.ToList();
 
             // Generate gbXMLSurfaces
             if (srfs != null)
@@ -39,7 +39,7 @@ namespace XML_Adapter.gbXML
             // Generate gbXMLSpaces
             if (spaces != null)
             {
-                foreach (XML.Space space in spaces)
+                foreach (BH.oM.XML.Space space in spaces)
                 {
                     BHE.Space xspace = new BHE.Space();
                     xspace.Name = space.Name;
@@ -49,7 +49,7 @@ namespace XML_Adapter.gbXML
                         List<BHE.BuildingElementPanel> bHomPanel = new List<BHE.BuildingElementPanel>();
                         List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
                         List<BHG.Polyline> plines = new List<BHG.Polyline>();
-                        foreach (XML.Polyloop ploop in space.ShellGeometry.ClosedShell.PolyLoop)
+                        foreach (BH.oM.XML.Polyloop ploop in space.ShellGeometry.ClosedShell.PolyLoop)
                         {
                             if (3 <= ploop.CartesianPoint.Count())
                             {

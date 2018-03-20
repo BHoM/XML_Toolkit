@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1A7282CF-923C-471B-B9D4-AADE4A0BE364}</ProjectGuid>
+    <ProjectGuid>{43C9DC2F-18C1-48A9-B06F-B89CF188616E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XML_Adapter</RootNamespace>
-    <AssemblyName>XML_Adapter</AssemblyName>
+    <RootNamespace>XML_oM</RootNamespace>
+    <AssemblyName>XML_oM</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,16 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BHoM, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
-    </Reference>
-    <Reference Include="Environment_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\Environment_Engine.dll</HintPath>
-    </Reference>
-    <Reference Include="Geometry_Engine">
-      <HintPath>..\..\BHoM_Engine\Build\Geometry_Engine.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,22 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CRUD\AdjSolver.cs" />
-    <Compile Include="XMLReader.cs" />
-    <Compile Include="CRUD\Read.cs" />
-    <Compile Include="XMLWriter.cs" />
-    <Compile Include="CRUD\Create.cs" />
+    <Compile Include="gbXMLObjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XML_Engine\XML_Engine.csproj">
-      <Project>{dc706f55-e26d-4463-9ec3-5a9827b24bc6}</Project>
-      <Name>XML_Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XML_oM\XML_oM.csproj">
-      <Project>{43c9dc2f-18c1-48a9-b06f-b89cf188616e}</Project>
-      <Name>XML_oM</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

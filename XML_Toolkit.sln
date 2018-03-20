@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_Engine", "XML_Engine\XM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_Adapter", "XML_Adapter\XML_Adapter.csproj", "{1A7282CF-923C-471B-B9D4-AADE4A0BE364}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XML_oM", "XML_oM\XML_oM.csproj", "{43C9DC2F-18C1-48A9-B06F-B89CF188616E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A7282CF-923C-471B-B9D4-AADE4A0BE364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C9DC2F-18C1-48A9-B06F-B89CF188616E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C9DC2F-18C1-48A9-B06F-B89CF188616E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C9DC2F-18C1-48A9-B06F-B89CF188616E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C9DC2F-18C1-48A9-B06F-B89CF188616E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

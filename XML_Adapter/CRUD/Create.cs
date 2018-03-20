@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using XML = XML_Adapter.gbXML;
+using BH.oM.XML;
 using BH.oM.Base;
 using BHE = BH.oM.Environmental.Elements;
 using BHP = BH.oM.Environmental.Properties;
@@ -17,7 +17,7 @@ namespace XML_Adapter.gbXML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize(List<IBHoMObject> bhomObjects, gbXML gbx)
+        public static void Serialize(List<IBHoMObject> bhomObjects, BH.oM.XML.gbXML gbx)
         {
             foreach (IBHoMObject obj in bhomObjects)
             {
@@ -113,11 +113,11 @@ namespace XML_Adapter.gbXML
                 /***************************************************/
                 if (spaces != null)
                 {
-                    List<XML.Space> xspaces = new List<Space>();
+                    List<BH.oM.XML.Space> xspaces = new List<Space>();
                     foreach (BHE.Space space in spaces)
                     {
-                        XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(space);
-                        List<XML.Polyloop> ploops = new List<Polyloop>();
+                        BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(space);
+                        List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
 
                         //Just works for polycurves at the moment. ToDo: fix this for all type of curves
                         IEnumerable<BHG.PolyCurve> bePanel = space.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
