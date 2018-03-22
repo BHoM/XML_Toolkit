@@ -341,4 +341,5 @@ namespace BH.oM.XML
         [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
+
 }

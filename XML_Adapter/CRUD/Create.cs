@@ -46,7 +46,7 @@ namespace XML_Adapter.gbXML
                     for (int i = 0; i < bHoMPanels.Count; i++)
                     {
                         Surface xmlPanel = new Surface();
-                        xmlPanel.Name = bHoMPanels[i].Name;
+                        xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
                         //xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
                         xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMBuildingElement[i].BuildingElementProperties.CustomData["SAM_BuildingElementType"].ToString());
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
