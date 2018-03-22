@@ -47,7 +47,8 @@ namespace XML_Adapter.gbXML
                     {
                         Surface xmlPanel = new Surface();
                         xmlPanel.Name = bHoMPanels[i].Name;
-                        xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
+                        //xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
+                        xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMBuildingElement[i].BuildingElementProperties.CustomData["SAM_BuildingElementType"].ToString());
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
@@ -151,6 +152,7 @@ namespace XML_Adapter.gbXML
 
 
         }
+        
     }
-      
+
 }
