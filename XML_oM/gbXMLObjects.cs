@@ -294,7 +294,7 @@ namespace BH.oM.XML
     public class AdjacentSpaceId : gbXMLObject
     {
         [XmlAttribute]
-        public string spaceIdRef = "SpaceID";
+        public string spaceIdRef = "AdjacentSpaceID";
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]

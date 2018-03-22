@@ -95,12 +95,13 @@ namespace XML_Adapter.gbXML
                         // Adjacent Spaces
                         /***************************************************/
                         List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
-                        //foreach (string adjSpace in bHoMPanels[i].adjSpaces)
-                        //{
-                        //    AdjacentSpaceId adjId = new AdjacentSpaceId();
-                        //    adjId.spaceIdRef = "Space-" + adjSpace;
-                        //    adspace.Add(adjId);
-                        //}
+
+                        foreach (Guid adjSpace in bHoMBuildingElement[i].AdjacentSpaces)
+                        {
+                            AdjacentSpaceId adjId = new AdjacentSpaceId();
+                            adjId.spaceIdRef = "Space-" + adjSpace;
+                            adspace.Add(adjId);
+                        }
 
                         xmlPanel.AdjacentSpaceId = adspace.ToArray();
                         gbx.Campus.Surface.Add(xmlPanel);
