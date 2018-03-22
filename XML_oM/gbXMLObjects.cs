@@ -288,6 +288,9 @@ namespace BH.oM.XML
         public RectangularGeometry RectangularGeometry = new RectangularGeometry();
         [XmlElement("Opening")]
         public Opening[] Opening;
+        [XmlElement("CADObjectID")]
+        public string CADobjectID = "ID";
+
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -341,5 +344,4 @@ namespace BH.oM.XML
         [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
-
 }
