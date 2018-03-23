@@ -47,12 +47,20 @@ namespace XML_Adapter.gbXML
                     {
                         Surface xmlPanel = new Surface();
                         xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
-                        //xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
-                        string name = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMBuildingElement[i].BuildingElementProperties.CustomData["SAM_BuildingElementType"].ToString());
+                        xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
+                        string name = "Air";
+                        if (bHoMBuildingElement[i].BuildingElementProperties != null)
+                        {
+                            object aObject = bHoMBuildingElement[i].BuildingElementProperties.CustomData["SAM_BuildingElementType"];
+                            if(aObject != null)
+                                name = aObject.ToString();
+                        }
+
                         string revitElementID = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMBuildingElement[i].BuildingElementProperties.CustomData["Revit_id"].ToString());
-                        xmlPanel.surfaceType = name;
+                        //xmlPanel.surfaceType = name;
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
                         xmlPanel.CADobjectID = name;
+                        xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
                         PlanarGeometry plGeo = new PlanarGeometry();

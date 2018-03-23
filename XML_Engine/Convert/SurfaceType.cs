@@ -41,7 +41,7 @@ namespace BH.Engine.XML
                 case "SLABONGRADE":
                         return "SlabOnGrade";
                 default:
-                        return ""; //Adiabatic
+                        return "Air"; //Adiabatic
             }
         }
 
@@ -52,7 +52,7 @@ namespace BH.Engine.XML
             switch (bHoMBuildingElement)
             {
                 case "Rooflight":
-                    return "Roof";
+                    return "Rooflight";
                 case "Roof":
                     return "Roof";
                 case "External Wall":

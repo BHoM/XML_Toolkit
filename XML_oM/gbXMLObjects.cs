@@ -278,6 +278,8 @@ namespace BH.oM.XML
         public string constructionIdRef = "ConstructionID";
         [XmlAttribute]
         public string surfaceType = "Unknown";
+        [XmlAttribute]
+        public string exposedToSun = "false";
         [XmlElement("Name")]
         public string Name = "Surface";
         [XmlElement("AdjacentSpaceId")]

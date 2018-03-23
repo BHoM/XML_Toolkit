@@ -101,7 +101,10 @@ namespace BH.Engine.XML
             xmlSpace.Name = bHoMSpace.Name;
             xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
             xmlSpace.Volume = Environment.Query.Volume(bHoMSpace);
-            xmlSpace.id = "Space-" + bHoMSpace.BHoM_Guid.ToString();
+            xmlSpace.id = "Space-" + bHoMSpace.Name.ToString();
+
+            if (bHoMSpace.Level != null)
+                xmlSpace.buildingStoreyIdRef = bHoMSpace.Level.Name;
 
             return xmlSpace;
         }
