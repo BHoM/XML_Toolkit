@@ -46,18 +46,20 @@ namespace XML_Adapter.gbXML
                     for (int i = 0; i < bHoMPanels.Count; i++)
                     {
                         Surface xmlPanel = new Surface();
-                        xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
-                        xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMPanels[i]);
                         string name = "Air";
+                        xmlPanel.Name = name;
+                        xmlPanel.surfaceType = name;
                         if (bHoMBuildingElement[i].BuildingElementProperties != null)
                         {
                             object aObject = bHoMBuildingElement[i].BuildingElementProperties.CustomData["SAM_BuildingElementType"];
                             if(aObject != null)
                                 name = aObject.ToString();
+
+                            xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(name); //modifies the string
+                            xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
                         }
 
                         string revitElementID = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMBuildingElement[i].BuildingElementProperties.CustomData["Revit_id"].ToString());
-                        //xmlPanel.surfaceType = name;
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
                         xmlPanel.CADobjectID = name;
                         xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();

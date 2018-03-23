@@ -86,9 +86,9 @@ namespace BH.Engine.XML
                     return "ExposedFloor";
                 case "Vehicle Door":
                 case "No Type":
-                    return "";
+                    return "Air";
                 default:
-                    return "";
+                    return "Air";
             }
         }
 
