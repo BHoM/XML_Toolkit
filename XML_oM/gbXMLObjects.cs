@@ -290,8 +290,8 @@ namespace BH.oM.XML
         public RectangularGeometry RectangularGeometry = new RectangularGeometry();
         [XmlElement("Opening")]
         public Opening[] Opening;
-        [XmlElement("CADObjectID")]
-        public string CADobjectID = "ID";
+        [XmlElement("CADObjectId")]
+        public string CADobjectId = "";
 
     }
     [Serializable]
@@ -346,4 +346,5 @@ namespace BH.oM.XML
         [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
+  
 }

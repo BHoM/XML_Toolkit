@@ -46,22 +46,22 @@ namespace XML_Adapter.gbXML
                     for (int i = 0; i < bHoMPanels.Count; i++)
                     {
                         Surface xmlPanel = new Surface();
-                        string name = "Air";
-                        xmlPanel.Name = name;
-                        xmlPanel.surfaceType = name;
+                        string type = "Air";
+                        xmlPanel.Name = type;
+                        xmlPanel.surfaceType = type;
                         if (bHoMBuildingElement[i].BuildingElementProperties != null)
                         {
                             object aObject = bHoMBuildingElement[i].BuildingElementProperties.CustomData["SAM_BuildingElementType"];
                             if(aObject != null)
-                                name = aObject.ToString();
+                                type = aObject.ToString();
 
-                            xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(name); //modifies the string
+                            xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(type); //modifies the string
                             xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
                         }
 
-                        string revitElementID = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMBuildingElement[i].BuildingElementProperties.CustomData["Revit_id"].ToString());
+                        string revitElementID = bHoMBuildingElement[i].BuildingElementProperties.CustomData["Revit_elementId"].ToString();
                         xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
-                        xmlPanel.CADobjectID = name;
+                        xmlPanel.CADobjectId = bHoMBuildingElement[i].BuildingElementProperties.Name;
                         xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
@@ -86,7 +86,7 @@ namespace XML_Adapter.gbXML
                         }
 
                         xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(BH.Engine.Geometry.Query.Centre(pline));
-
+                        
                        
                         xmlPanel.PlanarGeometry = plGeo;
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
@@ -114,6 +114,7 @@ namespace XML_Adapter.gbXML
                         {
                             AdjacentSpaceId adjId = new AdjacentSpaceId();
                             adjId.spaceIdRef = "Space-" + adjSpace;
+                            //adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
                             adspace.Add(adjId);
                         }
 
@@ -153,6 +154,7 @@ namespace XML_Adapter.gbXML
                         gbx.Campus.Building[0].Space.Add(xspace);
                     }
                 }
+
             }
 
 
@@ -165,7 +167,7 @@ namespace XML_Adapter.gbXML
 
 
         }
-        
+
     }
 
 }

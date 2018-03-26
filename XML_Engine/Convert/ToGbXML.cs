@@ -71,6 +71,8 @@ namespace BH.Engine.XML
 
             gbXMLOpening.PlanarGeometry.PolyLoop = ToGbXML(pline);
             gbXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
+            gbXMLOpening.RectangularGeometry.Width = Query.Width(pline);
+            gbXMLOpening.RectangularGeometry.Height = Query.Length(pline);
 
             return gbXMLOpening;
         }
@@ -85,7 +87,8 @@ namespace BH.Engine.XML
 
             rectangularGeometry.Tilt = Environment.Query.Inclination(bHoMPanel);
             rectangularGeometry.Azimuth = Environment.Query.Orientation(bHoMPanel);
-            rectangularGeometry.Height = Environment.Query.AltitudeRange(bHoMPanel);
+            rectangularGeometry.Height = Query.Length(pline);
+            rectangularGeometry.Width = Query.Width(pline);
             rectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
             rectangularGeometry.Polyloop = pline.ToGbXML();
 
@@ -101,7 +104,7 @@ namespace BH.Engine.XML
             xmlSpace.Name = bHoMSpace.Name;
             xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
             xmlSpace.Volume = Environment.Query.Volume(bHoMSpace);
-            xmlSpace.id = "Space-" + bHoMSpace.Name.ToString();
+            xmlSpace.id = "Space-" + bHoMSpace.BHoM_Guid.ToString();
 
             if (bHoMSpace.Level != null)
                 xmlSpace.buildingStoreyIdRef = bHoMSpace.Level.Name;
@@ -111,5 +114,17 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
+        public static BuildingStorey ToGbXML(this BH.oM.Architecture.Elements.Level bHoMLevel)
+        {
+            BuildingStorey xmlStorey = new BuildingStorey();
+
+            xmlStorey.Name = bHoMLevel.Name;
+            xmlStorey.id = bHoMLevel.BHoM_Guid.ToString();
+            xmlStorey.Level = (float)bHoMLevel.Elevation;
+
+            return xmlStorey;
+        }
+
+        /***************************************************/
     }
 }
