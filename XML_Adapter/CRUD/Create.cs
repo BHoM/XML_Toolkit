@@ -29,6 +29,7 @@ namespace XML_Adapter.gbXML
             //Levels unique by name in all spaces:
             List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
 
+            double spaceindex = 0;
             foreach (BHE.Space obj in bhomObjects)
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
@@ -76,7 +77,7 @@ namespace XML_Adapter.gbXML
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
                         PlanarGeometry plGeo = new PlanarGeometry();
-                        plGeo.id = "PlanarGeometry" + i.ToString();
+                        plGeo.id = "PlanarGeometry" + (i+spaceindex).ToString();
 
                         /* Ensure that all of the surface coordinates are listed in a counterclockwise order
                          * This is a requirement of gbXML Polyloop definitions */
@@ -168,6 +169,8 @@ namespace XML_Adapter.gbXML
                         //gbx.Campus.Building[0].Name = "TestName";
                     }
                 }
+
+                spaceindex++;
 
             }
 
