@@ -66,6 +66,7 @@ namespace BH.Engine.XML
 
             gbXMLOpening.id = opening.BHoM_Guid.ToString();
             gbXMLOpening.Name = opening.Name;
+            
 
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
 
@@ -123,6 +124,28 @@ namespace BH.Engine.XML
             xmlStorey.Level = (float)bHoMLevel.Elevation;
 
             return xmlStorey;
+        }
+
+        /***************************************************/
+
+        public static Building ToGbXML(this BHE.Building bHoMBuilding)
+        {
+            Building xmlBuilding = new Building();
+
+            xmlBuilding.Name = bHoMBuilding.Name;
+            xmlBuilding.id = bHoMBuilding.BHoM_Guid.ToString();
+
+            List<double> area = new List<double>();
+            foreach (BHE.Space space in bHoMBuilding.Spaces)
+            {
+                area.Add(BH.Engine.Environment.Query.FloorArea(space));
+                xmlBuilding.Area = (float)area.Sum();
+            }
+            foreach (BH.oM.Architecture.Elements.Level level in bHoMBuilding.Levels)
+            {
+                xmlBuilding.BuildingStorey.ToList().Add(level.ToGbXML());
+            }
+            return xmlBuilding;
         }
 
         /***************************************************/

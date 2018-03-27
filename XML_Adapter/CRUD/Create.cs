@@ -152,6 +152,10 @@ namespace XML_Adapter.gbXML
                         xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
 
                         gbx.Campus.Building[0].Space.Add(xspace);
+
+                        //Building
+                        //gbx.Campus.Building[0].buildingType = "Test";
+                        //gbx.Campus.Building[0].Name = "TestName";
                     }
                 }
 
