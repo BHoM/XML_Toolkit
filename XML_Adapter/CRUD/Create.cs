@@ -29,7 +29,7 @@ namespace XML_Adapter.gbXML
             //Levels unique by name in all spaces:
             List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
 
-            double spaceindex = 0;
+            double panelindex = 0;
             foreach (BHE.Space obj in bhomObjects)
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
@@ -71,13 +71,13 @@ namespace XML_Adapter.gbXML
                         }
 
                         string revitElementID = bHoMBuildingElement[i].BuildingElementProperties.CustomData["Revit_elementId"].ToString();
-                        xmlPanel.id = "Panel-" + bHoMPanels[i].BHoM_Guid.ToString();
+                        xmlPanel.id = "Panel-" + panelindex.ToString();
                         xmlPanel.CADobjectId = bHoMBuildingElement[i].BuildingElementProperties.Name;
                         xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
                         PlanarGeometry plGeo = new PlanarGeometry();
-                        plGeo.id = "PlanarGeometry" + (i+spaceindex).ToString();
+                        plGeo.id = "PlanarGeometry" + i.ToString();
 
                         /* Ensure that all of the surface coordinates are listed in a counterclockwise order
                          * This is a requirement of gbXML Polyloop definitions */
@@ -131,8 +131,12 @@ namespace XML_Adapter.gbXML
 
                         xmlPanel.AdjacentSpaceId = adspace.ToArray();
                         gbx.Campus.Surface.Add(xmlPanel);
+
+                        panelindex++; 
                     }
 
+                    panelindex = panelindex - 1;
+                    panelindex++;
                 }
 
 
@@ -169,8 +173,6 @@ namespace XML_Adapter.gbXML
                         //gbx.Campus.Building[0].Name = "TestName";
                     }
                 }
-
-                spaceindex++;
 
             }
 
