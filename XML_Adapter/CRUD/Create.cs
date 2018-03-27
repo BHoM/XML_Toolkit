@@ -17,9 +17,19 @@ namespace XML_Adapter.gbXML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize(List<IBHoMObject> bhomObjects, BH.oM.XML.gbXML gbx)
+        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.gbXML gbx) where T: IObject
         {
-            foreach (IBHoMObject obj in bhomObjects)
+            SerializeCollection(bhomObjects as dynamic, gbx);
+        }
+
+        /***************************************************/
+
+        public static void SerializeCollection(IEnumerable<BHE.Space> bhomObjects, BH.oM.XML.gbXML gbx)
+        {
+            //Levels unique by name in all spaces:
+            List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
+
+            foreach (BHE.Space obj in bhomObjects)
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
                 List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
@@ -113,8 +123,8 @@ namespace XML_Adapter.gbXML
                         foreach (Guid adjSpace in bHoMBuildingElement[i].AdjacentSpaces)
                         {
                             AdjacentSpaceId adjId = new AdjacentSpaceId();
-                            adjId.spaceIdRef = "Space-" + adjSpace;
-                            //adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
+                            //adjId.spaceIdRef = "Space-" + adjSpace;
+                            adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
                             adspace.Add(adjId);
                         }
 
