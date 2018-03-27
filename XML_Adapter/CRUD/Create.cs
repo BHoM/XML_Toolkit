@@ -30,21 +30,17 @@ namespace XML_Adapter.gbXML
             List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
 
             double panelindex = 0;
-            foreach (BHE.Space obj in bhomObjects)
+            foreach (BHE.Space bHoMSpace in bhomObjects)
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
                 List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
                 List<BHP.BuildingElementProperties> bHoMBuildingElementProperties = new List<BHP.BuildingElementProperties>();
 
-                if (obj.GetType() == typeof(BHE.Space))
-                {
-                    BHE.Space bHoMSpace = obj as BHE.Space;
-                    bHoMPanels.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
-                    bHoMBuildingElement.AddRange(bHoMSpace.BuildingElements);
-                    bHoMBuildingElementProperties.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementProperties as BHP.BuildingElementProperties));
-                }
+                bHoMPanels.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
+                bHoMBuildingElement.AddRange(bHoMSpace.BuildingElements);
+                bHoMBuildingElementProperties.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementProperties as BHP.BuildingElementProperties));
 
-                BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(obj as BHE.Space);
+                BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(bHoMSpace as BHE.Space);
 
                 List<BHE.Space> spaces = bhomObjects.Where(x => x is BHE.Space).Select(x => x as BHE.Space).ToList();
 
@@ -145,13 +141,11 @@ namespace XML_Adapter.gbXML
                 if (spaces != null)
                 {
                     List<BH.oM.XML.Space> xspaces = new List<Space>();
-                    foreach (BHE.Space space in spaces)
-                    {
-                        BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(space);
+                        BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(bHoMSpace);
                         List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
 
                         //Just works for polycurves at the moment. ToDo: fix this for all type of curves
-                        IEnumerable<BHG.PolyCurve> bePanel = space.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
+                        IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
 
                         foreach (BHG.PolyCurve pCrv in bePanel)
                         {
@@ -167,11 +161,6 @@ namespace XML_Adapter.gbXML
                         xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
 
                         gbx.Campus.Building[0].Space.Add(xspace);
-
-                        //Building
-                        //gbx.Campus.Building[0].buildingType = "Test";
-                        //gbx.Campus.Building[0].Name = "TestName";
-                    }
                 }
 
             }
