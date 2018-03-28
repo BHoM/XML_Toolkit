@@ -20,6 +20,11 @@ namespace XML_Adapter.gbXML
         public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.gbXML gbx) where T: IObject
         {
             SerializeCollection(bhomObjects as dynamic, gbx);
+            
+            // Document History                          
+            DocumentHistory DocumentHistory = new DocumentHistory();
+            DocumentHistory.CreatedBy.date = DateTime.Now.ToString();
+            gbx.DocumentHistory = DocumentHistory;
         }
 
         /***************************************************/
@@ -28,7 +33,9 @@ namespace XML_Adapter.gbXML
         {
             //Levels unique by name in all spaces:
             List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
+            SerializeStoreys(levels, gbx);
 
+            //Spaces
             double panelindex = 0;
             foreach (BHE.Space bHoMSpace in bhomObjects)
             {
@@ -92,11 +99,11 @@ namespace XML_Adapter.gbXML
                         }
 
                         xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(BH.Engine.Geometry.Query.Centre(pline));
-                        
-                       
+
+
                         xmlPanel.PlanarGeometry = plGeo;
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
-                        
+
 
                         // Create openings
                         if (bHoMPanels[i].Openings.Count > 0)
@@ -127,7 +134,7 @@ namespace XML_Adapter.gbXML
                         xmlPanel.AdjacentSpaceId = adspace.ToArray();
                         gbx.Campus.Surface.Add(xmlPanel);
 
-                        panelindex++; 
+                        panelindex++;
                     }
 
                     panelindex = panelindex - 1;
@@ -140,40 +147,47 @@ namespace XML_Adapter.gbXML
                 if (spaces != null)
                 {
                     List<BH.oM.XML.Space> xspaces = new List<Space>();
-                        BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(bHoMSpace);
-                        List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
+                    BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(bHoMSpace);
+                    List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
 
-                        //Just works for polycurves at the moment. ToDo: fix this for all type of curves
-                        IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
+                    //Just works for polycurves at the moment. ToDo: fix this for all type of curves
+                    IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
 
-                        foreach (BHG.PolyCurve pCrv in bePanel)
-                        {
-                            /* Ensure that all of the surface coordinates are listed in a counterclockwise order
-                            * This is a requirement of gbXML Polyloop definitions */
-                            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() }; //TODO: Change to ToPolyline method
+                    foreach (BHG.PolyCurve pCrv in bePanel)
+                    {
+                        /* Ensure that all of the surface coordinates are listed in a counterclockwise order
+                        * This is a requirement of gbXML Polyloop definitions */
+                        BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() }; //TODO: Change to ToPolyline method
 
-                            if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
-                                ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
-                            else
-                                ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline));
-                        }
-                        xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
+                        if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
+                            ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
+                        else
+                            ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline));
+                    }
+                    xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
 
-                        gbx.Campus.Building[0].Space.Add(xspace);
+                    gbx.Campus.Building[0].Space.Add(xspace);
                 }
+            }
+        }
 
+        /***************************************************/
+
+        public static void SerializeStoreys(List<BH.oM.Architecture.Elements.Level> levels, BH.oM.XML.gbXML gbx)
+        {
+            //Levels unique by name in all spaces:
+            List<BH.oM.XML.BuildingStorey> xmlLevels = new List<BuildingStorey>();
+            foreach (BH.oM.Architecture.Elements.Level level in levels)
+            {
+                BuildingStorey storey = BH.Engine.XML.Convert.ToGbXML(level);
+                xmlLevels.Add(storey);
             }
 
-
-            // Document History                          
-            /***************************************************/
-
-            DocumentHistory DocumentHistory = new DocumentHistory();
-            DocumentHistory.CreatedBy.date = DateTime.Now.ToString();
-            gbx.DocumentHistory = DocumentHistory;
-
+            gbx.Campus.Building[0].BuildingStorey = xmlLevels.ToArray();
 
         }
+
+        /***************************************************/
 
     }
 
