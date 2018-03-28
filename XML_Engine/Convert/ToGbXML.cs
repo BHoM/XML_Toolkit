@@ -121,7 +121,7 @@ namespace BH.Engine.XML
             BuildingStorey xmlStorey = new BuildingStorey();
 
             xmlStorey.Name = bHoMLevel.Name;
-            xmlStorey.id = bHoMLevel.BHoM_Guid.ToString();
+            xmlStorey.id = bHoMLevel.Name;
             xmlStorey.Level = (float)bHoMLevel.Elevation;
 
             return xmlStorey;
