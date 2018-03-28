@@ -17,10 +17,10 @@ namespace XML_Adapter.gbXML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.gbXML gbx) where T: IObject
+        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.gbXML gbx) where T : IObject
         {
             SerializeCollection(bhomObjects as dynamic, gbx);
-            
+
             // Document History                          
             DocumentHistory DocumentHistory = new DocumentHistory();
             DocumentHistory.CreatedBy.date = DateTime.Now.ToString();
@@ -121,25 +121,23 @@ namespace XML_Adapter.gbXML
 
                         // Adjacent Spaces
                         /***************************************************/
-                        try // We don't know anything about adjacency if the input is a list of spaces. Atm this does only work when the input is Building. 
+
+                        List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
+                        // We don't know anything about adjacency if the input is a list of spaces. Atm this does only work when the input is Building. 
+                        foreach (Guid adjSpace in bHoMBuildingElement[i].AdjacentSpaces)
                         {
-                            List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
-                            foreach (Guid adjSpace in bHoMBuildingElement[i].AdjacentSpaces)
+                            AdjacentSpaceId adjId = new AdjacentSpaceId();
+                            if (spaces.Select(x => x.BHoM_Guid).Contains(adjSpace))
                             {
-                                AdjacentSpaceId adjId = new AdjacentSpaceId();
                                 adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
                                 adspace.Add(adjId);
                             }
-
-                            xmlPanel.AdjacentSpaceId = adspace.ToArray();
-                            gbx.Campus.Surface.Add(xmlPanel);
-
                         }
-                        catch (Exception e)
-                        {
-                            string message = "Couldn't find adjacent spaces. " + e.Message;
-                            throw new Exception(message);
-                        }
+
+                        xmlPanel.AdjacentSpaceId = adspace.ToArray();
+
+                        gbx.Campus.Surface.Add(xmlPanel);
+
 
                         panelindex++;
                     }
