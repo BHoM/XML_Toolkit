@@ -121,18 +121,25 @@ namespace XML_Adapter.gbXML
 
                         // Adjacent Spaces
                         /***************************************************/
-                        List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
-
-                        foreach (Guid adjSpace in bHoMBuildingElement[i].AdjacentSpaces)
+                        try // We don't know anything about adjacency if the input is a list of spaces. Atm this does only work when the input is Building. 
                         {
-                            AdjacentSpaceId adjId = new AdjacentSpaceId();
-                            //adjId.spaceIdRef = "Space-" + adjSpace;
-                            adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
-                            adspace.Add(adjId);
-                        }
+                            List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
+                            foreach (Guid adjSpace in bHoMBuildingElement[i].AdjacentSpaces)
+                            {
+                                AdjacentSpaceId adjId = new AdjacentSpaceId();
+                                adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
+                                adspace.Add(adjId);
+                            }
 
-                        xmlPanel.AdjacentSpaceId = adspace.ToArray();
-                        gbx.Campus.Surface.Add(xmlPanel);
+                            xmlPanel.AdjacentSpaceId = adspace.ToArray();
+                            gbx.Campus.Surface.Add(xmlPanel);
+
+                        }
+                        catch (Exception e)
+                        {
+                            string message = "Couldn't find adjacent spaces. " + e.Message;
+                            throw new Exception(message);
+                        }
 
                         panelindex++;
                     }
