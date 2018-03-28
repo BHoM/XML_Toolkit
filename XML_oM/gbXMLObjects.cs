@@ -336,7 +336,7 @@ namespace BH.oM.XML
     public class Opening : gbXMLObject
     {
         [XmlAttribute]
-        public string openingType = "unknown";
+        public string openingType = "FixedWindow";
         [XmlAttribute]
         public string id = "OpeningID";
         [XmlElement("Name")]

@@ -56,19 +56,18 @@ namespace XML_Adapter.gbXML
                         string type = "Air";
                         xmlPanel.Name = type;
                         xmlPanel.surfaceType = type;
+                        string revitElementID = "";
+                        xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMBuildingElement[i]);
+
                         if (bHoMBuildingElement[i].BuildingElementProperties != null)
                         {
-                            object aObject = bHoMBuildingElement[i].BuildingElementProperties.CustomData["SAM_BuildingElementType"];
-                            if(aObject != null)
-                                type = aObject.ToString();
-
-                            xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(type); //modifies the string
                             xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
+                            xmlPanel.CADobjectId = bHoMBuildingElement[i].BuildingElementProperties.Name;
+                            if (bHoMBuildingElement[i].BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
+                                revitElementID = bHoMBuildingElement[i].BuildingElementProperties.CustomData["Revit_elementId"].ToString();
                         }
 
-                        string revitElementID = bHoMBuildingElement[i].BuildingElementProperties.CustomData["Revit_elementId"].ToString();
                         xmlPanel.id = "Panel-" + panelindex.ToString();
-                        xmlPanel.CADobjectId = bHoMBuildingElement[i].BuildingElementProperties.Name;
                         xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
