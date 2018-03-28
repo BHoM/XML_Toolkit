@@ -65,8 +65,9 @@ namespace BH.Engine.XML
                 //case "Glazing":
                 //case "Door":
                 //case "Frame":
-                //case "Curtain Wall":
                 //case "Solar / PV Panel":
+                case "Curtain Wall":
+                    return "ExteriorWall";
                 case "Exposed Floor":
                     return "ExposedFloor";
                 case "Vehicle Door":
