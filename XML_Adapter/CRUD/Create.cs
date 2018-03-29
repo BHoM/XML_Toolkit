@@ -35,6 +35,10 @@ namespace XML_Adapter.gbXML
             List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
             SerializeStoreys(levels, gbx);
 
+            //Get All buildingElements
+            List<BHE.BuildingElement> buildingElements = bhomObjects.SelectMany(x => x.BuildingElements).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BHE.BuildingElement).ToList();
+            SerializeStoreys(levels, gbx);
+
             //Spaces
             double panelindex = 0;
             foreach (BHE.Space bHoMSpace in bhomObjects)
@@ -86,16 +90,19 @@ namespace XML_Adapter.gbXML
                         //TODO: Update to a ToPolyline() method once an appropriate version has been implemented
 
                         BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanels[i].PolyCurve.ControlPoints() }; //TODO: Change to ToPolyline method
+                        BHG.Polyline srfBound = new BHG.Polyline();
 
                         if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.Flip());
                             xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline.Flip()); //TODO: for bounding curve
+                            srfBound = pline.Flip();
                         }
                         else
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline);
                             xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline); //TODO: for bounding curve
+                            srfBound = pline;
                         }
 
                         xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(BH.Engine.Geometry.Query.Centre(pline));
@@ -107,16 +114,7 @@ namespace XML_Adapter.gbXML
 
                         // Create openings
                         if (bHoMPanels[i].Openings.Count > 0)
-                        {
-                            List<Opening> xmlOpenings = new List<Opening>();
-
-                            foreach (BHE.BuildingElementOpening opening in bHoMPanels[i].Openings)
-                            {
-                                Opening gbXMLOpening = BH.Engine.XML.Convert.ToGbXML(opening);
-                                xmlOpenings.Add(gbXMLOpening);
-                            }
-                            xmlPanel.Opening = xmlOpenings.ToArray();
-                        }
+                            xmlPanel.Opening = SerializeOpening(bHoMPanels[i].Openings, gbx).ToArray();
 
 
                         // Adjacent Spaces
@@ -136,7 +134,12 @@ namespace XML_Adapter.gbXML
 
                         xmlPanel.AdjacentSpaceId = adspace.ToArray();
 
-                        gbx.Campus.Surface.Add(xmlPanel);
+                        //Check if the surface normal is pointing away from the first AdjSpace. Add if it does.
+                        Guid firstGuid = bHoMBuildingElement[i].AdjacentSpaces.First();
+                        BHE.Space firstSpace = spaces.Find(x => x.BHoM_Guid == firstGuid);
+
+                        if(!BH.Engine.Geometry.Query.IsClockwise(srfBound, BH.Engine.Environment.Query.Centre(firstSpace)))
+                            gbx.Campus.Surface.Add(xmlPanel);
 
 
                         panelindex++;
@@ -194,6 +197,19 @@ namespace XML_Adapter.gbXML
 
         /***************************************************/
 
+        public static List<Opening> SerializeOpening(List<BHE.BuildingElementOpening> bHoMOpenings, BH.oM.XML.gbXML gbx)
+        {
+            List<Opening> xmlOpenings = new List<Opening>();
+
+            foreach (BHE.BuildingElementOpening opening in bHoMOpenings)
+            {
+                Opening gbXMLOpening = BH.Engine.XML.Convert.ToGbXML(opening);
+                xmlOpenings.Add(gbXMLOpening);
+            }
+            return xmlOpenings;
+        }
+
+        /***************************************************/
     }
 
 }
