@@ -135,14 +135,26 @@ namespace XML_Adapter.gbXML
                         xmlPanel.AdjacentSpaceId = adspace.ToArray();
 
                         //Check if the surface normal is pointing away from the first AdjSpace. Add if it does.
-                        Guid firstGuid = bHoMBuildingElement[i].AdjacentSpaces.First();
-                        BHE.Space firstSpace = spaces.Find(x => x.BHoM_Guid == firstGuid);
+                        if (bHoMBuildingElement[i].AdjacentSpaces.Count > 0)
+                        {
+                            Guid firstGuid = bHoMBuildingElement[i].AdjacentSpaces.First();
+                            BHE.Space firstSpace = spaces.Find(x => x.BHoM_Guid == firstGuid);
 
-                        if(!BH.Engine.Geometry.Query.IsClockwise(srfBound, BH.Engine.Environment.Query.Centre(firstSpace)))
-                            gbx.Campus.Surface.Add(xmlPanel);
+                            if (firstSpace == null)
+                            {
+                                gbx.Campus.Surface.Add(xmlPanel);
+                                panelindex++;
+                            }
+                            else
+                            {
+                                if (!BH.Engine.Geometry.Query.IsClockwise(srfBound, BH.Engine.Environment.Query.Centre(firstSpace)))
+                                {
+                                    gbx.Campus.Surface.Add(xmlPanel);
+                                    panelindex++;
+                                }
+                            }
+                        }
 
-
-                        panelindex++;
                     }
 
                     panelindex = panelindex - 1;
