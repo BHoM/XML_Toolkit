@@ -68,14 +68,18 @@ namespace XML_Adapter.gbXML
                         xmlPanel.Name = type;
                         xmlPanel.surfaceType = type;
                         string revitElementID = "";
+                        string familyName = "";
                         xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLSurfaceType(bHoMBuildingElement[i]);
 
                         if (bHoMBuildingElement[i].BuildingElementProperties != null)
                         {
-                            xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
-                            xmlPanel.CADobjectId = bHoMBuildingElement[i].BuildingElementProperties.Name;
                             if (bHoMBuildingElement[i].BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
                                 revitElementID = bHoMBuildingElement[i].BuildingElementProperties.CustomData["Revit_elementId"].ToString();
+                            if (bHoMBuildingElement[i].BuildingElementProperties.CustomData.ContainsKey("Family Name"))
+                                familyName = bHoMBuildingElement[i].BuildingElementProperties.CustomData["Family Name"].ToString();
+
+                            xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
+                            xmlPanel.CADobjectId = familyName + ": " + bHoMBuildingElement[i].BuildingElementProperties.Name + " [" + revitElementID +"]";
                         }
 
                         xmlPanel.id = "Panel-" + panelindex.ToString();
