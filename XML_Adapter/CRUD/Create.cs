@@ -29,15 +29,25 @@ namespace XML_Adapter.gbXML
 
         /***************************************************/
 
+        public static void SerializeCollection(IEnumerable<BHE.Building> bHoMBuilding, BH.oM.XML.gbXML gbx)
+        {
+            foreach (BHE.Building building in bHoMBuilding)
+            {
+                SerializeCollection(building.Spaces, gbx);
+            }
+        }
+
+        /***************************************************/
+
         public static void SerializeCollection(IEnumerable<BHE.Space> bhomObjects, BH.oM.XML.gbXML gbx)
         {
             //Levels unique by name in all spaces:
             List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
-            SerializeStoreys(levels, gbx);
+            Serialize(levels, gbx);
 
             //Get All buildingElements
             List<BHE.BuildingElement> buildingElements = bhomObjects.SelectMany(x => x.BuildingElements).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BHE.BuildingElement).ToList();
-            SerializeStoreys(levels, gbx);
+            Serialize(levels, gbx);
 
             //Spaces
             double panelindex = 0;
@@ -118,7 +128,7 @@ namespace XML_Adapter.gbXML
 
                         // Create openings
                         if (bHoMPanels[i].Openings.Count > 0)
-                            xmlPanel.Opening = SerializeOpening(bHoMPanels[i].Openings, gbx).ToArray();
+                            xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, gbx).ToArray();
 
 
                         // Adjacent Spaces
@@ -168,14 +178,14 @@ namespace XML_Adapter.gbXML
 
                 // Generate gbXMLSpaces
                 if (spaces != null)
-                    SerializeSpace(bHoMSpace, gbx);
-                
+                    Serialize(bHoMSpace, gbx);
+
             }
         }
 
         /***************************************************/
 
-        public static void SerializeStoreys(List<BH.oM.Architecture.Elements.Level> levels, BH.oM.XML.gbXML gbx)
+        public static void Serialize(List<BH.oM.Architecture.Elements.Level> levels, BH.oM.XML.gbXML gbx)
         {
             //Levels unique by name in all spaces:
             List<BH.oM.XML.BuildingStorey> xmlLevels = new List<BuildingStorey>();
@@ -191,7 +201,7 @@ namespace XML_Adapter.gbXML
 
         /***************************************************/
 
-        public static List<Opening> SerializeOpening(List<BHE.BuildingElementOpening> bHoMOpenings, BH.oM.XML.gbXML gbx)
+        public static List<Opening> Serialize(List<BHE.BuildingElementOpening> bHoMOpenings, BH.oM.XML.gbXML gbx)
         {
             List<Opening> xmlOpenings = new List<Opening>();
 
@@ -205,7 +215,7 @@ namespace XML_Adapter.gbXML
 
         /***************************************************/
 
-        public static void SerializeSpace(BHE.Space bHoMSpace, BH.oM.XML.gbXML gbx)
+        public static void Serialize(BHE.Space bHoMSpace, BH.oM.XML.gbXML gbx)
         {
             List<BH.oM.XML.Space> xspaces = new List<Space>();
             BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(bHoMSpace);
@@ -246,7 +256,10 @@ namespace XML_Adapter.gbXML
 
             gbx.Campus.Building[0].Space.Add(xspace);
         }
-       /***************************************************/
+
+        /***************************************************/
+
+
     }
 
 }
