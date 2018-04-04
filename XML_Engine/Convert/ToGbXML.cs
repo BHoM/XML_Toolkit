@@ -66,7 +66,6 @@ namespace BH.Engine.XML
 
             gbXMLOpening.id = opening.BHoM_Guid.ToString();
             gbXMLOpening.Name = opening.Name;
-            //gbXMLOpening.openingType = opening
             // TODO: Add openings types
             
 
@@ -90,8 +89,8 @@ namespace BH.Engine.XML
 
             rectangularGeometry.Tilt = Environment.Query.Inclination(bHoMPanel);
             rectangularGeometry.Azimuth = Environment.Query.Orientation(bHoMPanel);
-            rectangularGeometry.Height = Query.Length(pline);
-            rectangularGeometry.Width = Query.Width(pline);
+            //rectangularGeometry.Height = Query.Length(pline);
+            //rectangularGeometry.Width = Query.Width(pline);
             rectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
             rectangularGeometry.Polyloop = pline.ToGbXML();
 
@@ -105,9 +104,12 @@ namespace BH.Engine.XML
             Space xmlSpace = new Space();
 
             xmlSpace.Name = bHoMSpace.Name;
-            xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
-            xmlSpace.Volume = Environment.Query.Volume(bHoMSpace);
-            //xmlSpace.id = "Space-" + bHoMSpace.BHoM_Guid.ToString();
+            //xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
+            if (bHoMSpace.CustomData.ContainsKey("Area"))
+                xmlSpace.Area = (double)bHoMSpace.CustomData["Area"];
+            //xmlSpace.Volume = Environment.Query.Volume(bHoMSpace);
+            if (bHoMSpace.CustomData.ContainsKey("Volume"))
+                xmlSpace.Volume = (double)bHoMSpace.CustomData["Volume"];
             xmlSpace.id = "Space-" + bHoMSpace.Name.ToString();
 
             if (bHoMSpace.Level != null)

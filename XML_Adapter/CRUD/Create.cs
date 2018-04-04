@@ -34,6 +34,7 @@ namespace XML_Adapter.gbXML
             foreach (BHE.Building building in bHoMBuilding)
             {
                 SerializeCollection(building.Spaces, gbx);
+                //TODO: Implement method for Shade serialization
             }
         }
 
@@ -43,10 +44,6 @@ namespace XML_Adapter.gbXML
         {
             //Levels unique by name in all spaces:
             List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
-            Serialize(levels, gbx);
-
-            //Get All buildingElements
-            List<BHE.BuildingElement> buildingElements = bhomObjects.SelectMany(x => x.BuildingElements).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BHE.BuildingElement).ToList();
             Serialize(levels, gbx);
 
             //Spaces
@@ -130,6 +127,7 @@ namespace XML_Adapter.gbXML
                         if (bHoMPanels[i].Openings.Count > 0)
                             xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, gbx).ToArray();
 
+                       
 
                         // Adjacent Spaces
                         /***************************************************/
