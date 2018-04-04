@@ -127,7 +127,7 @@ namespace XML_Adapter.gbXML
                         if (bHoMPanels[i].Openings.Count > 0)
                             xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, gbx).ToArray();
 
-                       
+
 
                         // Adjacent Spaces
                         /***************************************************/
@@ -165,6 +165,12 @@ namespace XML_Adapter.gbXML
                                     panelindex++;
                                 }
                             }
+                        }
+
+                        else  //Shade elements
+                        {
+                            gbx.Campus.Surface.Add(xmlPanel);
+                            panelindex++;
                         }
 
                     }
