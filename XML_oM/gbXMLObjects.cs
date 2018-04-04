@@ -27,18 +27,18 @@ namespace BH.oM.XML
         public string useSIUnitsForResults = "true";
         [XmlAttribute]
         public string version = "0.37";
-        [XmlElement("DocumentHistory")]
-        public DocumentHistory DocumentHistory = new DocumentHistory();
-        [XmlElement("Zone")]
-        public Zone[] Zone = new List<Zone> { new Zone() }.ToArray();
-        [XmlElement("Material")]
-        public Material[] Material = new List<Material> { new Material() }.ToArray();
-        [XmlElement("Layer")]
-        public Layer[] Layer = new List<Layer> { new Layer() }.ToArray();
-        //[XmlElement("Construction")]
-        //public Construction[] Construction = new List<Construction> { new Construction() }.ToArray();
         [XmlElement("Campus")]
         public Campus Campus = new Campus();
+        [XmlElement("Zone")]
+        public Zone[] Zone = new List<Zone> { new Zone() }.ToArray();
+        [XmlElement("DocumentHistory")]
+        public DocumentHistory DocumentHistory = new DocumentHistory();
+        //[XmlElement("Material")]
+        //public Material[] Material = new List<Material> { new Material() }.ToArray();
+        //[XmlElement("Layer")]
+        //public Layer[] Layer = new List<Layer> { new Layer() }.ToArray();
+        //[XmlElement("Construction")]
+        //public Construction[] Construction = new List<Construction> { new Construction() }.ToArray();
     }
 
     // DocumentHistory Objects
@@ -67,6 +67,8 @@ namespace BH.oM.XML
         public string Version = "0.0.1";
         [XmlElement("Platform")]
         public string Platform = "Microsoft Windows";
+        [XmlElement("ProjectEntity")]
+        public ProjectEntity ProjectEntity = new ProjectEntity();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -161,14 +163,14 @@ namespace BH.oM.XML
         [XmlAttribute]
         public string id = "CampusID";
         [XmlElement]
-        public string Name = "Campus";
-        [XmlElement]
         public Location Location = new Location();
         [XmlElement("Building")]
         public Building[] Building = new List<Building> { new Building() }.ToArray();
         [XmlElement("Surface")]
         //public Surface[] Surface = new List<Surface> { new Surface() }.ToArray();
         public List<Surface> Surface = new List<Surface>();
+        [XmlElement]
+        public string Name = "Campus";
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -194,14 +196,16 @@ namespace BH.oM.XML
         [XmlAttribute]
         public string buildingType = "Unknown";
         [XmlElement]
-        public string Name = "Building";
-        [XmlElement("BuildingStorey")]
-        public BuildingStorey[] BuildingStorey = new List<BuildingStorey> { new BuildingStorey() }.ToArray();
+        public string StreetAddress = "Unknown";
+        [XmlElement]
+        public float Area = 0;
         [XmlElement("Space")]
         //public Space[] Space = new List<Space> { new XML_Adapter.gbXML.Space() }.ToArray() ;
         public List<Space> Space = new List<Space>();
+        [XmlElement("BuildingStorey")]
+        public BuildingStorey[] BuildingStorey = new List<BuildingStorey> { new BuildingStorey() }.ToArray();
         [XmlElement]
-        public float Area = 0;
+        public string Name = "Building";
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -221,11 +225,13 @@ namespace BH.oM.XML
     public class Space : gbXMLObject
     {
         [XmlAttribute]
-        public string id = "SpaceID";
-        [XmlAttribute]
         public string zoneIdRef = "ZoneID";
         [XmlAttribute]
+        public string conditionType = "Unknown";
+        [XmlAttribute]
         public string buildingStoreyIdRef = "StoreyID";
+        [XmlAttribute]
+        public string id = "SpaceID";
         [XmlElement]
         public string Name = "Space";
         [XmlElement]
@@ -275,25 +281,25 @@ namespace BH.oM.XML
     public class Surface : gbXMLObject
     {
         [XmlAttribute]
-        public string id = "SurfaceID";
-        [XmlAttribute]
-        public string constructionIdRef = "ConstructionID";
-        [XmlAttribute]
         public string surfaceType = "Unknown";
         [XmlAttribute]
         public string exposedToSun = "false";
-        [XmlElement("Name")]
-        public string Name = "Surface";
+        [XmlAttribute]
+        public string id = "SurfaceID";
+        //[XmlAttribute]
+        //public string constructionIdRef = "ConstructionID";
         [XmlElement("AdjacentSpaceId")]
         public AdjacentSpaceId[] AdjacentSpaceId = new List<AdjacentSpaceId> { new AdjacentSpaceId() }.ToArray();
-        [XmlElement("PlanarGeometry")]
-        public PlanarGeometry PlanarGeometry = new PlanarGeometry();
         [XmlElement("RectangularGeometry")]
         public RectangularGeometry RectangularGeometry = new RectangularGeometry();
+        [XmlElement("PlanarGeometry")]
+        public PlanarGeometry PlanarGeometry = new PlanarGeometry();
         [XmlElement("Opening")]
         public Opening[] Opening;
         [XmlElement("CADObjectId")]
         public string CADobjectId = "";
+        [XmlElement("Name")]
+        public string Name = "Surface";
 
     }
     [Serializable]
@@ -318,18 +324,18 @@ namespace BH.oM.XML
     {
         [XmlAttribute]
         public string id = "RectangularGeometryID";
-        [XmlAttribute]
-        public string unit = "UnitID";
+        //[XmlAttribute]
+        //public string unit = "UnitID";
         [XmlElement]
         public double Azimuth = 0;
+        [XmlElement("CartesianPoint")]
+        public CartesianPoint CartesianPoint = new CartesianPoint();
         [XmlElement("Tilt")]
         public double Tilt = 0;
         [XmlElement("Width")]
         public double Width = 0;
         [XmlElement("Height")]
         public double Height = 0;
-        [XmlElement("CartesianPoint")]
-        public CartesianPoint CartesianPoint = new CartesianPoint();
         [XmlElement("PolyLoop")]
         public Polyloop Polyloop;
     }
@@ -341,12 +347,14 @@ namespace BH.oM.XML
         public string openingType = "FixedWindow";
         [XmlAttribute]
         public string id = "OpeningID";
-        [XmlElement("Name")]
-        public string Name = "Opening";
         [XmlElement]
         public RectangularGeometry RectangularGeometry = new RectangularGeometry();
         [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
+        [XmlElement("CADObjectId")]
+        public string CADObjectId = "OpeningID";
+        [XmlElement("Name")]
+        public string Name = "Opening";
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -358,5 +366,14 @@ namespace BH.oM.XML
         public string surfaceIdRef = "";
         [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
+    }
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class ProjectEntity : gbXMLObject
+    {
+        [XmlElement]
+        public string URI = "Unknown";
+        [XmlElement]
+        public string GUID = "Unknown";
     }
 }
