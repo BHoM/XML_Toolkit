@@ -94,7 +94,8 @@ namespace XML_Adapter.gbXML
                             if (bHoMBuildingElement[i].BuildingElementProperties.CustomData.ContainsKey("Family Name"))
                                 familyName = bHoMBuildingElement[i].BuildingElementProperties.CustomData["Family Name"].ToString();
 
-                            xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
+                            // xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
+                            xmlPanel.Name = "Panel-" + panelindex.ToString();
                             xmlPanel.CADobjectId = familyName + ": " + bHoMBuildingElement[i].BuildingElementProperties.Name + " [" + revitElementID + "]";
                         }
 
