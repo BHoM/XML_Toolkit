@@ -15,31 +15,44 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static BHG.Polyline BoundingCurve(BHG.Polyline pline)
+        public static double Width(BHG.Polyline pline)
         {
-            BHG.Plane plane = pline.FitPlane();
 
-            BHG.Vector projected = plane.Normal.Project(BH.oM.Geometry.Plane.XY);
-            double xVec = projected.X;
-            double yVec = projected.Y;
+            List<BHG.Point> pts = pline.DiscontinuityPoints();
 
-            double xMax = pline.DiscontinuityPoints().Select(p => p.X).Max();
-            double xMin = pline.DiscontinuityPoints().Select(p => p.X).Min();
-            double yMax = pline.DiscontinuityPoints().Select(p => p.Y).Max();
-            double yMin = pline.DiscontinuityPoints().Select(p => p.Y).Min();
-            double zMax = pline.DiscontinuityPoints().Select(p => p.Z).Min();
-            double zMin = pline.DiscontinuityPoints().Select(p => p.Z).Max();
+            double length = pts.Last().Distance(pts.First());
 
-            BHG.Point pt1 = new BHG.Point() { X = xMin, Y = yMin, Z = 0 };
-            BHG.Point pt2 = new BHG.Point() { X = xMax, Y = yMin, Z = 0 };
-            BHG.Point pt3 = new BHG.Point() { X = xMax, Y = yMax, Z = 0 };
-            BHG.Point pt4 = new BHG.Point() { X = xMin, Y = yMax, Z = 0 };
+            for (int i = 0; i < pts.Count-1; i++)
+            {
+                double dist = pts[i].Distance(pts[i + 1]);
+                length = dist > length ? dist : length;
+            }
 
+            double area = pline.Area();
+            double width = area / length;
 
-            //TODO: Local coordinate system?? This does only work for polylines in the xy-plane
-            BHG.Polyline boundingCrv = new oM.Geometry.Polyline() { ControlPoints = new List<BHG.Point> { pt1, pt2, pt3, pt4, pt1 } };
+            return width;
+        }
 
-            return boundingCrv;
+        /***************************************************/
+
+        public static double Length(BHG.Polyline pline)
+        {
+
+            List<BHG.Point> pts = pline.DiscontinuityPoints();
+
+            double length = pts.Last().Distance(pts.First());
+
+            for (int i = 0; i < pts.Count - 1; i++)
+            {
+                double dist = pts[i].Distance(pts[i + 1]);
+                length = dist > length ? dist : length;
+            }
+
+            double area = pline.Area();
+            double width = area / length;
+
+            return length;
         }
 
     }
