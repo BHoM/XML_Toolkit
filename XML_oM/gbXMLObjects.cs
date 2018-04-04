@@ -237,7 +237,7 @@ namespace BH.oM.XML
         [XmlElement]
         public PlanarGeometry PlanarGeoemtry = new PlanarGeometry();
         [XmlElement]
-        public SpaceBoundary SpaceBoundary = new SpaceBoundary();
+        public SpaceBoundary [] SpaceBoundary = new List<SpaceBoundary> { new SpaceBoundary() }.ToArray();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -356,5 +356,7 @@ namespace BH.oM.XML
         public string isSecondLevelBoundary = "False";
         [XmlAttribute]
         public string surfaceIdRef = "";
+        [XmlElement]
+        public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
 }

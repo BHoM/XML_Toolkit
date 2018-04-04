@@ -79,7 +79,7 @@ namespace XML_Adapter.gbXML
                                 familyName = bHoMBuildingElement[i].BuildingElementProperties.CustomData["Family Name"].ToString();
 
                             xmlPanel.Name = bHoMBuildingElement[i].BuildingElementProperties.Name;
-                            xmlPanel.CADobjectId = familyName + ": " + bHoMBuildingElement[i].BuildingElementProperties.Name + " [" + revitElementID +"]";
+                            xmlPanel.CADobjectId = familyName + ": " + bHoMBuildingElement[i].BuildingElementProperties.Name + " [" + revitElementID + "]";
                         }
 
                         xmlPanel.id = "Panel-" + panelindex.ToString();
@@ -189,6 +189,24 @@ namespace XML_Adapter.gbXML
                             ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline));
                     }
                     xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
+
+
+                    //Space Boundaries
+                    SpaceBoundary [] bounadry = new SpaceBoundary[ploops.Count()];
+
+                    for (int i = 0; i < ploops.Count(); i++)
+                    {
+                        PlanarGeometry planarGeom = new PlanarGeometry();
+                        planarGeom.PolyLoop = ploops[i];
+                        SpaceBoundary bound = new SpaceBoundary { PlanarGeometry = planarGeom };
+                        bounadry[i] = bound;
+
+                        //TODO: create surface and get its ID
+                        
+
+                    }
+                    xspace.SpaceBoundary = bounadry;
+
 
                     gbx.Campus.Building[0].Space.Add(xspace);
                 }
