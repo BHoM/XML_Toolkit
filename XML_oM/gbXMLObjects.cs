@@ -35,8 +35,8 @@ namespace BH.oM.XML
         public Material[] Material = new List<Material> { new Material() }.ToArray();
         [XmlElement("Layer")]
         public Layer[] Layer = new List<Layer> { new Layer() }.ToArray();
-        [XmlElement("Construction")]
-        public Construction[] Construction = new List<Construction> { new Construction() }.ToArray();
+        //[XmlElement("Construction")]
+        //public Construction[] Construction = new List<Construction> { new Construction() }.ToArray();
         [XmlElement("Campus")]
         public Campus Campus = new Campus();
     }
@@ -236,6 +236,8 @@ namespace BH.oM.XML
         public ShellGeometry ShellGeometry = new ShellGeometry();
         [XmlElement]
         public PlanarGeometry PlanarGeoemtry = new PlanarGeometry();
+        [XmlElement]
+        public SpaceBoundary SpaceBoundary = new SpaceBoundary();
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -346,5 +348,13 @@ namespace BH.oM.XML
         [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
     }
-  
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class SpaceBoundary : gbXMLObject
+    {
+        [XmlAttribute]
+        public string isSecondLevelBoundary = "False";
+        [XmlAttribute]
+        public string surfaceIdRef = "";
+    }
 }
