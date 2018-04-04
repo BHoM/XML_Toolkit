@@ -352,7 +352,7 @@ namespace BH.oM.XML
         [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
         [XmlElement("CADObjectId")]
-        public string CADObjectId = "OpeningID";
+        public string CADObjectId = "WinInst: SIM_EXT_GLZ [xxxxxx]";
         [XmlElement("Name")]
         public string Name = "Opening";
     }
