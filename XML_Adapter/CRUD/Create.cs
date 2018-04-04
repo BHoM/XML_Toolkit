@@ -55,6 +55,7 @@ namespace XML_Adapter.gbXML
 
             //Spaces
             double panelindex = 0;
+            double openingIndex = 0;
             foreach (BHE.Space bHoMSpace in bhomObjects)
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
@@ -75,6 +76,7 @@ namespace XML_Adapter.gbXML
                 if (bHoMPanels != null)
                 {
                     List<Surface> srfs = new List<Surface>();
+                    
                     for (int i = 0; i < bHoMPanels.Count; i++)
                     {
                         Surface xmlPanel = new Surface();
@@ -132,8 +134,11 @@ namespace XML_Adapter.gbXML
 
                         // Create openings
                         if (bHoMPanels[i].Openings.Count > 0)
-                            xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, gbx).ToArray();
-
+                        {
+                            xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, gbx).ToArray();
+                            //openingIndex = openingIndex - 1;
+                            //openingIndex++;
+                        }
 
 
                         // Adjacent Spaces
@@ -212,15 +217,20 @@ namespace XML_Adapter.gbXML
 
         /***************************************************/
 
-        public static List<Opening> Serialize(List<BHE.BuildingElementOpening> bHoMOpenings, BH.oM.XML.gbXML gbx)
+        public static List<Opening> Serialize(List<BHE.BuildingElementOpening> bHoMOpenings, ref double openingIndex, BH.oM.XML.gbXML gbx)
         {
             List<Opening> xmlOpenings = new List<Opening>();
 
             foreach (BHE.BuildingElementOpening opening in bHoMOpenings)
             {
                 Opening gbXMLOpening = BH.Engine.XML.Convert.ToGbXML(opening);
+                //TODO: gbXMLOpening.CADObjectId = familyName + ": " + bHoMBuildingElement[i].BuildingElementProperties.Name + " [" + revitElementID + "]";
+                gbXMLOpening.id = "opening-" + openingIndex;
+                gbXMLOpening.Name = "opening-" + openingIndex;
                 xmlOpenings.Add(gbXMLOpening);
+                openingIndex++;
             }
+
             return xmlOpenings;
         }
 

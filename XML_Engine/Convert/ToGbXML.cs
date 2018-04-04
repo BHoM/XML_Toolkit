@@ -64,8 +64,8 @@ namespace BH.Engine.XML
         {
             Opening gbXMLOpening = new Opening();
 
-            gbXMLOpening.id = opening.BHoM_Guid.ToString();
-            gbXMLOpening.Name = opening.Name;
+            //gbXMLOpening.id = opening.BHoM_Guid.ToString();
+            //gbXMLOpening.Name = opening.Name;
             // TODO: Add openings types
             
 
