@@ -40,6 +40,13 @@ namespace XML_Adapter.gbXML
 
         /***************************************************/
 
+        public static void SerializeCollection(IEnumerable<BHE.BuildingElement> bHoMBuildingElement, BH.oM.XML.gbXML gbx)
+        {
+            throw new NotImplementedException();
+        }
+
+        /***************************************************/
+
         public static void SerializeCollection(IEnumerable<BHE.Space> bhomObjects, BH.oM.XML.gbXML gbx)
         {
             //Levels unique by name in all spaces:

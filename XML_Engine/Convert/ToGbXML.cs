@@ -89,8 +89,8 @@ namespace BH.Engine.XML
 
             rectangularGeometry.Tilt = Environment.Query.Inclination(bHoMPanel);
             rectangularGeometry.Azimuth = Environment.Query.Orientation(bHoMPanel);
-            //rectangularGeometry.Height = Query.Length(pline);
-            //rectangularGeometry.Width = Query.Width(pline);
+            rectangularGeometry.Height = Query.Length(pline);
+            rectangularGeometry.Width = Query.Width(pline);
             rectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
             rectangularGeometry.Polyloop = pline.ToGbXML();
 
