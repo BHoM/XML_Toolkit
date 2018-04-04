@@ -66,6 +66,7 @@ namespace BH.Engine.XML
 
             gbXMLOpening.id = opening.BHoM_Guid.ToString();
             gbXMLOpening.Name = opening.Name;
+            // TODO: Add openings types
             
 
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
