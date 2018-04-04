@@ -62,9 +62,9 @@ namespace BH.oM.XML
         [XmlElement("CompanyName")]
         public string CompanyName = "BuroHappold Engineering";
         [XmlElement("ProductName")]
-        public string ProductName = "BHoMgbXML";
+        public string ProductName = "Autodesk Revit 2018 BEES";
         [XmlElement("Version")]
-        public string Version = "0.0.1";
+        public string Version = "2018 20170223_1515(x64)";
         [XmlElement("Platform")]
         public string Platform = "Microsoft Windows";
         [XmlElement("ProjectEntity")]
