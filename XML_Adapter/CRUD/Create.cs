@@ -79,7 +79,7 @@ namespace XML_Adapter.gbXML
                     {
                         Surface xmlPanel = new Surface();
                         string type = "Air";
-                        xmlPanel.Name = type;
+                        xmlPanel.Name = "Panel-" + panelindex.ToString();
                         xmlPanel.surfaceType = type;
                         string revitElementID = "";
                         string familyName = "";

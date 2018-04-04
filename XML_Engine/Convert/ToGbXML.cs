@@ -103,7 +103,7 @@ namespace BH.Engine.XML
         {
             Space xmlSpace = new Space();
 
-            xmlSpace.Name = bHoMSpace.Name;
+            xmlSpace.Name = bHoMSpace.Name + "-Space";
             //xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
             if (bHoMSpace.CustomData.ContainsKey("Area"))
                 xmlSpace.Area = (double)bHoMSpace.CustomData["Area"];
