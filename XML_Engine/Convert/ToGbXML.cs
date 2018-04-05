@@ -73,8 +73,8 @@ namespace BH.Engine.XML
 
             gbXMLOpening.PlanarGeometry.PolyLoop = ToGbXML(pline);
             gbXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
-            gbXMLOpening.RectangularGeometry.Width = Math.Round(Query.Width(pline), 3);
             gbXMLOpening.RectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
+            gbXMLOpening.RectangularGeometry.Width = Math.Round(Query.Width(pline, gbXMLOpening.RectangularGeometry.Height), 3);
 
             return gbXMLOpening;
         }
@@ -90,7 +90,7 @@ namespace BH.Engine.XML
             rectangularGeometry.Tilt = Math.Round(Environment.Query.Inclination(bHoMPanel), 3);
             rectangularGeometry.Azimuth = Math.Round(Environment.Query.Orientation(bHoMPanel), 3);
             rectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
-            rectangularGeometry.Width = Math.Round(Query.Width(pline), 3);
+            rectangularGeometry.Width = Math.Round(Query.Width(pline, rectangularGeometry.Height), 3);
             rectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
             rectangularGeometry.Polyloop = pline.ToGbXML();
 
@@ -112,7 +112,7 @@ namespace BH.Engine.XML
             //xmlSpace.Volume = Environment.Query.Volume(bHoMSpace);
             if (bHoMSpace.CustomData.ContainsKey("Volume"))
                 xmlSpace.Volume = Math.Round((double)bHoMSpace.CustomData["Volume"], 3);
-            if (bHoMSpace.CustomData.ContainsKey("Volume"))
+            if (bHoMSpace.CustomData.ContainsKey("Revit_elementId"))
                 xmlSpace.CADobjectId = (bHoMSpace.CustomData["Revit_elementId"]).ToString();
 
 

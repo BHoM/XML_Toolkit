@@ -53,6 +53,10 @@ namespace XML_Adapter.gbXML
             List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
             Serialize(levels, gbx);
 
+            //Get All buildingElements
+            List<BHE.BuildingElement> buildingElementsList = bhomObjects.SelectMany(x => x.BuildingElements).Cast<BHE.BuildingElement>().ToList();
+
+
             //Spaces
             double panelindex = 0;
             double openingIndex = 0;
@@ -76,7 +80,7 @@ namespace XML_Adapter.gbXML
                 if (bHoMPanels != null)
                 {
                     List<Surface> srfs = new List<Surface>();
-                    
+
                     for (int i = 0; i < bHoMPanels.Count; i++)
                     {
                         Surface xmlPanel = new Surface();
@@ -133,13 +137,10 @@ namespace XML_Adapter.gbXML
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
 
 
-                        // Create openings
-                        if (bHoMPanels[i].Openings.Count > 0)
-                        {
-                            xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, gbx).ToArray();
-                            //openingIndex = openingIndex - 1;
-                            //openingIndex++;
-                        }
+                        //// Create openings
+                        //if (bHoMPanels[i].Openings.Count > 0)
+                        //    xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
+                        
 
 
                         // Adjacent Spaces
@@ -167,6 +168,9 @@ namespace XML_Adapter.gbXML
 
                             if (firstSpace == null)
                             {
+                                // Create openings
+                                if (bHoMPanels[i].Openings.Count > 0)
+                                    xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
                                 gbx.Campus.Surface.Add(xmlPanel);
                                 panelindex++;
                             }
@@ -174,6 +178,9 @@ namespace XML_Adapter.gbXML
                             {
                                 if (!BH.Engine.Geometry.Query.IsClockwise(srfBound, BH.Engine.Environment.Query.Centre(firstSpace)))
                                 {
+                                    // Create openings
+                                    if (bHoMPanels[i].Openings.Count > 0)
+                                        xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
                                     gbx.Campus.Surface.Add(xmlPanel);
                                     panelindex++;
                                 }
@@ -182,6 +189,9 @@ namespace XML_Adapter.gbXML
 
                         else  //Shade elements
                         {
+                            // Create openings
+                            if (bHoMPanels[i].Openings.Count > 0)
+                                xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
                             gbx.Campus.Surface.Add(xmlPanel);
                             panelindex++;
                         }
@@ -218,14 +228,28 @@ namespace XML_Adapter.gbXML
 
         /***************************************************/
 
-        public static List<Opening> Serialize(List<BHE.BuildingElementOpening> bHoMOpenings, ref double openingIndex, BH.oM.XML.gbXML gbx)
+        public static List<Opening> Serialize(List<BHE.BuildingElementOpening> bHoMOpenings, ref double openingIndex, List<BHE.BuildingElement> buildingElementsList, BH.oM.XML.gbXML gbx)
         {
             List<Opening> xmlOpenings = new List<Opening>();
 
             foreach (BHE.BuildingElementOpening opening in bHoMOpenings)
             {
                 Opening gbXMLOpening = BH.Engine.XML.Convert.ToGbXML(opening);
-                //TODO: gbXMLOpening.CADObjectId = familyName + ": " + bHoMBuildingElement[i].BuildingElementProperties.Name + " [" + revitElementID + "]";
+                string familyName = "";
+                string typeName = "";
+
+                if (opening.CustomData.ContainsKey("Revit_elementId"))
+                {
+                    string elementID = (opening.CustomData["Revit_elementId"]).ToString();
+                    BHE.BuildingElement buildingElement = buildingElementsList.Find(x => x != null && x.CustomData.ContainsKey("Revit_elementId") && x.CustomData["Revit_elementId"].ToString() == elementID);
+                    if (buildingElement != null && buildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
+                    {
+                        familyName = buildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
+                        typeName = buildingElement.BuildingElementProperties.Name;
+                    }
+                    gbXMLOpening.CADObjectId = familyName + ": " + typeName + " [" + elementID + "]";
+                }
+
                 gbXMLOpening.id = "opening-" + openingIndex;
                 gbXMLOpening.Name = "opening-" + openingIndex;
                 xmlOpenings.Add(gbXMLOpening);

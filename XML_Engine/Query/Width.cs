@@ -15,18 +15,8 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static double Width(BHG.Polyline pline)
+        public static double Width(BHG.Polyline pline, double length)
         {
-
-            List<BHG.Point> pts = pline.DiscontinuityPoints();
-
-            double length = pts.Last().Distance(pts.First());
-
-            for (int i = 0; i < pts.Count - 1; i++)
-            {
-                double dist = pts[i].Distance(pts[i + 1]);
-                length = dist > length ? dist : length;
-            }
 
             double area = pline.Area();
             double width = area / length;
