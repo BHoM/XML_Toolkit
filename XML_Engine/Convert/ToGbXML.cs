@@ -47,7 +47,7 @@ namespace BH.Engine.XML
         }
 
         /***************************************************/
-        
+
         //public static Surface ToGbXML(BHE.BuildingElementPanel bHoMPanel)
         //{
         //    Surface xmlPanel = new Surface();
@@ -67,14 +67,14 @@ namespace BH.Engine.XML
             //gbXMLOpening.id = opening.BHoM_Guid.ToString();
             //gbXMLOpening.Name = opening.Name;
             // TODO: Add openings types
-            
+
 
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
 
             gbXMLOpening.PlanarGeometry.PolyLoop = ToGbXML(pline);
             gbXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
-            gbXMLOpening.RectangularGeometry.Width = Query.Width(pline);
-            gbXMLOpening.RectangularGeometry.Height = Query.Length(pline);
+            gbXMLOpening.RectangularGeometry.Width = Math.Round(Query.Width(pline), 3);
+            gbXMLOpening.RectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
 
             return gbXMLOpening;
         }
@@ -87,10 +87,10 @@ namespace BH.Engine.XML
 
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanel.PolyCurve.ControlPoints() };
 
-            rectangularGeometry.Tilt = Environment.Query.Inclination(bHoMPanel);
-            rectangularGeometry.Azimuth = Environment.Query.Orientation(bHoMPanel);
-            rectangularGeometry.Height = Query.Length(pline);
-            rectangularGeometry.Width = Query.Width(pline);
+            rectangularGeometry.Tilt = Math.Round(Environment.Query.Inclination(bHoMPanel), 3);
+            rectangularGeometry.Azimuth = Math.Round(Environment.Query.Orientation(bHoMPanel), 3);
+            rectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
+            rectangularGeometry.Width = Math.Round(Query.Width(pline), 3);
             rectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
             rectangularGeometry.Polyloop = pline.ToGbXML();
 
@@ -104,13 +104,17 @@ namespace BH.Engine.XML
             Space xmlSpace = new Space();
 
             xmlSpace.Name = bHoMSpace.Name + " Space";
+            xmlSpace.id = "Space-" + bHoMSpace.Name.ToString();
+
             //xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
             if (bHoMSpace.CustomData.ContainsKey("Area"))
-                xmlSpace.Area = (double)bHoMSpace.CustomData["Area"];
+                xmlSpace.Area = Math.Round((double)bHoMSpace.CustomData["Area"], 3);
             //xmlSpace.Volume = Environment.Query.Volume(bHoMSpace);
             if (bHoMSpace.CustomData.ContainsKey("Volume"))
-                xmlSpace.Volume = (double)bHoMSpace.CustomData["Volume"];
-            xmlSpace.id = "Space-" + bHoMSpace.Name.ToString();
+                xmlSpace.Volume = Math.Round((double)bHoMSpace.CustomData["Volume"], 3);
+            if (bHoMSpace.CustomData.ContainsKey("Volume"))
+                xmlSpace.CADobjectId = (bHoMSpace.CustomData["Revit_elementId"]).ToString();
+
 
             if (bHoMSpace.Level != null)
                 xmlSpace.buildingStoreyIdRef = bHoMSpace.Level.Name;
