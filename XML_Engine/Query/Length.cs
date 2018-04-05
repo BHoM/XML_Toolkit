@@ -28,9 +28,6 @@ namespace BH.Engine.XML
                 length = dist > length ? dist : length;
             }
 
-            double area = pline.Area();
-            double width = area / length;
-
             return length;
         }
 
