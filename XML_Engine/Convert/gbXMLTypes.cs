@@ -11,10 +11,10 @@ namespace BH.Engine.XML
     {
         /***************************************************/
 
-        public static string ToGbXMLSurfaceType(this BHE.Elements.BuildingElement bHoMBuildingElement)
+        public static string ToGbXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement)
         {
             string type = "Air";
-            if (bHoMBuildingElement.BuildingElementProperties != null)
+            if (bHoMBuildingElement != null && bHoMBuildingElement.BuildingElementProperties != null)
             {
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
                 {
@@ -22,13 +22,15 @@ namespace BH.Engine.XML
                     if (aObject != null)
                         type = ToGbXMLSurfaceType(aObject.ToString()); //modifies the string
                 }
-                    return type;
+                return type;
             }
-            else
+            else if (bHoMBuildingElement != null)
             {
                 type = ToGbXMLSurfaceType((bHoMBuildingElement.BuildingElementGeometry as BHE.Elements.BuildingElementPanel).ElementType);
                 return type;
             }
+            else
+                return type;
         }
 
         /***************************************************/
@@ -99,6 +101,13 @@ namespace BH.Engine.XML
                     return "RaisedFloor";
                 case "SLABONGRADE":
                     return "SlabOnGrade";
+
+                //Openings
+                case "Glazing":
+                    return "FixedWindow";
+                case "Door":
+                    return "NonSlidingDoor";
+
                 default:
                     return "Air"; //Adiabatic
             }

@@ -66,8 +66,6 @@ namespace BH.Engine.XML
 
             //gbXMLOpening.id = opening.BHoM_Guid.ToString();
             //gbXMLOpening.Name = opening.Name;
-            // TODO: Add openings types
-
 
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
 
@@ -92,7 +90,7 @@ namespace BH.Engine.XML
             rectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
             rectangularGeometry.Width = Math.Round(Query.Width(pline, rectangularGeometry.Height), 3);
             rectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
-            rectangularGeometry.Polyloop = pline.ToGbXML();
+            //rectangularGeometry.Polyloop = pline.ToGbXML();
 
             return rectangularGeometry;
         }
@@ -131,30 +129,53 @@ namespace BH.Engine.XML
             xmlStorey.Name = bHoMLevel.Name;
             xmlStorey.id = bHoMLevel.Name;
             xmlStorey.Level = (float)bHoMLevel.Elevation;
+            
 
             return xmlStorey;
         }
 
         /***************************************************/
 
-        public static Building ToGbXML(this BHE.Building bHoMBuilding)
+        //public static Building ToGbXML(this BHE.Building bHoMBuilding)
+        //{
+        //    Building xmlBuilding = new Building();
+
+        //    xmlBuilding.Name = bHoMBuilding.Name;
+        //    xmlBuilding.id = bHoMBuilding.BHoM_Guid.ToString();
+
+        //    List<double> area = new List<double>();
+        //    foreach (BHE.Space space in bHoMBuilding.Spaces)
+        //    {
+        //        area.Add(BH.Engine.Environment.Query.FloorArea(space));
+        //        xmlBuilding.Area = (float)area.Sum();
+        //    }
+        //    foreach (BH.oM.Architecture.Elements.Level level in bHoMBuilding.Levels)
+        //    {
+        //        xmlBuilding.BuildingStorey.ToList().Add(level.ToGbXML());
+        //    }
+        //    return xmlBuilding;
+        //}
+
+        /***************************************************/
+
+        public static Location ToGbXML(this BHE.Building bHoMBuilding)
         {
-            Building xmlBuilding = new Building();
+            Location xmlLocation = new Location();
 
-            xmlBuilding.Name = bHoMBuilding.Name;
-            xmlBuilding.id = bHoMBuilding.BHoM_Guid.ToString();
+            xmlLocation.ZipcodeOrPostalCode = 00000; // TODO: Change from default value
+            xmlLocation.Longitude = Math.Round(bHoMBuilding.Longitude, 5);
+            xmlLocation.Latitude = Math.Round(bHoMBuilding.Latitude, 5);
+            xmlLocation.Elevation = Math.Round(bHoMBuilding.Elevation, 5);
+            xmlLocation.CADModelAzimuth = 0; // TODO: Change from default value
 
-            List<double> area = new List<double>();
-            foreach (BHE.Space space in bHoMBuilding.Spaces)
-            {
-                area.Add(BH.Engine.Environment.Query.FloorArea(space));
-                xmlBuilding.Area = (float)area.Sum();
-            }
-            foreach (BH.oM.Architecture.Elements.Level level in bHoMBuilding.Levels)
-            {
-                xmlBuilding.BuildingStorey.ToList().Add(level.ToGbXML());
-            }
-            return xmlBuilding;
+            //From Custom Data
+            if (bHoMBuilding.CustomData.ContainsKey("Place Name"))
+                xmlLocation.Name = (bHoMBuilding.CustomData["Place Name"]).ToString();
+            if (bHoMBuilding.CustomData.ContainsKey("Weather Station Name"))
+                xmlLocation.StationId.ID = (bHoMBuilding.CustomData["Weather Station Name"]).ToString();
+
+
+            return xmlLocation;
         }
 
         /***************************************************/
