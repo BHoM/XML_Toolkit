@@ -80,6 +80,8 @@ namespace BH.oM.XML
         public string programId = "BHoMgbXML";
         [XmlAttribute]
         public string date = "00-00-00";
+        [XmlElement("CADModelId")]
+        public string CADModelId = "Unknown";
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -96,6 +98,16 @@ namespace BH.oM.XML
     {
         [XmlAttribute]
         public string id = "ZoneID";
+        [XmlElement]
+        public double AirChangesperHour = 0;
+        [XmlElement]
+        public OAFlowPerArea OAFlowPerArea = new OAFlowPerArea();
+        [XmlElement]
+        public OAFlowPerPerson OAFlowPerPerson = new OAFlowPerPerson();
+        [XmlElement]
+        public DesignHeatT DesignHeatT = new DesignHeatT();
+        [XmlElement]
+        public DesignCoolT DesignCoolT = new DesignCoolT();
         [XmlElement]
         public double TypeCode = 0;
         [XmlElement]
@@ -401,4 +413,32 @@ namespace BH.oM.XML
         [XmlAttribute]
         public string ID = "";
     }
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class OAFlowPerArea : gbXMLObject
+    {
+        [XmlAttribute]
+        public string unit = "LPerSecPerSquareM";
+    }
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class OAFlowPerPerson : gbXMLObject
+    {
+        [XmlAttribute]
+        public string unit = "LPerSec";
+    }
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class DesignHeatT : gbXMLObject
+    {
+        [XmlAttribute]
+        public string unit = "C";
+    }
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class DesignCoolT : gbXMLObject
+    {
+        [XmlAttribute]
+        public string unit = "C";
+    }
+
 }
