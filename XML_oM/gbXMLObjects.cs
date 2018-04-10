@@ -369,6 +369,20 @@ namespace BH.oM.XML
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class RectangularGeometryOpenings : gbXMLObject
+    {
+        [XmlAttribute]
+        public string id = "RectangularGeometryID";
+        [XmlElement("CartesianPoint")]
+        public CartesianPoint CartesianPoint = new CartesianPoint();
+        [XmlElement("Width")]
+        public double Width;
+        [XmlElement("Height")]
+        public double Height;
+
+    }
+    [Serializable]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Opening : gbXMLObject
     {
         [XmlAttribute]
@@ -376,7 +390,7 @@ namespace BH.oM.XML
         [XmlAttribute]
         public string id = "OpeningID";
         [XmlElement]
-        public RectangularGeometry RectangularGeometry = new RectangularGeometry();
+        public RectangularGeometryOpenings RectangularGeometry = new RectangularGeometryOpenings();
         [XmlElement]
         public PlanarGeometry PlanarGeometry = new PlanarGeometry();
         [XmlElement("CADObjectId")]
