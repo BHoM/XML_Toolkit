@@ -8,7 +8,7 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 
 
-namespace XML_Adapter.gbXML
+namespace BH.Adapter.gbXML
 {
     public class gbXMLDeserializer
     {
