@@ -23,8 +23,8 @@ namespace BH.Engine.XML
 
             if (bHoMBuildingElement.BuildingElementProperties != null)
             {
-                if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
-                    revitElementID = bHoMBuildingElement.BuildingElementProperties.CustomData["Revit_elementId"].ToString();
+                if (bHoMBuildingElement.CustomData.ContainsKey("Revit_elementId"))
+                    revitElementID = bHoMBuildingElement.CustomData["Revit_elementId"].ToString();
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
                     familyName = bHoMBuildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
 
