@@ -85,7 +85,7 @@ namespace BH.Adapter.gbXML
                 PlanarGeometry plGeo = new PlanarGeometry();
                 plGeo.id = "PlanarGeometry" + "shade";
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = (bHoMBuildingElement.BuildingElementGeometry as BHE.BuildingElementPanel).PolyCurve.ControlPoints() }; //TODO: Change to ToPolyline method
-                xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(BH.Engine.Geometry.Query.Centre(pline));
+                xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(pline.ControlPoints.Last());
                 plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline);
                 xmlPanel.PlanarGeometry = plGeo;
                 xmlPanel.RectangularGeometry = xmlRectangularGeom;
@@ -170,18 +170,20 @@ namespace BH.Adapter.gbXML
                             //xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline.Flip()); //TODO: for bounding curve
                             srfBound = pline.Flip();
 
-                            //update tilt or azimuth:
+                            //update tilt, azimuth and last/first cartesian point:
                             xmlRectangularGeom.Tilt = Math.Round(Engine.XML.Query.Inclination(pline.Flip()), 3);
                             xmlRectangularGeom.Azimuth = Math.Round(Engine.XML.Query.Orientation(pline.Flip()), 3);
+                            xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(pline.Flip().ControlPoints.Last());
                         }
                         else
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline);
                             //xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline); //TODO: for bounding curve
                             srfBound = pline;
+                            xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(pline.ControlPoints.Last());
                         }
 
-                        xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(BH.Engine.Geometry.Query.Centre(pline));
+                        //xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(pline.ControlPoints.Last());
 
 
                         xmlPanel.PlanarGeometry = plGeo;
@@ -232,6 +234,7 @@ namespace BH.Adapter.gbXML
                                     // Create openings
                                     if (bHoMPanels[i].Openings.Count > 0)
                                         xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
+
                                     gbx.Campus.Surface.Add(xmlPanel);
                                     panelindex++;
                                 }
