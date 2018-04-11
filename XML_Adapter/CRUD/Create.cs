@@ -164,11 +164,15 @@ namespace BH.Adapter.gbXML
                         BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanels[i].PolyCurve.ControlPoints() }; //TODO: Change to ToPolyline method
                         BHG.Polyline srfBound = new BHG.Polyline();
 
-                        if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
+                        if (!BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.Flip());
                             //xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline.Flip()); //TODO: for bounding curve
                             srfBound = pline.Flip();
+
+                            //update tilt or azimuth:
+                            xmlRectangularGeom.Tilt = Math.Round(Engine.XML.Query.Inclination(pline.Flip()), 3);
+                            xmlRectangularGeom.Azimuth = Math.Round(Engine.XML.Query.Orientation(pline.Flip()), 3);
                         }
                         else
                         {
@@ -223,7 +227,7 @@ namespace BH.Adapter.gbXML
                             }
                             else
                             {
-                                if (!BH.Engine.Geometry.Query.IsClockwise(srfBound, BH.Engine.Environment.Query.Centre(firstSpace)))
+                                if (BH.Engine.Geometry.Query.IsClockwise(srfBound, BH.Engine.Environment.Query.Centre(firstSpace)))
                                 {
                                     // Create openings
                                     if (bHoMPanels[i].Openings.Count > 0)
@@ -346,7 +350,7 @@ namespace BH.Adapter.gbXML
                 * This is a requirement of gbXML Polyloop definitions */
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
 
-                if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
+                if (!BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
                     ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
                 else
                     ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline));
@@ -362,7 +366,7 @@ namespace BH.Adapter.gbXML
                 * This is a requirement of gbXML Polyloop definitions */
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
 
-                if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
+                if (!BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
                     ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
                 else
                     ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline));
