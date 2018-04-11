@@ -71,7 +71,8 @@ namespace BH.Engine.XML
                 case "Curtain Wall":
                     return "ExteriorWall";
                 case "Exposed Floor":
-                    return "ExposedFloor";
+                //    return "ExposedFloor";
+                    return "RaisedFloor";
                 case "Vehicle Door":
                 case "No Type":
                     return "Air";
