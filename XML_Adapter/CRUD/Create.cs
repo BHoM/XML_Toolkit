@@ -60,8 +60,8 @@ namespace BH.Adapter.gbXML
             foreach (BHE.BuildingElement element in bHoMBuildingElements)
             {
                 if (element.AdjacentSpaces.Count == 0 && element.BuildingElementProperties != null)
-                    if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window) //Shade
-                        if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door) //Shade
+                    if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window)
+                        if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
                             shadeElements.Add(element);
             }
 
@@ -319,41 +319,55 @@ namespace BH.Adapter.gbXML
         {
             List<BH.oM.XML.Space> xspaces = new List<Space>();
             BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(bHoMSpace);
+            List<BH.oM.XML.Polyloop> ploopsShell = new List<Polyloop>();
             List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
             BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(bHoMSpace);
-            List<BHE.BuildingElement> closedShellElements = new List<BHE.BuildingElement>();
+            //List<BHE.BuildingElement> closedShellElements = new List<BHE.BuildingElement>();
 
             //Just works for polycurves at the moment. ToDo: fix this for all type of curves
             //IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
 
-            //Test
-            foreach (BHE.BuildingElement element in bHoMSpace.BuildingElements)
+
+            //foreach (BHE.BuildingElement element in bHoMSpace.BuildingElements)
+            //{
+            //    if (element.BuildingElementProperties != null)
+            //        if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window || element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
+            //            closedShellElements.Add(element);
+            //}
+
+
+            IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
+            IEnumerable<BHG.PolyCurve> shellBound = BH.Engine.XML.Query.ClosedShellGeometry(bHoMSpace.BuildingElements);
+
+            // 1. Closed shell
+            foreach (BHG.PolyCurve pCrv in shellBound)
             {
-                if (element.BuildingElementProperties != null)
-                    if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window) //Shade
-                        if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door) //Shade
-                                    closedShellElements.Add(element);
+                /* Ensure that all of the surface coordinates are listed in a counterclockwise order
+                * This is a requirement of gbXML Polyloop definitions */
+                BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
+
+                if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
+                    ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
+                else
+                    ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline));
             }
+            xspace.ShellGeometry.ClosedShell.PolyLoop = ploopsShell.ToArray();
 
-            IEnumerable<BHG.PolyCurve> bePanel = closedShellElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
-            //EndTest
 
-            //Closed shell. The closed shell is defined by walls, floors and roofs (windows and soors are not included)
+            // 2. Space Boundaries
+
             foreach (BHG.PolyCurve pCrv in bePanel)
             {
                 /* Ensure that all of the surface coordinates are listed in a counterclockwise order
                 * This is a requirement of gbXML Polyloop definitions */
-                BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() }; //TODO: Change to ToPolyline method
+                BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
 
                 if (BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
                     ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
                 else
                     ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline));
             }
-            xspace.ShellGeometry.ClosedShell.PolyLoop = ploops.ToArray();
 
-
-            //Space Boundaries
             SpaceBoundary[] bounadry = new SpaceBoundary[ploops.Count()];
 
             for (int i = 0; i < ploops.Count(); i++)

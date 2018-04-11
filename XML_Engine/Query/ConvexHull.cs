@@ -42,6 +42,8 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
+        //TODO: move convex hull to Geomtry Engine 
+
         public static BHG.Point nextHullPoint(List<BHG.Point> points, BHG.Point currPt)
         {
 
