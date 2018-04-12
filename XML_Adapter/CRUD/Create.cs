@@ -112,8 +112,8 @@ namespace BH.Adapter.gbXML
 
 
             //Spaces
-            double panelindex = 0;
-            double openingIndex = 0;
+            int panelindex = 0;
+            int openingIndex = 0;
             foreach (BHE.Space bHoMSpace in bhomObjects)
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
@@ -162,7 +162,6 @@ namespace BH.Adapter.gbXML
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.Flip());
                             srfBound = pline.Flip();
 
-                            //update tilt, azimuth and last/first cartesian point:
                             xmlRectangularGeom.Tilt = Math.Round(Engine.XML.Query.Inclination(pline.Flip()), 3);
                             xmlRectangularGeom.Azimuth = Math.Round(Engine.XML.Query.Orientation(pline.Flip()), 3);
                             xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(pline.Flip().ControlPoints.Last());
@@ -178,52 +177,23 @@ namespace BH.Adapter.gbXML
                         xmlPanel.PlanarGeometry = plGeo;
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
 
-                       //AdjacentSpace
+                        //AdjacentSpace
                         xmlPanel.AdjacentSpaceId = BH.Engine.XML.Query.AdjacentSpace(bHoMBuildingElement[i], spaces).ToArray();
 
-                        //Check if the surface normal is pointing away from the first AdjSpace. Add if it does.
-                        if (bHoMBuildingElement[i].AdjacentSpaces.Count > 0)
+                        //Remove duplicate surfaces
+                        BHE.BuildingElement elementKeep = BH.Engine.XML.Query.ElementToKeep(bHoMBuildingElement[i], srfBound, spaces);
+                        if (elementKeep != null)
                         {
-                            Guid firstGuid = bHoMBuildingElement[i].AdjacentSpaces.First();
-                            BHE.Space firstSpace = spaces.Find(x => x.BHoM_Guid == firstGuid);
-
-                            if (firstSpace == null)
-                            {
-                                // Create openings
-                                if (bHoMPanels[i].Openings.Count > 0)
-                                    xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
-                                gbx.Campus.Surface.Add(xmlPanel);
-                                panelindex++;
-                            }
-                            else
-                            {
-                                if (BH.Engine.Geometry.Query.IsClockwise(srfBound, BH.Engine.Environment.Query.Centre(firstSpace)))
-                                {
-                                    // Create openings
-                                    if (bHoMPanels[i].Openings.Count > 0)
-                                        xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
-
-                                    gbx.Campus.Surface.Add(xmlPanel);
-                                    panelindex++;
-                                }
-                            }
-                        }
-
-                        else  //Shade elements
-                        {
-                            // Create openings
+                            //Create openings
                             if (bHoMPanels[i].Openings.Count > 0)
                                 xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
                             gbx.Campus.Surface.Add(xmlPanel);
                             panelindex++;
                         }
-
                     }
-
                     panelindex = panelindex - 1;
                     panelindex++;
                 }
-
 
                 // Generate gbXMLSpaces
                 if (spaces != null)
@@ -251,7 +221,7 @@ namespace BH.Adapter.gbXML
 
         /***************************************************/
 
-        public static List<Opening> Serialize(List<BHE.BuildingElementOpening> bHoMOpenings, ref double openingIndex, List<BHE.BuildingElement> buildingElementsList, BH.oM.XML.gbXML gbx)
+        public static List<Opening> Serialize(List<BHE.BuildingElementOpening> bHoMOpenings, ref int openingIndex, List<BHE.BuildingElement> buildingElementsList, BH.oM.XML.gbXML gbx)
         {
             List<Opening> xmlOpenings = new List<Opening>();
 
@@ -293,7 +263,7 @@ namespace BH.Adapter.gbXML
         {
             List<BH.oM.XML.Space> xspaces = new List<Space>();
             BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(bHoMSpace);
-            
+
             //Closed Shell
             xspace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(bHoMSpace).ToArray();
 
