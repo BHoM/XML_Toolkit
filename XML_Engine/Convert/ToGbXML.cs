@@ -89,7 +89,7 @@ namespace BH.Engine.XML
             rectangularGeometry.Azimuth = Math.Round(Environment.Query.Orientation(bHoMPanel), 3);
             rectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
             rectangularGeometry.Width = Math.Round(Query.Width(pline, rectangularGeometry.Height), 3);
-            rectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
+            rectangularGeometry.CartesianPoint = ToGbXML(pline.ControlPoints.First());
             //rectangularGeometry.Polyloop = pline.ToGbXML();
 
             return rectangularGeometry;

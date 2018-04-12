@@ -31,6 +31,7 @@ namespace BH.Engine.XML
                 //TODO: What if we have more than one floor?
             }
 
+
             BHG.Polyline floorBoundary = new BHG.Polyline() { ControlPoints = polyCrv.ControlPoints() };
             return floorBoundary;
         }
