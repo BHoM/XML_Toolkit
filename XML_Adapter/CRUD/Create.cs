@@ -37,7 +37,7 @@ namespace BH.Adapter.gbXML
                 SerializeCollection(building.Spaces, gbx, building); //Spaces
                 SerializeCollection(building.BuildingElements, gbx); //ShadeElements
 
-                gbx.Campus.Location = BH.Engine.XML.Convert.ToGbXML(building); //Location data
+                gbx.Campus.Location = BH.Engine.XML.Convert.ToGbXML(building);
                 gbx.Campus.Building[buildingIndex].Area = (float)BH.Engine.XML.Query.BuildingArea(building);
 
                 //From Custom Data
@@ -106,13 +106,9 @@ namespace BH.Adapter.gbXML
             List<BHE.BuildingElement> buildingElementsList;
 
             if (building == null)
-            {
                 buildingElementsList = bhomObjects.SelectMany(x => x.BuildingElements).Cast<BHE.BuildingElement>().ToList();
-            }
             else
-            {
                 buildingElementsList = building.BuildingElements;
-            }
 
 
             //Spaces
@@ -122,11 +118,9 @@ namespace BH.Adapter.gbXML
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
                 List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
-                List<BHP.BuildingElementProperties> bHoMBuildingElementProperties = new List<BHP.BuildingElementProperties>();
 
                 bHoMPanels.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
                 bHoMBuildingElement.AddRange(bHoMSpace.BuildingElements);
-                bHoMBuildingElementProperties.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementProperties as BHP.BuildingElementProperties));
 
                 BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(bHoMSpace as BHE.Space);
 
@@ -159,7 +153,6 @@ namespace BH.Adapter.gbXML
 
                         /* Ensure that all of the surface coordinates are listed in a counterclockwise order
                          * This is a requirement of gbXML Polyloop definitions */
-                        //TODO: Update to a ToPolyline() method once an appropriate version has been implemented
 
                         BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanels[i].PolyCurve.ControlPoints() }; //TODO: Change to ToPolyline method
                         BHG.Polyline srfBound = new BHG.Polyline();
@@ -167,7 +160,6 @@ namespace BH.Adapter.gbXML
                         if (!BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.Flip());
-                            //xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline.Flip()); //TODO: for bounding curve
                             srfBound = pline.Flip();
 
                             //update tilt, azimuth and last/first cartesian point:
@@ -178,40 +170,16 @@ namespace BH.Adapter.gbXML
                         else
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline);
-                            //xmlRectangularGeom.Polyloop = BH.Engine.XML.Convert.ToGbXML(pline); //TODO: for bounding curve
                             srfBound = pline;
                             xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(pline.ControlPoints.Last());
                         }
-
-                        //xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(pline.ControlPoints.Last());
 
 
                         xmlPanel.PlanarGeometry = plGeo;
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
 
-
-                        //// Create openings
-                        //if (bHoMPanels[i].Openings.Count > 0)
-                        //    xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
-
-
-
-                        // Adjacent Spaces
-                        /***************************************************/
-
-                        List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
-                        // We don't know anything about adjacency if the input is a list of spaces. Atm this does only work when the input is Building. 
-                        foreach (Guid adjSpace in bHoMBuildingElement[i].AdjacentSpaces)
-                        {
-                            AdjacentSpaceId adjId = new AdjacentSpaceId();
-                            if (spaces.Select(x => x.BHoM_Guid).Contains(adjSpace))
-                            {
-                                adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
-                                adspace.Add(adjId);
-                            }
-                        }
-
-                        xmlPanel.AdjacentSpaceId = adspace.ToArray();
+                       //AdjacentSpace
+                        xmlPanel.AdjacentSpaceId = BH.Engine.XML.Query.AdjacentSpace(bHoMBuildingElement[i], spaces).ToArray();
 
                         //Check if the surface normal is pointing away from the first AdjSpace. Add if it does.
                         if (bHoMBuildingElement[i].AdjacentSpaces.Count > 0)
@@ -302,7 +270,6 @@ namespace BH.Adapter.gbXML
                         familyName = buildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
                         typeName = buildingElement.BuildingElementProperties.Name;
                     }
-                    //gbXMLOpening.CADObjectId = familyName + ": " + typeName + " [" + elementID + "]";
                     gbXMLOpening.CADObjectId = BH.Engine.XML.Query.CadObjectId(opening, buildingElementsList);
                     gbXMLOpening.openingType = BH.Engine.XML.Convert.ToGbXMLType(buildingElement);
 
@@ -326,69 +293,14 @@ namespace BH.Adapter.gbXML
         {
             List<BH.oM.XML.Space> xspaces = new List<Space>();
             BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(bHoMSpace);
-            List<BH.oM.XML.Polyloop> ploopsShell = new List<Polyloop>();
-            List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
-            BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(bHoMSpace);
-            //List<BHE.BuildingElement> closedShellElements = new List<BHE.BuildingElement>();
+            
+            //Closed Shell
+            xspace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(bHoMSpace).ToArray();
 
-            //Just works for polycurves at the moment. ToDo: fix this for all type of curves
-            //IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
+            //Space Boundaries
+            xspace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(bHoMSpace);
 
-
-            //foreach (BHE.BuildingElement element in bHoMSpace.BuildingElements)
-            //{
-            //    if (element.BuildingElementProperties != null)
-            //        if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window || element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
-            //            closedShellElements.Add(element);
-            //}
-
-
-            IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
-            IEnumerable<BHG.PolyCurve> shellBound = BH.Engine.XML.Query.ClosedShellGeometry(bHoMSpace.BuildingElements);
-
-            // 1. Closed shell
-            foreach (BHG.PolyCurve pCrv in shellBound)
-            {
-                /* Ensure that all of the surface coordinates are listed in a counterclockwise order
-                * This is a requirement of gbXML Polyloop definitions */
-                BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
-
-                if (!BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
-                    ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
-                else
-                    ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline));
-            }
-            xspace.ShellGeometry.ClosedShell.PolyLoop = ploopsShell.ToArray();
-
-
-            // 2. Space Boundaries
-
-            foreach (BHG.PolyCurve pCrv in bePanel)
-            {
-                /* Ensure that all of the surface coordinates are listed in a counterclockwise order
-                * This is a requirement of gbXML Polyloop definitions */
-                BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
-
-                if (!BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
-                    ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
-                else
-                    ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline));
-            }
-
-            SpaceBoundary[] bounadry = new SpaceBoundary[ploops.Count()];
-
-            for (int i = 0; i < ploops.Count(); i++)
-            {
-                PlanarGeometry planarGeom = new PlanarGeometry();
-                planarGeom.PolyLoop = ploops[i];
-                SpaceBoundary bound = new SpaceBoundary { PlanarGeometry = planarGeom };
-                bounadry[i] = bound;
-
-                //TODO: create surface and get its ID
-
-            }
-            xspace.SpaceBoundary = bounadry;
-
+            //Planar Geometry
             if (BH.Engine.XML.Query.FloorGeometry(bHoMSpace) != null)
                 xspace.PlanarGeoemtry.PolyLoop = BH.Engine.XML.Convert.ToGbXML(BH.Engine.XML.Query.FloorGeometry(bHoMSpace));
 

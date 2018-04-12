@@ -19,15 +19,16 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BHG.PolyCurve> ClosedShellGeometry(this List<BHE.BuildingElement> bHoMBuildingElements)
+        public static List<BH.oM.XML.Polyloop> ClosedShellGeometry(this BHE.Space bHoMSpace)
         {
 
-            List<BHG.PolyCurve> pCrv = new List<BHG.PolyCurve>();
+            List<BH.oM.XML.Polyloop> ploopsShell = new List<Polyloop>();
+            List<BHG.PolyCurve> shellBound = new List<BHG.PolyCurve>();
             List<BHG.Polyline> pLinesCurtainWall = new List<BHG.Polyline>();
             List<BHG.Polyline> pLinesOther = new List<BHG.Polyline>();
 
-            //Merge curtain panels
-            foreach (BHE.BuildingElement element in bHoMBuildingElements)
+            //1. Merge curtain panels
+            foreach (BHE.BuildingElement element in bHoMSpace.BuildingElements)
             {
                 BH.oM.Environmental.Properties.BuildingElementProperties beProperty = element.BuildingElementProperties;
                 List<BHG.Point> ctrlPts = element.BuildingElementGeometry.ICurve().IControlPoints();
@@ -39,14 +40,22 @@ namespace BH.Engine.XML
                     pLinesOther.Add(pline);
             }
 
-            List<BHG.Polyline> mergedPlines = BH.Engine.Geometry.Compute.BooleanUnion(pLinesCurtainWall);
+            List<BHG.Polyline> mergedPlines = Compute.BooleanUnion(pLinesCurtainWall);
 
-            //Add the rest of the geometries
+            //2. Add the rest of the geometries
             mergedPlines.AddRange(pLinesOther);
 
-            pCrv = mergedPlines.Select(x => new BHG.PolyCurve() { Curves = new List<BHG.ICurve> { x as BHG.ICurve } }).ToList();
+            // 3. Ensure that all of the surface coordinates are listed in a counterclockwise order.
+            // This is a requirement of gbXML Polyloop definitions. If this is inconsistent or wrong we end up with a corrupt gbXML file.
+            foreach (BHG.Polyline pline in mergedPlines)
+            {
+                if (!BH.Engine.Geometry.Query.IsClockwise(pline, bHoMSpace.Centre()))
+                    ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
+                else
+                    ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline));
+            }
 
-            return pCrv;
+            return ploopsShell;
 
             /***************************************************/
         }

@@ -19,29 +19,6 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static BHG.Polyline StoreyGeometry(this BH.oM.Architecture.Elements.Level bHoMLevel, List<BHE.Space> bHoMSpaces)
-        {
-            List<BHE.Space> spacesAtLevel = bHoMSpaces.FindAll(x => x.Level.Elevation == bHoMLevel.Elevation).ToList();
-            List<BHE.BuildingElement> bHoMBuildingElement = spacesAtLevel.SelectMany(x => x.BuildingElements).ToList();
-            List<BHG.Point> ctrlPoints = new List<BHG.Point>();
-
-            foreach (BHE.BuildingElement element in bHoMBuildingElement)
-            {
-                foreach (BHG.Point pt in element.BuildingElementGeometry.ICurve().IControlPoints())
-                {
-                    if (pt.Z > bHoMLevel.Elevation - BH.oM.Geometry.Tolerance.Distance && pt.Z < bHoMLevel.Elevation + BH.oM.Geometry.Tolerance.Distance)
-                        ctrlPoints.Add(pt);
-
-                }
-            }
-
-            BHG.Polyline boundary = convexHull(ctrlPoints.CullDuplicates());
-
-            return boundary;
-        }
-
-        /***************************************************/
-
         //TODO: move convex hull to Geomtry Engine 
 
         public static BHG.Point nextHullPoint(List<BHG.Point> points, BHG.Point currPt)
