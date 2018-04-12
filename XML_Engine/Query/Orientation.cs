@@ -14,18 +14,22 @@ namespace BH.Engine.XML
         /***************************************************/
         /**** Public Methods                            ****/
         /***************************************************/
-        
-            //TODO: move to geometry Engine
+
+        //TODO: move to geometry Engine
 
         public static double Orientation(this BHG.Polyline pline)
         {
             double orientation;
-           
+
             List<BHG.Point> pts = BH.Engine.Geometry.Query.DiscontinuityPoints(pline);
             BHG.Plane plane = BH.Engine.Geometry.Create.Plane(pts[0], pts[1], pts[2]);
 
-            orientation = (BH.Engine.Geometry.Query.Angle(plane.Normal, BHG.Plane.XZ.Normal) * (180 / Math.PI));
-
+            if (Geometry.Modify.Normalise(plane.Normal).Z == 1)
+                orientation = 0;
+            else if (Geometry.Modify.Normalise(plane.Normal).Z == -1)
+                orientation = 180;
+            else
+                orientation = (BH.Engine.Geometry.Query.Angle(Geometry.Modify.Project(plane.Normal, BHG.Plane.XY), BHG.Plane.XZ.Normal) * (180 / Math.PI));
 
             return orientation;
         }

@@ -97,24 +97,24 @@ namespace BH.Adapter.gbXML
 
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<BHE.Space> bhomObjects, BH.oM.XML.gbXML gbx, BHE.Building building = null)
+        public static void SerializeCollection(IEnumerable<BHE.Space> bhomSpaces, BH.oM.XML.gbXML gbx, BHE.Building building = null)
         {
             //Levels unique by name in all spaces. We can access this info from the building, but we need it if the input is space (without building):
-            List<BH.oM.Architecture.Elements.Level> levels = bhomObjects.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
-            Serialize(levels, bhomObjects.ToList(), gbx);
+            List<BH.oM.Architecture.Elements.Level> levels = bhomSpaces.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
+            Serialize(levels, bhomSpaces.ToList(), gbx);
 
             List<BHE.BuildingElement> buildingElementsList;
 
             if (building == null)
-                buildingElementsList = bhomObjects.SelectMany(x => x.BuildingElements).Cast<BHE.BuildingElement>().ToList();
+                buildingElementsList = bhomSpaces.SelectMany(x => x.BuildingElements).Cast<BHE.BuildingElement>().ToList();
             else
                 buildingElementsList = building.BuildingElements;
 
 
-            //Spaces
+            //Create surfaces for each space
             int panelindex = 0;
             int openingIndex = 0;
-            foreach (BHE.Space bHoMSpace in bhomObjects)
+            foreach (BHE.Space bHoMSpace in bhomSpaces)
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
                 List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
@@ -122,9 +122,7 @@ namespace BH.Adapter.gbXML
                 bHoMPanels.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
                 bHoMBuildingElement.AddRange(bHoMSpace.BuildingElements);
 
-                BHG.Point spaceCentrePoint = BH.Engine.Environment.Query.Centre(bHoMSpace as BHE.Space);
-
-                List<BHE.Space> spaces = bhomObjects.Where(x => x is BHE.Space).Select(x => x as BHE.Space).ToList();
+                List<BHE.Space> spaces = bhomSpaces.ToList();
 
 
                 // Generate gbXMLSurfaces
@@ -157,20 +155,19 @@ namespace BH.Adapter.gbXML
                         BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanels[i].PolyCurve.ControlPoints() }; //TODO: Change to ToPolyline method
                         BHG.Polyline srfBound = new BHG.Polyline();
 
-                        if (!BH.Engine.Geometry.Query.IsClockwise(pline, spaceCentrePoint))
+                        if (!BH.Engine.Geometry.Query.IsClockwise(pline, bHoMSpace.Centre()))
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.Flip());
                             srfBound = pline.Flip();
 
-                            xmlRectangularGeom.Tilt = Math.Round(Engine.XML.Query.Inclination(pline.Flip()), 3);
-                            xmlRectangularGeom.Azimuth = Math.Round(Engine.XML.Query.Orientation(pline.Flip()), 3);
-                            xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(pline.Flip().ControlPoints.Last());
+                            xmlRectangularGeom.Tilt = Math.Round(Engine.XML.Query.Inclination(srfBound), 3);
+                            xmlRectangularGeom.Azimuth = Math.Round(Engine.XML.Query.Orientation(srfBound), 3);
+                            
                         }
                         else
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline);
                             srfBound = pline;
-                            xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGbXML(pline.ControlPoints.Last());
                         }
 
 
