@@ -161,8 +161,8 @@ namespace BH.Adapter.gbXML
                             srfBound = pline.Flip();
 
                             xmlRectangularGeom.Tilt = Math.Round(Engine.XML.Query.Inclination(srfBound), 3);
-                            xmlRectangularGeom.Azimuth = Math.Round(Engine.XML.Query.Orientation(srfBound), 3);
-                            
+                            xmlRectangularGeom.Azimuth = Math.Round(BH.Engine.Environment.Query.Azimuth(srfBound, BHG.Vector.YAxis), 3);
+
                         }
                         else
                         {
