@@ -26,7 +26,7 @@ namespace BH.Engine.XML
 
             foreach (BHE.BuildingElement element in bHoMBuildingElement)
             {
-                if (BH.Engine.Environment.Query.Inclination(element.BuildingElementGeometry) == 180) // if floor
+                if (BH.Engine.Environment.Query.Tilt(element.BuildingElementGeometry) == 180) // if floor
                     polyCrv = element.BuildingElementGeometry.ICurve() as BHG.PolyCurve;
                 //TODO: What if we have more than one floor?
             }

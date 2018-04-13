@@ -29,7 +29,7 @@ namespace BH.Engine.XML
             else if (Geometry.Modify.Normalise(plane.Normal).Z == -1)
                 orientation = 180;
             else
-                orientation = (BH.Engine.Geometry.Query.Angle(Geometry.Modify.Project(plane.Normal, BHG.Plane.XY), BHG.Plane.XZ.Normal) * (180 / Math.PI));
+                orientation = (BH.Engine.Geometry.Query.Angle(Geometry.Modify.Project(plane.Normal, BHG.Plane.XY), BHG.Vector.YAxis) * (180 / Math.PI));
 
             return orientation;
         }

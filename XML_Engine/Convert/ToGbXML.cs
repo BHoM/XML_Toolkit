@@ -85,8 +85,8 @@ namespace BH.Engine.XML
 
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanel.PolyCurve.ControlPoints() };
 
-            rectangularGeometry.Tilt = Math.Round(Environment.Query.Inclination(bHoMPanel), 3);
-            rectangularGeometry.Azimuth = Math.Round(Environment.Query.Orientation(bHoMPanel), 3);
+            rectangularGeometry.Tilt = Math.Round(Environment.Query.Tilt(bHoMPanel), 3);
+            rectangularGeometry.Azimuth = Math.Round(Environment.Query.Azimuth(bHoMPanel, BHG.Vector.YAxis), 3);
             rectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
             rectangularGeometry.Width = Math.Round(Query.Width(pline, rectangularGeometry.Height), 3);
             rectangularGeometry.CartesianPoint = ToGbXML(pline.ControlPoints.First());
