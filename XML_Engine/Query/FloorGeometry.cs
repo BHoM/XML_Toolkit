@@ -33,6 +33,9 @@ namespace BH.Engine.XML
 
 
             BHG.Polyline floorBoundary = new BHG.Polyline() { ControlPoints = polyCrv.ControlPoints() };
+
+            if (floorBoundary.ControlPoints.Count < 3)
+                return null;
             return floorBoundary;
         }
 

@@ -20,6 +20,7 @@ namespace BH.Engine.XML
         /***************************************************/
 
         //TODO: move convex hull to Geomtry Engine 
+        //TODO: Does only work for points in the XY plane. Add plane as input?
 
         public static BHG.Point nextHullPoint(List<BHG.Point> points, BHG.Point currPt)
         {
@@ -75,7 +76,6 @@ namespace BH.Engine.XML
         }
 
         /***************************************************/
-
 
     }
 }

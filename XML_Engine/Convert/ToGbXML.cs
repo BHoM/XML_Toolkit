@@ -29,11 +29,11 @@ namespace BH.Engine.XML
         }
         /***************************************************/
 
-        public static Polyloop ToGbXML(this BHG.Polyline polyLine)
+        public static Polyloop ToGbXML(this BHG.Polyline polyLine, double tolerance = BHG.Tolerance.Distance)
         {
             List<BHG.Point> pts = polyLine.DiscontinuityPoints();
 
-            int count = pts.First().SquareDistance(pts.Last()) < BH.oM.Geometry.Tolerance.SqrtDist ? pts.Count - 1 : pts.Count;
+            int count = pts.First().SquareDistance(pts.Last()) < tolerance * tolerance ? pts.Count - 1 : pts.Count;
             Polyloop ploop = new Polyloop();
             List<CartesianPoint> cartpoint = new List<CartesianPoint>();
             for (int i = 0; i < count; i++)
