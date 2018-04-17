@@ -19,69 +19,47 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static bool IsPointInside(this BHG.Polyline polyline, BHG.Point point)
+        public static bool IsContaining(this BHE.Space space, BHG.Point point)
         {
-            if (!polyline.IsClosed())
-                throw new Exception("The polyline is not closed");
+            bool result = false;
+            List<BHE.BuildingElement> buildingElements = space.BuildingElements;
+            List<BHG.Plane> planes = buildingElements.Select(x => x.BuildingElementGeometry.ICurve().IControlPoints().FitPlane()).ToList();
+            List<BHG.Point> ctrPoints = buildingElements.SelectMany(x => x.BuildingElementGeometry.ICurve().IControlPoints()).ToList();
+            BHG.BoundingBox bound = BH.Engine.Geometry.Query.Bounds(ctrPoints);
 
-            BHG.Plane plane = polyline.FitPlane();
-
-            if (!point.IsInPlane(plane))
+            if (!BH.Engine.Geometry.Query.IsContaining(bound, point))
                 return false;
 
-            List<BHG.Point> ctrlPoints = polyline.ControlPoints;
+            //Get a lenght longer than the longest side in the bounding Box:
+            double length = ((bound.Max - bound.Min).Length()) * 2;
 
-            bool result = false;
-            int j = ctrlPoints.Count() - 1;
-            for (int i = 0; i < ctrlPoints.Count(); i++)
+            //We need to check one line that starts in the point and ends outside the bbox.
+            BHG.Vector vector = new BHG.Vector() { X = 1, Y = 0, Z = 0 };
+            BHG.Point endpoint = point.Translate(vector * length);
+            BHG.Line line = new BHG.Line() { Start = point, End = endpoint };
+
+
+            //Check intersections
+            int counter = 0;
+
+            for (int i = 0; i < planes.Count; i++)
             {
-                if (ctrlPoints[i].Y < point.Y && ctrlPoints[j].Y >= point.Y || ctrlPoints[j].Y < point.Y && ctrlPoints[i].Y >= point.Y)
-                {
-                    if (ctrlPoints[i].X + (point.Y - ctrlPoints[i].Y) / (ctrlPoints[j].Y - ctrlPoints[i].Y) * (ctrlPoints[j].X - ctrlPoints[i].X) < point.X)
-                    {
-                        result = !result;
-                    }
-                }
-                j = i;
-            }
-            return result;
-        }
+                if ((BH.Engine.Geometry.Query.PlaneIntersection(line, planes[i])) == null)
+                    continue;
 
-        /***************************************************/
+                List<BHG.Point> intersectingPoints = new List<BHG.Point>();
+                intersectingPoints.Add(BH.Engine.Geometry.Query.PlaneIntersection(line, planes[i]));
+                BHG.Polyline pline = new BHG.Polyline() { ControlPoints = buildingElements[i].BuildingElementGeometry.ICurve().IControlPoints() };
 
-        public static bool IsPointInside(this BHE.Space space, BHG.Point point)
-        {
-            List<BHE.BuildingElement> buildingElements = space.BuildingElements;
-            //List<BHG.Plane> planes = buildingElements.Select(x => x.BuildingElementGeometry.ICurve().IControlPoints().FitPlane()).ToList();
-            List<BHG.Point> intersectiongPoints = new List<BHG.Point>();
-            BHG.BoundingBox bound = BH.Engine.Geometry.Query.Bounds(buildingElements.Select(x => x.BuildingElementGeometry.ICurve().IControlPoints()));
-
-
-            bool result = false;
-
-            foreach (BHE.BuildingElement element in buildingElements)
-            {
-                List<BHG.Point> vertices = element.BuildingElementGeometry.ICurve().IControlPoints();
-                BHG.Point projectedPt = point.Project(vertices.FitPlane());
-                BHG.Vector vector = (projectedPt - point).Normalise();
-
-                //Project along the vector and determine wheter the ray will intersect with another building element
-                for (int i = 0; i < buildingElements.Count; i++)
-                {
-                    List<BHG.Point> pt = Geometry.Query.ClosestPoint(;
-                    BHG.Polyline pline = new BHG.Polyline() { ControlPoints = buildingElements[i].BuildingElementGeometry.ICurve().IControlPoints() };
-                    if (BH.Engine.Geometry.Query.IsContaining(pline, pt))
-                        intersectiongPoints.AddRange(pt);
-                }
-
+                if (intersectingPoints != null && BH.Engine.Geometry.Query.IsContaining(pline, intersectingPoints))
+                    counter++;
             }
 
             //If the number of intersections is odd the point is inside the space. 
-            if (intersectiongPoints.Count % 2 == 0)
+            if (counter % 2 == 0)
                 result = false;
             else
                 result = true;
-            
             return result;
         }
         /***************************************************/
