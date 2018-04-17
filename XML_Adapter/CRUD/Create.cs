@@ -155,7 +155,8 @@ namespace BH.Adapter.gbXML
                         BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanels[i].PolyCurve.ControlPoints() }; //TODO: Change to ToPolyline method
                         BHG.Polyline srfBound = new BHG.Polyline();
 
-                        if (!BH.Engine.Geometry.Query.IsClockwise(pline, bHoMSpace.Centre()))
+                        // if (!BH.Engine.Geometry.Query.IsClockwise(pline, bHoMSpace.Centre()))
+                        if (!BH.Engine.XML.Query.NormalAwayFromSpace(pline, bHoMSpace))
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.Flip());
                             srfBound = pline.Flip();
