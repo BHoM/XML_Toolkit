@@ -71,7 +71,7 @@
     <Compile Include="Query\FloorGeometry.cs" />
     <Compile Include="Query\BuildingArea.cs" />
     <Compile Include="Query\CadObjectId.cs" />
-    <Compile Include="Query\FirstSpace.cs" />
+    <Compile Include="Query\NormalAwayFromSpace.cs" />
     <Compile Include="Query\Length.cs" />
     <Compile Include="Query\Width.cs" />
     <Compile Include="Query\ExposedToSun.cs" />
