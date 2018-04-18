@@ -209,7 +209,7 @@ namespace BH.Adapter.gbXML
             foreach (BH.oM.Architecture.Elements.Level level in levels)
             {
                 BuildingStorey storey = BH.Engine.XML.Convert.ToGbXML(level);
-                storey.PlanarGeoemtry.PolyLoop = BH.Engine.XML.Convert.ToGbXML(BH.Engine.XML.Query.StoreyGeometry(level, bHoMSpaces));
+                storey.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGbXML(BH.Engine.XML.Query.StoreyGeometry(level, bHoMSpaces));
                 xmlLevels.Add(storey);
             }
 

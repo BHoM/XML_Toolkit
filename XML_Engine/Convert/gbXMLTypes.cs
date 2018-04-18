@@ -41,7 +41,7 @@ namespace BH.Engine.XML
             {
                 //Strings from Revit
                 case "Rooflight":
-                    return "Rooflight";
+                    return "OperableSkylight";
                 case "Roof":
                     return "Roof";
                 case "External Wall":
