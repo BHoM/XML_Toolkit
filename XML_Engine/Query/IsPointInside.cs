@@ -51,8 +51,15 @@ namespace BH.Engine.XML
                 intersectingPoints.Add(BH.Engine.Geometry.Query.PlaneIntersection(line, planes[i]));
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = buildingElements[i].BuildingElementGeometry.ICurve().IControlPoints() };
 
-                if (intersectingPoints != null && BH.Engine.Geometry.Query.IsContaining(pline, intersectingPoints))
-                    counter++;
+                try
+                {
+                    if (intersectingPoints != null && BH.Engine.Geometry.Query.IsContaining(pline, intersectingPoints))
+                        counter++;
+                }
+                catch
+                {
+
+                }
             }
 
             //If the number of intersections is odd the point is inside the space. 

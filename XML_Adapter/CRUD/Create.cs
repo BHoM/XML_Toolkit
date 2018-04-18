@@ -161,7 +161,7 @@ namespace BH.Adapter.gbXML
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.Flip());
                             srfBound = pline.Flip();
 
-                            xmlRectangularGeom.Tilt = Math.Round(Engine.XML.Query.Inclination(srfBound), 3);
+                            xmlRectangularGeom.Tilt = Math.Round(BH.Engine.Environment.Query.Tilt(srfBound), 3);
                             xmlRectangularGeom.Azimuth = Math.Round(BH.Engine.Environment.Query.Azimuth(srfBound, BHG.Vector.YAxis), 3);
 
                         }
@@ -184,7 +184,7 @@ namespace BH.Adapter.gbXML
                         {
                             //Create openings
                             if (bHoMPanels[i].Openings.Count > 0)
-                                xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, gbx).ToArray();
+                                xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx).ToArray();
                             gbx.Campus.Surface.Add(xmlPanel);
                             panelindex++;
                         }
@@ -219,13 +219,19 @@ namespace BH.Adapter.gbXML
 
         /***************************************************/
 
-        public static List<Opening> Serialize(List<BHE.BuildingElementOpening> bHoMOpenings, ref int openingIndex, List<BHE.BuildingElement> buildingElementsList, BH.oM.XML.gbXML gbx)
+        public static List<Opening> Serialize(List<BHE.BuildingElementOpening> bHoMOpenings, ref int openingIndex, List<BHE.BuildingElement> buildingElementsList, BHE.Space space, BH.oM.XML.gbXML gbx)
         {
             List<Opening> xmlOpenings = new List<Opening>();
 
             foreach (BHE.BuildingElementOpening opening in bHoMOpenings)
             {
                 Opening gbXMLOpening = BH.Engine.XML.Convert.ToGbXML(opening);
+
+                //normals away from space
+                BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
+                if (!BH.Engine.XML.Query.NormalAwayFromSpace(pline, space))
+                    gbXMLOpening.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGbXML(pline.Flip());
+
                 string familyName = "";
                 string typeName = "";
 
