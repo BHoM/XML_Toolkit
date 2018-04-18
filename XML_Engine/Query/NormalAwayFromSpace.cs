@@ -16,33 +16,7 @@ namespace BH.Engine.XML
         /***************************************************/
         /**** Public Methods                            ****/
         /***************************************************/
-
-        //public static bool NormalAwayFromFirstSpace(BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> bHoMSpaces)
-        //{
-        //    BHG.Polyline boundary = new BHG.Polyline() { ControlPoints = (bHoMBuildingElement.BuildingElementGeometry as BHE.BuildingElementPanel).PolyCurve.ControlPoints() }; //TODO: Change to ToPolyline method
-
-        //    //Check if the surface normal is pointing away from the first AdjSpace
-        //    if (bHoMBuildingElement.AdjacentSpaces.Count > 0)
-        //    {
-        //        Guid firstGuid = bHoMBuildingElement.AdjacentSpaces.First();
-        //        BHE.Space firstSpace = bHoMSpaces.Find(x => x.BHoM_Guid == firstGuid);
-
-        //        if (firstSpace == null)
-        //           return false;
-        //        else
-        //        {
-        //            if (!BH.Engine.Geometry.Query.IsClockwise(boundary, BH.Engine.Environment.Query.Centre(firstSpace)))
-        //                return true;
-        //            return false;
-        //        }
-        //    }
-        //    else  //Shade elements
-        //        return false;
-        //}
-
-        /***************************************************/
-        /**** Public Methods                            ****/
-        /***************************************************/
+        //TODO: move to BHoM Engine
 
         public static bool NormalAwayFromSpace(this BHE.BuildingElement buildingElement, BHE.Space space)
         {
@@ -55,7 +29,17 @@ namespace BH.Engine.XML
 
         public static bool NormalAwayFromSpace(this BHG.Polyline pline, BHE.Space space)
         {
+            List<BHG.Point> centrePtList = new List<Point>();
             BHG.Point centrePt = pline.Centre();
+            centrePtList.Add(centrePt);
+
+            //Make sure the centrepoint is in the polyline region. If not - use a new point
+            if (!BH.Engine.Geometry.Query.IsContaining(pline, centrePtList))
+            {
+                BHG.Point pointOnPline = BH.Engine.Geometry.Query.ClosestPoint(pline, centrePt);
+                BHG.Vector vector = pointOnPline - centrePt;
+                centrePt = BH.Engine.Geometry.Modify.Translate(pointOnPline, BH.Engine.Geometry.Modify.Normalise(vector) * 0.001);
+            }
 
             List<BHG.Point> pts = BH.Engine.Geometry.Query.DiscontinuityPoints(pline);
             BHG.Plane plane = BH.Engine.Geometry.Create.Plane(pts[0], pts[1], pts[2]);

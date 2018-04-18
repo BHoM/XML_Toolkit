@@ -19,6 +19,8 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
+        //TODO: Move to BHoM Engine
+
         public static bool IsContaining(this BHE.Space space, BHG.Point point)
         {
             bool result = false;
@@ -31,7 +33,7 @@ namespace BH.Engine.XML
                 return false;
 
             //Get a lenght longer than the longest side in the bounding Box:
-            double length = ((bound.Max - bound.Min).Length()) * 2;
+            double length = ((bound.Max - bound.Min).Length()) * 5;
 
             //We need to check one line that starts in the point and ends outside the bbox.
             BHG.Vector vector = new BHG.Vector() { X = 1, Y = 0, Z = 0 };
@@ -69,7 +71,9 @@ namespace BH.Engine.XML
                 result = true;
             return result;
         }
+
         /***************************************************/
+
     }
 }
 

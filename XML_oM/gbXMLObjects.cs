@@ -240,7 +240,7 @@ namespace BH.oM.XML
         [XmlElement]
         public float Level = 0;
         [XmlElement]
-        public PlanarGeometry PlanarGeoemtry = new PlanarGeometry();
+        public PlanarGeometry PlanarGeometry = new PlanarGeometry();
         [XmlElement]
         public string Name = "Storey";
     }
