@@ -316,8 +316,10 @@ namespace BH.oM.XML
         public string id = "SurfaceID";
         //[XmlAttribute]
         //public string constructionIdRef = "ConstructionID";
+        //[XmlElement("AdjacentSpaceId")]
+        //public AdjacentSpaceId[] AdjacentSpaceId = new List<AdjacentSpaceId> { new AdjacentSpaceId() }.ToArray();
         [XmlElement("AdjacentSpaceId")]
-        public AdjacentSpaceId[] AdjacentSpaceId = new List<AdjacentSpaceId> { new AdjacentSpaceId() }.ToArray();
+        public AdjacentSpaceId[] AdjacentSpaceId;
         [XmlElement("RectangularGeometry")]
         public RectangularGeometry RectangularGeometry = new RectangularGeometry();
         [XmlElement("PlanarGeometry")]
