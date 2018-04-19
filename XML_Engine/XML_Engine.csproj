@@ -67,8 +67,6 @@
     <Compile Include="Query\AdjacentSpace.cs" />
     <Compile Include="Query\SpaceBoundaries.cs" />
     <Compile Include="Query\StoreyGeometry.cs" />
-    <Compile Include="Query\Orientation.cs" />
-    <Compile Include="Query\Inclination.cs" />
     <Compile Include="Query\ClosedShellGeometry.cs" />
     <Compile Include="Query\ConvexHull.cs" />
     <Compile Include="Query\FloorGeometry.cs" />

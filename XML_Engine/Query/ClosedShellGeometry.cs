@@ -49,7 +49,6 @@ namespace BH.Engine.XML
             // This is a requirement of gbXML Polyloop definitions. If this is inconsistent or wrong we end up with a corrupt gbXML file.
             foreach (BHG.Polyline pline in mergedPlines)
             {
-                //if (!BH.Engine.Geometry.Query.IsClockwise(pline, bHoMSpace.Centre()))
                 if (!BH.Engine.XML.Query.NormalAwayFromSpace(pline, bHoMSpace))
                     ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
                 else

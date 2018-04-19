@@ -30,6 +30,8 @@ namespace BH.Engine.XML
                     bElement.Add(newBuildingElements.Find(x => x.BHoM_Guid == guid));
                     bElement.AddRange(oldBuildingElements.FindAll(x => x.BHoM_Guid != guid));
                 }
+                else
+                    bElement.AddRange(oldBuildingElements.FindAll(x => x.BHoM_Guid != guid));
             }
 
             return bElement;
