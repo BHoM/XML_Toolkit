@@ -19,7 +19,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BHE.BuildingElement> AdjacentError(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> spaces)
+        public static List<BHE.BuildingElement> AdjacentError(this BHE.BuildingElement bHoMBuildingElement)
         {
             List<BHE.BuildingElement> buildingElements = new List<BHE.BuildingElement>();
             string type = bHoMBuildingElement.ToGbXMLType();
@@ -29,8 +29,8 @@ namespace BH.Engine.XML
                 if (type.Contains("Shade") && bHoMBuildingElement.AdjacentSpaces.Count != 0)
                     buildingElements.Add(bHoMBuildingElement);
 
-                else if ((type.Contains("Exterior") || type.Contains("Roof") || type.Contains("Exposed")) && bHoMBuildingElement.AdjacentSpaces.Count != 1)
-                    buildingElements.Add(bHoMBuildingElement);
+                //else if ((type.Contains("Exterior") || type.Contains("Roof") || type.Contains("Raised") || type.Contains("Slab") || type.Contains("Underground") || type.Contains("Exposed")) && bHoMBuildingElement.AdjacentSpaces.Count != 1)
+                //    buildingElements.Add(bHoMBuildingElement);
 
                 else if ((type.Contains("Interior") || type.Contains("Ceiling")) && bHoMBuildingElement.AdjacentSpaces.Count != 2)
                     buildingElements.Add(bHoMBuildingElement);
@@ -41,6 +41,7 @@ namespace BH.Engine.XML
             }
 
             return buildingElements;
+
 
             /***************************************************/
         }

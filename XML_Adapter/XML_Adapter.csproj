@@ -55,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRUD\AdjSolver.cs" />
-    <Compile Include="CRUD\Create_2.cs" />
     <Compile Include="XMLReader.cs" />
     <Compile Include="CRUD\Read.cs" />
     <Compile Include="XMLWriter.cs" />
