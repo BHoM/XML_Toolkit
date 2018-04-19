@@ -21,9 +21,8 @@ namespace BH.Engine.XML
 
         public static List<AdjacentSpaceId> AdjacentSpace(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> spaces)
         {
-
             List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
-            // We don't know anything about adjacency if the input is a list of spaces. Atm this does only work when the input is Building. 
+
             foreach (Guid adjSpace in bHoMBuildingElement.AdjacentSpaces)
             {
                 AdjacentSpaceId adjId = new AdjacentSpaceId();

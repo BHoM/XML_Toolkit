@@ -33,7 +33,6 @@ namespace BH.Engine.XML
                     return bHoMBuildingElement;
                 else
                 {
-                    //if (BH.Engine.Geometry.Query.IsClockwise(srfBound, BH.Engine.Environment.Query.Centre(firstSpace)))
                     if (BH.Engine.XML.Query.NormalAwayFromSpace(srfBound,firstSpace))
                         return bHoMBuildingElement;
                     else //If the surface normal is pointing towards the first adjacent space we will ignore this building element. 

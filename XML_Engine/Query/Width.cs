@@ -17,7 +17,6 @@ namespace BH.Engine.XML
 
         public static double Width(BHG.Polyline pline, double length)
         {
-
             double area = pline.Area();
             double width = area / length;
 

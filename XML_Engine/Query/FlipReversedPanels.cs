@@ -23,10 +23,6 @@ namespace BH.Engine.XML
         {
             /* Ensure that all of the surface coordinates are listed in a counterclockwise order. This is a requirement of gbXML Polyloop definitions */
 
-            //RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(panel);
-            //PlanarGeometry plGeo = new PlanarGeometry();
-           
-
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = panel.PolyCurve.ControlPoints() };
             BHG.Polyline bound = new BHG.Polyline();
 
