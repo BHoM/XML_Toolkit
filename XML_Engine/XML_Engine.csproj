@@ -58,6 +58,8 @@
     <Compile Include="Convert\ToBHoM.cs" />
     <Compile Include="Convert\ToGbXML.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\ReplaceBuildingElement.cs" />
+    <Compile Include="Query\AssignAdjacency.cs" />
     <Compile Include="Query\AdjacencyError.cs" />
     <Compile Include="Query\IsContaining.cs" />
     <Compile Include="Query\FlipReversedPanels.cs" />
