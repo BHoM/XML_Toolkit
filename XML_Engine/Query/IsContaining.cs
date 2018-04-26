@@ -19,7 +19,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        //TODO: Move to BHoM Engine
+        //TODO: Move to Environment Engine
 
         public static bool IsContaining(this BHE.Space space, BHG.Point point)
         {
@@ -32,8 +32,8 @@ namespace BH.Engine.XML
             if (!BH.Engine.Geometry.Query.IsContaining(bound, point))
                 return false;
 
-            //Get a lenght longer than the longest side in the bounding Box:
-            double length = ((bound.Max - bound.Min).Length()) * 5;
+            //Get a lenght longer than the longest side in the bounding Box. Change to infinite line?
+            double length = ((bound.Max - bound.Min).Length()) * 10;
 
             //We need to check one line that starts in the point and ends outside the bbox.
             BHG.Vector vector = new BHG.Vector() { X = 1, Y = 0, Z = 0 };
@@ -43,6 +43,7 @@ namespace BH.Engine.XML
 
             //Check intersections
             int counter = 0;
+            List<BHG.Point> intersectPts = new List<BHG.Point>();
 
             for (int i = 0; i < planes.Count; i++)
             {
@@ -53,15 +54,14 @@ namespace BH.Engine.XML
                 intersectingPoints.Add(BH.Engine.Geometry.Query.PlaneIntersection(line, planes[i]));
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = buildingElements[i].BuildingElementGeometry.ICurve().IControlPoints() };
 
-                try
+
+                if (intersectingPoints != null && BH.Engine.Geometry.Query.IsContaining(pline, intersectingPoints))
                 {
-                    if (intersectingPoints != null && BH.Engine.Geometry.Query.IsContaining(pline, intersectingPoints))
+                    intersectPts.AddRange(intersectingPoints);
+                    if (intersectPts.CullDuplicates().Count == intersectPts.Count()) //Check if the point already has been added to the list
                         counter++;
                 }
-                catch
-                {
 
-                }
             }
 
             //If the number of intersections is odd the point is inside the space. 
@@ -70,6 +70,22 @@ namespace BH.Engine.XML
             else
                 result = true;
             return result;
+        }
+
+        /***************************************************/
+
+        //TODO: Move to Geometry Engine
+
+        public static bool IsContaining(this BHG.Line line, BHG.Point pt)
+        {
+            double AB = line.Length();
+            double AP = BH.Engine.Geometry.Query.Distance(pt, line.Start);
+            double PB = BH.Engine.Geometry.Query.Distance(line.End, pt);
+
+            if (AB == AP + PB)
+                return true;
+            return false;
+
         }
 
         /***************************************************/
