@@ -35,8 +35,24 @@ namespace BH.Engine.XML
 
             return adspace;
 
+        }
+
+        /***************************************************/
+
+        public static List<Guid> AdjacentSpace(this List<BHE.BuildingElement> bHoMBuildingElement)
+        {
+            List<Guid> adjspace = new List<Guid>();
+
+            foreach (BHE.BuildingElement element in bHoMBuildingElement)
+            {
+                adjspace.Add(element.AdjacentSpaces[0]);
+            }
+
+            return adjspace;
+
             /***************************************************/
         }
+
     }
 }
 

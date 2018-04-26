@@ -14,13 +14,16 @@ namespace BH.Engine.XML
         public static string ToGbXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement)
         {
             string type = "Air";
-            if (bHoMBuildingElement != null && bHoMBuildingElement.BuildingElementProperties != null)
+            if (bHoMBuildingElement.AdjacentSpaces.Count == 0)
+                return "Shade";
+            else if (bHoMBuildingElement != null && bHoMBuildingElement.BuildingElementProperties != null)
             {
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
                 {
                     object aObject = bHoMBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"];
                     if (aObject != null)
                         type = ToGbXMLSurfaceType(aObject.ToString()); //modifies the string
+                   
                 }
                 return type;
             }

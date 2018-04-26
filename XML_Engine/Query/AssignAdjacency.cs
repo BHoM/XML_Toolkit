@@ -21,6 +21,7 @@ namespace BH.Engine.XML
 
         public static BHE.BuildingElement AssignAdjacency(this BHE.BuildingElement bHoMBuildingElement, List<Guid> spaceGUID)
         {
+            bHoMBuildingElement.AdjacentSpaces = new List<Guid>();
             foreach (Guid guid in spaceGUID)
             {
                 if (!bHoMBuildingElement.AdjacentSpaces.Contains(guid))

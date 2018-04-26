@@ -15,7 +15,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string CadObjectId(BHE.BuildingElement bHoMBuildingElement)
+        public static string CadObjectId(this BHE.BuildingElement bHoMBuildingElement)
         {
             string CADObjectID = "";
             string revitElementID = "";

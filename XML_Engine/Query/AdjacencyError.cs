@@ -19,28 +19,30 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BHE.BuildingElement> AdjacentError(this BHE.BuildingElement bHoMBuildingElement)
+        public static BHE.BuildingElement AdjacentError(this BHE.BuildingElement bHoMBuildingElement)
         {
-            List<BHE.BuildingElement> buildingElements = new List<BHE.BuildingElement>();
+            if (bHoMBuildingElement == null)
+                return null;
+
             string type = bHoMBuildingElement.ToGbXMLType();
 
             if (!string.IsNullOrEmpty(type))
             {
                 if (type.Contains("Shade") && bHoMBuildingElement.AdjacentSpaces.Count != 0)
-                    buildingElements.Add(bHoMBuildingElement);
+                    return bHoMBuildingElement;
 
-                //else if ((type.Contains("Exterior") || type.Contains("Roof") || type.Contains("Raised") || type.Contains("Slab") || type.Contains("Underground") || type.Contains("Exposed")) && bHoMBuildingElement.AdjacentSpaces.Count != 1)
-                //    buildingElements.Add(bHoMBuildingElement);
+                else if ((type.Contains("Exterior") || type.Contains("Roof") || type.Contains("Raised") || type.Contains("Slab") || type.Contains("Underground") || type.Contains("Exposed")) && bHoMBuildingElement.AdjacentSpaces.Count != 1)
+                    return bHoMBuildingElement;
 
-                else if ((type.Contains("Interior") || type.Contains("Ceiling")) && bHoMBuildingElement.AdjacentSpaces.Count != 2)
-                    buildingElements.Add(bHoMBuildingElement);
+                else if ((type.Contains("Interior") || type.Contains("Ceiling") || type.Contains("Air")) && bHoMBuildingElement.AdjacentSpaces.Count != 2)
+                    return bHoMBuildingElement;
 
-                else if (bHoMBuildingElement.AdjacentSpaces.Count > 2) //This should never happen
-                    buildingElements.Add(bHoMBuildingElement);
+                else if (bHoMBuildingElement.AdjacentSpaces.Count > 2) //This should never happen. Maximum value is 2
+                    return bHoMBuildingElement;
 
             }
 
-            return buildingElements;
+            return null;
 
 
             /***************************************************/
