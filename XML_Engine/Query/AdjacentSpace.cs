@@ -28,7 +28,8 @@ namespace BH.Engine.XML
                 AdjacentSpaceId adjId = new AdjacentSpaceId();
                 if (spaces.Select(x => x.BHoM_Guid).Contains(adjSpace))
                 {
-                    adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
+                    //adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Number;
+                    adjId.spaceIdRef = spaces.Find(x => x.BHoM_Guid == adjSpace).Number + " " + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
                     adspace.Add(adjId);
                 }
             }
