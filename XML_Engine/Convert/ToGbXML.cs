@@ -104,6 +104,7 @@ namespace BH.Engine.XML
             //xmlSpace.Name = bHoMSpace.Name + " Space";
             xmlSpace.Name = bHoMSpace.Name + " " + bHoMSpace.Number;
             //xmlSpace.id = "Space-" + bHoMSpace.Name.ToString();
+            //xmlSpace.id = "Space-" + bHoMSpace.Number.ToString();
             xmlSpace.id = bHoMSpace.Number + " " + bHoMSpace.Name.ToString();
 
             //xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
