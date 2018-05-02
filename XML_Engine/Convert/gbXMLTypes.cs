@@ -14,8 +14,10 @@ namespace BH.Engine.XML
         public static string ToGbXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement)
         {
             string type = "Air";
-            if (bHoMBuildingElement.AdjacentSpaces.Count == 0)
+
+            if (bHoMBuildingElement.AdjacentSpaces.Count == 0 && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Window && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Door)
                 return "Shade";
+
             else if (bHoMBuildingElement != null && bHoMBuildingElement.BuildingElementProperties != null)
             {
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
