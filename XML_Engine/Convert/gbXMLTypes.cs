@@ -15,17 +15,20 @@ namespace BH.Engine.XML
         {
             string type = "Air";
 
-            if (bHoMBuildingElement.AdjacentSpaces.Count == 0 && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Window && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Door)
+            if (bHoMBuildingElement == null)
+                return type;
+
+            else if (bHoMBuildingElement.AdjacentSpaces.Count == 0 && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Window && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Door)
                 return "Shade";
 
-            else if (bHoMBuildingElement != null && bHoMBuildingElement.BuildingElementProperties != null)
+            else if (bHoMBuildingElement.BuildingElementProperties != null)
             {
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
                 {
                     object aObject = bHoMBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"];
                     if (aObject != null)
                         type = ToGbXMLSurfaceType(aObject.ToString()); //modifies the string
-                   
+
                 }
                 return type;
             }
@@ -76,7 +79,7 @@ namespace BH.Engine.XML
                 case "Curtain Wall":
                     return "ExteriorWall";
                 case "Exposed Floor":
-                //    return "ExposedFloor";
+                    //    return "ExposedFloor";
                     return "RaisedFloor";
                 case "Vehicle Door":
                 case "No Type":
