@@ -25,6 +25,9 @@ namespace BH.Engine.XML
         {
 
             BHE.BuildingElement newBuildingElement = buildingElement.GetShallowClone() as BHE.BuildingElement;
+
+            if (newBuildingElement.BuildingElementProperties == null) return newBuildingElement; //Throwing a null reference exception on line below if BEP is equal to null stops execution of anything else
+
             newBuildingElement.BuildingElementProperties.CustomData = new Dictionary<string, object>(buildingElement.BuildingElementProperties.CustomData);
 
             if (buildingElement.AdjacentSpaces.Count == 0) //Shade
@@ -37,6 +40,8 @@ namespace BH.Engine.XML
                     newBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"] = "External Wall";
                 else if (buildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"].ToString() == "Internal Floor")
                     newBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"] = "Exposed Floor";
+                /*else if (buildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"].ToString() == "Air")
+                    newBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"] = "External Wall";*/ //This is a Warwick only fix - 2018-05-04(TD)
             }
 
 
@@ -61,7 +66,7 @@ namespace BH.Engine.XML
 
         public static List<BHE.BuildingElement> AdjustXMLType(this List<BHE.BuildingElement> bHoMBuildingElement)
         {
-            List<BHE.BuildingElement> bHoMBuildingElements = new List<oM.Environmental.Elements.BuildingElement>();
+            /*List<BHE.BuildingElement> bHoMBuildingElements = new List<oM.Environmental.Elements.BuildingElement>();
 
             foreach (BHE.BuildingElement element in bHoMBuildingElement)
             {
@@ -69,7 +74,16 @@ namespace BH.Engine.XML
                 bHoMBuildingElements.Add(AdjustXMLType(newBuildingElement));
             }
 
-            return bHoMBuildingElements;
+            return bHoMBuildingElements;*/
+            List<BHE.BuildingElement> b = new List<BHE.BuildingElement>(bHoMBuildingElement);
+
+            //foreach(BHE.BuildingElement be in b)
+            for(int x = 0; x < b.Count; x++)
+            {
+                b[x] = AdjustXMLType(b[x]);
+            }
+
+            return b;
         }
 
         /***************************************************/

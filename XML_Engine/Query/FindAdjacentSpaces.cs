@@ -19,24 +19,43 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BHE.Space> FindAdjacentSpace(this List<BHE.BuildingElement> bHoMBuildingElement, List<BHE.Space> spaces)
+        public static BHE.Building FindAdjacentSpace(this BHE.Building building, List<BHE.BuildingElement> buildingElements)
         {
-            List<BHE.Space> adjSpaces = new List<BHE.Space>();
-            foreach (BHE.BuildingElement element in bHoMBuildingElement)
+            //Find the adjacent spaces for building elements that only have one
+            //Building aBuilding = building.GetShallowClone
+
+            //Get all space building elements
+            List<BHE.BuildingElement> spaceBEs = new List<BHE.BuildingElement>();
+            foreach(BHE.Space sp in building.Spaces)
+                spaceBEs.AddRange(sp.BuildingElements);
+
+            foreach(BHE.BuildingElement be in buildingElements)
             {
-                foreach (BHE.Space space in spaces)
+                var centerPt = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
+                List<BHG.Point> controlPts = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).DiscontinuityPoints();
+
+                List<BHE.BuildingElement> foundElements = spaceBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(centerPt) < 0.01).ToList();
+
+                foreach(BHE.BuildingElement be2 in foundElements)
                 {
-                    foreach (BHE.BuildingElement panel in space.BuildingElements)
+                    if(be2.BHoM_Guid != be.BHoM_Guid)
                     {
-                        if (panel.BHoM_Guid.ToString() == element.BHoM_Guid.ToString())
+                        var cpt2 = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
+                        var distance = centerPt.Distance(cpt2);
+
+                        var dPt = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).DiscontinuityPoints();
+
+                        //Add the adjacent spaces of this be2 to be
+                        foreach (Guid g in be2.AdjacentSpaces)
                         {
-                            adjSpaces.Add(space);
+                            if (!be.AdjacentSpaces.Contains(g))
+                                be.AdjacentSpaces.Add(g);
                         }
                     }
                 }
             }
-            return adjSpaces;
 
+            return building;
         }
 
         /***************************************************/
