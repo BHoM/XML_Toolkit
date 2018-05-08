@@ -102,7 +102,8 @@ namespace BH.Engine.XML
             Space xmlSpace = new Space();
 
             //xmlSpace.Name = bHoMSpace.Name + " Space";
-            xmlSpace.Name = bHoMSpace.Name + " " + bHoMSpace.Number;
+            //xmlSpace.Name = bHoMSpace.Name + " " + bHoMSpace.Number;
+            xmlSpace.Name = bHoMSpace.Number + " " + bHoMSpace.Name;
             //xmlSpace.id = "Space-" + bHoMSpace.Name.ToString();
             //xmlSpace.id = "Space-" + bHoMSpace.Number.ToString();
             xmlSpace.id = bHoMSpace.Number + " " + bHoMSpace.Name.ToString();
