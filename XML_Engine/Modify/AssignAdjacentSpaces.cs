@@ -32,7 +32,6 @@ namespace BH.Engine.XML
             foreach (BHE.BuildingElement be in buildingElements)
             {
                 var centerPt = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
-                List<BHG.Point> controlPts = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).DiscontinuityPoints();
 
                 List<BHE.BuildingElement> foundElements = spaceBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(centerPt) < 0.01).ToList();
 
@@ -40,11 +39,6 @@ namespace BH.Engine.XML
                 {
                     if (be2.BHoM_Guid != be.BHoM_Guid)
                     {
-                        var cpt2 = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
-                        var distance = centerPt.Distance(cpt2);
-
-                        var dPt = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).DiscontinuityPoints();
-
                         //Add the adjacent spaces of this be2 to be
                         foreach (Guid g in be2.AdjacentSpaces)
                         {
