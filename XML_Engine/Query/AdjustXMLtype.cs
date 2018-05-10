@@ -9,7 +9,6 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
-
 namespace BH.Engine.XML
 {
 
