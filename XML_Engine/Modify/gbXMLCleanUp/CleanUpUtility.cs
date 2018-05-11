@@ -39,6 +39,9 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             if (be.BuildingElementProperties == null)
                 be.BuildingElementProperties = new BH.oM.Environmental.Properties.BuildingElementProperties();
 
+            if(be.BuildingElementProperties.BuildingElementType == BHE.BuildingElementType.Window || be.BuildingElementProperties.BuildingElementType == BHE.BuildingElementType.Door)
+                return be;
+
             if (!be.BuildingElementProperties.CustomData.ContainsKey(dictionaryKey))
                 be.BuildingElementProperties.CustomData.Add(dictionaryKey, "");
 
@@ -80,13 +83,51 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                             be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Replace("External", "Internal");
                         else if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Roof", StringComparison.CurrentCultureIgnoreCase))
                             be.BuildingElementProperties.CustomData[dictionaryKey] = "Ceiling";
-                        else if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Raised Floor", StringComparison.CurrentCultureIgnoreCase))
+                        else if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Raised Floor", StringComparison.CurrentCultureIgnoreCase) || be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Exposed Floor", StringComparison.CurrentCultureIgnoreCase))
                             be.BuildingElementProperties.CustomData[dictionaryKey] = "Internal Floor";
                         else if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Curtain Wall", StringComparison.CurrentCultureIgnoreCase))
                             be.BuildingElementProperties.CustomData[dictionaryKey] = "Internal Wall";
                     }
                 }
             }
+
+            return be;
+        }
+
+        public static BHE.BuildingElement AmendCadObjectID(this BHE.BuildingElement be)
+        {
+            String dictionaryKey = "Family Name";
+            if (be.BuildingElementProperties == null)
+                be.BuildingElementProperties = new BH.oM.Environmental.Properties.BuildingElementProperties();
+
+            if (be.BuildingElementProperties.Name.Equals("", StringComparison.CurrentCultureIgnoreCase))
+                be.BuildingElementProperties.Name = "SIM_INT_SLD";
+
+            if (!be.BuildingElementProperties.CustomData.ContainsKey(dictionaryKey))
+                be.BuildingElementProperties.CustomData.Add(dictionaryKey, "");
+
+            //Missing family name
+            if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("", StringComparison.CurrentCultureIgnoreCase))
+            {
+                double tilt = BH.Engine.Environment.Query.Tilt(be.BuildingElementGeometry);
+                if (tilt >= 70 && tilt <= 120)
+                    be.BuildingElementProperties.CustomData[dictionaryKey] = "Basic Wall";
+                else if (tilt == 0)
+                    be.BuildingElementProperties.CustomData[dictionaryKey] = "Floor";
+                else if (tilt == 180)
+                    be.BuildingElementProperties.CustomData[dictionaryKey] = "Basic Roof";
+
+                if (!be.BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
+                    be.BuildingElementProperties.CustomData.Add("Revit_elementId", "");
+
+                be.BuildingElementProperties.CustomData["Revit_elementId"] = "CADObjectID";
+            }
+
+            //Wrong CADObjectID
+            if (be.BuildingElementProperties.Name.Contains("EXT") && be.AdjacentSpaces.Count != 1)
+                be.BuildingElementProperties.Name.Replace("EXT", "INT");
+            else if (be.BuildingElementProperties.Name.Contains("INT") && be.AdjacentSpaces.Count != 2)
+                be.BuildingElementProperties.Name.Replace("INT", "EXT");
 
             return be;
         }
