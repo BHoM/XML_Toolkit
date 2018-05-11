@@ -54,7 +54,7 @@ namespace BH.Engine.XML
             if (!BH.Engine.Geometry.Query.IsClockwise(pline, plane.Normal))
                 plane.Normal = -plane.Normal;
 
-            if (!BH.Engine.Geometry.Query.IsContaining(pline, centrePtList, false, BH.oM.Geometry.Tolerance.MicroDistance))
+            if (!BH.Engine.Geometry.Query.IsContaining(pline, centrePtList, false))
             {
                 BHG.Point pointOnPline = BH.Engine.Geometry.Query.ClosestPoint(pline, centrePt);
                 BHG.Vector vector = new BHG.Vector();
@@ -70,7 +70,7 @@ namespace BH.Engine.XML
             }
 
 
-            //Move centrepoint along the normal. If inside - flip the panel
+            //Move centrepoint along the normal.
             if (IsContaining(space, centrePt.Translate(plane.Normal * 0.1)))
                 return false;
             else
