@@ -12,6 +12,24 @@ namespace XML_Engine.Modify.gbXMLCleanUp
 {
     public static class CleanUpUtility
     {
+        public static List<BHE.BuildingElement> GetBuildingElements(this BHE.Building building)
+        {
+            List<BHE.BuildingElement> rtn = new List<BHE.BuildingElement>();
+
+            rtn.AddRange(building.BuildingElements);
+
+            foreach(BHE.Space s in building.Spaces)
+            {
+                foreach(BHE.BuildingElement be in s.BuildingElements)
+                {
+                    if (rtn.Where(x => x.BHoM_Guid == be.BHoM_Guid).FirstOrDefault() == null)
+                        rtn.Add(be);
+                }
+            }
+
+            return rtn;
+        }
+
         public static BHE.BuildingElement AmendSingleAdjacencies(this BHE.BuildingElement be, BHE.Building building)
         {
             if (be.AdjacentSpaces.Count == 1)
