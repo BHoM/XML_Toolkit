@@ -16,13 +16,15 @@ namespace XML_Engine.Modify.gbXMLCleanUp
         {
             List<BHE.BuildingElement> rtn = new List<BHE.BuildingElement>();
 
-            rtn.AddRange(building.BuildingElements);
+            rtn.AddRange(building.BuildingElements.FindAll(x => x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)); //Add only shade elements
+        
+           
 
             foreach(BHE.Space s in building.Spaces)
             {
                 foreach(BHE.BuildingElement be in s.BuildingElements)
                 {
-                    if (rtn.Where(x => x.BHoM_Guid == be.BHoM_Guid).FirstOrDefault() == null)
+                    if (rtn.Where(x => x.BHoM_Guid == be.BHoM_Guid).FirstOrDefault() == null && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door) //Add only shade elements
                         rtn.Add(be);
                 }
             }
