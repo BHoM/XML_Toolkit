@@ -8,6 +8,9 @@ using BHE = BH.oM.Environmental.Elements;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
+using BH.oM.Geometry;
+
+
 namespace XML_Engine.Modify.gbXMLCleanUp
 {
     public static class CleanUpUtility
@@ -18,8 +21,6 @@ namespace XML_Engine.Modify.gbXMLCleanUp
 
             rtn.AddRange(building.BuildingElements.FindAll(x => x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)); //Add only shade elements
         
-           
-
             foreach(BHE.Space s in building.Spaces)
             {
                 foreach(BHE.BuildingElement be in s.BuildingElements)
@@ -30,6 +31,169 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             }
 
             return rtn;
+        }
+
+        public static Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>> IdentifyOverlaps(this BHE.BuildingElement be, List<BHE.BuildingElement> bes)
+        {
+            Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>> rtn = new Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>>();
+            rtn.Add(be, new List<BHE.BuildingElement>());
+
+            Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+
+            foreach (BHE.BuildingElement be2 in bes)
+            {
+                if(be2.BHoM_Guid != be.BHoM_Guid)
+                {
+                    Polyline be2P = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+                    if (be1P.IsCoplanar(be2P))
+                    {
+                        List<Polyline> intersections = be1P.BooleanIntersection(be2P);
+                        if (intersections.Count > 0)
+                            rtn[be].Add(be2);
+                    }
+                }
+            }
+
+            return rtn;
+        }
+
+        public static Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>> SplitElement(this BHE.BuildingElement be, List<BHE.BuildingElement> bes)
+        {
+            Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>> rtn = new Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>>();
+
+            Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+            Dictionary<BHE.BuildingElement, List<Polyline>> replacementGeom = new Dictionary<BHE.BuildingElement, List<Polyline>>();
+
+            //Get the new polylines for each building element
+            foreach (BHE.BuildingElement be2 in bes)
+            {
+                Polyline be2P = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06); //No need to check CoPlanarity as this was done when identifiying the overlap
+
+                Dictionary<BHE.BuildingElement, List<Polyline>> geomBuild = new Dictionary<BHE.BuildingElement, List<Polyline>>();
+                geomBuild.Add(be, new List<Polyline>());
+                geomBuild.Add(be2, new List<Polyline>());
+
+                List<Polyline> intersections = be1P.BooleanIntersection(be2P);
+                foreach(Polyline inte in intersections)
+                {
+                    geomBuild[be].AddRange(be1P.SplitAtPoints(inte.ControlPoints));
+                    geomBuild[be2].AddRange(be2P.SplitAtPoints(inte.ControlPoints));
+                }
+
+                foreach(KeyValuePair<BHE.BuildingElement, List<Polyline>> kvp in geomBuild)
+                {
+                    List<Polyline> remove = new List<Polyline>();
+                    foreach (Polyline p5 in kvp.Value)
+                    {
+                        bool isNotIn = true;
+                        foreach (Point px in p5.ControlPoints)
+                        {
+                            foreach (Polyline p6 in intersections)
+                            {
+                                if (p6.ControlPoints.Contains(px))
+                                    isNotIn = false;
+
+                                if (!isNotIn) break;
+                            }
+                            if (!isNotIn) break;
+                        }
+
+                        if (!isNotIn)
+                            remove.Add(p5);
+                    }
+
+                    foreach (Polyline l5 in remove)
+                        kvp.Value.Remove(l5);
+                }
+
+                foreach (KeyValuePair<BHE.BuildingElement, List<Polyline>> kvp in geomBuild)
+                {
+                    foreach (Polyline p5 in kvp.Value)
+                    {
+                        while (p5.ControlPoints.Last().Distance(p5.ControlPoints.First()) > 0.01)
+                        {
+                            bool addedPoint = false;
+                            foreach (Point px in intersections[0].ControlPoints)
+                            {
+                                if (!p5.ControlPoints.Contains(px) && !kvp.Key.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).ControlPoints.Contains(px) && px.Match2Of3(p5.ControlPoints.Last()))
+                                {
+                                    p5.ControlPoints.Add(px);
+                                    addedPoint = true;
+                                }
+                            }
+                            if (!addedPoint)
+                                p5.ControlPoints.Add(p5.ControlPoints[0]);
+                        }
+                    }
+                }
+
+                foreach (KeyValuePair<BHE.BuildingElement, List<Polyline>> kvp in geomBuild)
+                {
+                    if (!replacementGeom.ContainsKey(kvp.Key))
+                        replacementGeom.Add(kvp.Key, new List<Polyline>());
+                    replacementGeom[kvp.Key].AddRange(kvp.Value);
+                }
+            }
+
+            //Make the new BE from the new polylines
+            foreach(KeyValuePair<BHE.BuildingElement, List<Polyline>> kvp in replacementGeom)
+            {
+                BHE.BuildingElement ori = kvp.Key;
+                if(kvp.Value.Count > 1)
+                {
+                    //Only do this if we have more than 1 BE to replace
+                    foreach(Polyline p in kvp.Value)
+                    {
+                        BHE.BuildingElement newBE = ori.GetShallowClone() as BHE.BuildingElement;
+                        if (newBE.BuildingElementGeometry == null)
+                            newBE.BuildingElementGeometry = ori.BuildingElementGeometry.Copy();
+                        if (newBE.BuildingElementProperties == null)
+                            newBE.BuildingElementProperties = ori.BuildingElementProperties.GetShallowClone() as BH.oM.Environmental.Properties.BuildingElementProperties;
+
+                        newBE.BuildingElementGeometry.ISetGeometry(p);
+
+                        if (!rtn.ContainsKey(ori))
+                            rtn.Add(ori, new List<BHE.BuildingElement>());
+                        rtn[ori].Add(newBE);
+                    }
+                }
+                if(kvp.Value.Count == 0)
+                {
+                    //This BE was cut in such a way that it ended up with no polygon - slightly problematic but basically the entire polygon was the intersection with the other BE - so add the old BE back
+                    if (!rtn.ContainsKey(ori))
+                        rtn.Add(ori, new List<BHE.BuildingElement>());
+                    rtn[ori].Add(ori);
+                }
+            }
+
+            return rtn;
+        }
+
+        public static BHE.Building ChangeBuildingElements(this BHE.Building building, BHE.BuildingElement beToRemove, List<BHE.BuildingElement> besToAdd)
+        {
+            //Remove the BE from the spaces
+            for (int x = 0; x < building.Spaces.Count; x++)
+            {
+                bool removed = false;
+                for (int y = 0; y < building.Spaces[x].BuildingElements.Count; y++)
+                {
+                    if (building.Spaces[x].BuildingElements[y].BHoM_Guid == beToRemove.BHoM_Guid)
+                    {
+                        building.Spaces[x].BuildingElements.Remove(beToRemove);
+                        removed = true;
+                    }
+                }
+                if (removed)
+                    building.Spaces[x].BuildingElements.AddRange(besToAdd);
+            }
+
+            if (building.BuildingElements.Where(x => x.BHoM_Guid == beToRemove.BHoM_Guid).FirstOrDefault() != null)
+            {
+                building.BuildingElements.Remove(beToRemove);
+                building.BuildingElements.AddRange(besToAdd);
+            }
+
+            return building;
         }
 
         public static BHE.BuildingElement AmendSingleAdjacencies(this BHE.BuildingElement be, BHE.Building building)
