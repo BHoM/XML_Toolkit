@@ -44,6 +44,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Build\Geometry_Engine.dll</HintPath>
     </Reference>
+    <Reference Include="ModelLaundry_Engine">
+      <HintPath>..\..\ModelLaundry_Toolkit\Build\ModelLaundry_Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Structure_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Structure_Engine\obj\Debug\Structure_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
