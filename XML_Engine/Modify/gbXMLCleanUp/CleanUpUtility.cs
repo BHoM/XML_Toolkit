@@ -227,22 +227,48 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                     toRemove.Add(be2);
             }
 
+            BHE.BuildingElement newBE = beToRemove.GetShallowClone(true) as BHE.BuildingElement;
+            if (newBE.BuildingElementGeometry == null)
+                newBE.BuildingElementGeometry = beToRemove.BuildingElementGeometry.Copy();
+            if (newBE.BuildingElementProperties == null)
+                newBE.BuildingElementProperties = beToRemove.BuildingElementProperties.GetShallowClone() as BH.oM.Environmental.Properties.BuildingElementProperties;
 
-            //Remove the BE
+            List<BHE.Space> removedFrom = new List<BHE.Space>();
+            bool removedFromBuilding = false;
+            //Remove the BEs
             foreach(BHE.BuildingElement be2 in toRemove)
             {
+                //Map any adjacencies as necessary
+                foreach(Guid g in be2.AdjacentSpaces)
+                {
+                    if (!newBE.AdjacentSpaces.Contains(g))
+                        newBE.AdjacentSpaces.Add(g);
+                }
+
                 for (int x = 0; x < building.Spaces.Count; x++)
                 {
                     for (int y = 0; y < building.Spaces[x].BuildingElements.Count; y++)
                     {
                         if (building.Spaces[x].BuildingElements[y].BHoM_Guid == be2.BHoM_Guid)
+                        {
                             building.Spaces[x].BuildingElements.Remove(be2);
+                            removedFrom.Add(building.Spaces[x]);
+                        }
                     }
                 }
 
                 if (building.BuildingElements.Where(x => x.BHoM_Guid == be2.BHoM_Guid).FirstOrDefault() != null)
+                {
                     building.BuildingElements.Remove(be2);
+                    removedFromBuilding = true;
+                }
             }
+
+            foreach(BHE.Space s in removedFrom)
+                building.Spaces.Where(x => x.BHoM_Guid == s.BHoM_Guid).First().BuildingElements.Add(newBE);
+
+            if (removedFromBuilding)
+                building.BuildingElements.Add(newBE);
 
             return building;
         }
