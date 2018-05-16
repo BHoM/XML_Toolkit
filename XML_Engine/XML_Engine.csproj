@@ -68,6 +68,8 @@
     <Compile Include="Modify\gbXMLCleanUp\gbXMLCleanUp.cs" />
     <Compile Include="Modify\gbXMLCleanUp\CleanUpUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\PropertiesFromAdjSrf.cs" />
+    <Compile Include="Query\AdjacentSurface.cs" />
     <Compile Include="Query\CADObjectError.cs" />
     <Compile Include="Query\GetLine.cs" />
     <Compile Include="Query\MapByGUID.cs" />

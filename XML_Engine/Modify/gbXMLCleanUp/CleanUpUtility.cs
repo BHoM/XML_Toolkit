@@ -19,13 +19,13 @@ namespace XML_Engine.Modify.gbXMLCleanUp
         {
             List<BHE.BuildingElement> rtn = new List<BHE.BuildingElement>();
 
-            rtn.AddRange(building.BuildingElements.FindAll(x => x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)); //Add only shade elements
+            rtn.AddRange(building.BuildingElements.FindAll(x => x.BuildingElementProperties != null && x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)); //Add only shade elements
         
             foreach(BHE.Space s in building.Spaces)
             {
                 foreach(BHE.BuildingElement be in s.BuildingElements)
                 {
-                    if (rtn.Where(x => x.BHoM_Guid == be.BHoM_Guid).FirstOrDefault() == null && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door) //Add only shade elements
+                    if (rtn.Where(x => x.BHoM_Guid == be.BHoM_Guid).FirstOrDefault() == null && be.BuildingElementProperties != null && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door) //Add only shade elements
                         rtn.Add(be);
                 }
             }
@@ -341,7 +341,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                     else
                     {
                         if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Contains("External"))
-                            be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Replace("External", "Internal");
+                            be.BuildingElementProperties.Name = be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Replace("External", "Internal");
                         else if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Roof", StringComparison.CurrentCultureIgnoreCase))
                             be.BuildingElementProperties.CustomData[dictionaryKey] = "Ceiling";
                         else if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Raised Floor", StringComparison.CurrentCultureIgnoreCase) || be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Exposed Floor", StringComparison.CurrentCultureIgnoreCase))
@@ -385,10 +385,15 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             }
 
             //Wrong CADObjectID
-            if (be.BuildingElementProperties.Name.Contains("EXT") && be.AdjacentSpaces.Count != 1)
-                be.BuildingElementProperties.Name.Replace("EXT", "INT");
-            else if (be.BuildingElementProperties.Name.Contains("INT") && be.AdjacentSpaces.Count != 2)
-                be.BuildingElementProperties.Name.Replace("INT", "EXT");
+            if (be.AdjacentSpaces.Count == 0) //don't update CAD object ID for shade elements. 
+                return be;
+            else if (be.BuildingElementProperties.Name.Contains("EXT") && be.AdjacentSpaces.Count != 1 && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
+                be.BuildingElementProperties.Name = be.BuildingElementProperties.Name.Replace("EXT", "INT");
+            else if (be.BuildingElementProperties.Name.Contains("INT") && be.AdjacentSpaces.Count != 2 && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
+            {
+                be.BuildingElementProperties.Name = be.BuildingElementProperties.Name.Replace("INT", "EXT");
+                be.BuildingElementProperties.Name = be.BuildingElementProperties.Name.Replace("FLR02_RAISED_900", "Exposed");
+            }
 
             return be;
         }
