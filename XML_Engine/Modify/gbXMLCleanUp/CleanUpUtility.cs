@@ -187,10 +187,61 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                     building.Spaces[x].BuildingElements.AddRange(besToAdd);
             }
 
+            //Add the building elements
             if (building.BuildingElements.Where(x => x.BHoM_Guid == beToRemove.BHoM_Guid).FirstOrDefault() != null)
             {
                 building.BuildingElements.Remove(beToRemove);
                 building.BuildingElements.AddRange(besToAdd);
+            }
+
+            return building;
+        }
+
+        public static BHE.Building RemovePerfectOverlaps(this BHE.Building building, BHE.BuildingElement beToRemove)
+        {
+            List<BHE.BuildingElement> allBes = building.GetBuildingElements();
+            Polyline be1P = beToRemove.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+
+            List<BHE.BuildingElement> closeBEs = allBes.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(be1P.Centre()) < 0.01).ToList();
+
+            List<BHE.BuildingElement> toRemove = new List<BHE.BuildingElement>();
+
+            foreach(BHE.BuildingElement be2 in closeBEs)
+            {
+                //Check that every control point of BE2 is int he control point of beToRemove
+                Polyline be2P = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+
+                bool isMatch = true;
+                if (be1P.ControlPoints.Count != be2P.ControlPoints.Count)
+                    isMatch = false;
+                else
+                {
+                    foreach (Point px in be1P.ControlPoints)
+                    {
+                        if (!be2P.ControlPoints.Contains(px))
+                            isMatch = false;
+                    }
+                }
+
+                if (isMatch) //This BE is a perfect overlap - centre point is less than 0.01 unit away from each other, and every control point of BE1P is in the control points of BE2P - Remove this BE from the building/Spaces
+                    toRemove.Add(be2);
+            }
+
+
+            //Remove the BE
+            foreach(BHE.BuildingElement be2 in toRemove)
+            {
+                for (int x = 0; x < building.Spaces.Count; x++)
+                {
+                    for (int y = 0; y < building.Spaces[x].BuildingElements.Count; y++)
+                    {
+                        if (building.Spaces[x].BuildingElements[y].BHoM_Guid == be2.BHoM_Guid)
+                            building.Spaces[x].BuildingElements.Remove(be2);
+                    }
+                }
+
+                if (building.BuildingElements.Where(x => x.BHoM_Guid == be2.BHoM_Guid).FirstOrDefault() != null)
+                    building.BuildingElements.Remove(be2);
             }
 
             return building;
