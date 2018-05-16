@@ -46,16 +46,26 @@ namespace XML_Engine.Modify
             return rtn;
         }
 
+        public static List<BuildingElement> gbXMLCleanUp_OverLapsListIndex(this Dictionary<BuildingElement, List<BuildingElement>> dic, int index)
+        {
+            return dic.ElementAt(index).Value;
+        }
+
         public static Building gbXMLCleanUp_Step1(this Building building, Dictionary<BuildingElement, List<BuildingElement>> overlaps)
+        //public static List<BuildingElement> gbXMLCleanUp_Step1(this Building building, Dictionary<BuildingElement, List<BuildingElement>> overlaps)
         {
             foreach(KeyValuePair<BuildingElement, List<BuildingElement>> kvp in overlaps)
             {
                 //Split the key by the list of overlaps
                 Dictionary<BuildingElement, List<BuildingElement>> replacements = kvp.Key.SplitElement(kvp.Value);
 
-                foreach(KeyValuePair<BuildingElement, List<BuildingElement>> kvp2 in replacements)
-                    if(kvp2.Value.Count > 1)
+                foreach (KeyValuePair<BuildingElement, List<BuildingElement>> kvp2 in replacements)
+                {
+                    if (kvp2.Value.Count > 1)
                         building = building.ChangeBuildingElements(kvp2.Key, kvp2.Value);
+                    else if (kvp2.Value.Count == 1)
+                        building = building.RemovePerfectOverlaps(kvp.Value[0]);
+                }
             }
 
             return building;
