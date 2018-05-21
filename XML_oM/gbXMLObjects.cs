@@ -29,16 +29,16 @@ namespace BH.oM.XML
         public string version = "0.37";
         [XmlElement("Campus")]
         public Campus Campus = new Campus();
+        [XmlElement("Construction")]
+        public Construction[] Construction;
+        [XmlElement("Layer")]
+        public Layer[] Layer;
+        [XmlElement("Material")]
+        public Material[] Material;
         [XmlElement("Zone")]
         public Zone[] Zone = new List<Zone> { new Zone() }.ToArray();
         [XmlElement("DocumentHistory")]
         public DocumentHistory DocumentHistory = new DocumentHistory();
-        //[XmlElement("Material")]
-        //public Material[] Material = new List<Material> { new Material() }.ToArray();
-        //[XmlElement("Layer")]
-        //public Layer[] Layer = new List<Layer> { new Layer() }.ToArray();
-        //[XmlElement("Construction")]
-        //public Construction[] Construction = new List<Construction> { new Construction() }.ToArray();
     }
 
     // DocumentHistory Objects
@@ -125,8 +125,16 @@ namespace BH.oM.XML
         public string id = "MaterialID";
         [XmlElement]
         public string Name = "Material";
+        [XmlElement ("R-value")]
+        public double Rvalue = 0;
         [XmlElement]
         public double Thickness = 0.001;
+        [XmlElement]
+        public double Conductivity = 0;
+        [XmlElement]
+        public double Density = 0;
+        [XmlElement]
+        public double SpecificHeat = 0;
     }
 
     // Layer Objects
@@ -137,8 +145,6 @@ namespace BH.oM.XML
     {
         [XmlAttribute]
         public string id = "LayerID";
-        [XmlElement]
-        public string Name = "Layer";
         [XmlElement]
         public MaterialId MaterialId = new MaterialId();
     }
@@ -158,10 +164,16 @@ namespace BH.oM.XML
     {
         [XmlAttribute]
         public string id = "ConstructionID";
+        [XmlElement ("U-Value")]
+        public uValue Uvalue = new uValue();
         [XmlElement]
-        public string Name = "Construction";
+        public Absorptance Absorptance = new Absorptance();
+        [XmlElement]
+        public Roughness Roughness = new Roughness();
         [XmlElement]
         public LayerId LayerId = new LayerId();
+        [XmlElement]
+        public string Name = "Construction";
     }
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
@@ -313,9 +325,9 @@ namespace BH.oM.XML
         [XmlAttribute]
         public string exposedToSun = "false";
         [XmlAttribute]
+        public string constructionIdRef;
+        [XmlAttribute]
         public string id = "SurfaceID";
-        //[XmlAttribute]
-        //public string constructionIdRef = "ConstructionID";
         //[XmlElement("AdjacentSpaceId")]
         //public AdjacentSpaceId[] AdjacentSpaceId = new List<AdjacentSpaceId> { new AdjacentSpaceId() }.ToArray();
         [XmlElement("AdjacentSpaceId")]
@@ -455,6 +467,26 @@ namespace BH.oM.XML
     {
         [XmlAttribute]
         public string unit = "C";
+    }
+
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class uValue : gbXMLObject
+    {
+        [XmlAttribute]
+        public string unit = "WPerSquarMeterK";
+    }
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    public class Absorptance : gbXMLObject
+    {
+        [XmlAttribute]
+        public string unit = "Fraction";
+        [XmlAttribute]
+        public string type = "ExtIR";
+    }
+    public class Roughness : gbXMLObject
+    {
+        [XmlAttribute]
+        public string value = "VeryRough";
     }
 
 }

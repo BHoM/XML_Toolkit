@@ -41,12 +41,22 @@ namespace BH.Engine.XML
             {
                 if (be.BuildingElementGeometry.ICurve().IIsInPlane(plane) && be.BHoM_Guid.ToString() != bHoMBuildingElement.BHoM_Guid.ToString())
                 {
-                    if (be.BuildingElementGeometry.ICurve().IIsClosed())
+                    if (be.BuildingElementGeometry.ICurve().IIsClosed()) //We are finding coplanar surfaces within the space
                     {
                         plines.Add(be.BuildingElementGeometry.ICurve().ICollapseToPolyline(BHG.Tolerance.MacroDistance));
 
-                        if (plines.Count == 2 && BH.Engine.Geometry.Compute.BooleanUnion(plines).Count == 1) //If the two polylines intersect we they can be merged into one srf by booleanUnion
-                            beInPlane.Add(be);
+                        try
+                        {
+                            if (plines.Count == 2 && BH.Engine.Geometry.Compute.BooleanUnion(plines, BH.oM.Geometry.Tolerance.MacroDistance).Count == 1) //If the two polylines intersect or have common edge they can be merged into one srf by booleanUnion
+                                beInPlane.Add(be);
+                        }
+                        catch (Exception)
+                        {
+                        }
+
+                        //plines.RemoveAt(plines.Count - 1); //One option
+                        plines.Remove(plines.Last()); //Another option
+
                     }
                 }
             }

@@ -23,16 +23,13 @@ namespace BH.Engine.XML
         {
             foreach (BHE.BuildingElement element in elements)
             {
-                //Case 1: No CADObjectId at all - atm we use the default value: SIM_INT_SLD
+                //Case 1: No CADObjectId at all - atm we use the default value: SIM_INT_SLD (atm: ERROR)
                 if (element.BuildingElementProperties == null || element.BuildingElementProperties.Name == "" || element.BuildingElementProperties.CustomData["Family Name"].ToString() == "")
                 {
                     element.BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties();
-                    building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties() { Name = "SIM_INT_SLD" };
+                    building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties() { Name = "Error" };
 
-                    building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties() { Name = "SIM_INT_SLD" };
-
-                    var t = Environment.Query.Tilt(element.BuildingElementGeometry);
-                    var p = t + 3;
+                    building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties() { Name = "Error" };
 
                     if (Environment.Query.Tilt(element.BuildingElementGeometry) >= 70 && Environment.Query.Tilt(element.BuildingElementGeometry) <= 120)
                     {
@@ -61,14 +58,6 @@ namespace BH.Engine.XML
                 {
                     building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.Name.Replace("EXT", "INT");
                     building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.Name.Replace("EXT", "INT");
-                    for (int x = 0; x < building.Spaces.Count; x++)
-                    {
-                        for (int y = 0; y < building.Spaces[x].BuildingElements.Count; y++)
-                        {
-                            if (building.Spaces[x].BuildingElements[y].BHoM_Guid == element.BHoM_Guid)
-                                building.Spaces[x].BuildingElements[y].BuildingElementProperties.Name.Replace("EXT", "INT");
-                        }
-                    }
                 }
 
 
@@ -76,14 +65,6 @@ namespace BH.Engine.XML
                 {
                     building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.Name.Replace("INT", "EXT");
                     building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.Name.Replace("INT", "EXT");
-                    for (int x = 0; x < building.Spaces.Count; x++)
-                    {
-                        for (int y = 0; y < building.Spaces[x].BuildingElements.Count; y++)
-                        {
-                            if (building.Spaces[x].BuildingElements[y].BHoM_Guid == element.BHoM_Guid)
-                                building.Spaces[x].BuildingElements[y].BuildingElementProperties.Name.Replace("INT", "EXT");
-                        }
-                    }
                 }
 
 

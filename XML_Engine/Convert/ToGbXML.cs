@@ -183,5 +183,21 @@ namespace BH.Engine.XML
         }
 
         /***************************************************/
+
+        public static Construction ToGbXML(this BH.oM.Environmental.Properties.BuildingElementProperties beProp)
+        {
+            Construction xmlConstruction = new Construction();
+
+            //xmlConstruction.Absorptance = ;
+            xmlConstruction.id = "id";
+            xmlConstruction.Name = beProp.Name;
+            //xmlConstruction.Roughness = "VeryRough";
+            //xmlConstruction.Uvalue = beProp.UValue;
+
+
+            return xmlConstruction;
+        }
+
+        /***************************************************/
     }
 }
