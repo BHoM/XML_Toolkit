@@ -157,7 +157,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                         rtn[ori].Add(newBE);
                     }
                 }
-                if(kvp.Value.Count == 0)
+                else if(kvp.Value.Count == 0)
                 {
                     //This BE was cut in such a way that it ended up with no polygon - slightly problematic but basically the entire polygon was the intersection with the other BE - so add the old BE back
                     if (!rtn.ContainsKey(ori))
@@ -355,41 +355,34 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             return be;
         }
 
-        public static BHE.BuildingElement AmendCadObjectID(this BHE.BuildingElement be, BHE.Building building)
+        public static BHE.BuildingElement AmendCadObjectID(this BHE.BuildingElement be)
         {
-            //Get list of unique CADObjectIDs in the model:
-            //List<string> CADObjectIds = building.BuildingElements.Select(x => x.Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();)
-                
-            //    bhomSpaces.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
-
             String dictionaryKey = "Family Name";
             if (be.BuildingElementProperties == null)
                 be.BuildingElementProperties = new BH.oM.Environmental.Properties.BuildingElementProperties();
 
             if (be.BuildingElementProperties.Name.Equals("", StringComparison.CurrentCultureIgnoreCase))
-                be.BuildingElementProperties.Name = "Missing CADObjectID";
+                be.BuildingElementProperties.Name = "SIM_INT_SLD";
 
             if (!be.BuildingElementProperties.CustomData.ContainsKey(dictionaryKey))
                 be.BuildingElementProperties.CustomData.Add(dictionaryKey, "");
 
             //Missing family name
-            //if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("", StringComparison.CurrentCultureIgnoreCase))
-            //{
-            //    //double tilt = BH.Engine.Environment.Query.Tilt(be.BuildingElementGeometry);
-            //    //if (tilt >= 70 && tilt <= 120)
-            //    //    be.BuildingElementProperties.CustomData[dictionaryKey] = "Basic Wall";
-            //    //else if (tilt == 0)
-            //    //    be.BuildingElementProperties.CustomData[dictionaryKey] = "Floor";
-            //    //else if (tilt == 180)
-            //    //    be.BuildingElementProperties.CustomData[dictionaryKey] = "Basic Roof";
+            if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("", StringComparison.CurrentCultureIgnoreCase))
+            {
+                double tilt = BH.Engine.Environment.Query.Tilt(be.BuildingElementGeometry);
+                if (tilt >= 70 && tilt <= 120)
+                    be.BuildingElementProperties.CustomData[dictionaryKey] = "Basic Wall";
+                else if (tilt == 0)
+                    be.BuildingElementProperties.CustomData[dictionaryKey] = "Floor";
+                else if (tilt == 180)
+                    be.BuildingElementProperties.CustomData[dictionaryKey] = "Basic Roof";
 
-            //    //if (!be.BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
-            //    //    be.BuildingElementProperties.CustomData.Add("Revit_elementId", "");
+                if (!be.BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
+                    be.BuildingElementProperties.CustomData.Add("Revit_elementId", "");
 
-            //    //be.BuildingElementProperties.CustomData["Revit_elementId"] = "CADObjectID";
-
-
-            //}
+                be.BuildingElementProperties.CustomData["Revit_elementId"] = "CADObjectID";
+            }
 
             //Wrong CADObjectID
             if (be.AdjacentSpaces.Count == 0) //don't update CAD object ID for shade elements. 

@@ -23,7 +23,7 @@ namespace BH.Engine.XML
         {
             List<BHE.BuildingElement> bElement = new List<oM.Environmental.Elements.BuildingElement>();
 
-            foreach (Guid guid in newBuildingElements.Select(x => x.BHoM_Guid))
+            foreach (Guid guid in newBuildingElements.Select(x => x.BHoM_Guid)) 
             {
                 if (oldBuildingElements.Select(x => x.BHoM_Guid).Contains(guid))
                 {

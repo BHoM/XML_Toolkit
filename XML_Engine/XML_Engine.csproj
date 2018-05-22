@@ -81,7 +81,7 @@
     <Compile Include="Query\IsContaining.cs" />
     <Compile Include="Query\FlipReversedPanels.cs" />
     <Compile Include="Query\ElementToKeep.cs" />
-    <Compile Include="Query\AdjacentSpace.cs" />
+    <Compile Include="Query\GetAdjacentSpace.cs" />
     <Compile Include="Query\SpaceBoundaries.cs" />
     <Compile Include="Query\ConstructionIdRef.cs" />
     <Compile Include="Query\StoreyGeometry.cs" />

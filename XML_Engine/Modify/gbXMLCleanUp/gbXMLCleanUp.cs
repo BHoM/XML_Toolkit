@@ -113,7 +113,7 @@ namespace XML_Engine.Modify
         {
             for (int x = 0; x < building.BuildingElements.Count; x++)
             {
-                building.BuildingElements[x] = building.BuildingElements[x].AmendCadObjectID(building);
+                building.BuildingElements[x] = building.BuildingElements[x].AmendCadObjectID();
 
                 for (int y = 0; y < building.Spaces.Count; y++)
                 {

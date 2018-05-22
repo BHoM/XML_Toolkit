@@ -14,13 +14,10 @@ namespace BH.Engine.XML
         public static string ToGbXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement)
         {
             string type = "Air";
-
             if (bHoMBuildingElement == null)
                 return type;
-
             else if (bHoMBuildingElement.AdjacentSpaces.Count == 0 && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Window && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Door)
-                return "Shade";
-
+                type = "Shade";
             else if (bHoMBuildingElement.BuildingElementProperties != null)
             {
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
@@ -30,15 +27,15 @@ namespace BH.Engine.XML
                         type = ToGbXMLSurfaceType(aObject.ToString()); //modifies the string
 
                 }
-                return type;
             }
             else if (bHoMBuildingElement != null)
             {
                 type = ToGbXMLSurfaceType((bHoMBuildingElement.BuildingElementGeometry as BHE.Elements.BuildingElementPanel).ElementType);
-                return type;
             }
             else
-                return type;
+                type = "Air";
+
+            return type;
         }
 
         /***************************************************/
@@ -81,7 +78,7 @@ namespace BH.Engine.XML
                 case "Exposed Floor":
                     //    return "ExposedFloor";
                     return "RaisedFloor";
-                case "Vehicle Door":
+                //case "Vehicle Door":
                 case "No Type":
                     return "Air";
 

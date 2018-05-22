@@ -18,7 +18,6 @@ namespace BH.Engine.XML
         /***************************************************/
         /**** Public Methods                            ****/
         /***************************************************/
-
         public static BHE.BuildingElement PropertiesFromAdjSrf(this BHE.BuildingElement bHoMBuildingElement, List<BHE.BuildingElement> refElement, BHE.Building building)
         {
             BHE.BuildingElement newBe = new BHE.BuildingElement();
@@ -185,7 +184,6 @@ namespace BH.Engine.XML
                 match &= b.Contains(a);
             return match;
         }
-
         /***************************************************/
     }
 }
