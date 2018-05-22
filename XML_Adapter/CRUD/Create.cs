@@ -38,7 +38,7 @@ namespace BH.Adapter.gbXML
                 SerializeCollection(building.BuildingElements, gbx); //ShadeElements
 
                 //Construction and materials are only for the IES specific gbXML
-                Serialize(building.BuildingElementProperties, gbx); //Construction and materials. Comment this line out to switch off materials and construction
+                Serialize(building.BuildingElementProperties, gbx); //Construction and materials. Comment this line out to switch off materials and construction.TODO: add if statement around this line! 
 
                 gbx.Campus.Location = BH.Engine.XML.Convert.ToGbXML(building);
                 gbx.Campus.Building[buildingIndex].Area = (float)BH.Engine.XML.Query.BuildingArea(building);
@@ -83,7 +83,7 @@ namespace BH.Adapter.gbXML
 
                 xmlPanel.id = "Shade-" + panelIndex.ToString();
                 xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
-                xmlPanel.constructionIdRef = BH.Engine.XML.Query.ConstructionIdRef(bHoMBuildingElement, bHoMBuildingElements.ToList()); //Only for IES! TODO: method for getting the Construction Id;
+                xmlPanel.constructionIdRef = BH.Engine.XML.Query.IdRef(bHoMBuildingElement, bHoMBuildingElements.ToList()); //Only for IES!
 
                 RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMBuildingElement.BuildingElementGeometry as BHE.BuildingElementPanel);
                 PlanarGeometry plGeo = new PlanarGeometry();
@@ -150,7 +150,7 @@ namespace BH.Adapter.gbXML
 
                         xmlPanel.id = "Panel-" + panelindex.ToString();
                         xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
-                        xmlPanel.constructionIdRef = BH.Engine.XML.Query.ConstructionIdRef(bHoMBuildingElement[i], buildingElementsList); //Only for IES!
+                        xmlPanel.constructionIdRef = BH.Engine.XML.Query.IdRef(bHoMBuildingElement[i], buildingElementsList); //Only for IES!
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
                         PlanarGeometry plGeo = new PlanarGeometry();
@@ -296,61 +296,46 @@ namespace BH.Adapter.gbXML
 
         /***************************************************/
 
-        public static void SerializeCollection(List<BHP.BuildingElementProperties> bHoMProperties, BH.oM.XML.gbXML gbx)
+        public static void SerializeCollection(List<BHP.BuildingElementProperties> bHoMProperties, BH.oM.XML.gbXML gbx) //Only for IES export
         {
-            //Construction
+            //Construction, Layers and Materials
             List<BH.oM.XML.Construction> xmlConstructions = new List<Construction>();
+            List<BH.oM.XML.Layer> xmlLayers = new List<Layer>();
+            List<BH.oM.XML.Material> xmlMaterials = new List<Material>();
 
             //Make sure we only have the unique construction categories in the building. 
             List<BHP.BuildingElementProperties> props = bHoMProperties.Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BHP.BuildingElementProperties).ToList();
 
-            int constructionIndex = 1000;
+            int propertyIndex = 1000;
             foreach (BHP.BuildingElementProperties prop in props)
             {
+                //Construction
                 BH.oM.XML.Construction xmlConstruction = BH.Engine.XML.Convert.ToGbXML(prop);
-                xmlConstruction.id = constructionIndex.ToString();
+                xmlConstruction.id = BH.Engine.XML.Query.IdRef(prop, props);
+                xmlConstruction.LayerId.layerIdRef = BH.Engine.XML.Query.IdRef(prop, props);
                 xmlConstructions.Add(xmlConstruction);
-                constructionIndex++;
-            }
 
-            gbx.Construction = xmlConstructions.ToArray();
-
-
-            //Layers
-            List<BH.oM.XML.Layer> xmlLayers = new List<Layer>();
-
-            int layerIndex = 1000;
-            foreach (BHP.BuildingElementProperties prop in bHoMProperties)
-            {
+                //Layers
                 BH.oM.XML.Layer xmlLayer = new BH.oM.XML.Layer();
-                xmlLayer.id = layerIndex.ToString();
-                xmlLayer.MaterialId.materialIdRef = "test";
-
+                xmlLayer.id = BH.Engine.XML.Query.IdRef(prop, props);
+                xmlLayer.MaterialId.materialIdRef = BH.Engine.XML.Query.IdRef(prop, props);
                 xmlLayers.Add(xmlLayer);
-                layerIndex++;
-            }
 
-            gbx.Layer = xmlLayers.ToArray();
-
-
-            //Material. TODO: convert method for materials?
-            List<BH.oM.XML.Material> xmlMaterials = new List<Material>();
-
-            int materialIndex = 1000;
-            foreach (BHP.BuildingElementProperties prop in bHoMProperties)
-            {
+                //Materials
                 if (xmlMaterials.Where(x => x.Name.Equals(prop.Name.ToString(), StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault() != null)
                     continue;
                 BH.oM.XML.Material xmlMaterial = new Material();
-                xmlMaterial.id = materialIndex.ToString();
+                xmlMaterial.id = BH.Engine.XML.Query.IdRef(prop, props);
                 xmlMaterial.Name = prop.Name.ToString();
                 xmlMaterial.Thickness = prop.Thickness;
                 xmlMaterial.Conductivity = prop.ThermalConductivity;
-
                 xmlMaterials.Add(xmlMaterial);
-                materialIndex++;
+
+                propertyIndex++;
             }
 
+            gbx.Construction = xmlConstructions.ToArray();
+            gbx.Layer = xmlLayers.ToArray();
             gbx.Material = xmlMaterials.ToArray();
 
         }
