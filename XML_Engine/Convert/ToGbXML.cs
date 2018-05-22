@@ -166,7 +166,7 @@ namespace BH.Engine.XML
         {
             Location xmlLocation = new Location();
 
-            xmlLocation.ZipcodeOrPostalCode = 00000; // TODO: Change from default value
+            xmlLocation.ZipcodeOrPostalCode = 00000.ToString(); // TODO: Change from default value
             xmlLocation.Longitude = Math.Round(bHoMBuilding.Longitude, 5);
             xmlLocation.Latitude = Math.Round(bHoMBuilding.Latitude, 5);
             xmlLocation.Elevation = Math.Round(bHoMBuilding.Elevation, 5);

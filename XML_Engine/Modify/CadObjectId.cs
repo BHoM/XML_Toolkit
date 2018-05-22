@@ -23,7 +23,7 @@ namespace BH.Engine.XML
         {
             foreach (BHE.BuildingElement element in elements)
             {
-                //Case 1: No CADObjectId at all - atm we use the default value: SIM_INT_SLD
+                //Case 1: No CADObjectId at all - at the moment we use the default value: SIM_INT_SLD
                 if (element.BuildingElementProperties == null || element.BuildingElementProperties.Name == "" || element.BuildingElementProperties.CustomData["Family Name"].ToString() == "")
                 {
                     element.BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties();
@@ -31,20 +31,19 @@ namespace BH.Engine.XML
 
                     building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties() { Name = "SIM_INT_SLD" };
 
-                    var t = Environment.Query.Tilt(element.BuildingElementGeometry);
-                    var p = t + 3;
+                    double elementTilt = Environment.Query.Tilt(element.BuildingElementGeometry);
 
-                    if (Environment.Query.Tilt(element.BuildingElementGeometry) >= 70 && Environment.Query.Tilt(element.BuildingElementGeometry) <= 120)
+                    if (elementTilt >= 70 && elementTilt <= 120)
                     {
                         building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.CustomData.Add("Family Name", "Basic Wall");
                         building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.CustomData.Add("Family Name", "Basic Wall");
                     }
-                    else if (Environment.Query.Tilt(element.BuildingElementGeometry) == 0)
+                    else if (elementTilt == 0)
                     {
                         building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.CustomData.Add("Family Name", "Floor");
                         building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.CustomData.Add("Family Name", "Floor");
                     }
-                    else if (Environment.Query.Tilt(element.BuildingElementGeometry) == 180)
+                    else if (elementTilt == 180)
                     {
                         building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.CustomData.Add("Family Name", "Basic Roof");
                         building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.CustomData.Add("Family Name", "Basic Roof");

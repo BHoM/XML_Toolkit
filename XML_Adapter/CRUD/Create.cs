@@ -59,15 +59,13 @@ namespace BH.Adapter.gbXML
             List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
             foreach (BHE.BuildingElement element in bHoMBuildingElements)
             {
-                if (element.AdjacentSpaces.Count == 0 && element.BuildingElementProperties != null)
-                    if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window)
-                        if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
-                            shadeElements.Add(element);
+                if (element.AdjacentSpaces.Count == 0 && element.BuildingElementProperties != null && element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
+                    shadeElements.Add(element);
             }
 
             bHoMPanels.AddRange(shadeElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
 
-            double panelIndex = 0;
+            int panelIndex = 0;
             foreach (BHE.BuildingElement bHoMBuildingElement in shadeElements)
             {
                 Surface xmlPanel = new Surface();
@@ -103,7 +101,7 @@ namespace BH.Adapter.gbXML
             List<BH.oM.Architecture.Elements.Level> levels = bhomSpaces.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
             Serialize(levels, bhomSpaces.ToList(), gbx);
 
-            List<BHE.BuildingElement> buildingElementsList;
+            List<BHE.BuildingElement> buildingElementsList = new List<oM.Environmental.Elements.BuildingElement>();
 
             if (building == null)
                 buildingElementsList = bhomSpaces.SelectMany(x => x.BuildingElements).Cast<BHE.BuildingElement>().ToList();
@@ -112,7 +110,7 @@ namespace BH.Adapter.gbXML
 
 
             //Create surfaces for each space
-            int panelindex = 0;
+            int panelIndex = 0;
             int openingIndex = 0;
             foreach (BHE.Space bHoMSpace in bhomSpaces)
             {
@@ -135,14 +133,14 @@ namespace BH.Adapter.gbXML
                     {
                         Surface xmlPanel = new Surface();
                         string type = "Air";
-                        xmlPanel.Name = "Panel-" + panelindex.ToString();
+                        xmlPanel.Name = "Panel-" + panelIndex.ToString();
                         xmlPanel.surfaceType = type;
                         xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLType(bHoMBuildingElement[i]);
 
                         if (bHoMBuildingElement[i].BuildingElementProperties != null)
                             xmlPanel.CADobjectId = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i]);
 
-                        xmlPanel.id = "Panel-" + panelindex.ToString();
+                        xmlPanel.id = "Panel-" + panelIndex.ToString();
                         xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
@@ -175,7 +173,7 @@ namespace BH.Adapter.gbXML
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
 
                         //AdjacentSpace
-                        xmlPanel.AdjacentSpaceId = BH.Engine.XML.Query.AdjacentSpace(bHoMBuildingElement[i], spaces).ToArray();
+                        xmlPanel.AdjacentSpaceId = BH.Engine.XML.Query.GetAdjacentSpace(bHoMBuildingElement[i], spaces).ToArray();
 
                         //Remove duplicate surfaces
                         BHE.BuildingElement elementKeep = BH.Engine.XML.Query.ElementToKeep(bHoMBuildingElement[i], srfBound, spaces);
@@ -185,11 +183,11 @@ namespace BH.Adapter.gbXML
                             if (bHoMPanels[i].Openings.Count > 0)
                                 xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx).ToArray();
                             gbx.Campus.Surface.Add(xmlPanel);
-                            panelindex++;
+                            panelIndex++;
                         }
                     }
-                    panelindex = panelindex - 1;
-                    panelindex++;
+                    //panelIndex = panelIndex - 1;
+                    //panelIndex++;
                 }
 
                 // Generate gbXMLSpaces
@@ -251,8 +249,8 @@ namespace BH.Adapter.gbXML
                 }
 
 
-                gbXMLOpening.id = "opening-" + openingIndex;
-                gbXMLOpening.Name = "opening-" + openingIndex;
+                gbXMLOpening.id = "opening-" + openingIndex.ToString();
+                gbXMLOpening.Name = "opening-" + openingIndex.ToString();
                 xmlOpenings.Add(gbXMLOpening);
                 openingIndex++;
             }
