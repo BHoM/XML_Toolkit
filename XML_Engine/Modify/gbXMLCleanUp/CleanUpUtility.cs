@@ -157,7 +157,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                         rtn[ori].Add(newBE);
                     }
                 }
-                if(kvp.Value.Count == 0)
+                else if(kvp.Value.Count == 0)
                 {
                     //This BE was cut in such a way that it ended up with no polygon - slightly problematic but basically the entire polygon was the intersection with the other BE - so add the old BE back
                     if (!rtn.ContainsKey(ori))

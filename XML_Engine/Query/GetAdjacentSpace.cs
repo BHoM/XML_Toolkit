@@ -19,7 +19,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<AdjacentSpaceId> AdjacentSpace(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> spaces)
+        public static List<AdjacentSpaceId> GetAdjacentSpace(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> spaces)
         {
             List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
 
@@ -40,7 +40,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static List<Guid> AdjacentSpace(this List<BHE.BuildingElement> bHoMBuildingElement)
+        public static List<Guid> GetAdjacentSpace(this List<BHE.BuildingElement> bHoMBuildingElement)
         {
             List<Guid> adjspace = new List<Guid>();
 

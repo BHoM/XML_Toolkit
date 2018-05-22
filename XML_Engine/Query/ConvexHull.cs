@@ -59,7 +59,7 @@ namespace BH.Engine.XML
             }
 
 
-            BHG.Point nextPt;
+            BHG.Point nextPt = new BHG.Point();
             int counter = 0;
             while (counter < hull.Count)
             {

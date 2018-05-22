@@ -82,7 +82,7 @@ namespace BH.Engine.XML
             double AP = BH.Engine.Geometry.Query.Distance(pt, line.Start);
             double PB = BH.Engine.Geometry.Query.Distance(line.End, pt);
 
-            if (AB == AP + PB)
+            if (AB == (AP + PB))
                 return true;
             return false;
 

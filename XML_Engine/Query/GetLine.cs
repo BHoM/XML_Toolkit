@@ -38,10 +38,6 @@ namespace BH.Engine.XML
             if (XML.Query.IsContaining(segment, pt))
                 line = segment;
 
-
-            if (line == null)
-                return null;
-
             return line; 
 
             /***************************************************/

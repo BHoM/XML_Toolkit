@@ -23,25 +23,27 @@ namespace BH.Engine.XML
         {
             //Check if the surface normal is pointing away from the first AdjSpace. Keep if it does.
 
-            BHE.BuildingElement buildingElement = new BHE.BuildingElement();
+            BHE.BuildingElement buildingElement = null;
             if (bHoMBuildingElement.AdjacentSpaces.Count > 0)
             {
                 Guid firstGuid = bHoMBuildingElement.AdjacentSpaces.First();
                 BHE.Space firstSpace = spaces.Find(x => x.BHoM_Guid == firstGuid);
 
                 if (firstSpace == null)
-                    return bHoMBuildingElement;
+                    buildingElement = bHoMBuildingElement;
                 else
                 {
                     if (BH.Engine.XML.Query.NormalAwayFromSpace(srfBound,firstSpace))
-                        return bHoMBuildingElement;
+                        buildingElement = bHoMBuildingElement;
                     else //If the surface normal is pointing towards the first adjacent space we will ignore this building element. 
-                        return null;
+                        buildingElement = bHoMBuildingElement;
                 }
             }
 
             else  //Shade elements (no adjacent space)
-                return bHoMBuildingElement;
+                buildingElement = bHoMBuildingElement;
+
+            return buildingElement;
             
             
 

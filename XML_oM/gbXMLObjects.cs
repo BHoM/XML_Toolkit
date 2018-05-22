@@ -197,7 +197,7 @@ namespace BH.oM.XML
         [XmlElement]
         public StationId StationId = new StationId();
         [XmlElement]
-        public double ZipcodeOrPostalCode = 00000;
+        public string ZipcodeOrPostalCode = "";
         [XmlElement]
         public double Longitude = 0;
         [XmlElement]
