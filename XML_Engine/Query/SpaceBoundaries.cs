@@ -19,7 +19,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static SpaceBoundary[] SpaceBoundaries(this BHE.Space bHoMSpace)
+        public static SpaceBoundary[] SpaceBoundaries(this BHE.Space bHoMSpace, List<BHE.BuildingElement> be)
         {
             List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
             IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
@@ -45,8 +45,9 @@ namespace BH.Engine.XML
                 SpaceBoundary bound = new SpaceBoundary { PlanarGeometry = planarGeom };
                 spaceBound[i] = bound;
 
-                //spaceBound[i].surfaceIdRef = bHoMSpace.BuildingElements[i].BHoM_Guid.ToString();
-                //TODO: create surface and get its ID
+                //Get the id from the referenced panel
+                string refPanel = "Panel-" + be.FindIndex(x => x.BHoM_Guid.ToString() == bHoMSpace.BuildingElements[i].BHoM_Guid.ToString()).ToString();
+                //spaceBound[i].surfaceIdRef = refPanel;
             }
 
             return spaceBound;

@@ -38,7 +38,7 @@ namespace BH.Adapter.gbXML
                 SerializeCollection(building.BuildingElements, gbx); //ShadeElements
 
                 //Construction and materials are only for the IES specific gbXML
-                Serialize(building.BuildingElementProperties, gbx); //Construction and materials. Comment this line out to switch off materials and construction.TODO: add if statement around this line! 
+                //Serialize(building.BuildingElementProperties, gbx); //Construction and materials. Comment this line out to switch off materials and construction.TODO: add if statement around this line! 
 
                 gbx.Campus.Location = BH.Engine.XML.Convert.ToGbXML(building);
                 gbx.Campus.Building[buildingIndex].Area = (float)BH.Engine.XML.Query.BuildingArea(building);
@@ -115,6 +115,8 @@ namespace BH.Adapter.gbXML
                 buildingElementsList = building.BuildingElements;
 
 
+            List<BHE.BuildingElement> uniqeBuildingElements = new List<BHE.BuildingElement>(); //List with building elements with correct point order. 
+
             //Create surfaces for each space
             int panelIndex = 0;
             int openingIndex = 0;
@@ -138,9 +140,7 @@ namespace BH.Adapter.gbXML
                     for (int i = 0; i < bHoMPanels.Count; i++)
                     {
                         Surface xmlPanel = new Surface();
-                        //string type = "Air";
                         xmlPanel.Name = "Panel-" + panelIndex.ToString();
-                        //xmlPanel.surfaceType = type;
                         xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLType(bHoMBuildingElement[i]);
 
                         if (bHoMBuildingElement[i].BuildingElementProperties != null)
@@ -183,9 +183,12 @@ namespace BH.Adapter.gbXML
                         xmlPanel.AdjacentSpaceId = BH.Engine.XML.Query.GetAdjacentSpace(bHoMBuildingElement[i], spaces).ToArray();
 
                         //Remove duplicate surfaces
+
                         BHE.BuildingElement elementKeep = BH.Engine.XML.Query.ElementToKeep(bHoMBuildingElement[i], srfBound, spaces);
                         if (elementKeep != null)
                         {
+                            uniqeBuildingElements.Add(elementKeep);
+
                             //Create openings
                             if (bHoMPanels[i].Openings.Count > 0)
                                 xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx).ToArray();
@@ -197,8 +200,7 @@ namespace BH.Adapter.gbXML
 
                 // Generate gbXMLSpaces
                 if (spaces != null)
-                    Serialize(bHoMSpace, gbx);
-
+                    Serialize(bHoMSpace, uniqeBuildingElements, gbx);
             }
         }
 
@@ -264,7 +266,7 @@ namespace BH.Adapter.gbXML
 
         /***************************************************/
 
-        public static void Serialize(BHE.Space bHoMSpace, BH.oM.XML.gbXML gbx)
+        public static void Serialize(BHE.Space bHoMSpace, List<BHE.BuildingElement> be, BH.oM.XML.gbXML gbx)
         {
             List<BH.oM.XML.Space> xspaces = new List<Space>();
             BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGbXML(bHoMSpace);
@@ -273,7 +275,7 @@ namespace BH.Adapter.gbXML
             xspace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(bHoMSpace).ToArray();
 
             //Space Boundaries
-            xspace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(bHoMSpace);
+            xspace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(bHoMSpace, be);
 
             //Planar Geometry
             if (BH.Engine.XML.Query.FloorGeometry(bHoMSpace) != null)
@@ -321,7 +323,7 @@ namespace BH.Adapter.gbXML
                 BH.oM.XML.Material xmlMaterial = new Material();
                 xmlMaterial.id = BH.Engine.XML.Query.IdRef(prop, props);
                 xmlMaterial.Name = prop.Name.ToString();
-                xmlMaterial.Thickness = prop.Thickness;
+                xmlMaterial.Thickness = 0.01; //TODO: get the real thickness. At the moment we use this value because we need a thickess. Otherwise we end up with errors. 
                 xmlMaterial.Conductivity = prop.ThermalConductivity;
                 xmlMaterials.Add(xmlMaterial);
 
