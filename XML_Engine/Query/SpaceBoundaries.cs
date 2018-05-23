@@ -47,7 +47,7 @@ namespace BH.Engine.XML
 
                 //Get the id from the referenced panel
                 string refPanel = "Panel-" + be.FindIndex(x => x.BHoM_Guid.ToString() == bHoMSpace.BuildingElements[i].BHoM_Guid.ToString()).ToString();
-                //spaceBound[i].surfaceIdRef = refPanel;
+                spaceBound[i].surfaceIdRef = refPanel;
             }
 
             return spaceBound;
