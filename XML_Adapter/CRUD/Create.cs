@@ -38,7 +38,7 @@ namespace BH.Adapter.gbXML
                 SerializeCollection(building.BuildingElements, gbx); //ShadeElements
 
                 //Construction and materials are only for the IES specific gbXML
-                //Serialize(building.BuildingElementProperties, gbx); //Construction and materials. Comment this line out to switch off materials and construction.TODO: add if statement around this line! 
+                Serialize(building.BuildingElementProperties, gbx); //Construction and materials. Comment this line out to switch off materials and construction.TODO: add if statement around this line! 
 
                 gbx.Campus.Location = BH.Engine.XML.Convert.ToGbXML(building);
                 gbx.Campus.Building[buildingIndex].Area = (float)BH.Engine.XML.Query.BuildingArea(building);
