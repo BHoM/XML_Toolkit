@@ -47,6 +47,14 @@
     <Reference Include="ModelLaundry_Engine">
       <HintPath>..\..\ModelLaundry_Toolkit\Build\ModelLaundry_Engine.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Mongo_Toolkit\Build\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="Serialiser_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BHoM_Engine\Serialiser_Engine\obj\Debug\Serialiser_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Structure_Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Structure_Engine\obj\Debug\Structure_Engine.dll</HintPath>

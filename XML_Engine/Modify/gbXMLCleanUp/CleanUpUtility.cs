@@ -9,7 +9,7 @@ using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
 using BH.oM.Geometry;
-
+using BH.Engine.XML;
 
 namespace XML_Engine.Modify.gbXMLCleanUp
 {
@@ -199,10 +199,12 @@ namespace XML_Engine.Modify.gbXMLCleanUp
 
         public static BHE.Building RemovePerfectOverlaps(this BHE.Building building, BHE.BuildingElement beToRemove)
         {
+            double tol = 0.01; //0.01;
+
             List<BHE.BuildingElement> allBes = building.GetBuildingElements();
             Polyline be1P = beToRemove.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
 
-            List<BHE.BuildingElement> closeBEs = allBes.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(be1P.Centre()) < 0.01).ToList();
+            List<BHE.BuildingElement> closeBEs = allBes.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(be1P.Centre()) < tol).ToList();
 
             List<BHE.BuildingElement> toRemove = new List<BHE.BuildingElement>();
 
@@ -221,8 +223,13 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                         if (!be2P.ControlPoints.Contains(px))
                             isMatch = false;
                     }
-                }
 
+                    /*if (!isMatch)
+                    {
+                        foreach (Point px in be1P.ControlPoints)
+                            isMatch &= px.OnePointMatchesTol(be2P.ControlPoints);
+                    }*/
+                }
                 if (isMatch) //This BE is a perfect overlap - centre point is less than 0.01 unit away from each other, and every control point of BE1P is in the control points of BE2P - Remove this BE from the building/Spaces
                     toRemove.Add(be2);
             }
@@ -277,7 +284,8 @@ namespace XML_Engine.Modify.gbXMLCleanUp
         {
             if (be.AdjacentSpaces.Count == 1)
             {
-                List<BHE.BuildingElement> foundElements = building.BuildingElements.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre()) < 0.01).ToList();
+                double tol = 0.01; //0.01
+                List<BHE.BuildingElement> foundElements = building.BuildingElements.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre()) < tol).ToList();
 
                 foreach (BHE.BuildingElement be2 in foundElements)
                 {
@@ -355,9 +363,12 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             return be;
         }
 
-        public static BHE.BuildingElement AmendCadObjectID(this BHE.BuildingElement be)
+        public static BHE.BuildingElement AmendCadObjectID(this BHE.BuildingElement be, BHE.Building building)
         {
-            String dictionaryKey = "Family Name";
+            if (be.CADObjectError() == null) return null; //This element does not have a CAD object error
+            else return be.PropertiesFromAdjSrf(be.AdjacentSurface(building), building);
+
+            /*String dictionaryKey = "Family Name";
             if (be.BuildingElementProperties == null)
                 be.BuildingElementProperties = new BH.oM.Environmental.Properties.BuildingElementProperties();
 
@@ -395,7 +406,158 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                 be.BuildingElementProperties.Name = be.BuildingElementProperties.Name.Replace("FLR02_RAISED_900", "Exposed");
             }
 
-            return be;
+            return be;*/
+        }
+
+        public static bool Match2Of3(this Point pt, Point comp)
+        {
+            bool match2 = false;
+            if (pt.X == comp.X)
+            {
+                if (pt.Y == comp.Y)
+                    match2 = true;
+                else if (pt.Z == comp.Z)
+                    match2 = true;
+            }
+            else if (pt.Y == comp.Y && pt.Z == comp.Z)
+                match2 = true;
+
+            return match2;
+        }
+
+        public static bool MatchBEs(this BHE.BuildingElement be2, Polyline be1P)
+        {
+            Polyline be2P = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+
+            bool isMatch = true;
+            if (be1P.ControlPoints.Count != be2P.ControlPoints.Count)
+                isMatch = false;
+            else
+            {
+                foreach (Point px in be1P.ControlPoints)
+                {
+                    if (!be2P.ControlPoints.Contains(px))
+                        isMatch = false;
+                }
+
+                if(!isMatch)
+                {
+                    foreach (Point px in be1P.ControlPoints)
+                        isMatch &= px.OnePointMatchesTol(be2P.ControlPoints);
+                }
+            }
+
+            return isMatch;
+        }
+
+        public static bool OnePointMatchesTol(this Point px, List<Point> points, double tol = 0.1)
+        {
+            foreach(Point p1 in points)
+            {
+                if (px.Distance(p1) <= tol)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static BHE.Space CleanSpace(this BHE.Space space)
+        {
+            //Make sure there are no duplicate BEs in the space
+            for (int x = 0; x < space.BuildingElements.Count; x++)
+            {
+                BHE.BuildingElement newBE = space.BuildingElements[x].GetShallowClone() as BHE.BuildingElement;
+                Polyline be1P = space.BuildingElements[x].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+                if (newBE.BuildingElementGeometry == null && space.BuildingElements[x].BuildingElementGeometry != null)
+                    newBE.BuildingElementGeometry = space.BuildingElements[x].BuildingElementGeometry.Copy();
+                if (newBE.BuildingElementProperties == null && space.BuildingElements[x].BuildingElementProperties != null)
+                    newBE.BuildingElementProperties = space.BuildingElements[x].BuildingElementProperties.GetShallowClone() as BH.oM.Environmental.Properties.BuildingElementProperties;
+
+                bool wasRemoved = false;
+
+                for (int y = 0; y < space.BuildingElements.Count; y++)
+                {
+                    if (space.BuildingElements[y].MatchBEs(be1P))
+                    {
+                        foreach(Guid g in space.BuildingElements[y].AdjacentSpaces)
+                        {
+                            if (!newBE.AdjacentSpaces.Contains(g))
+                                newBE.AdjacentSpaces.Add(g);
+                        }
+                        space.BuildingElements.Remove(space.BuildingElements[y]);
+                        wasRemoved = true;
+                    }
+                }
+
+                if(wasRemoved)
+                    space.BuildingElements.Add(newBE);
+            }
+
+            return space;
+        }
+
+        public static BHE.Building CleanBuildingDupAdj(this BHE.Building building, BHE.BuildingElement be)
+        {
+            Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+            double tol = 0.1; //0.01
+            List<BHE.BuildingElement> nearestElements = building.GetBuildingElements().Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(be1P.Centre()) < tol).ToList();
+
+            //Check the Building elements on the building
+            foreach(BHE.BuildingElement be2 in nearestElements)
+            {
+                if (be2.AdjacentSpaces.AdjacenciesMatch(be.AdjacentSpaces) && be2.BHoM_Guid != be.BHoM_Guid)
+                {
+                    int index3 = building.BuildingElements.IndexOf(be2);
+                    if(index3 < building.BuildingElements.Count && index3 != -1)
+                        building.BuildingElements[index3] = be;
+                    List<BHE.Space> associatedSpaces = building.Spaces.Where(x => be.AdjacentSpaces.Contains(x.BHoM_Guid)).ToList();
+                    foreach(BHE.Space s in associatedSpaces)
+                    {
+                        int index = building.Spaces.IndexOf(s);
+                        if (index < building.Spaces.Count && index != -1)
+                        {
+                            int index2 = building.Spaces[index].BuildingElements.IndexOf(be2);
+                            if(index2 < building.Spaces[index].BuildingElements.Count && index2 != -1)
+                                building.Spaces[index].BuildingElements[index2] = be;
+                        }
+                    }
+                }
+            }
+
+            /*for(int x = 0; x < building.BuildingElements.Count; x++)
+            {
+                if(building.BuildingElements[x].AdjacentSpaces.AdjacenciesMatch(be.AdjacentSpaces) && building.BuildingElements[x].BHoM_Guid != be.BHoM_Guid)
+                {
+                    //This BE should be updated to not be duplicate BEs...
+                    building.BuildingElements[x] = be;
+                }
+            }
+
+            //Check the spaces building elements
+            for (int x = 0; x < building.Spaces.Count; x++)
+            {
+                for(int y = 0; y < building.Spaces[x].BuildingElements.Count; y++)
+                {
+                    if(building.Spaces[x].BuildingElements[y].AdjacentSpaces.AdjacenciesMatch(be.AdjacentSpaces) && building.Spaces[x].BuildingElements[y].BHoM_Guid != be.BHoM_Guid)
+                    {
+                        building.Spaces[x].BuildingElements[y] = be;
+                    }
+                }
+            }*/
+
+            return building;
+        }
+
+        public static bool AdjacenciesMatch(this List<Guid> firstAdj, List<Guid> secondAdj)
+        {
+            if (firstAdj.Count != secondAdj.Count)
+                return false;
+
+            bool rtn = true;
+            for (int x = 0; x < firstAdj.Count; x++)
+                rtn &= (secondAdj[x] == firstAdj[x]);
+
+            return rtn;
         }
     }
 }

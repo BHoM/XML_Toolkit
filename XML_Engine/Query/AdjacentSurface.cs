@@ -21,7 +21,7 @@ namespace BH.Engine.XML
 
         public static List<BHE.BuildingElement> AdjacentSurface(this BHE.BuildingElement bHoMBuildingElement, BHE.Building building)
         {
-            if (bHoMBuildingElement == null)
+            if (bHoMBuildingElement == null || bHoMBuildingElement.AdjacentSpaces.Count == 0)
                 return null;
 
             BHG.Plane plane = bHoMBuildingElement.BuildingElementGeometry.ICurve().IFitPlane();

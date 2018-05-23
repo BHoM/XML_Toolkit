@@ -106,7 +106,6 @@ namespace BH.Adapter.gbXML
             List<BH.oM.Architecture.Elements.Level> levels = bhomSpaces.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
 
             Serialize(levels, bhomSpaces.ToList(), gbx);
-
             List<BHE.BuildingElement> buildingElementsList = new List<oM.Environmental.Elements.BuildingElement>();
 
             if (building == null)
