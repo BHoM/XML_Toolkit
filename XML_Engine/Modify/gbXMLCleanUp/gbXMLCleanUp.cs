@@ -149,9 +149,9 @@ namespace XML_Engine.Modify
         
         public static Building gbxmlCleanUp_SpaceCleanse(this Building building)
         {
-            /*for (int x = 0; x < building.Spaces.Count; x++)
+            for (int x = 0; x < building.Spaces.Count; x++)
                 building.Spaces[x] = building.Spaces[x].CleanSpace();
-                */
+                
             return building;
         }
 
