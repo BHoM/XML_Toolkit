@@ -45,6 +45,7 @@ namespace BH.Engine.XML
                 SpaceBoundary bound = new SpaceBoundary { PlanarGeometry = planarGeom };
                 spaceBound[i] = bound;
 
+                //spaceBound[i].surfaceIdRef = bHoMSpace.BuildingElements[i].BHoM_Guid.ToString();
                 //TODO: create surface and get its ID
             }
 

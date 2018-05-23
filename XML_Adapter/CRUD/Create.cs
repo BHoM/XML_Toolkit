@@ -37,12 +37,9 @@ namespace BH.Adapter.gbXML
                 SerializeCollection(building.Spaces, gbx, building); //Spaces
                 SerializeCollection(building.BuildingElements, gbx); //ShadeElements
 
-<<<<<<< HEAD
                 //Construction and materials are only for the IES specific gbXML
                 Serialize(building.BuildingElementProperties, gbx); //Construction and materials. Comment this line out to switch off materials and construction.TODO: add if statement around this line! 
 
-=======
->>>>>>> release_2.0
                 gbx.Campus.Location = BH.Engine.XML.Convert.ToGbXML(building);
                 gbx.Campus.Building[buildingIndex].Area = (float)BH.Engine.XML.Query.BuildingArea(building);
 
@@ -65,24 +62,13 @@ namespace BH.Adapter.gbXML
             List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
             foreach (BHE.BuildingElement element in bHoMBuildingElements)
             {
-<<<<<<< HEAD
-                if (element.AdjacentSpaces.Count == 0 && element.BuildingElementProperties != null)
-                    if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window)
-                        if (element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
-                            shadeElements.Add(element);
-=======
                 if (element.AdjacentSpaces.Count == 0 && element.BuildingElementProperties != null && element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && element.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
                     shadeElements.Add(element);
->>>>>>> release_2.0
             }
 
             bHoMPanels.AddRange(shadeElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
 
-<<<<<<< HEAD
-            double panelIndex = 0;
-=======
             int panelIndex = 0;
->>>>>>> release_2.0
             foreach (BHE.BuildingElement bHoMBuildingElement in shadeElements)
             {
                 Surface xmlPanel = new Surface();
@@ -95,10 +81,8 @@ namespace BH.Adapter.gbXML
 
                 xmlPanel.id = "Shade-" + panelIndex.ToString();
                 xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
-<<<<<<< HEAD
+
                 xmlPanel.constructionIdRef = BH.Engine.XML.Query.IdRef(bHoMBuildingElement, bHoMBuildingElements.ToList()); //Only for IES!
-=======
->>>>>>> release_2.0
 
                 RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMBuildingElement.BuildingElementGeometry as BHE.BuildingElementPanel);
                 PlanarGeometry plGeo = new PlanarGeometry();
@@ -120,17 +104,10 @@ namespace BH.Adapter.gbXML
         {
             //Levels unique by name in all spaces. We can access this info from the building, but we need it if the input is space (without building):
             List<BH.oM.Architecture.Elements.Level> levels = bhomSpaces.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
-<<<<<<< HEAD
 
-
-            Serialize(levels, bhomSpaces.ToList(), gbx);
-
-            List<BHE.BuildingElement> buildingElementsList;
-=======
             Serialize(levels, bhomSpaces.ToList(), gbx);
 
             List<BHE.BuildingElement> buildingElementsList = new List<oM.Environmental.Elements.BuildingElement>();
->>>>>>> release_2.0
 
             if (building == null)
                 buildingElementsList = bhomSpaces.SelectMany(x => x.BuildingElements).Cast<BHE.BuildingElement>().ToList();
@@ -139,11 +116,7 @@ namespace BH.Adapter.gbXML
 
 
             //Create surfaces for each space
-<<<<<<< HEAD
-            int panelindex = 0;
-=======
             int panelIndex = 0;
->>>>>>> release_2.0
             int openingIndex = 0;
             foreach (BHE.Space bHoMSpace in bhomSpaces)
             {
@@ -165,9 +138,9 @@ namespace BH.Adapter.gbXML
                     for (int i = 0; i < bHoMPanels.Count; i++)
                     {
                         Surface xmlPanel = new Surface();
-                        string type = "Air";
+                        //string type = "Air";
                         xmlPanel.Name = "Panel-" + panelIndex.ToString();
-                        xmlPanel.surfaceType = type;
+                        //xmlPanel.surfaceType = type;
                         xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLType(bHoMBuildingElement[i]);
 
                         if (bHoMBuildingElement[i].BuildingElementProperties != null)
@@ -217,10 +190,9 @@ namespace BH.Adapter.gbXML
                             if (bHoMPanels[i].Openings.Count > 0)
                                 xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx).ToArray();
                             gbx.Campus.Surface.Add(xmlPanel);
+                            panelIndex++;
                         }
                     }
-                    //panelIndex = panelIndex - 1;
-                    //panelIndex++;
                 }
 
                 // Generate gbXMLSpaces
@@ -360,11 +332,6 @@ namespace BH.Adapter.gbXML
             gbx.Layer = xmlLayers.ToArray();
             gbx.Material = xmlMaterials.ToArray();
 
-        }
-
-        public static void Serialize(BHE.BuildingElementPanel bHoMPanel, BH.oM.XML.gbXML gbx)
-        {
-            throw new NotImplementedException();
         }
         /***************************************************/
     }
