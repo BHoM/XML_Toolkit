@@ -22,6 +22,10 @@ namespace BH.Engine.XML
         public static BHG.Polyline StoreyGeometry(this BH.oM.Architecture.Elements.Level bHoMLevel, List<BHE.Space> bHoMSpaces)
         {
             List<BHE.Space> spacesAtLevel = bHoMSpaces.FindAll(x => x.Level.Elevation == bHoMLevel.Elevation).ToList();
+
+            if (spacesAtLevel.Count == 0)
+                return null;
+
             List<BHE.BuildingElement> bHoMBuildingElement = spacesAtLevel.SelectMany(x => x.BuildingElements).ToList();
             List<BHG.Point> ctrlPoints = new List<BHG.Point>();
 

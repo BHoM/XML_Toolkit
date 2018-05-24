@@ -400,6 +400,8 @@ namespace BH.oM.XML
     public class Opening : gbXMLObject
     {
         [XmlAttribute]
+        public string constructionIdRef;
+        [XmlAttribute]
         public string openingType = "FixedWindow";
         [XmlAttribute]
         public string id = "OpeningID";
