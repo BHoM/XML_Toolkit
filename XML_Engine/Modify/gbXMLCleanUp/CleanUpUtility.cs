@@ -210,7 +210,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
 
             foreach(BHE.BuildingElement be2 in closeBEs)
             {
-                //Check that every control point of BE2 is int he control point of beToRemove
+                //Check that every control point of BE2 is in the control point of beToRemove
                 Polyline be2P = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
 
                 bool isMatch = true;
