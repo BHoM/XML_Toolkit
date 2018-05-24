@@ -21,20 +21,22 @@ namespace BH.Engine.XML
 
         public static List<AdjacentSpaceId> GetAdjacentSpace(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> spaces)
         {
-            List<AdjacentSpaceId> adspace = new List<AdjacentSpaceId>();
+            List<AdjacentSpaceId> adSpace = new List<AdjacentSpaceId>();
 
             foreach (Guid adjSpace in bHoMBuildingElement.AdjacentSpaces)
             {
                 AdjacentSpaceId adjId = new AdjacentSpaceId();
                 if (spaces.Select(x => x.BHoM_Guid).Contains(adjSpace))
                 {
-                    //adjId.spaceIdRef = "Space-" + spaces.Find(x => x.BHoM_Guid == adjSpace).Number;
-                    adjId.spaceIdRef = spaces.Find(x => x.BHoM_Guid == adjSpace).Number + " " + spaces.Find(x => x.BHoM_Guid == adjSpace).Name;
-                    adspace.Add(adjId);
+                    BHE.Space foundSpace = spaces.Find(x => x.BHoM_Guid == adjSpace);
+                    if (foundSpace == null)
+                        continue;
+                    adjId.spaceIdRef = foundSpace.Number + " " + foundSpace.Name;
+                    adSpace.Add(adjId);
                 }
             }
 
-            return adspace;
+            return adSpace;
 
         }
 
@@ -42,14 +44,14 @@ namespace BH.Engine.XML
 
         public static List<Guid> GetAdjacentSpace(this List<BHE.BuildingElement> bHoMBuildingElement)
         {
-            List<Guid> adjspace = new List<Guid>();
+            List<Guid> adjSpace = new List<Guid>();
 
             foreach (BHE.BuildingElement element in bHoMBuildingElement)
             {
-                adjspace.Add(element.AdjacentSpaces[0]);
+                adjSpace.Add(element.AdjacentSpaces[0]);
             }
 
-            return adjspace;
+            return adjSpace;
 
             /***************************************************/
         }

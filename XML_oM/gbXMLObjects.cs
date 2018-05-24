@@ -164,7 +164,7 @@ namespace BH.oM.XML
     {
         [XmlAttribute]
         public string id = "ConstructionID";
-        [XmlElement ("U-Value")]
+        [XmlElement ("U-value")]
         public uValue Uvalue = new uValue();
         [XmlElement]
         public Absorptance Absorptance = new Absorptance();
@@ -488,6 +488,6 @@ namespace BH.oM.XML
     public class Roughness : gbXMLObject
     {
         [XmlAttribute]
-        public string value = "VeryRough";
+        public string value = "VeryRough"; //TODO: what should the default value be?
     }
 }
