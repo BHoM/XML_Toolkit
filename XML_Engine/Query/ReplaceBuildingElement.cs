@@ -48,13 +48,13 @@ namespace BH.Engine.XML
             {
                 BHE.Space space = building.Spaces.Find(x => x.BHoM_Guid == be.AdjacentSpaces.FirstOrDefault());
 
-                BHE.BuildingElement toRemove = space.BuildingElements.Find(x => x.BHoM_Guid.ToString() == be.BHoM_Guid.ToString());
+                BHE.BuildingElement toRemove = space.BuildingElements.Find(x => x.BHoM_Guid == be.BHoM_Guid);
 
                 space.BuildingElements.Remove(toRemove);
                 space.BuildingElements.Add(be);
 
                 //Update the building
-                BHE.Space spaceToRemove = building.Spaces.Find(x => x.BHoM_Guid.ToString() == space.BHoM_Guid.ToString());
+                BHE.Space spaceToRemove = building.Spaces.Find(x => x.BHoM_Guid == space.BHoM_Guid);
                 building.Spaces.Remove(spaceToRemove);
                 building.Add(space);
             }

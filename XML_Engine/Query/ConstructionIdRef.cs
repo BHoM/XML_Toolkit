@@ -30,28 +30,19 @@ namespace BH.Engine.XML
 
         public static string IdRef(this BHP.BuildingElementProperties bHoMprop, List<BHP.BuildingElementProperties> bHoMprops)
         {
-            if (bHoMprop == null) return "-1";
+            //Method for constructing an ID based on the GUID of the property - this allows the same string ID to be generated for the same GUID for consistency in finding string IDs
 
-            Guid g = bHoMprop.BHoM_Guid;
-            String g2 = g.ToString().Split('-')[0];
-            int[] c = new int[g2.Length];
+            //Using the first 8 digits of the GUID gives 218,340,105,584,896 possible combinations of IDs, so the liklihood of 2 different GUIDs producing the same result from this function is fairly small...
 
-            for (int x = 0; x < g2.Length; x++)
-                c[x] = (int)g2[x];
+            if (bHoMprop == null) return "-1"; //Return an error (-1) if the property isn't really here
 
-            String s = "";
-            foreach (int i in c)
-                s += i.ToString();
+            String guidPart = bHoMprop.BHoM_Guid.ToString().Split('-')[0];
+            String rtnID = "";
 
-            return s;
+            for (int x = 0; x < guidPart.Length; x++)
+                rtnID += ((int)guidPart[x]).ToString();
 
-            /*List<BHP.BuildingElementProperties> props = bHoMprops.Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BHP.BuildingElementProperties).ToList();
-
-            props = props.Where(x => x != null).ToList();
-
-            string refId = (props.IndexOf(props.Find(x => x.Name == bHoMprop.Name)) + 1000).ToString();
-
-            return refId;*/
+            return rtnID;
         }
 
         /***************************************************/

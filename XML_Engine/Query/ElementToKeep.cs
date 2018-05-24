@@ -35,8 +35,7 @@ namespace BH.Engine.XML
                 else
                 {
                     if (BH.Engine.XML.Query.NormalAwayFromSpace(srfBound,firstSpace))
-                        buildingElement = bHoMBuildingElement;
-                    //If the surface normal is pointing away from the first adjacent space we will keep this building element. 
+                        buildingElement = bHoMBuildingElement; //If the surface normal is pointing away from the first adjacent space we will keep this building element. 
                 }
             }
 

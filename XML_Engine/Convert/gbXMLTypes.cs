@@ -25,7 +25,6 @@ namespace BH.Engine.XML
                     object aObject = bHoMBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"];
                     if (aObject != null)
                         type = ToGbXMLSurfaceType(aObject.ToString()); //modifies the string
-
                 }
             }
             else if (bHoMBuildingElement != null)

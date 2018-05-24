@@ -400,6 +400,8 @@ namespace BH.oM.XML
     public class Opening : gbXMLObject
     {
         [XmlAttribute]
+        public string constructionIdRef;
+        [XmlAttribute]
         public string openingType = "FixedWindow";
         [XmlAttribute]
         public string id = "OpeningID";
@@ -486,6 +488,6 @@ namespace BH.oM.XML
     public class Roughness : gbXMLObject
     {
         [XmlAttribute]
-        public string value = "VeryRough";
+        public string value = "VeryRough"; //TODO: what should the default value be?
     }
 }
