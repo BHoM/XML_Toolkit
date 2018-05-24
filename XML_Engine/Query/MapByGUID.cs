@@ -29,7 +29,6 @@ namespace BH.Engine.XML
 
             IEnumerable<IGrouping<Guid, BHE.BuildingElement>> groups = bHoMBuildingElement.GroupBy(x => x.BHoM_Guid);
 
-
             foreach (var group in groups)
             {
                 List<BHE.BuildingElement> duplictatedElement = new List<BHE.BuildingElement>();

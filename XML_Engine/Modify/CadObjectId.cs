@@ -60,6 +60,7 @@ namespace BH.Engine.XML
                 {
                     building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.Name.Replace("EXT", "INT");
                     building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties.Name.Replace("EXT", "INT");
+
                     for (int x = 0; x < building.Spaces.Count; x++)
                     {
                         for (int y = 0; y < building.Spaces[x].BuildingElements.Count; y++)

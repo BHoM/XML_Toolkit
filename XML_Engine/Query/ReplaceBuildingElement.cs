@@ -37,6 +37,32 @@ namespace BH.Engine.XML
             return bElement;
         }
         /***************************************************/
+
+        public static BHE.Building UpdateBuildingElement(this List<BHE.BuildingElement> bes, BHE.Building building)
+        {
+            //BHE.Building newBuilding = building.GetShallowClone() as BHE.Building;
+
+
+            //Update the spaces
+            foreach (BHE.BuildingElement be in bes)
+            {
+                BHE.Space space = building.Spaces.Find(x => x.BHoM_Guid == be.AdjacentSpaces.FirstOrDefault());
+
+                BHE.BuildingElement toRemove = space.BuildingElements.Find(x => x.BHoM_Guid == be.BHoM_Guid);
+
+                space.BuildingElements.Remove(toRemove);
+                space.BuildingElements.Add(be);
+
+                //Update the building
+                BHE.Space spaceToRemove = building.Spaces.Find(x => x.BHoM_Guid == space.BHoM_Guid);
+                building.Spaces.Remove(spaceToRemove);
+                building.Add(space);
+            }
+
+            return building;
+        }
+
+        /***************************************************/
     }
 }
 
