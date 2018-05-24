@@ -164,7 +164,7 @@ namespace BH.oM.XML
     {
         [XmlAttribute]
         public string id = "ConstructionID";
-        [XmlElement ("U-Value")]
+        [XmlElement ("U-value")]
         public uValue Uvalue = new uValue();
         [XmlElement]
         public Absorptance Absorptance = new Absorptance();
