@@ -117,7 +117,7 @@ namespace BH.Adapter.gbXML
                 buildingElementsList = building.BuildingElements;
 
 
-            List<BHE.BuildingElement> uniqeBuiluniqueBEs = new List<BHE.BuildingElement>(); //List with building elements with correct point order. 
+            List<BHE.BuildingElement> uniqueBEs = new List<BHE.BuildingElement>(); //List with building elements with correct point order. 
 
             //Create surfaces for each space
             int panelIndex = 0;
@@ -189,7 +189,7 @@ namespace BH.Adapter.gbXML
                         BHE.BuildingElement elementKeep = BH.Engine.XML.Query.ElementToKeep(bHoMBuildingElement[i], srfBound, spaces);
                         if (elementKeep != null)
                         {
-                            uniqeBuiluniqueBEs.Add(elementKeep);
+                            uniqueBEs.Add(elementKeep);
 
                             //Create openings
                             if (bHoMPanels[i].Openings.Count > 0)
@@ -202,7 +202,7 @@ namespace BH.Adapter.gbXML
 
                 // Generate gbXMLSpaces
                 if (spaces != null)
-                    Serialize(bHoMSpace, uniqeBuiluniqueBEs, gbx, isIES);
+                    Serialize(bHoMSpace, uniqueBEs, gbx, isIES);
             }
         }
 
