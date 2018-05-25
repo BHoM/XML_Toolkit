@@ -19,28 +19,29 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string IdRef(this BHE.BuildingElement bHoMBuildingElement, List<BHE.BuildingElement> buildingElementList)
+        public static string IdRef(this BHE.BuildingElement bHoMBuildingElement)
         {
-            List<BHP.BuildingElementProperties> props = buildingElementList.Select(x => x.BuildingElementProperties).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BHP.BuildingElementProperties).ToList();
+            if (bHoMBuildingElement == null)
+                return "-1"; //Retrun an error (-1)
 
-            return bHoMBuildingElement.BuildingElementProperties.IdRef(props);
+            return bHoMBuildingElement.BuildingElementProperties.IdRef();
         }
 
         /***************************************************/
 
-        public static string IdRef(this BHP.BuildingElementProperties bHoMprop, List<BHP.BuildingElementProperties> bHoMprops)
+        public static string IdRef(this BHP.BuildingElementProperties bHoMprop)
         {
-            //Method for constructing an ID based on the GUID of the property - this allows the same string ID to be generated for the same GUID for consistency in finding string IDs
+            //Method for constructing an ID based on the name of the property - this allows the same string ID to be generated for the same property for consistency in finding string IDs
 
+            //Originally we used the GUID and got the combinations below - but each name is unique so each returned string ID will be unique anyway - but the following comment line is being left in as a nice little factoid for the next person... (//TD)
             //Using the first 8 digits of the GUID gives 218,340,105,584,896 possible combinations of IDs, so the liklihood of 2 different GUIDs producing the same result from this function is fairly small...
 
             if (bHoMprop == null) return "-1"; //Return an error (-1) if the property isn't really here
 
-            String guidPart = bHoMprop.BHoM_Guid.ToString().Split('-')[0];
             String rtnID = "";
 
-            for (int x = 0; x < guidPart.Length; x++)
-                rtnID += ((int)guidPart[x]).ToString();
+            for (int x = 0; x < bHoMprop.Name.Length; x++)
+                rtnID += ((int)bHoMprop.Name[x]).ToString();
 
             return rtnID;
         }
