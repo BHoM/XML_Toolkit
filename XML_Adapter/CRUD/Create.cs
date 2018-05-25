@@ -34,12 +34,12 @@ namespace BH.Adapter.gbXML
             int buildingIndex = 0;
             foreach (BHE.Building building in bHoMBuilding)
             {
-                SerializeCollection(building.Spaces, gbx, building); //Spaces
+                SerializeCollection(building.Spaces, gbx, isIES, building); //Spaces
                 SerializeCollection(building.BuildingElements, gbx, isIES); //ShadeElements
 
                 //Construction and materials are only for the IES specific gbXML
-                if (isIES)
-                    SerializeCollection(building.BuildingElementProperties, gbx, isIES); //Construction and materials. Comment this line out to switch off materials and construction.TODO: add if statement around this line! 
+                //if (isIES)
+                //    SerializeCollection(building.BuildingElementProperties, gbx, isIES); //Construction and materials
 
                 gbx.Campus.Location = BH.Engine.XML.Convert.ToGbXML(building);
                 gbx.Campus.Building[buildingIndex].Area = (float)BH.Engine.XML.Query.BuildingArea(building);
@@ -84,7 +84,7 @@ namespace BH.Adapter.gbXML
                 xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
 
                 if (isIES)
-                    xmlPanel.constructionIdRef = BH.Engine.XML.Query.IdRef(bHoMBuildingElement, bHoMBuildingElements.ToList()); //Only for IES!
+                    xmlPanel.constructionIdRef = BH.Engine.XML.Query.IdRef(bHoMBuildingElement); //Only for IES!
 
                 RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMBuildingElement.BuildingElementGeometry as BHE.BuildingElementPanel);
                 PlanarGeometry plGeo = new PlanarGeometry();
@@ -102,7 +102,7 @@ namespace BH.Adapter.gbXML
 
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<BHE.Space> bhomSpaces, BH.oM.XML.gbXML gbx, BHE.Building building = null, bool isIES = false)
+        public static void SerializeCollection(IEnumerable<BHE.Space> bhomSpaces, BH.oM.XML.gbXML gbx, bool isIES = false, BHE.Building building = null)
         {
             //Levels unique by name in all spaces. We can access this info from the building, but we need it if the input is space (without building):
             List<BH.oM.Architecture.Elements.Level> levels = bhomSpaces.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
@@ -110,12 +110,22 @@ namespace BH.Adapter.gbXML
             Serialize(levels, bhomSpaces.ToList(), gbx, isIES);
 
             List<BHE.BuildingElement> buildingElementsList = new List<oM.Environmental.Elements.BuildingElement>();
+            List<BHP.BuildingElementProperties> propList = new List<oM.Environmental.Properties.BuildingElementProperties>();
 
             if (building == null)
+            {
                 buildingElementsList = bhomSpaces.SelectMany(x => x.BuildingElements).Cast<BHE.BuildingElement>().ToList();
+                propList = buildingElementsList.Select(x => x.BuildingElementProperties).ToList();
+            }
             else
+            {
                 buildingElementsList = building.BuildingElements;
+                propList = building.BuildingElementProperties;
+            }
 
+            //Construction and materials are only for the IES specific gbXML
+            if (isIES)
+                SerializeCollection(propList, gbx, isIES); //Construction and materials
 
             List<BHE.BuildingElement> uniqueBEs = new List<BHE.BuildingElement>(); //List with building elements with correct point order. 
 
@@ -143,15 +153,15 @@ namespace BH.Adapter.gbXML
                     {
                         Surface xmlPanel = new Surface();
                         xmlPanel.Name = "Panel-" + panelIndex.ToString();
-                        xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLType(bHoMBuildingElement[i]);
+                        xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLType(bHoMBuildingElement[i], isIES);
 
                         if (bHoMBuildingElement[i].BuildingElementProperties != null)
                             xmlPanel.CADobjectId = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i]);
 
                         xmlPanel.id = "Panel-" + panelIndex.ToString();
                         xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
-                        if(isIES)
-                            xmlPanel.constructionIdRef = BH.Engine.XML.Query.IdRef(bHoMBuildingElement[i], buildingElementsList); //Only for IES!
+                        if (isIES)
+                            xmlPanel.constructionIdRef = BH.Engine.XML.Query.IdRef(bHoMBuildingElement[i]); //Only for IES!
 
                         RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGbXML(bHoMPanels[i]);
                         PlanarGeometry plGeo = new PlanarGeometry();
@@ -253,7 +263,7 @@ namespace BH.Adapter.gbXML
                         typeName = buildingElement.BuildingElementProperties.Name;
                     }
                     gbXMLOpening.CADObjectId = BH.Engine.XML.Query.CadObjectId(opening, buildingElementsList);
-                    gbXMLOpening.openingType = BH.Engine.XML.Convert.ToGbXMLType(buildingElement);
+                    gbXMLOpening.openingType = BH.Engine.XML.Convert.ToGbXMLType(buildingElement, isIES);
 
                     if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
                         gbXMLOpening.openingType = "FixedWindow";
@@ -261,8 +271,8 @@ namespace BH.Adapter.gbXML
 
                 gbXMLOpening.id = "opening-" + openingIndex.ToString();
                 gbXMLOpening.Name = "opening-" + openingIndex.ToString();
-                if(isIES)
-                    gbXMLOpening.constructionIdRef = BH.Engine.XML.Query.IdRef(buildingElement, buildingElementsList); //Only for IES!
+                if (isIES)
+                    gbXMLOpening.constructionIdRef = BH.Engine.XML.Query.IdRef(buildingElement); //Only for IES!
                 xmlOpenings.Add(gbXMLOpening);
                 openingIndex++;
             }
@@ -312,19 +322,19 @@ namespace BH.Adapter.gbXML
             {
                 //Construction: Add all unique constructions to the xml file
                 BH.oM.XML.Construction xmlConstruction = BH.Engine.XML.Convert.ToGbXML(prop);
-                xmlConstruction.id = BH.Engine.XML.Query.IdRef(prop, props);
-                xmlConstruction.LayerId.layerIdRef = BH.Engine.XML.Query.IdRef(prop, props);
+                xmlConstruction.id = BH.Engine.XML.Query.IdRef(prop);
+                xmlConstruction.LayerId.layerIdRef = BH.Engine.XML.Query.IdRef(prop);
                 xmlConstructions.Add(xmlConstruction);
 
                 //Layers: Add all unique layers to the xml file
                 BH.oM.XML.Layer xmlLayer = new BH.oM.XML.Layer();
-                xmlLayer.id = BH.Engine.XML.Query.IdRef(prop, props);
-                xmlLayer.MaterialId.materialIdRef = BH.Engine.XML.Query.IdRef(prop, props);
+                xmlLayer.id = BH.Engine.XML.Query.IdRef(prop);
+                xmlLayer.MaterialId.materialIdRef = BH.Engine.XML.Query.IdRef(prop);
                 xmlLayers.Add(xmlLayer);
 
                 //Materials: Add all unique materials to the xml file
                 BH.oM.XML.Material xmlMaterial = new Material();
-                xmlMaterial.id = BH.Engine.XML.Query.IdRef(prop, props);
+                xmlMaterial.id = BH.Engine.XML.Query.IdRef(prop);
                 xmlMaterial.Name = prop.Name.ToString();
                 xmlMaterial.Thickness = 0.01; //TODO: get the real thickness. At the moment we use this value because we need a thickess. Otherwise we end up with errors. 
                 xmlMaterial.Conductivity = prop.ThermalConductivity;
