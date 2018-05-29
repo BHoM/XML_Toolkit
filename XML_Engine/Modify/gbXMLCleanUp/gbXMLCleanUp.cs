@@ -74,8 +74,11 @@ namespace XML_Engine.Modify
             /*List<BuildingElement> elements = building.GetBuildingElements();
             foreach (BuildingElement be in elements)
                 building = building.CleanBuildingDupAdj(be);*/
-            foreach (KeyValuePair<BuildingElement, List<BuildingElement>> kvp in overlaps)
-                building = building.CleanBuildingDupAdj(kvp.Key);
+            /*foreach (KeyValuePair<BuildingElement, List<BuildingElement>> kvp in overlaps)
+                building = building.CleanBuildingDupAdj(kvp.Key);*/
+
+            /*foreach (BuildingElement be in building.BuildingElements)
+                building = building.CleanBEs(be);*/
 
             return building;
         }

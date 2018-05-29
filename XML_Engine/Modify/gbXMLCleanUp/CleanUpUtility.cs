@@ -199,7 +199,23 @@ namespace XML_Engine.Modify.gbXMLCleanUp
 
         public static BHE.Building RemovePerfectOverlaps(this BHE.Building building, BHE.BuildingElement beToRemove)
         {
-            double tol = 0.01; //0.01;
+            List<BHE.BuildingElement> allBEs = building.GetBuildingElements();
+            List<BHE.BuildingElement> matchingBEs = allBEs.Where(x => x.MatchBEs(beToRemove)).ToList();
+
+            Polyline be1P = beToRemove.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+            List<BHE.BuildingElement> closeBEs = allBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(be1P.Centre()) < 0.01).ToList();
+
+            for (int x = 1; x < matchingBEs.Count; x++)
+            {
+                //Start at 1 and remove all of the BuildingElements that match the one to be removed
+                building.BuildingElements.Remove(matchingBEs[x]);
+                List<BHE.Space> spaces = building.Spaces.Where(a => a.BuildingElements.Contains(matchingBEs[x])).ToList();
+                foreach (BHE.Space s in spaces)
+                    s.BuildingElements.Remove(matchingBEs[x]);
+            }
+
+            return building;
+            /*double tol = 0.01; //0.01;
 
             List<BHE.BuildingElement> allBes = building.GetBuildingElements();
             Polyline be1P = beToRemove.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
@@ -224,11 +240,11 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                             isMatch = false;
                     }
 
-                    /*if (!isMatch)
+                    if (!isMatch)
                     {
                         foreach (Point px in be1P.ControlPoints)
                             isMatch &= px.OnePointMatchesTol(be2P.ControlPoints);
-                    }*/
+                    }
                 }
                 if (isMatch) //This BE is a perfect overlap - centre point is less than 0.01 unit away from each other, and every control point of BE1P is in the control points of BE2P - Remove this BE from the building/Spaces
                     toRemove.Add(be2);
@@ -277,7 +293,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             if (removedFromBuilding)
                 building.BuildingElements.Add(newBE);
 
-            return building;
+            return building;*/
         }
 
         public static BHE.BuildingElement AmendSingleAdjacencies(this BHE.BuildingElement be, BHE.Building building)
@@ -349,7 +365,10 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                     else
                     {
                         if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Contains("External"))
-                            be.BuildingElementProperties.Name = be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Replace("External", "Internal");
+                        {
+                            be.BuildingElementProperties.CustomData[dictionaryKey] = be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Replace("External", "Internal");
+                            be.BuildingElementProperties.Name = be.BuildingElementProperties.Name.Replace("EXT", "INT");
+                        }
                         else if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Roof", StringComparison.CurrentCultureIgnoreCase))
                             be.BuildingElementProperties.CustomData[dictionaryKey] = "Ceiling";
                         else if (be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Raised Floor", StringComparison.CurrentCultureIgnoreCase) || be.BuildingElementProperties.CustomData[dictionaryKey].ToString().Equals("Exposed Floor", StringComparison.CurrentCultureIgnoreCase))
@@ -429,6 +448,10 @@ namespace XML_Engine.Modify.gbXMLCleanUp
         {
             Polyline be2P = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
 
+            double tol = 0.01;
+            if (be2P.Centre().Distance(be1P.Centre()) > tol)
+                return false; //Centre points don't match within the tolerance so probably not the same BE
+
             bool isMatch = true;
             if (be1P.ControlPoints.Count != be2P.ControlPoints.Count)
                 isMatch = false;
@@ -442,12 +465,19 @@ namespace XML_Engine.Modify.gbXMLCleanUp
 
                 if(!isMatch)
                 {
+                    isMatch = true;
                     foreach (Point px in be1P.ControlPoints)
                         isMatch &= px.OnePointMatchesTol(be2P.ControlPoints);
                 }
             }
 
             return isMatch;
+        }
+
+        public static bool MatchBEs(this BHE.BuildingElement be2, BHE.BuildingElement refBE)
+        {
+            Polyline be1P = refBE.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+            return be2.MatchBEs(be1P);
         }
 
         public static bool OnePointMatchesTol(this Point px, List<Point> points, double tol = 0.1)
@@ -494,6 +524,23 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             }
 
             return space;
+        }
+
+        public static BHE.Building CleanBEs(this BHE.Building building, BHE.BuildingElement beToCheck)
+        {
+            List<BHE.BuildingElement> allBEs = building.GetBuildingElements();
+
+            List<BHE.BuildingElement> matchingBEs = allBEs.Where(x => x.MatchBEs(beToCheck)).ToList();
+
+            for(int x = 1; x < matchingBEs.Count; x++)
+            {
+                building.BuildingElements.Remove(matchingBEs[x]);
+                List<BHE.Space> spaces = building.Spaces.Where(a => a.BuildingElements.Contains(matchingBEs[x])).ToList();
+                foreach (BHE.Space s in spaces)
+                    s.BuildingElements.Remove(matchingBEs[x]);
+            }
+
+            return building;
         }
 
         public static BHE.Building CleanBuildingDupAdj(this BHE.Building building, BHE.BuildingElement be)
