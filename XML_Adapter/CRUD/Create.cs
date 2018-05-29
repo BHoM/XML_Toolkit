@@ -257,20 +257,26 @@ namespace BH.Adapter.gbXML
                 {
                     string elementID = (opening.CustomData["Revit_elementId"]).ToString();
                     buildingElement = buildingElementsList.Find(x => x != null && x.CustomData.ContainsKey("Revit_elementId") && x.CustomData["Revit_elementId"].ToString() == elementID);
-                    if (buildingElement != null && buildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
+
+                    if (buildingElement != null)
                     {
-                        familyName = buildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
-                        typeName = buildingElement.BuildingElementProperties.Name;
+
+                        if (buildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
+                        {
+                            familyName = buildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
+                            typeName = buildingElement.BuildingElementProperties.Name;
+                        }
+
+                        gbXMLOpening.CADObjectId = BH.Engine.XML.Query.CadObjectId(opening, buildingElementsList);
+                        gbXMLOpening.openingType = BH.Engine.XML.Convert.ToGbXMLType(buildingElement, isIES);
+
+                        if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
+                            gbXMLOpening.openingType = "FixedWindow";
+
+
+                        if (isIES && gbXMLOpening.openingType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                            gbXMLOpening.openingType = "NonSlidingDoor";
                     }
-                    gbXMLOpening.CADObjectId = BH.Engine.XML.Query.CadObjectId(opening, buildingElementsList);
-                    gbXMLOpening.openingType = BH.Engine.XML.Convert.ToGbXMLType(buildingElement, isIES);
-
-                    if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
-                        gbXMLOpening.openingType = "FixedWindow";
-
-
-                    if (isIES && gbXMLOpening.openingType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
-                         gbXMLOpening.openingType = "NonSlidingDoor";
                 }
 
                 gbXMLOpening.id = "opening-" + openingIndex.ToString();
