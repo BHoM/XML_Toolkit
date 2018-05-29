@@ -22,7 +22,7 @@ namespace BH.Engine.XML
         public static string IdRef(this BHE.BuildingElement bHoMBuildingElement)
         {
             if (bHoMBuildingElement == null)
-                return "-1"; //Retrun an error (-1)
+                return "-1"; //Return an error (-1)
 
             return bHoMBuildingElement.BuildingElementProperties.IdRef();
         }

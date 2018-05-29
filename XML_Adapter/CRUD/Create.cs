@@ -38,8 +38,8 @@ namespace BH.Adapter.gbXML
                 SerializeCollection(building.BuildingElements, gbx, isIES); //ShadeElements
 
                 //Construction and materials are only for the IES specific gbXML
-                //if (isIES)
-                //    SerializeCollection(building.BuildingElementProperties, gbx, isIES); //Construction and materials
+                if (isIES)
+                    SerializeCollection(building.BuildingElementProperties, gbx, isIES); //Construction and materials
 
                 gbx.Campus.Location = BH.Engine.XML.Convert.ToGbXML(building);
                 gbx.Campus.Building[buildingIndex].Area = (float)BH.Engine.XML.Query.BuildingArea(building);
@@ -124,8 +124,8 @@ namespace BH.Adapter.gbXML
             }
 
             //Construction and materials are only for the IES specific gbXML
-            if (isIES)
-                SerializeCollection(propList, gbx, isIES); //Construction and materials
+            //if (isIES)
+            //    SerializeCollection(propList, gbx, isIES); //Construction and materials
 
             List<BHE.BuildingElement> uniqueBEs = new List<BHE.BuildingElement>(); //List with building elements with correct point order. 
 
@@ -267,6 +267,10 @@ namespace BH.Adapter.gbXML
 
                     if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
                         gbXMLOpening.openingType = "FixedWindow";
+
+
+                    if (isIES && gbXMLOpening.openingType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                         gbXMLOpening.openingType = "NonSlidingDoor";
                 }
 
                 gbXMLOpening.id = "opening-" + openingIndex.ToString();

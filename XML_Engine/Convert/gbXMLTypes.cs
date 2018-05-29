@@ -27,7 +27,7 @@ namespace BH.Engine.XML
                     if (aObject != null)
                         type = ToGbXMLSurfaceType(aObject.ToString()); //modifies the string
 
-                    if (isIES && type.Contains("Window") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                    if ((isIES && type.Contains("Window") || bHoMBuildingElement.BuildingElementProperties.BuildingElementType == BHE.Elements.BuildingElementType.Window) && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
                         type = "NonSlidingDoor";
                 }
             }
