@@ -107,14 +107,16 @@ namespace BH.Adapter.gbXML
             //Levels unique by name in all spaces. We can access this info from the building, but we need it if the input is space (without building):
             List<BH.oM.Architecture.Elements.Level> levels = bhomSpaces.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
 
-            Serialize(levels, bhomSpaces.ToList(), gbx, isIES);
+            //Make sure we only have spaces with geometries.
+            List<BHE.Space> validSpaces = bhomSpaces.Where(x => x.BuildingElements.Count != 0).ToList();
 
+            Serialize(levels, validSpaces.ToList(), gbx, isIES);
             List<BHE.BuildingElement> buildingElementsList = new List<oM.Environmental.Elements.BuildingElement>();
             List<BHP.BuildingElementProperties> propList = new List<oM.Environmental.Properties.BuildingElementProperties>();
 
             if (building == null)
             {
-                buildingElementsList = bhomSpaces.SelectMany(x => x.BuildingElements).Cast<BHE.BuildingElement>().ToList();
+                buildingElementsList = validSpaces.SelectMany(x => x.BuildingElements).Cast<BHE.BuildingElement>().ToList();
                 propList = buildingElementsList.Select(x => x.BuildingElementProperties).ToList();
             }
             else
@@ -132,7 +134,7 @@ namespace BH.Adapter.gbXML
             //Create surfaces for each space
             int panelIndex = 0;
             int openingIndex = 0;
-            foreach (BHE.Space bHoMSpace in bhomSpaces)
+            foreach (BHE.Space bHoMSpace in validSpaces)
             {
                 List<BHE.BuildingElementPanel> bHoMPanels = new List<BHE.BuildingElementPanel>();
                 List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
@@ -140,7 +142,7 @@ namespace BH.Adapter.gbXML
                 bHoMPanels.AddRange(bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry as BHE.BuildingElementPanel));
                 bHoMBuildingElement.AddRange(bHoMSpace.BuildingElements);
 
-                List<BHE.Space> spaces = bhomSpaces.ToList();
+                List<BHE.Space> spaces = validSpaces.ToList();
 
 
                 // Generate gbXMLSurfaces
@@ -188,7 +190,6 @@ namespace BH.Adapter.gbXML
                             srfBound = pline;
                         }
 
-
                         xmlPanel.PlanarGeometry = plGeo;
                         xmlPanel.RectangularGeometry = xmlRectangularGeom;
 
@@ -225,7 +226,10 @@ namespace BH.Adapter.gbXML
             foreach (BH.oM.Architecture.Elements.Level level in levels)
             {
                 BuildingStorey storey = BH.Engine.XML.Convert.ToGbXML(level);
-                storey.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGbXML(BH.Engine.XML.Query.StoreyGeometry(level, bHoMSpaces));
+                BHG.Polyline storeyGeometry = BH.Engine.XML.Query.StoreyGeometry(level, bHoMSpaces);
+                if (storeyGeometry == null)
+                    continue;
+                storey.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGbXML(storeyGeometry);
                 xmlLevels.Add(storey);
             }
 

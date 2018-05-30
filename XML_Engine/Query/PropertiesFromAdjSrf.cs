@@ -23,7 +23,7 @@ namespace BH.Engine.XML
             BHE.BuildingElement newBe = new BHE.BuildingElement();
             newBe = bHoMBuildingElement.GetShallowClone() as BHE.BuildingElement;
 
-            if (refElement.Count == 0)
+            if (refElement == null || refElement.Count == 0)
                 return newBe;
 
             //if (refElement.Count == 1) //Get properites for CADObjectID and Type from this element. No selection needed. TODO: add method for selection where we have many adjacent surfaces. 
@@ -120,44 +120,48 @@ namespace BH.Engine.XML
             }
             else
             {
-                //Find the space for the building element that we want tot update.
+                //Find the space for the building element that we want to update.
                 BHE.Space space = building.Spaces.Find(x => x.BHoM_Guid.ToString() == bHoMBuildingElement.AdjacentSpaces.First().ToString());
 
                 BHE.BuildingElement be3 = space.BuildingElements.Find((x => x.AdjacentSpaces.Count == 1 && x.BHoM_Guid != bHoMBuildingElement.BHoM_Guid && x.BuildingElementGeometry.Tilt() == newBe.BuildingElementGeometry.Tilt()));
 
-                //1. Properties for CADObjectID
-                if (be3.BuildingElementProperties != null && newBe.BuildingElementProperties != null)
-                    newBe.BuildingElementProperties.Name = be3.BuildingElementProperties.Name;
-                if (newBe.BuildingElementProperties == null)
+                if (be3 != null)
                 {
-                    newBe.BuildingElementProperties = new BHP.BuildingElementProperties();
-                    newBe.BuildingElementProperties.Name = be3.BuildingElementProperties.Name;
-                }
+
+                    //1. Properties for CADObjectID
+                    if (be3.BuildingElementProperties != null && newBe.BuildingElementProperties != null)
+                        newBe.BuildingElementProperties.Name = be3.BuildingElementProperties.Name;
+                    if (newBe.BuildingElementProperties == null)
+                    {
+                        newBe.BuildingElementProperties = new BHP.BuildingElementProperties();
+                        newBe.BuildingElementProperties.Name = be3.BuildingElementProperties.Name;
+                    }
 
 
-                if (be3.CustomData.ContainsKey("Revit_elementId"))
-                {
-                    if (newBe.CustomData.ContainsKey("Revit_elementId"))
-                        newBe.CustomData["Revit_elementId"] = be3.CustomData["Revit_elementId"];
-                    else
-                        newBe.CustomData.Add("Revit_elementId", be3.CustomData["Revit_elementId"]);
-                }
+                    if (be3.CustomData.ContainsKey("Revit_elementId"))
+                    {
+                        if (newBe.CustomData.ContainsKey("Revit_elementId"))
+                            newBe.CustomData["Revit_elementId"] = be3.CustomData["Revit_elementId"];
+                        else
+                            newBe.CustomData.Add("Revit_elementId", be3.CustomData["Revit_elementId"]);
+                    }
 
-                if (be3.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
-                {
-                    if (newBe.CustomData.ContainsKey("Family Name"))
-                        newBe.BuildingElementProperties.CustomData["Family Name"] = be3.CustomData["Family Name"];
-                    else
-                        newBe.BuildingElementProperties.CustomData.Add("Family Name", be3.CustomData["Family Name"]);
-                }
+                    if (be3.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
+                    {
+                        if (newBe.CustomData.ContainsKey("Family Name"))
+                            newBe.BuildingElementProperties.CustomData["Family Name"] = be3.CustomData["Family Name"];
+                        else
+                            newBe.BuildingElementProperties.CustomData.Add("Family Name", be3.CustomData["Family Name"]);
+                    }
 
-                //2.Type
-                if (be3.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
-                {
-                    if (newBe.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
-                        newBe.BuildingElementProperties.CustomData["SAM_BuildingElementType"] = be3.BuildingElementProperties.CustomData["SAM_BuildingElementType"];
-                    else
-                        newBe.BuildingElementProperties.CustomData.Add("SAM_BuildingElementType", be3.BuildingElementProperties.CustomData["SAM_BuildingElementType"]);
+                    //2.Type
+                    if (be3.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
+                    {
+                        if (newBe.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
+                            newBe.BuildingElementProperties.CustomData["SAM_BuildingElementType"] = be3.BuildingElementProperties.CustomData["SAM_BuildingElementType"];
+                        else
+                            newBe.BuildingElementProperties.CustomData.Add("SAM_BuildingElementType", be3.BuildingElementProperties.CustomData["SAM_BuildingElementType"]);
+                    }
                 }
 
             }
