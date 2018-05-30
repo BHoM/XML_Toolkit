@@ -11,7 +11,7 @@ namespace BH.Engine.XML
     {
         /***************************************************/
 
-        public static string ToGbXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement)
+        public static string ToGbXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement, bool isIES = false)
         {
             string type = "Air";
             if (bHoMBuildingElement == null)
@@ -23,8 +23,12 @@ namespace BH.Engine.XML
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
                 {
                     object aObject = bHoMBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"];
+
                     if (aObject != null)
                         type = ToGbXMLSurfaceType(aObject.ToString()); //modifies the string
+
+                    if ((isIES && type.Contains("Window") || bHoMBuildingElement.BuildingElementProperties.BuildingElementType == BHE.Elements.BuildingElementType.Window) && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                        type = "NonSlidingDoor";
                 }
             }
             else if (bHoMBuildingElement != null)
