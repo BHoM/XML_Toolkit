@@ -78,7 +78,7 @@ namespace BH.Adapter.gbXML
                 xmlPanel.surfaceType = type;
 
                 if (bHoMBuildingElement.BuildingElementProperties != null)
-                    xmlPanel.CADobjectId = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement);
+                    xmlPanel.CADobjectId = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement, isIES);
 
                 xmlPanel.id = "Shade-" + panelIndex.ToString();
                 xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
@@ -158,7 +158,7 @@ namespace BH.Adapter.gbXML
                         xmlPanel.surfaceType = BH.Engine.XML.Convert.ToGbXMLType(bHoMBuildingElement[i], isIES);
 
                         if (bHoMBuildingElement[i].BuildingElementProperties != null)
-                            xmlPanel.CADobjectId = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i]);
+                            xmlPanel.CADobjectId = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i], isIES);
 
                         xmlPanel.id = "Panel-" + panelIndex.ToString();
                         xmlPanel.exposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.surfaceType).ToString();
@@ -205,6 +205,15 @@ namespace BH.Adapter.gbXML
                             //Create openings
                             if (bHoMPanels[i].Openings.Count > 0)
                                 xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
+
+                            BHE.BuildingElementPanel newPanel = new BHE.BuildingElementPanel();
+                            //If we have a curtain wall with GLZ we should create an extra opening (with tha size of the whole panel)
+                            if (isIES && BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i], isIES).Contains("Curtain Wall") && BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i], isIES).Contains("GLZ"))
+                            {
+                                newPanel = BH.Engine.XML.Create.BuildingElementOpening(bHoMPanels[i], bHoMBuildingElement[i], bHoMBuildingElement[i].BuildingElementGeometry.ICurve());
+                                xmlPanel.Opening = Serialize(newPanel.Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
+                            }
+
                             gbx.Campus.Surface.Add(xmlPanel);
                             panelIndex++;
                         }
@@ -271,7 +280,7 @@ namespace BH.Adapter.gbXML
                             typeName = buildingElement.BuildingElementProperties.Name;
                         }
 
-                        gbXMLOpening.CADObjectId = BH.Engine.XML.Query.CadObjectId(opening, buildingElementsList);
+                        gbXMLOpening.CADObjectId = BH.Engine.XML.Query.CadObjectId(opening, buildingElementsList, isIES);
                         gbXMLOpening.openingType = BH.Engine.XML.Convert.ToGbXMLType(buildingElement, isIES);
 
                         if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm

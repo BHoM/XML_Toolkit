@@ -15,7 +15,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string CadObjectId(this BHE.BuildingElement bHoMBuildingElement)
+        public static string CadObjectId(this BHE.BuildingElement bHoMBuildingElement, bool isIES = false)
         {
             string CADObjectID = "";
             string revitElementID = "";
@@ -28,6 +28,9 @@ namespace BH.Engine.XML
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
                     familyName = bHoMBuildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
 
+                if (isIES && familyName.Contains("Wall") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
+                    familyName = "Curtain Wall";
+
                 CADObjectID = familyName + ": " + bHoMBuildingElement.BuildingElementProperties.Name + " [" + revitElementID + "]";
             }
             return CADObjectID;
@@ -35,7 +38,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static string CadObjectId(BHE.BuildingElementOpening bHoMOpening, List<BHE.BuildingElement> buildingElementsList)
+        public static string CadObjectId(BHE.BuildingElementOpening bHoMOpening, List<BHE.BuildingElement> buildingElementsList, bool isIES = false)
         {
             string CADObjectID = "";
             string familyName = "";
