@@ -47,7 +47,7 @@ namespace BH.Engine.XML
 
             for (int i = 0; i < planes.Count; i++)
             {
-                if ((BH.Engine.Geometry.Query.PlaneIntersection(line, planes[i])) == null)
+                if ((BH.Engine.Geometry.Query.PlaneIntersection(line, planes[i], false)) == null) //false for using infinate lines. 
                     continue;
 
                 List<BHG.Point> intersectingPoints = new List<BHG.Point>();
@@ -55,7 +55,7 @@ namespace BH.Engine.XML
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = buildingElements[i].BuildingElementGeometry.ICurve().IControlPoints() };
 
 
-                if (intersectingPoints != null && BH.Engine.Geometry.Query.IsContaining(pline, intersectingPoints))
+                if (intersectingPoints != null && BH.Engine.Geometry.Query.IsContaining(pline, intersectingPoints, true, 1e-05))
                 {
                     intersectPts.AddRange(intersectingPoints);
                     if (intersectPts.CullDuplicates().Count == intersectPts.Count()) //Check if the point already has been added to the list
