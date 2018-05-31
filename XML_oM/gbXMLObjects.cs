@@ -475,7 +475,7 @@ namespace BH.oM.XML
     public class uValue : gbXMLObject
     {
         [XmlAttribute]
-        public string unit = "WPerSquarMeterK";
+        public string unit = "WPerSquareMeterK";
     }
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Absorptance : gbXMLObject
