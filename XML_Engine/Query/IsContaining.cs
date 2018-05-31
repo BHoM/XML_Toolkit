@@ -47,7 +47,7 @@ namespace BH.Engine.XML
 
             for (int i = 0; i < planes.Count; i++)
             {
-                if ((BH.Engine.Geometry.Query.PlaneIntersection(line, planes[i], false)) == null) //false for using infinate lines. 
+                if ((BH.Engine.Geometry.Query.PlaneIntersection(line, planes[i], false)) == null) //false for using infinite lines. 
                     continue;
 
                 List<BHG.Point> intersectingPoints = new List<BHG.Point>();
