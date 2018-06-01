@@ -71,7 +71,7 @@ namespace BH.Engine.XML
 
 
             //Move centrepoint along the normal.
-            if (IsContaining(space, centrePt.Translate(plane.Normal * 0.1)))
+            if (IsContaining(space, centrePt.Translate(plane.Normal * 0.01)))
                 return false;
             else
                 return true;
