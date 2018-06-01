@@ -9,7 +9,6 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
-
 namespace BH.Engine.XML
 {
     //TODO: move these methods to the Environment Engine
@@ -32,7 +31,7 @@ namespace BH.Engine.XML
 
         public static BHE.BuildingElement BuildingElementOpening(this BHE.BuildingElement be, BHG.ICurve bound)
         {
-            if (be == null)
+            if (be == null || be.BuildingElementProperties == null || !be.BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
                 return be;
 
             string revitElementID = (be.BuildingElementProperties.CustomData["Revit_elementId"]).ToString();
