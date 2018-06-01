@@ -298,14 +298,64 @@ namespace XML_Engine.Modify.gbXMLCleanUp
 
         public static BHE.BuildingElement AmendSingleAdjacencies(this BHE.BuildingElement be, BHE.Building building)
         {
+            //Find additional adjacencies from panels that have a similar (within tolerance 'tol') centre point geometry (standard centre point method)
             if (be.AdjacentSpaces.Count == 1)
             {
                 double tol = 0.01; //0.01
-                List<BHE.BuildingElement> foundElements = building.BuildingElements.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre()) < tol).ToList();
+                Point beCentre = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
+                List<BHE.BuildingElement> foundElements = building.BuildingElements.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(beCentre) < tol).ToList();
 
                 foreach (BHE.BuildingElement be2 in foundElements)
                 {
                     if (be2.BHoM_Guid != be.BHoM_Guid)
+                    {
+                        foreach (Guid g in be2.AdjacentSpaces)
+                            if (!be.AdjacentSpaces.Contains(g))
+                                be.AdjacentSpaces.Add(g);
+                    }
+                }
+            }
+
+            return be;
+        }
+
+        public static BHE.BuildingElement AmendSingleAdjacencies(this BHE.BuildingElement be, BHE.Space space)
+        {
+            if (space == null)
+                return be;
+
+            //Find additional adjacencies from panels with same plane as panels in the space of the single adjacency
+            if (be.AdjacentSpaces.Count == 1)
+            {
+                Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+                List<BHE.BuildingElement> foundElements = space.BuildingElements.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsCoplanar(be1P)).ToList();
+
+                foreach (BHE.BuildingElement be2 in foundElements)
+                {
+                    if (be2.BHoM_Guid != be.BHoM_Guid)
+                    {
+                        foreach (Guid g in be2.AdjacentSpaces)
+                            if (!be.AdjacentSpaces.Contains(g))
+                                be.AdjacentSpaces.Add(g);
+                    }
+                }
+            }
+            return be;
+        }
+
+        public static BHE.BuildingElement AmendSingleAdjacencies(this BHE.BuildingElement be, List<BHE.BuildingElement> potentialMatches)
+        {
+            //Find additional adjacencies from panels that have a similar (within tolerance 'tol') centre point geometry (area centroid method)
+            if (be.AdjacentSpaces.Count == 1)
+            {
+                double tol = 0.01;
+                Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+                Point beCentre = be1P.PolygonCentre();
+                List<BHE.BuildingElement> foundElements = potentialMatches.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).PolygonCentre().Distance(beCentre) < tol && x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsCoplanar(be1P)).ToList();
+
+                foreach(BHE.BuildingElement be2 in foundElements)
+                {
+                    if(be2.BHoM_Guid != be.BHoM_Guid)
                     {
                         foreach (Guid g in be2.AdjacentSpaces)
                             if (!be.AdjacentSpaces.Contains(g))
@@ -489,6 +539,15 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             }
 
             return false;
+        }
+
+        public static bool OnePointMatchesTol(this List<Point> px, List<Point> points, double tol = 0.1)
+        {
+            bool match = true;
+            foreach (Point pt in px)
+                match &= pt.OnePointMatchesTol(points, tol);
+
+            return match;
         }
 
         public static BHE.Space CleanSpace(this BHE.Space space)

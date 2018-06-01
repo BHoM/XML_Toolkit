@@ -14,6 +14,8 @@ using BH.Engine.Environment;
 
 using BH.Engine.Serialiser;
 
+using BH.Engine.XML;
+
 namespace XML_Engine.Modify
 {
     public static partial class Modify
@@ -152,9 +154,117 @@ namespace XML_Engine.Modify
         
         public static Building gbxmlCleanUp_SpaceCleanse(this Building building)
         {
+            building = building.BreakReferenceClone();
+
             for (int x = 0; x < building.Spaces.Count; x++)
                 building.Spaces[x] = building.Spaces[x].CleanSpace();
                 
+            return building;
+        }
+
+        public static Building gbXMLCleanUp_MatchSingleAdjacencies(this Building building)
+        {
+            building = building.BreakReferenceClone();
+
+            List<BuildingElement> allBEs = building.GetBuildingElements();
+            List<BuildingElement> errorBEs = allBEs.Where(x => x.AdjacentError() != null).ToList();
+
+            foreach(BuildingElement be in errorBEs)
+            {
+                BuildingElement be2 = be.AmendSingleAdjacencies(allBEs);
+
+                for (int x = 0; x < building.BuildingElements.Count; x++)
+                {
+                    if (building.BuildingElements[x].BHoM_Guid == be2.BHoM_Guid)
+                        building.BuildingElements[x] = be2;
+
+                    for (int y = 0; y < building.Spaces.Count; y++)
+                    {
+                        for (int z = 0; z < building.Spaces[y].BuildingElements.Count; z++)
+                        {
+                            if (building.Spaces[y].BuildingElements[z].BHoM_Guid == building.BuildingElements[x].BHoM_Guid)
+                                building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
+                        }
+                    }
+                }
+            }
+
+            return building;
+        }
+
+        public static Building gbXMLCleanUp_FindAdjacencies(this Building building)
+        {
+            building = building.BreakReferenceClone();
+
+            List<BuildingElement> errorBEs = building.GetBuildingElements().Where(x => x.AdjacentError() != null).ToList();
+
+            foreach (Space s in building.Spaces)
+            {
+                List<BuildingElement> besToAdd = new List<BuildingElement>();
+
+                foreach (BuildingElement be in s.BuildingElements)
+                {
+                    //Check if the building element verticies match at least one other building element in this space - if it doesn't then it is a problem and is missing some geometry - try to find the missing geometry from the errorBEs
+
+                    Polyline pLine = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+                    bool allMatch = true;
+                    List<Point> nonMatches = new List<Point>();
+
+                    foreach (Point pt in pLine.DiscontinuityPoints())
+                    {
+                        BuildingElement be2 = s.BuildingElements.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).DiscontinuityPoints().Contains(pt) && x.BHoM_Guid != be.BHoM_Guid).FirstOrDefault();
+
+                        if(be2 == null)
+                        {
+                            allMatch = false;
+                            nonMatches.Add(pt);
+                        }
+                    }
+
+                    if(!allMatch)
+                    {
+                        //This BE has a vertex that does not match - find the missing geometry from the error BEs
+                        foreach(Point pt in nonMatches)
+                        {
+                            BuildingElement be2 = errorBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).DiscontinuityPoints().Contains(pt) && x.BHoM_Guid != be.BHoM_Guid).FirstOrDefault();
+
+                            if(be2 != null)
+                            {
+                                if (!be2.AdjacentSpaces.Contains(s.BHoM_Guid))
+                                    be2.AdjacentSpaces.Add(s.BHoM_Guid);
+                                if (!s.BuildingElements.Contains(be2))
+                                    besToAdd.Add(be2);
+                            }
+                        }
+                    }
+                }
+
+                if(besToAdd.Count > 0)
+                    s.BuildingElements.AddRange(besToAdd);
+            }
+
+            /*List<BuildingElement> errorBEs = building.GetBuildingElements().Where(x => x.AdjacentError() != null).ToList();
+
+            foreach(BuildingElement be in errorBEs)
+            {
+                BuildingElement be2 = be.AmendSingleAdjacencies(building.Spaces.Where(x => x.BHoM_Guid == be.AdjacentSpaces[0]).FirstOrDefault());
+
+                for (int x = 0; x < building.BuildingElements.Count; x++)
+                {
+                    if (building.BuildingElements[x].BHoM_Guid == be2.BHoM_Guid)
+                        building.BuildingElements[x] = be2;
+
+                    for (int y = 0; y < building.Spaces.Count; y++)
+                    {
+                        for (int z = 0; z < building.Spaces[y].BuildingElements.Count; z++)
+                        {
+                            if (building.Spaces[y].BuildingElements[z].BHoM_Guid == building.BuildingElements[x].BHoM_Guid)
+                                building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
+                        }
+                    }
+                }
+            }*/
+
             return building;
         }
 
