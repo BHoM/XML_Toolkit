@@ -206,12 +206,12 @@ namespace BH.Adapter.gbXML
                             if (bHoMPanels[i].Openings.Count > 0)
                                 xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
 
-                            BHE.BuildingElementPanel newPanel = new BHE.BuildingElementPanel();
                             //If we have a curtain wall with GLZ we should create an extra opening (with tha size of the whole panel)
                             if (isIES && BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i], isIES).Contains("Curtain Wall") && BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i], isIES).Contains("GLZ"))
                             {
-                                newPanel = BH.Engine.XML.Create.BuildingElementOpening(bHoMPanels[i], bHoMBuildingElement[i], bHoMBuildingElement[i].BuildingElementGeometry.ICurve());
-                                xmlPanel.Opening = Serialize(newPanel.Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
+                                BHE.BuildingElement newBE = new BHE.BuildingElement();
+                                newBE = BH.Engine.XML.Create.BuildingElementOpening(bHoMBuildingElement[i], bHoMBuildingElement[i].BuildingElementGeometry.ICurve());
+                                xmlPanel.Opening = Serialize((newBE.BuildingElementGeometry as BHE.BuildingElementPanel).Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
                             }
 
                             gbx.Campus.Surface.Add(xmlPanel);
