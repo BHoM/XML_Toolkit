@@ -19,9 +19,9 @@ namespace BH.Engine.XML
             CartesianPoint cartpoint = new CartesianPoint();
             List<string> coord = new List<string>();
 
-            coord.Add(Math.Round(pt.X, 6).ToString());
-            coord.Add(Math.Round(pt.Y, 6).ToString());
-            coord.Add(Math.Round(pt.Z, 6).ToString());
+            coord.Add(Math.Round(pt.X, 10).ToString());
+            coord.Add(Math.Round(pt.Y, 10).ToString());
+            coord.Add(Math.Round(pt.Z, 10).ToString());
 
             cartpoint.Coordinate = coord.ToArray();
 
