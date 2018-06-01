@@ -16,16 +16,16 @@ namespace BH.Engine.XML
 
         public static CartesianPoint ToGbXML(this BHG.Point pt)
         {
-            CartesianPoint cartpoint = new CartesianPoint();
+            CartesianPoint cartPoint = new CartesianPoint();
             List<string> coord = new List<string>();
 
             coord.Add(Math.Round(pt.X, 10).ToString());
             coord.Add(Math.Round(pt.Y, 10).ToString());
             coord.Add(Math.Round(pt.Z, 10).ToString());
 
-            cartpoint.Coordinate = coord.ToArray();
+            cartPoint.Coordinate = coord.ToArray();
 
-            return cartpoint;
+            return cartPoint;
         }
         /***************************************************/
 
