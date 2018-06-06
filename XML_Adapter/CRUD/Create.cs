@@ -219,14 +219,12 @@ namespace BH.Adapter.gbXML
 
                                 if (bHoMPanels[i].Openings.Count > 0) //If a surface already has openings we need to cut them out.
                                 {
-                                    List<BHG.Polyline> region = new List<BHG.Polyline>();
-                                    region.Add(bHoMBuildingElement[i].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06));
-
                                     List<BHG.Polyline> refRegion = (bHoMPanels[i].Openings.Where(x => x.PolyCurve != null).ToList().Select(x => x.PolyCurve.CollapseToPolyline(1e-06))).ToList();
-                                    openingBounds.AddRange(BH.Engine.Geometry.Compute.BooleanDifference(region, refRegion, 0.01));
+                                    openingBounds.AddRange(BH.Engine.Geometry.Compute.BooleanDifference(new List<BHG.Polyline> {bHoMBuildingElement[i].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06)}, refRegion, 0.01));
                                 }
                                 else
                                     openingBounds.Add(bHoMBuildingElement[i].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06));
+
                                 newBe = bHoMBuildingElement[i].BuildingElementOpening(openingBounds);
 
                                 if (newBe != null)

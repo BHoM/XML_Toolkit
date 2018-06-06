@@ -75,7 +75,6 @@ namespace BH.Engine.XML
             foreach (BHG.ICurve bound in bounds)
             {
                 string revitElementID = (be.BuildingElementProperties.CustomData["Revit_elementId"]).ToString();
-                //BHG.PolyCurve pCrv = bound as BHG.PolyCurve; //How can I cast a pl to a pc?
                
                 BHE.BuildingElementOpening opening = BuildingElementOpening(bound);
 
