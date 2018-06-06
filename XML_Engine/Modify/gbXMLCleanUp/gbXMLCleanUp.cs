@@ -283,6 +283,11 @@ namespace XML_Engine.Modify
                 foreach(BuildingElement be2 in foundBEs)
                 {
                     //Check the adjacency is ok on be and then we'll look to remove be2
+                    foreach(Guid g in be2.AdjacentSpaces)
+                    {
+                        if (!be.AdjacentSpaces.Contains(g))
+                            be.AdjacentSpaces.Add(g);
+                    }
                 }
             }
 
