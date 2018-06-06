@@ -9,6 +9,8 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
+using BH.Engine.XML;
+
 namespace BH.Adapter.gbXML
 {
     public class gbXMLSerializer
@@ -211,7 +213,26 @@ namespace BH.Adapter.gbXML
                             if (isIES && cadObjID.Contains("Curtain Wall") && cadObjID.Contains("GLZ"))
                             {
                                 BHE.BuildingElement newBe = new BHE.BuildingElement();
-                                newBe = BH.Engine.XML.Create.BuildingElementOpening(bHoMBuildingElement[i], bHoMBuildingElement[i].BuildingElementGeometry.ICurve());
+
+                                //Define boundaries for opening.
+                                //List<BHG.Polyline> openingBounds = new List<BHG.Polyline>();
+                                List<BHG.ICurve> openingBounds = new List<oM.Geometry.ICurve>();
+                                //BHG.ICurve openingBound = bHoMBuildingElement[i].BuildingElementGeometry.ICurve();
+
+                                if (bHoMPanels[i].Openings.Count > 0) //If a surface already has openings we need to cut them out.
+                                {
+                                    //List<BHG.Polyline> openingBounds = new List<oM.Geometry.Polyline>();
+                                    List<BHG.Polyline> region = new List<BHG.Polyline>();
+                                    region.Add(bHoMBuildingElement[i].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06));
+
+                                    List<BHG.Polyline> refRegion = (bHoMPanels[i].Openings.Where(x => x.PolyCurve != null).ToList().Select(x => x.PolyCurve.CollapseToPolyline(1e-06))).ToList();
+                                    openingBounds.AddRange(BH.Engine.Geometry.Compute.BooleanDifference(region, refRegion, 0.01));
+                                    //openingBound = BH.Engine.Geometry.Compute.BooleanDifference(openingBounds, refRegion, 0.01) as BHG.ICurve;
+
+                                }
+                                else
+                                    openingBounds.Add(bHoMBuildingElement[i].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06));
+                                newBe = bHoMBuildingElement[i].BuildingElementOpening(openingBounds);// BH.Engine.XML.Create.BuildingElementOpening(bHoMBuildingElement[i], openingBounds.Cast<BHG.ICurve>());
 
                                 if (newBe != null)
                                     xmlPanel.Opening = Serialize((newBe.BuildingElementGeometry as BHE.BuildingElementPanel).Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
@@ -256,6 +277,9 @@ namespace BH.Adapter.gbXML
 
             foreach (BHE.BuildingElementOpening opening in bHoMOpenings)
             {
+                if (opening.PolyCurve == null)
+                    continue;
+                
                 Opening gbXMLOpening = BH.Engine.XML.Convert.ToGbXML(opening);
 
                 //normals away from space

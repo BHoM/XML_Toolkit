@@ -29,6 +29,33 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
+        public static BHE.BuildingElementOpening BuildingElementOpening(BHG.ICurve curve)
+        {
+            return BuildingElementOpening(curve as dynamic);
+        }
+
+        /***************************************************/
+
+        public static BHE.BuildingElementOpening BuildingElementOpening(IEnumerable<BHG.Polyline> polylines)
+        {
+            return new BHE.BuildingElementOpening
+            {
+                PolyCurve = Geometry.Create.PolyCurve(polylines)
+            };
+        }
+        /***************************************************/
+
+
+        public static BHE.BuildingElementOpening BuildingElementOpening(BHG.Polyline polyline)
+        {
+            return new BHE.BuildingElementOpening
+            {
+                PolyCurve = Geometry.Create.PolyCurve(new BHG.Polyline[] { polyline })
+            };
+        }
+
+        /***************************************************/
+
         public static BHE.BuildingElement BuildingElementOpening(this BHE.BuildingElement be, BHG.ICurve bound)
         {
             if (be == null || be.BuildingElementProperties == null || !be.BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
@@ -53,5 +80,34 @@ namespace BH.Engine.XML
         }
 
         /***************************************************/
+
+        public static BHE.BuildingElement BuildingElementOpening(this BHE.BuildingElement be, List<BHG.ICurve> bounds)
+        {
+            if (be == null || be.BuildingElementProperties == null || !be.BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
+                return be;
+
+            BHE.BuildingElementPanel panel = be.BuildingElementGeometry as BHE.BuildingElementPanel;
+            if (panel == null) // if be isn't of type buildingElementPanel
+                return be;
+
+            foreach (BHG.ICurve bound in bounds)
+            {
+                string revitElementID = (be.BuildingElementProperties.CustomData["Revit_elementId"]).ToString();
+                //BHG.PolyCurve pCrv = bound as BHG.PolyCurve; //How can I cast a pl to a pc?
+               
+                BHE.BuildingElementOpening opening = BuildingElementOpening(bound);
+
+                //Use the same properties as the wall
+                opening.Name = be.Name;
+                opening.CustomData.Add("Revit_elementId", revitElementID);
+
+                panel.Openings.Add(opening);
+                be.BuildingElementGeometry = panel;
+            }
+            return be;
+        }
+
+        /***************************************************/
+
     }
 }
