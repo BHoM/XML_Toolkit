@@ -268,6 +268,24 @@ namespace XML_Engine.Modify
             return building;
         }
 
+        public static Building gbXMLCleanUp_RemoveDuplicatesWithIC(this Building building)
+        {
+            building = building.BreakReferenceClone();
+
+            List<BuildingElement> besToRemove = new List<BuildingElement>();
+            List<BuildingElement> allBEs = building.GetBuildingElements();
+
+            foreach(BuildingElement be in allBEs)
+            {
+                //Find any BE's that contain the centre point of this BE
+                Point cPt = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
+                List<BuildingElement> foundBEs = allBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt })).ToList();
+            }
+
+
+            return building;
+        }
+
         public static Building ReferenceIssueTest(this Building building)
         {
             building = building.BreakReferenceClone();
