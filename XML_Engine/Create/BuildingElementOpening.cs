@@ -19,19 +19,19 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
+        public static BHE.BuildingElementOpening BuildingElementOpening(BHG.ICurve curve)
+        {
+            return BuildingElementOpening(curve as dynamic);
+        }
+
+        /***************************************************/
+
         public static BHE.BuildingElementOpening BuildingElementOpening(BHG.PolyCurve polyCurve)
         {
             return new BHE.BuildingElementOpening
             {
                 PolyCurve = polyCurve
             };
-        }
-
-        /***************************************************/
-
-        public static BHE.BuildingElementOpening BuildingElementOpening(BHG.ICurve curve)
-        {
-            return BuildingElementOpening(curve as dynamic);
         }
 
         /***************************************************/
@@ -58,25 +58,7 @@ namespace BH.Engine.XML
 
         public static BHE.BuildingElement BuildingElementOpening(this BHE.BuildingElement be, BHG.ICurve bound)
         {
-            if (be == null || be.BuildingElementProperties == null || !be.BuildingElementProperties.CustomData.ContainsKey("Revit_elementId"))
-                return be;
-
-            string revitElementID = (be.BuildingElementProperties.CustomData["Revit_elementId"]).ToString();
-            BHG.PolyCurve pCrv = bound as BHG.PolyCurve;
-            BHE.BuildingElementOpening opening = BuildingElementOpening(pCrv);
-
-            BHE.BuildingElementPanel panel = be.BuildingElementGeometry as BHE.BuildingElementPanel;
-            if (panel == null) // if be isn't of type buildingElementPanel
-                return be;
-
-            //Use the same properties as the wall
-            opening.Name = be.Name;
-            opening.CustomData.Add("Revit_elementId", revitElementID);
-
-            panel.Openings.Add(opening);
-            be.BuildingElementGeometry = panel;
-
-            return be;
+            return be.BuildingElementOpening(new List<BHG.ICurve> {bound});
         }
 
         /***************************************************/
