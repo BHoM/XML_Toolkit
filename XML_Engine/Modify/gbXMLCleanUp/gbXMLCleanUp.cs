@@ -279,7 +279,11 @@ namespace XML_Engine.Modify
             {
                 //Find any BE's that contain the centre point of this BE
                 Point cPt = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
-                List<BuildingElement> foundBEs = allBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt })).ToList();
+                List<BuildingElement> foundBEs = allBEs.Where(x => x.BHoM_Guid != be.BHoM_Guid && x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt })).ToList();
+                foreach(BuildingElement be2 in foundBEs)
+                {
+                    //Check the adjacency is ok on be and then we'll look to remove be2
+                }
             }
 
 
