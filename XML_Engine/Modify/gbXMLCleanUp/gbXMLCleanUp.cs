@@ -268,7 +268,7 @@ namespace XML_Engine.Modify
             return building;
         }
 
-        public static Building gbXMLCleanUp_RemoveDuplicatesWithIC(this Building building)
+        public static Building gbXMLCleanUp_RemoveDuplicatesWithIC_OLD(this Building building)
         {
             building = building.BreakReferenceClone();
 
@@ -280,19 +280,117 @@ namespace XML_Engine.Modify
                 //Find any BE's that contain the centre point of this BE
                 Point cPt = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
                 List<BuildingElement> foundBEs = allBEs.Where(x => x.BHoM_Guid != be.BHoM_Guid && x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt })).ToList();
+
+                BuildingElement beToKeep = be;
+                BuildingElement beToRemove = be;
+
                 foreach(BuildingElement be2 in foundBEs)
                 {
                     //Check the adjacency is ok on be and then we'll look to remove be2
-                    foreach(Guid g in be2.AdjacentSpaces)
+                    if (be2.BuildingElementGeometry.ICurve().IArea() < beToKeep.BuildingElementGeometry.ICurve().IArea())
                     {
-                        if (!be.AdjacentSpaces.Contains(g))
-                            be.AdjacentSpaces.Add(g);
+                        beToRemove = beToKeep;
+                        beToKeep = be2;
+                    }
+                    else
+                    {
+                        beToRemove = be2;
+                    }
+
+                    foreach(Guid g in beToRemove.AdjacentSpaces)
+                    {
+                        if (!beToKeep.AdjacentSpaces.Contains(g))
+                            beToKeep.AdjacentSpaces.Add(g);
+                    }
+                }
+
+                //Update the building
+                if(foundBEs.Count > 0)
+                {
+                    for (int x = 0; x < building.BuildingElements.Count; x++)
+                    {
+                        if (building.BuildingElements[x].BHoM_Guid == be.BHoM_Guid)
+                            building.BuildingElements[x] = beToKeep;
+
+                        for (int y = 0; y < building.Spaces.Count; y++)
+                        {
+                            for (int z = 0; z < building.Spaces[y].BuildingElements.Count; z++)
+                            {
+                                if (building.Spaces[y].BuildingElements[z].BHoM_Guid == building.BuildingElements[x].BHoM_Guid)
+                                    building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
+                            }
+                        }
+                    }
+
+                    foreach(BuildingElement be2 in foundBEs)
+                    {
+                        for (int x = 0; x < building.BuildingElements.Count; x++)
+                        {
+                            if (building.BuildingElements[x].BHoM_Guid == be2.BHoM_Guid)
+                                building.BuildingElements[x] = beToKeep;
+
+                            for (int y = 0; y < building.Spaces.Count; y++)
+                            {
+                                for (int z = 0; z < building.Spaces[y].BuildingElements.Count; z++)
+                                {
+                                    if (building.Spaces[y].BuildingElements[z].BHoM_Guid == building.BuildingElements[x].BHoM_Guid)
+                                        building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
+                                }
+                            }
+                        }
                     }
                 }
             }
 
 
             return building;
+        }
+
+        public static Building gbXMLCleanUp_RemoveDuplicatesWithIC(this Building building, Dictionary<BuildingElement, List<BuildingElement>> overlaps)
+        {
+            building = building.BreakReferenceClone();
+
+            List<BuildingElement> removeBEs = new List<BuildingElement>();
+
+            foreach(KeyValuePair<BuildingElement, List<BuildingElement>> kvp in overlaps)
+            {
+                List<BuildingElement> allBEs = building.GetBuildingElements();
+                Point cPt = kvp.Key.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
+                List<BuildingElement> foundBEs = allBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt })).ToList();
+
+                //Find the element with the biggest area and remove it
+                if (foundBEs.Count > 1)
+                {
+                    //Only do this if we found another BE
+                    foundBEs.OrderBy(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Area());
+
+                    for (int a = 1; a < foundBEs.Count; a++)
+                    {
+                        for (int x = 0; x < building.BuildingElements.Count; x++)
+                        {
+                            if (building.BuildingElements[x].BHoM_Guid == foundBEs[a].BHoM_Guid && building.BuildingElements[x].BHoM_Guid != foundBEs[0].BHoM_Guid)
+                                building.BuildingElements[x] = foundBEs[0];
+
+                            for (int y = 0; y < building.Spaces.Count; y++)
+                            {
+                                for (int z = 0; z < building.Spaces[y].BuildingElements.Count; z++)
+                                {
+                                    if (building.Spaces[y].BuildingElements[z].BHoM_Guid == foundBEs[a].BHoM_Guid && building.Spaces[y].BuildingElements[z].BHoM_Guid != foundBEs[0].BHoM_Guid)
+                                        building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return building;
+        }
+
+        public static bool IsContainingBEs(this BuildingElement be, BuildingElement be2)
+        {
+            Point cPt = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
+            return be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt });
         }
 
         public static Building ReferenceIssueTest(this Building building)
