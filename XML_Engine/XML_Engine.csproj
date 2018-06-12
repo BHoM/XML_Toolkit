@@ -76,6 +76,7 @@
     <Compile Include="Modify\gbXMLCleanUp\gbXMLCleanUp.cs" />
     <Compile Include="Modify\gbXMLCleanUp\CleanUpUtility.cs" />
     <Compile Include="Modify\gbXMLCleanUp\RemoveDuplicates.cs" />
+    <Compile Include="Modify\Close.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Create\BuildingElementOpening.cs" />
     <Compile Include="Query\IsClosed.cs" />

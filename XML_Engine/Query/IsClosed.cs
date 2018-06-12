@@ -38,7 +38,8 @@ namespace BH.Engine.XML
                 }
             }
 
-            if (nonMatches.Count == 0) //There will be no unique discontinuity points for a closed space. List length of unique points should therefore be 0.
+            //There will be no unique discontinuity points for a closed space. List length of unique points should therefore be 0. There is one known edge case where we have a hole surrounded by surfaces though....
+            if (nonMatches.Count == 0)
                 result = true;
             
             return result;
