@@ -73,14 +73,43 @@ namespace XML_Engine.Modify
                 }
             }
 
-            /*List<BuildingElement> elements = building.GetBuildingElements();
-            foreach (BuildingElement be in elements)
-                building = building.CleanBuildingDupAdj(be);*/
-            /*foreach (KeyValuePair<BuildingElement, List<BuildingElement>> kvp in overlaps)
-                building = building.CleanBuildingDupAdj(kvp.Key);*/
+            //Clean up all duplicates
+            List<BuildingElement> allBEs = building.GetBuildingElements();
+            List<BuildingElement> removedBEs = new List<BuildingElement>();
 
-            /*foreach (BuildingElement be in building.BuildingElements)
-                building = building.CleanBEs(be);*/
+            foreach (BuildingElement be in allBEs)
+            {
+                Point cPt = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
+                List<BuildingElement> foundBEs = allBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt })).ToList();
+
+                //Find the element with the biggest area and remove it
+                if (foundBEs.Count > 1)
+                {
+                    //Only do this if we found another BE
+                    foundBEs.OrderBy(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Area());
+
+                    for (int a = 1; a < foundBEs.Count; a++)
+                    {
+                        removedBEs.Add(foundBEs[a]);
+                        for (int x = 0; x < building.BuildingElements.Count; x++)
+                        {
+                            if (building.BuildingElements[x].BHoM_Guid == foundBEs[a].BHoM_Guid && building.BuildingElements[x].BHoM_Guid != foundBEs[0].BHoM_Guid)
+                                building.BuildingElements[x] = foundBEs[0];
+
+                            for (int y = 0; y < building.Spaces.Count; y++)
+                            {
+                                for (int z = 0; z < building.Spaces[y].BuildingElements.Count; z++)
+                                {
+                                    if (building.Spaces[y].BuildingElements[z].BHoM_Guid == foundBEs[a].BHoM_Guid && building.Spaces[y].BuildingElements[z].BHoM_Guid != foundBEs[0].BHoM_Guid)
+                                        building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            //Check the spaces are now watertight and do not have any removed panels by accident
 
             return building;
         }
