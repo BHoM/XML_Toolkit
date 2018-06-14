@@ -202,36 +202,41 @@ namespace BH.Adapter.gbXML
                         BHE.BuildingElement elementKeep = BH.Engine.XML.Query.ElementToKeep(bHoMBuildingElement[i], srfBound, spaces);
                         if (elementKeep != null)
                         {
-                            uniqueBEs.Add(elementKeep);
-
-                            //Create openings
-                            if (bHoMPanels[i].Openings.Count > 0)
-                                xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
-
-                            //If we have a curtain wall with GLZ we should create an extra opening (with tha size of the whole panel)
-                            string cadObjID = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i], isIES);
-                            if (isIES && cadObjID.Contains("Curtain Wall") && cadObjID.Contains("GLZ"))
+                            BHE.BuildingElement test = uniqueBEs.Where(x => x.BHoM_Guid == elementKeep.BHoM_Guid).FirstOrDefault();
+                            if (test == null)
                             {
-                                BHE.BuildingElement newBe = new BHE.BuildingElement();
 
-                                //Define boundaries for opening.
-                                List<BHG.ICurve> openingBounds = new List<oM.Geometry.ICurve>();
+                                uniqueBEs.Add(elementKeep);
 
-                                if (bHoMPanels[i].Openings.Count > 0) //If a surface already has openings we need to cut them out.
+                                //Create openings
+                                if (bHoMPanels[i].Openings.Count > 0)
+                                    xmlPanel.Opening = Serialize(bHoMPanels[i].Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
+
+                                //If we have a curtain wall with GLZ we should create an extra opening (with tha size of the whole panel)
+                                string cadObjID = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i], isIES);
+                                if (isIES && cadObjID.Contains("Curtain Wall") && cadObjID.Contains("GLZ"))
                                 {
-                                    List<BHG.Polyline> refRegion = (bHoMPanels[i].Openings.Where(x => x.PolyCurve != null).ToList().Select(x => x.PolyCurve.CollapseToPolyline(1e-06))).ToList();
-                                    openingBounds.AddRange(BH.Engine.Geometry.Compute.BooleanDifference(new List<BHG.Polyline> {bHoMBuildingElement[i].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06)}, refRegion, 0.01));
+                                    BHE.BuildingElement newBe = new BHE.BuildingElement();
+
+                                    //Define boundaries for opening.
+                                    List<BHG.ICurve> openingBounds = new List<oM.Geometry.ICurve>();
+
+                                    if (bHoMPanels[i].Openings.Count > 0) //If a surface already has openings we need to cut them out.
+                                    {
+                                        List<BHG.Polyline> refRegion = (bHoMPanels[i].Openings.Where(x => x.PolyCurve != null).ToList().Select(x => x.PolyCurve.CollapseToPolyline(1e-06))).ToList();
+                                        openingBounds.AddRange(BH.Engine.Geometry.Compute.BooleanDifference(new List<BHG.Polyline> { bHoMBuildingElement[i].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06) }, refRegion, 0.01));
+                                    }
+                                    else
+                                        openingBounds.Add(bHoMBuildingElement[i].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06));
+
+                                    newBe = bHoMBuildingElement[i].BuildingElementOpening(openingBounds);
+
+                                    if (newBe != null)
+                                        xmlPanel.Opening = Serialize((newBe.BuildingElementGeometry as BHE.BuildingElementPanel).Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
                                 }
-                                else
-                                    openingBounds.Add(bHoMBuildingElement[i].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06));
-
-                                newBe = bHoMBuildingElement[i].BuildingElementOpening(openingBounds);
-
-                                if (newBe != null)
-                                    xmlPanel.Opening = Serialize((newBe.BuildingElementGeometry as BHE.BuildingElementPanel).Openings, ref openingIndex, buildingElementsList, bHoMSpace, gbx, isIES).ToArray();
+                                gbx.Campus.Surface.Add(xmlPanel);
+                                panelIndex++;
                             }
-                            gbx.Campus.Surface.Add(xmlPanel);
-                            panelIndex++;
                         }
                     }
                 }

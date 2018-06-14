@@ -59,6 +59,8 @@ namespace XML_Engine.Modify
 
         public static Building gbXMLCleanUp_Step1(this Building building, Dictionary<BuildingElement, List<BuildingElement>> overlaps)
         {
+            building = building.BreakReferenceClone();
+
             foreach(KeyValuePair<BuildingElement, List<BuildingElement>> kvp in overlaps)
             {
                 //Split the key by the list of overlaps
@@ -80,7 +82,7 @@ namespace XML_Engine.Modify
             foreach (BuildingElement be in allBEs)
             {
                 Point cPt = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
-                List<BuildingElement> foundBEs = allBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt })).ToList();
+                List<BuildingElement> foundBEs = allBEs.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt }, false)).ToList();
 
                 //Find the element with the biggest area and remove it
                 if (foundBEs.Count > 1)
@@ -100,8 +102,11 @@ namespace XML_Engine.Modify
                             {
                                 for (int z = 0; z < building.Spaces[y].BuildingElements.Count; z++)
                                 {
-                                    if (building.Spaces[y].BuildingElements[z].BHoM_Guid == foundBEs[a].BHoM_Guid && building.Spaces[y].BuildingElements[z].BHoM_Guid != foundBEs[0].BHoM_Guid)
-                                        building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
+                                    if (building.Spaces[y].BuildingElements[z] != null)
+                                    {
+                                        if (building.Spaces[y].BuildingElements[z].BHoM_Guid == foundBEs[a].BHoM_Guid && building.Spaces[y].BuildingElements[z].BHoM_Guid != foundBEs[0].BHoM_Guid)
+                                            building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
+                                    }
                                 }
                             }
                         }
@@ -110,6 +115,39 @@ namespace XML_Engine.Modify
             }
 
             //Check the spaces are now watertight and do not have any removed panels by accident
+            foreach(Space s in building.Spaces)
+            {
+                while(!BH.Engine.XML.Query.IsClosed(s))
+                {
+                    //There are some missing panels in this space - find them from what we removed and re add them
+                    List<Point> missingPoints = BH.Engine.XML.Query.PointsMissingPals(s);
+
+                    List<BuildingElement> bes = allBEs.Where(x => missingPoints.ContainsTolerance(x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).DiscontinuityPoints())).ToList();
+                    if (bes.Count == 0) break;
+                    if (s.BuildingElements.Contains(bes))
+                        break;
+                    s.BuildingElements.AddRange(bes);
+                }
+            }
+
+            //Remove from the building any building element which is attached to a space
+            List<BuildingElement> hasSpaces = building.BuildingElements.Where(x => x.AdjacentSpaces.Count > 0).ToList();
+            foreach (BuildingElement be in hasSpaces)
+                building.BuildingElements.Remove(be);
+
+            //Remove from the spaces any building element which does not contain that space in its adjacent spaces
+            foreach(Space s in building.Spaces)
+            {
+                List<BuildingElement> remove = new List<BuildingElement>();
+                foreach(BuildingElement be in s.BuildingElements)
+                {
+                    if (!be.AdjacentSpaces.Contains(s.BHoM_Guid))
+                        remove.Add(be);
+                }
+
+                foreach (BuildingElement be in remove)
+                    s.BuildingElements.Remove(be);
+            }
 
             return building;
         }
@@ -139,16 +177,18 @@ namespace XML_Engine.Modify
         {
             building = building.BreakReferenceClone();
 
-            for (int x = 0; x < building.BuildingElements.Count; x++)
+            List<BuildingElement> allBEs = building.GetBuildingElements();
+
+            for (int x = 0; x < allBEs.Count; x++)
             {
-                building.BuildingElements[x] = building.BuildingElements[x].AmendXMLType();
+                allBEs[x].AmendXMLType();
 
                 for (int y = 0; y < building.Spaces.Count; y++)
                 {
                     for (int z = 0; z < building.Spaces[y].BuildingElements.Count; z++)
                     {
-                        if (building.Spaces[y].BuildingElements[z].BHoM_Guid == building.BuildingElements[x].BHoM_Guid)
-                            building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
+                        if (building.Spaces[y].BuildingElements[z].BHoM_Guid == allBEs[x].BHoM_Guid)
+                            building.Spaces[y].BuildingElements[z] = allBEs[x];
                     }
                 }
             }
@@ -160,13 +200,15 @@ namespace XML_Engine.Modify
         {
             building = building.BreakReferenceClone();
 
-            for (int x = 0; x < building.BuildingElements.Count; x++)
+            List<BuildingElement> allBEs = building.GetBuildingElements();
+
+            for (int x = 0; x < allBEs.Count; x++)
             {
-                BuildingElement beTest = building.BuildingElements[x].AmendCadObjectID(building);
+                BuildingElement beTest = allBEs[x].AmendCadObjectID(building);
                 if (beTest == null)
                     continue;
 
-                building.BuildingElements[x] = beTest;
+                allBEs[x] = beTest;
 
                 for (int y = 0; y < building.Spaces.Count; y++)
                 {
@@ -435,6 +477,24 @@ namespace XML_Engine.Modify
             MongoDB.Bson.BsonDocument bd = BH.Engine.Serialiser.Convert.ToBson(building);
 
             return (Building)BH.Engine.Serialiser.Convert.FromBson(bd);
+        }
+
+        public static bool Contains<T>(this List<T> list, List<T> objects)
+        {
+            bool containsAll = true;
+            foreach (T t in objects)
+                containsAll &= list.Contains(t);
+
+            return containsAll;
+        }
+
+        public static bool ContainsTolerance(this List<Point> list, List<Point> objects)
+        {
+            bool containsAll = true;
+            foreach (Point p in objects)
+                containsAll &= p.OnePointMatchesTol(list);
+
+            return containsAll;
         }
     }
 }

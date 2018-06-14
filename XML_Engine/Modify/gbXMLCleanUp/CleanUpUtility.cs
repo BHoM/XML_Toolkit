@@ -25,8 +25,9 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             {
                 foreach(BHE.BuildingElement be in s.BuildingElements)
                 {
-                    if (rtn.Where(x => x.BHoM_Guid == be.BHoM_Guid).FirstOrDefault() == null && be.BuildingElementProperties != null && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door) //Add only shade elements
-                        rtn.Add(be);
+                    if(be != null)
+                        if (rtn.Where(x => x.BHoM_Guid == be.BHoM_Guid).FirstOrDefault() == null && be.BuildingElementProperties != null && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door) //Add only shade elements
+                            rtn.Add(be);
                 }
             }
 
