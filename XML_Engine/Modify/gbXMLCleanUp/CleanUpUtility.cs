@@ -185,7 +185,12 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                     }
                 }
                 if (removed)
+                {
+                    foreach (BHE.BuildingElement be in besToAdd)
+                        if (!be.AdjacentSpaces.Contains(building.Spaces[x].BHoM_Guid))
+                            be.AdjacentSpaces.Add(building.Spaces[x].BHoM_Guid);
                     building.Spaces[x].BuildingElements.AddRange(besToAdd);
+                }
             }
 
             //Add the building elements

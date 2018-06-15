@@ -92,6 +92,12 @@ namespace XML_Engine.Modify
 
                     for (int a = 1; a < foundBEs.Count; a++)
                     {
+                        if(foundBEs[0].AdjacentSpaces.Count != 2 && foundBEs[a].AdjacentSpaces.Count == 2)
+                        {
+                            foreach (Guid g in foundBEs[a].AdjacentSpaces)
+                                if (!foundBEs[0].AdjacentSpaces.Contains(g))
+                                    foundBEs[0].AdjacentSpaces.Add(g);
+                        }
                         removedBEs.Add(foundBEs[a]);
                         for (int x = 0; x < building.BuildingElements.Count; x++)
                         {
@@ -126,6 +132,7 @@ namespace XML_Engine.Modify
                     if (bes.Count == 0) break;
                     if (s.BuildingElements.Contains(bes))
                         break;
+
                     s.BuildingElements.AddRange(bes);
                 }
             }
@@ -156,7 +163,9 @@ namespace XML_Engine.Modify
         {
             building = building.BreakReferenceClone();
 
-            for (int x = 0; x < building.BuildingElements.Count; x++)
+            //Find all the spaces which aren't water tight
+
+            /*for (int x = 0; x < building.BuildingElements.Count; x++)
             {
                 building.BuildingElements[x] = building.BuildingElements[x].AmendSingleAdjacencies(building);
 
@@ -168,7 +177,7 @@ namespace XML_Engine.Modify
                             building.Spaces[y].BuildingElements[z] = building.BuildingElements[x];
                     }
                 }
-            }
+            }*/
 
             return building;
         }
