@@ -4,7 +4,7 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System.Linq;
 using BH.oM.Geometry;
-using BHE = BH.oM.Environmental.Elements;
+using BHE = BH.oM.Environment.Elements;
 using BH.Engine.Environment;
 
 

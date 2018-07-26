@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.oM.XML;
 using BH.oM.Base;
-using BHE = BH.oM.Environmental.Elements;
-using BHP = BH.oM.Environmental.Properties;
+using BHE = BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Properties;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
@@ -28,7 +28,7 @@ namespace BH.Engine.XML
 
             if (newBuildingElement.BuildingElementProperties == null) //Use geometry
             {
-                newBuildingElement.BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties();
+                newBuildingElement.BuildingElementProperties = new oM.Environment.Properties.BuildingElementProperties();
                 if (buildingElement.AdjacentSpaces.Count == 0)
                     newBuildingElement.BuildingElementProperties.CustomData.Add("SAM_BuildingElementType", "Shade");
 
@@ -91,7 +91,7 @@ namespace BH.Engine.XML
 
         public static List<BHE.BuildingElement> AdjustXMLType(this List<BHE.BuildingElement> bHoMBuildingElement)
         {
-            /*List<BHE.BuildingElement> bHoMBuildingElements = new List<oM.Environmental.Elements.BuildingElement>();
+            /*List<BHE.BuildingElement> bHoMBuildingElements = new List<oM.Environment.Elements.BuildingElement>();
 
             foreach (BHE.BuildingElement element in bHoMBuildingElement)
             {

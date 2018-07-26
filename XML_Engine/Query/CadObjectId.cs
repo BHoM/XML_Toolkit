@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System.Linq;
-using BHE = BH.oM.Environmental.Elements;
+using BHE = BH.oM.Environment.Elements;
 
 
 namespace BH.Engine.XML
