@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.oM.XML;
 using BH.oM.Base;
-using BHE = BH.oM.Environmental.Elements;
-using BHP = BH.oM.Environmental.Properties;
+using BHE = BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Properties;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
@@ -26,10 +26,10 @@ namespace BH.Engine.XML
                 //Case 1: No CADObjectId at all - at the moment we use the default value: SIM_INT_SLD
                 if (element.BuildingElementProperties == null || element.BuildingElementProperties.Name == "" || element.BuildingElementProperties.CustomData["Family Name"].ToString() == "")
                 {
-                    element.BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties();
-                    building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties() { Name = "SIM_INT_SLD" };
+                    element.BuildingElementProperties = new oM.Environment.Properties.BuildingElementProperties();
+                    building.BuildingElements.Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties = new oM.Environment.Properties.BuildingElementProperties() { Name = "SIM_INT_SLD" };
 
-                    building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties = new oM.Environmental.Properties.BuildingElementProperties() { Name = "SIM_INT_SLD" };
+                    building.Spaces.SelectMany(x => x.BuildingElements).Where(x => x.BHoM_Guid == element.BHoM_Guid).FirstOrDefault().BuildingElementProperties = new oM.Environment.Properties.BuildingElementProperties() { Name = "SIM_INT_SLD" };
 
                     double elementTilt = Environment.Query.Tilt(element.BuildingElementGeometry);
 

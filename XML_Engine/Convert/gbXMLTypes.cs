@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHE = BH.oM.Environmental;
+using BHE = BH.oM.Environment;
 
 namespace BH.Engine.XML
 {

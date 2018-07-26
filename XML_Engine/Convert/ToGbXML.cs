@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BH.oM.XML;
-using BHE = BH.oM.Environmental.Elements;
+using BHE = BH.oM.Environment.Elements;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 
@@ -184,7 +184,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static Construction ToGbXML(this BH.oM.Environmental.Properties.BuildingElementProperties beProp)
+        public static Construction ToGbXML(this BH.oM.Environment.Properties.BuildingElementProperties beProp)
         {
             Construction xmlConstruction = new Construction();
 

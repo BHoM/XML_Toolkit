@@ -3,7 +3,7 @@
 //using System.Linq;
 //using System.Text;
 //using System.Threading.Tasks;
-//using BHE = BH.oM.Environmental.Elements;
+//using BHE = BH.oM.Environment.Elements;
 //using BHG = BH.oM.Geometry;
 //using BHB = BH.oM.Base;
 //using BH.Engine.Geometry;

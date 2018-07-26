@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.oM.XML;
 using BH.oM.Base;
-using BHE = BH.oM.Environmental.Elements;
-using BHP = BH.oM.Environmental.Properties;
+using BHE = BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Properties;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
@@ -113,8 +113,8 @@ namespace BH.Adapter.gbXML
             List<BHE.Space> validSpaces = bhomSpaces.Where(x => x.BuildingElements.Count != 0).ToList();
 
             Serialize(levels, validSpaces.ToList(), gbx, isIES);
-            List<BHE.BuildingElement> buildingElementsList = new List<oM.Environmental.Elements.BuildingElement>();
-            List<BHP.BuildingElementProperties> propList = new List<oM.Environmental.Properties.BuildingElementProperties>();
+            List<BHE.BuildingElement> buildingElementsList = new List<oM.Environment.Elements.BuildingElement>();
+            List<BHP.BuildingElementProperties> propList = new List<oM.Environment.Properties.BuildingElementProperties>();
 
             if (building == null)
             {

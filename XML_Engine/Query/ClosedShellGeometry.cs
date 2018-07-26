@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.oM.XML;
 using BH.oM.Base;
-using BHE = BH.oM.Environmental.Elements;
-using BHP = BH.oM.Environmental.Properties;
+using BHE = BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Properties;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
@@ -30,7 +30,7 @@ namespace BH.Engine.XML
             //1. Merge curtain panels
             foreach (BHE.BuildingElement element in bHoMSpace.BuildingElements)
             {
-                BH.oM.Environmental.Properties.BuildingElementProperties beProperty = element.BuildingElementProperties;
+                BH.oM.Environment.Properties.BuildingElementProperties beProperty = element.BuildingElementProperties;
                 List<BHG.Point> ctrlPts = element.BuildingElementGeometry.ICurve().IControlPoints();
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = ctrlPts };
 

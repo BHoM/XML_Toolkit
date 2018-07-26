@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BHE = BH.oM.Environmental.Elements;
+using BHE = BH.oM.Environment.Elements;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
@@ -149,7 +149,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                         if (newBE.BuildingElementGeometry == null)
                             newBE.BuildingElementGeometry = ori.BuildingElementGeometry.Copy();
                         if (newBE.BuildingElementProperties == null)
-                            newBE.BuildingElementProperties = ori.BuildingElementProperties.GetShallowClone() as BH.oM.Environmental.Properties.BuildingElementProperties;
+                            newBE.BuildingElementProperties = ori.BuildingElementProperties.GetShallowClone() as BH.oM.Environment.Properties.BuildingElementProperties;
 
                         newBE.BuildingElementGeometry.ISetGeometry(p);
 
@@ -260,7 +260,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             if (newBE.BuildingElementGeometry == null)
                 newBE.BuildingElementGeometry = beToRemove.BuildingElementGeometry.Copy();
             if (newBE.BuildingElementProperties == null)
-                newBE.BuildingElementProperties = beToRemove.BuildingElementProperties.GetShallowClone() as BH.oM.Environmental.Properties.BuildingElementProperties;
+                newBE.BuildingElementProperties = beToRemove.BuildingElementProperties.GetShallowClone() as BH.oM.Environment.Properties.BuildingElementProperties;
 
             List<BHE.Space> removedFrom = new List<BHE.Space>();
             bool removedFromBuilding = false;
@@ -378,7 +378,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
             String dictionaryKey = "SAM_BuildingElementType";
 
             if (be.BuildingElementProperties == null)
-                be.BuildingElementProperties = new BH.oM.Environmental.Properties.BuildingElementProperties();
+                be.BuildingElementProperties = new BH.oM.Environment.Properties.BuildingElementProperties();
 
             if(be.BuildingElementProperties.BuildingElementType == BHE.BuildingElementType.Window || be.BuildingElementProperties.BuildingElementType == BHE.BuildingElementType.Door)
                 return be;
@@ -445,7 +445,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
 
             /*String dictionaryKey = "Family Name";
             if (be.BuildingElementProperties == null)
-                be.BuildingElementProperties = new BH.oM.Environmental.Properties.BuildingElementProperties();
+                be.BuildingElementProperties = new BH.oM.Environment.Properties.BuildingElementProperties();
 
             if (be.BuildingElementProperties.Name.Equals("", StringComparison.CurrentCultureIgnoreCase))
                 be.BuildingElementProperties.Name = "SIM_INT_SLD";
@@ -566,7 +566,7 @@ namespace XML_Engine.Modify.gbXMLCleanUp
                 if (newBE.BuildingElementGeometry == null && space.BuildingElements[x].BuildingElementGeometry != null)
                     newBE.BuildingElementGeometry = space.BuildingElements[x].BuildingElementGeometry.Copy();
                 if (newBE.BuildingElementProperties == null && space.BuildingElements[x].BuildingElementProperties != null)
-                    newBE.BuildingElementProperties = space.BuildingElements[x].BuildingElementProperties.GetShallowClone() as BH.oM.Environmental.Properties.BuildingElementProperties;
+                    newBE.BuildingElementProperties = space.BuildingElements[x].BuildingElementProperties.GetShallowClone() as BH.oM.Environment.Properties.BuildingElementProperties;
 
                 bool wasRemoved = false;
 
