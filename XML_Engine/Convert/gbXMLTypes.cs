@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHE = BH.oM.Environmental;
+using BHE = BH.oM.Environment;
 
 namespace BH.Engine.XML
 {
@@ -11,24 +11,34 @@ namespace BH.Engine.XML
     {
         /***************************************************/
 
-        public static string ToGbXMLSurfaceType(this BHE.Elements.BuildingElement bHoMBuildingElement)
+        public static string ToGbXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement, bool isIES = false)
         {
             string type = "Air";
-            if (bHoMBuildingElement.BuildingElementProperties != null)
+            if (bHoMBuildingElement == null)
+                return type;
+            else if (bHoMBuildingElement.AdjacentSpaces.Count == 0 && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Window && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Door)
+                type = "Shade";
+            else if (bHoMBuildingElement.BuildingElementProperties != null)
             {
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("SAM_BuildingElementType"))
                 {
                     object aObject = bHoMBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"];
+
                     if (aObject != null)
                         type = ToGbXMLSurfaceType(aObject.ToString()); //modifies the string
+
+                    if ((isIES && type.Contains("Window") || bHoMBuildingElement.BuildingElementProperties.BuildingElementType == BHE.Elements.BuildingElementType.Window) && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                        type = "NonSlidingDoor";
                 }
-                    return type;
             }
-            else
+            else if (bHoMBuildingElement != null)
             {
                 type = ToGbXMLSurfaceType((bHoMBuildingElement.BuildingElementGeometry as BHE.Elements.BuildingElementPanel).ElementType);
-                return type;
             }
+            else
+                type = "Air";
+
+            return type;
         }
 
         /***************************************************/
@@ -39,7 +49,7 @@ namespace BH.Engine.XML
             {
                 //Strings from Revit
                 case "Rooflight":
-                    return "Rooflight";
+                    return "OperableSkylight";
                 case "Roof":
                     return "Roof";
                 case "External Wall":
@@ -69,8 +79,9 @@ namespace BH.Engine.XML
                 case "Curtain Wall":
                     return "ExteriorWall";
                 case "Exposed Floor":
-                    return "ExposedFloor";
-                case "Vehicle Door":
+                    //    return "ExposedFloor";
+                    return "RaisedFloor";
+                //case "Vehicle Door":
                 case "No Type":
                     return "Air";
 
@@ -99,6 +110,13 @@ namespace BH.Engine.XML
                     return "RaisedFloor";
                 case "SLABONGRADE":
                     return "SlabOnGrade";
+
+                //Openings
+                case "Glazing":
+                    return "FixedWindow";
+                case "Door":
+                    return "NonSlidingDoor";
+
                 default:
                     return "Air"; //Adiabatic
             }

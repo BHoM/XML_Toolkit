@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System.Linq;
-using BH.oM.Environment.Elements;
+using BHE = BH.oM.Environment.Elements;
 
 
 namespace BH.Engine.XML
@@ -15,23 +15,18 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static double Length(BHG.Polyline pline)
+        public static double BuildingArea(BHE.Building bHoMBuilding)
         {
-
-            List<BHG.Point> pts = pline.DiscontinuityPoints();
-
-            double length = pts.Last().Distance(pts.First());
-
-            for (int i = 0; i < pts.Count - 1; i++)
+            List<double> area = new List<double>();
+            foreach (BHE.Space space in bHoMBuilding.Spaces)
             {
-                double dist = pts[i].Distance(pts[i + 1]);
-                length = dist > length ? dist : length;
+                area.Add(BH.Engine.Environment.Query.FloorArea(space));
             }
-
-            return length;
+            return area.Sum();
         }
 
         /***************************************************/
+
     }
 }
 
