@@ -31,31 +31,31 @@
 //                return bHoMBuildingElements;
 
 //            //Check if the elements are the same
-//            if (bHoMBuildingElements[0].ToGbXMLType() == bHoMBuildingElements[1].ToGbXMLType())
+//            if (bHoMBuildingElements[0].ToGBXMLType() == bHoMBuildingElements[1].ToGBXMLType())
 //            {
-//                //if (bHoMBuildingElements[0].ToGbXMLType() == "Air"))
+//                //if (bHoMBuildingElements[0].ToGBXMLType() == "Air"))
 //                // look at CAD object ID and set type from this
 
 //                selection.Add(bHoMBuildingElements[0]);
 //            }
 
-//            else if (bHoMBuildingElements.Select(x => x.ToGbXMLType()).Contains("Air"))
-//                selection.Add(bHoMBuildingElements.Find(x => x.ToGbXMLType() != "Air"));
+//            else if (bHoMBuildingElements.Select(x => x.ToGBXMLType()).Contains("Air"))
+//                selection.Add(bHoMBuildingElements.Find(x => x.ToGBXMLType() != "Air"));
 
 //            //if shade: keep the other element and change type to external
-//            else if (bHoMBuildingElements.Select(x => x.ToGbXMLType()).Contains("Shade"))
+//            else if (bHoMBuildingElements.Select(x => x.ToGBXMLType()).Contains("Shade"))
 //            {
-//                BHE.BuildingElement updatedElement = bHoMBuildingElements.Find(x => x.ToGbXMLType() != "Shade");
-//                if (updatedElement.ToGbXMLType() == "InteriorWall")
+//                BHE.BuildingElement updatedElement = bHoMBuildingElements.Find(x => x.ToGBXMLType() != "Shade");
+//                if (updatedElement.ToGBXMLType() == "InteriorWall")
 //                    updatedElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"] = "External Wall";
 
 
-//                if (updatedElement.ToGbXMLType() == "InteriorFloor")
+//                if (updatedElement.ToGBXMLType() == "InteriorFloor")
 //                    updatedElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"] = "External Floor";
 
 //                //Update CADobjectID:
-//                updatedElement.CustomData["Revit_elementId"] = bHoMBuildingElements.Find(x => x.ToGbXMLType() == "Shade").CustomData["Revit_elementId"].ToString();
-//                updatedElement.CustomData["Family Name"] = bHoMBuildingElements.Find(x => x.ToGbXMLType() == "Shade").BuildingElementProperties.CustomData["Family Name"].ToString();
+//                updatedElement.CustomData["Revit_elementId"] = bHoMBuildingElements.Find(x => x.ToGBXMLType() == "Shade").CustomData["Revit_elementId"].ToString();
+//                updatedElement.CustomData["Family Name"] = bHoMBuildingElements.Find(x => x.ToGBXMLType() == "Shade").BuildingElementProperties.CustomData["Family Name"].ToString();
 //                selection.Add(updatedElement);
 //            }
 

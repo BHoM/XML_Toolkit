@@ -8,21 +8,21 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 
 
-namespace BH.Adapter.gbXML
+namespace BH.Adapter.GBXML
 {
-    public class gbXMLDeserializer
+    public class GBXMLDeserializer
     {
         /***************************************************/
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BHoMObject> Deserialize(BH.oM.XML.gbXML gbx)
+        public static List<BHoMObject> Deserialize(BH.oM.XML.GBXML gbx)
         {
             List<BHoMObject> bhomObjects = new List<BHoMObject>();
             List<BH.oM.XML.Surface> srfs = gbx.Campus.Surface.ToList();
             List<BH.oM.XML.Space> spaces = gbx.Campus.Building[0].Space.ToList();
 
-            // Generate gbXMLSurfaces
+            // Generate GBXMLSurfaces
             if (srfs != null)
             {
                 foreach (Surface srf in srfs)
@@ -30,20 +30,20 @@ namespace BH.Adapter.gbXML
                     BHE.BuildingElementPanel pan = new BHE.BuildingElementPanel();
                     pan.Name = srf.Name;
                     //pan.Type = srf.surfaceType;
-                    pan.CustomData.Add("gbXML-ID", srf.ID);
+                    pan.CustomData.Add("GBXML-ID", srf.ID);
                     pan.PolyCurve = MakeCurveGroup(srf.PlanarGeometry.PolyLoop);
                     bhomObjects.Add(pan);
                 }
             }
 
-            // Generate gbXMLSpaces
+            // Generate GBXMLSpaces
             if (spaces != null)
             {
                 foreach (BH.oM.XML.Space space in spaces)
                 {
                     BHE.Space xspace = new BHE.Space();
                     xspace.Name = space.Name;
-                    xspace.CustomData.Add("gbXML-ID", space.ID);
+                    xspace.CustomData.Add("GBXML-ID", space.ID);
                     if (4 <= space.ShellGeometry.ClosedShell.PolyLoop.Count())
                     {
                         List<BHE.BuildingElementPanel> bHomPanel = new List<BHE.BuildingElementPanel>();

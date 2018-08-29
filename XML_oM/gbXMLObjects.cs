@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
+using BH.oM.Base;
 
 namespace BH.oM.XML
 {
-    public abstract class gbXMLObject
+    public abstract class GBXMLObject : IObject
     {
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class gbXML : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class GBXML : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string SchemaLocation { get; set; } = "gbXML http://www.gbxml.org/schema";
+        public string SchemaLocation { get; set; } = "GBXML http://www.GBXML.org/schema";
         [XmlAttribute(AttributeName = "temperatureUnit")]
         public string TemperatureUnit { get; set; } = "C";
         [XmlAttribute(AttributeName = "lengthUnit")]
@@ -46,8 +47,8 @@ namespace BH.oM.XML
     /***************************************************/
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class DocumentHistory : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class DocumentHistory : GBXMLObject, IObject
     {
         [XmlElement("ProgramInfo")]
         public ProgramInfo ProgramInfo { get; set; } = new ProgramInfo();
@@ -58,11 +59,11 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class ProgramInfo : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class ProgramInfo : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "BHoMgbXML";
+        public string ID { get; set; } = "BHoMGBXML";
         [XmlElement("CompanyName")]
         public string CompanyName { get; set; } = "BuroHappold Engineering";
         [XmlElement("ProductName")]
@@ -76,13 +77,13 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class CreatedBy : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class CreatedBy : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "personId")]
         public string PersonID { get; set; } = "BuroHappold";
         [XmlAttribute(AttributeName = "programId")]
-        public string ProgramID { get; set; } = "BHoMgbXML";
+        public string ProgramID { get; set; } = "BHoMGBXML";
         [XmlAttribute(AttributeName = "date")]
         public string Date { get; set; } = "00-00-00";
         [XmlElement("CADModelId")]
@@ -90,8 +91,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class PersonInfo : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class PersonInfo : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "BuroHappold";
@@ -102,8 +103,8 @@ namespace BH.oM.XML
     /***************************************************/
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Zone : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Zone : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "ZoneID";
@@ -130,8 +131,8 @@ namespace BH.oM.XML
     /***************************************************/
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Material : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Material : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "MaterialID";
@@ -154,8 +155,8 @@ namespace BH.oM.XML
     /***************************************************/
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Layer : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Layer : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "LayerID";
@@ -164,8 +165,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class MaterialId : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class MaterialId : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "materialIdRef")]
         public string MaterialIDRef { get; set; } = "MaterialID";
@@ -176,8 +177,8 @@ namespace BH.oM.XML
     /***************************************************/
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Construction : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Construction : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "ConstructionID";
@@ -194,8 +195,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class LayerId : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class LayerId : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "layerIdRef")]
         public string LayerIDRef { get; set; } = "LayerID";
@@ -206,8 +207,8 @@ namespace BH.oM.XML
     /***************************************************/
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Campus : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Campus : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "CampusID";
@@ -224,8 +225,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Location : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Location : GBXMLObject, IObject
     {
         [XmlElement("StationId")]
         public StationId StationID { get; set; } = new StationId();
@@ -244,8 +245,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Building : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Building : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "buildingType")]
         public string BuildingType { get; set; } = "Unknown";
@@ -266,8 +267,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class BuildingStorey : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class BuildingStorey : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "StoreyID";
@@ -280,8 +281,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Space : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Space : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "zoneIdRef")]
         public string ZoneIDRef { get; set; } = "ZoneID";
@@ -310,8 +311,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class ShellGeometry : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class ShellGeometry : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "ShellGeometryID";
@@ -320,32 +321,32 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class ClosedShell : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class ClosedShell : GBXMLObject, IObject
     {
         [XmlElement("PolyLoop")]
         public Polyloop[] PolyLoop { get; set; } = new List<Polyloop> { new Polyloop() }.ToArray();
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Polyloop : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Polyloop : GBXMLObject, IObject
     {
         [XmlElement("CartesianPoint")]
         public CartesianPoint[] CartesianPoint { get; set; } = new List<CartesianPoint> { new CartesianPoint() }.ToArray();
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class CartesianPoint : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class CartesianPoint : GBXMLObject, IObject
     {
         [XmlElement("Coordinate")]
         public string[] Coordinate { get; set; } = new List<string> { "0" }.ToArray();
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Surface : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Surface : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "surfaceType")]
         public string SurfaceType { get; set; } = "Unknown";
@@ -370,16 +371,16 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class AdjacentSpaceId : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class AdjacentSpaceId : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "spaceIdRef")]
         public string SpaceIDRef { get; set; } = "AdjacentSpaceID";
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class PlanarGeometry : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class PlanarGeometry : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "PlanarGeometryID";
@@ -388,8 +389,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class RectangularGeometry : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class RectangularGeometry : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "RectangularGeometryID";
@@ -406,8 +407,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class RectangularGeometryOpenings : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class RectangularGeometryOpenings : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "RectangularGeometryID";
@@ -420,8 +421,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Opening : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Opening : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "constructionIdRef")]
         public string ConstructionIDRef { get; set; } = "";
@@ -440,8 +441,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class SpaceBoundary : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class SpaceBoundary : GBXMLObject, IObject
     {
         [XmlAttribute(AttributeName = "isSecondLevelBoundary")]
         public string IsSecondLevelBoundary { get; set; } = "false";
@@ -452,8 +453,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class ProjectEntity : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class ProjectEntity : GBXMLObject, IObject
     {
         [XmlElement("URI")]
         public string URI { get; set; } = "Unknown";
@@ -462,8 +463,8 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class StationId : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class StationId : GBXMLObject, IObject
     {
         [XmlAttribute("IDType")]
         public string IDType { get; set; } = "Unknown";
@@ -472,45 +473,45 @@ namespace BH.oM.XML
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class OAFlowPerArea : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class OAFlowPerArea : GBXMLObject, IObject
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "LPerSecPerSquareM";
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class OAFlowPerPerson : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class OAFlowPerPerson : GBXMLObject, IObject
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "LPerSec";
     }
 
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class DesignHeatT : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class DesignHeatT : GBXMLObject, IObject
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "C";
     }
 
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class DesignCoolT : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class DesignCoolT : GBXMLObject, IObject
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "C";
     }
 
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class UValue : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class UValue : GBXMLObject, IObject
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "WPerSquareMeterK";
     }
 
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Absorptance : gbXMLObject
+    [XmlRoot(ElementName = "GBXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    public class Absorptance : GBXMLObject, IObject
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "Fraction";
@@ -518,7 +519,7 @@ namespace BH.oM.XML
         public string Type { get; set; } = "ExtIR";
     }
 
-    public class Roughness : gbXMLObject
+    public class Roughness : GBXMLObject, IObject
     {
         [XmlAttribute("value")]
         public string Value { get; set; } = "VeryRough"; //TODO: what should the default value be?

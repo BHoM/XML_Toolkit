@@ -21,7 +21,7 @@ namespace BH.Engine.XML
 
         public static BHE.BuildingElementPanel FlipReversedPanels(this BHE.BuildingElementPanel panel, BHE.Space space)
         {
-            /* Ensure that all of the surface coordinates are listed in a counterclockwise order. This is a requirement of gbXML Polyloop definitions */
+            /* Ensure that all of the surface coordinates are listed in a counterclockwise order. This is a requirement of GBXML Polyloop definitions */
 
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = panel.PolyCurve.ControlPoints() };
             BHG.Polyline bound = new BHG.Polyline();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using BH.oM.Environment.Elements;
 using BH.Engine.Geometry;
-using XML_Engine.Modify.gbXMLCleanUp;
+using XML_Engine.Modify.GBXMLCleanUp;
 
 using BH.oM.Geometry;
 

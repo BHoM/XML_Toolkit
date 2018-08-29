@@ -8,7 +8,7 @@
 //using BHB = BH.oM.Base;
 //using BH.Engine.Geometry;
 
-//namespace XML_Adapter.gbXML
+//namespace XML_Adapter.GBXML
 //{
 //    public class AdjSolver
 //    {
