@@ -106,7 +106,7 @@ namespace BH.Engine.XML
             xmlSpace.Name = bHoMSpace.Number + " " + bHoMSpace.Name;
             //xmlSpace.id = "Space-" + bHoMSpace.Name.ToString();
             //xmlSpace.id = "Space-" + bHoMSpace.Number.ToString();
-            xmlSpace.id = bHoMSpace.Number + "-" + bHoMSpace.Name.ToString();
+            xmlSpace.ID = bHoMSpace.Number + "-" + bHoMSpace.Name.ToString();
 
             //xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
             if (bHoMSpace.CustomData.ContainsKey("Area"))
@@ -115,11 +115,11 @@ namespace BH.Engine.XML
             if (bHoMSpace.CustomData.ContainsKey("Volume"))
                 xmlSpace.Volume = Math.Round((double)bHoMSpace.CustomData["Volume"], 3);
             if (bHoMSpace.CustomData.ContainsKey("Revit_elementId"))
-                xmlSpace.CADobjectId = (bHoMSpace.CustomData["Revit_elementId"]).ToString();
+                xmlSpace.CADObjectID = (bHoMSpace.CustomData["Revit_elementId"]).ToString();
 
             //added replacement to spaces to allow compliant with XML format
             if (bHoMSpace.Level != null)
-                xmlSpace.buildingStoreyIdRef = bHoMSpace.Level.Name.Replace(" ", "-");
+                xmlSpace.BuildingStoreyIDRef = bHoMSpace.Level.Name.Replace(" ", "-");
 
             return xmlSpace;
         }
@@ -131,7 +131,7 @@ namespace BH.Engine.XML
             BuildingStorey xmlStorey = new BuildingStorey();
 
             xmlStorey.Name = bHoMLevel.Name;
-            xmlStorey.id = bHoMLevel.Name.Replace(" ", "-");
+            xmlStorey.ID = bHoMLevel.Name.Replace(" ", "-");
             xmlStorey.Level = (float)bHoMLevel.Elevation;
             
 
@@ -176,7 +176,7 @@ namespace BH.Engine.XML
             if (bHoMBuilding.CustomData.ContainsKey("Place Name"))
                 xmlLocation.Name = (bHoMBuilding.CustomData["Place Name"]).ToString();
             if (bHoMBuilding.CustomData.ContainsKey("Weather Station Name"))
-                xmlLocation.StationId.ID = (bHoMBuilding.CustomData["Weather Station Name"]).ToString();
+                xmlLocation.StationID.ID = (bHoMBuilding.CustomData["Weather Station Name"]).ToString();
 
 
             return xmlLocation;
@@ -189,7 +189,7 @@ namespace BH.Engine.XML
             Construction xmlConstruction = new Construction();
 
             //xmlConstruction.Absorptance = ;
-            xmlConstruction.id = "id";
+            xmlConstruction.ID = "id";
             xmlConstruction.Name = beProp.Name;
             //xmlConstruction.Roughness = "VeryRough";
             //xmlConstruction.Uvalue = beProp.UValue;

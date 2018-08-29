@@ -30,7 +30,7 @@ namespace BH.Adapter.gbXML
                     BHE.BuildingElementPanel pan = new BHE.BuildingElementPanel();
                     pan.Name = srf.Name;
                     //pan.Type = srf.surfaceType;
-                    pan.CustomData.Add("gbXML-ID", srf.id);
+                    pan.CustomData.Add("gbXML-ID", srf.ID);
                     pan.PolyCurve = MakeCurveGroup(srf.PlanarGeometry.PolyLoop);
                     bhomObjects.Add(pan);
                 }
@@ -43,7 +43,7 @@ namespace BH.Adapter.gbXML
                 {
                     BHE.Space xspace = new BHE.Space();
                     xspace.Name = space.Name;
-                    xspace.CustomData.Add("gbXML-ID", space.id);
+                    xspace.CustomData.Add("gbXML-ID", space.ID);
                     if (4 <= space.ShellGeometry.ClosedShell.PolyLoop.Count())
                     {
                         List<BHE.BuildingElementPanel> bHomPanel = new List<BHE.BuildingElementPanel>();
