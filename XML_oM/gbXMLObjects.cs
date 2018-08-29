@@ -8,9 +8,9 @@ namespace BH.oM.XML
     public abstract class gbXMLObject
     {
     }
+
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-
     public class gbXML : gbXMLObject
     {
         [XmlAttribute(AttributeName = "schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]

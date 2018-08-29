@@ -22,7 +22,7 @@ namespace BH.Engine.XML
         //TODO: move convex hull to Geomtry Engine 
         //TODO: Does only work for points in the XY plane. Add plane as input?
 
-        public static BHG.Point nextHullPoint(List<BHG.Point> points, BHG.Point currPt)
+        public static BHG.Point NextHullPoint(List<BHG.Point> points, BHG.Point currPt)
         {
 
             int right = -1;
@@ -41,7 +41,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static BHG.Polyline convexHull(List<BHG.Point> points)
+        public static BHG.Polyline ConvexHull(List<BHG.Point> points)
         {
             List<BHG.Point> hull = new List<BHG.Point>();
             foreach (BHG.Point p in points)
@@ -63,7 +63,7 @@ namespace BH.Engine.XML
             int counter = 0;
             while (counter < hull.Count)
             {
-                nextPt = nextHullPoint(points, hull[counter]);
+                nextPt = NextHullPoint(points, hull[counter]);
                 if (nextPt != hull[0])
                     hull.Add(nextPt);
                 counter++;

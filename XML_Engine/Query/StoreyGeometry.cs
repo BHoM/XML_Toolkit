@@ -39,7 +39,7 @@ namespace BH.Engine.XML
                 }
             }
 
-            BHG.Polyline boundary = convexHull(ctrlPoints.CullDuplicates());
+            BHG.Polyline boundary = ConvexHull(ctrlPoints.CullDuplicates());
 
             return boundary;
         }

@@ -73,7 +73,7 @@
     <Compile Include="Convert\ToBHoM.cs" />
     <Compile Include="Convert\ToGbXML.cs" />
     <Compile Include="Modify\CadObjectId.cs" />
-    <Compile Include="Modify\gbXMLCleanUp\gbXMLCleanUp.cs" />
+    <Compile Include="Modify\gbXMLCleanUp\XMLCleanUp.cs" />
     <Compile Include="Modify\gbXMLCleanUp\CleanUpUtility.cs" />
     <Compile Include="Modify\gbXMLCleanUp\RemoveDuplicates.cs" />
     <Compile Include="Modify\Close.cs" />
