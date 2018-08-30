@@ -44,7 +44,7 @@ namespace BH.Adapter.GBXML
                     SerializeCollection(building.BuildingElementProperties, gbx, isIES); //Construction and materials
 
                 gbx.Campus.Location = BH.Engine.XML.Convert.ToGBXML(building);
-                gbx.Campus.Building[buildingIndex].Area = (float)BH.Engine.XML.Query.BuildingArea(building);
+                gbx.Campus.Building[buildingIndex].Area = (float)BH.Engine.Environment.Query.BuildingArea(building);
 
                 //From Custom Data
                 if (building.CustomData.ContainsKey("Place Name"))

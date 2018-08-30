@@ -78,7 +78,6 @@
     <Compile Include="Modify\gbXMLCleanUp\RemoveDuplicates.cs" />
     <Compile Include="Modify\Close.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Create\BuildingElementOpening.cs" />
     <Compile Include="Query\PolygonCentre.cs" />
     <Compile Include="Query\IsClosed.cs" />
     <Compile Include="Query\PropertiesFromAdjSrf.cs" />
@@ -100,7 +99,6 @@
     <Compile Include="Query\ClosedShellGeometry.cs" />
     <Compile Include="Query\ConvexHull.cs" />
     <Compile Include="Query\FloorGeometry.cs" />
-    <Compile Include="Query\BuildingArea.cs" />
     <Compile Include="Query\CadObjectId.cs" />
     <Compile Include="Query\NormalAwayFromSpace.cs" />
     <Compile Include="Query\Length.cs" />
@@ -112,6 +110,9 @@
       <Project>{43c9dc2f-18c1-48a9-b06f-b89cf188616e}</Project>
       <Name>XML_oM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Create\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
