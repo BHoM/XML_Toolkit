@@ -83,7 +83,7 @@ namespace BH.Adapter.GBXML
                     xmlPanel.CADObjectID = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement, isIES);
 
                 xmlPanel.ID = "Shade-" + panelIndex.ToString();
-                xmlPanel.ExposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.SurfaceType).ToString();
+                xmlPanel.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(xmlPanel.SurfaceType).ToString();
 
                 if (isIES)
                     xmlPanel.ConstructionIDRef = BH.Engine.XML.Query.IdRef(bHoMBuildingElement); //Only for IES!
@@ -163,7 +163,8 @@ namespace BH.Adapter.GBXML
                             xmlPanel.CADObjectID = BH.Engine.XML.Query.CadObjectId(bHoMBuildingElement[i], isIES);
 
                         xmlPanel.ID = "Panel-" + panelIndex.ToString();
-                        xmlPanel.ExposedToSun = XML_Engine.Query.ExposedToSun(xmlPanel.SurfaceType).ToString();
+                        xmlPanel.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(xmlPanel.SurfaceType).ToString();
+
                         if (isIES)
                             xmlPanel.ConstructionIDRef = BH.Engine.XML.Query.IdRef(bHoMBuildingElement[i]); //Only for IES!
 
@@ -177,7 +178,7 @@ namespace BH.Adapter.GBXML
                         BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanels[i].PolyCurve.ControlPoints() }; //TODO: Change to ToPolyline method
                         BHG.Polyline srfBound = new BHG.Polyline();
 
-                        if (!BH.Engine.XML.Query.NormalAwayFromSpace(pline, bHoMSpace))
+                        if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, bHoMSpace))
                         {
                             plGeo.PolyLoop = BH.Engine.XML.Convert.ToGBXML(pline.Flip());
                             srfBound = pline.Flip();
@@ -256,7 +257,7 @@ namespace BH.Adapter.GBXML
             foreach (BH.oM.Architecture.Elements.Level level in levels)
             {
                 BuildingStorey storey = BH.Engine.XML.Convert.ToGBXML(level);
-                BHG.Polyline storeyGeometry = BH.Engine.XML.Query.StoreyGeometry(level, bHoMSpaces);
+                BHG.Polyline storeyGeometry = BH.Engine.Environment.Query.StoreyGeometry(level, bHoMSpaces);
                 if (storeyGeometry == null)
                     continue;
                 storey.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(storeyGeometry);
@@ -282,7 +283,7 @@ namespace BH.Adapter.GBXML
 
                 //normals away from space
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
-                if (!BH.Engine.XML.Query.NormalAwayFromSpace(pline, space))
+                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, space))
                     GBXMLOpening.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(pline.Flip());
 
                 string familyName = "";
@@ -341,7 +342,7 @@ namespace BH.Adapter.GBXML
             xspace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(bHoMSpace, uniqueBEs);
 
             //Planar Geometry
-            if (BH.Engine.XML.Query.FloorGeometry(bHoMSpace) != null)
+            if (BH.Engine.Environment.Query.FloorGeometry(bHoMSpace) != null)
                 xspace.PlanarGeoemtry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(BH.Engine.XML.Query.FloorGeometry(bHoMSpace));
 
             gbx.Campus.Building[0].Space.Add(xspace);
