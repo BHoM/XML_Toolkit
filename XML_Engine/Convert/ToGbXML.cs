@@ -90,7 +90,6 @@ namespace BH.Engine.XML
             rectangularGeometry.Height = Math.Round(BH.Engine.Environment.Query.LongestSegment(pline), 3);
             rectangularGeometry.Width = Math.Round(BH.Engine.Environment.Query.Width(pline, rectangularGeometry.Height), 3);
             rectangularGeometry.CartesianPoint = ToGBXML(pline.ControlPoints.First());
-            //rectangularGeometry.Polyloop = pline.ToGBXML();
 
             return rectangularGeometry;
         }
