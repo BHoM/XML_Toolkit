@@ -103,7 +103,6 @@
     <Compile Include="Query\NormalAwayFromSpace.cs" />
     <Compile Include="Query\Length.cs" />
     <Compile Include="Query\Width.cs" />
-    <Compile Include="Query\ExposedToSun.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XML_oM\XML_oM.csproj">
