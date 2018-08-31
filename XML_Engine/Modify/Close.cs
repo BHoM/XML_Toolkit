@@ -21,7 +21,7 @@ namespace BH.Engine.XML
 
         public static BHE.Space Close(BHE.Space space, double tolerance = BHG.Tolerance.MicroDistance)
         {
-            if (space == null || Query.IsClosed(space, tolerance))
+            if (space == null || BH.Engine.Environment.Query.IsClosed(space, tolerance))
                 return space;
 
             space = space.BreakReferenceClone();

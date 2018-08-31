@@ -343,7 +343,7 @@ namespace BH.Adapter.GBXML
 
             //Planar Geometry
             if (BH.Engine.Environment.Query.FloorGeometry(bHoMSpace) != null)
-                xspace.PlanarGeoemtry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(BH.Engine.XML.Query.FloorGeometry(bHoMSpace));
+                xspace.PlanarGeoemtry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(BH.Engine.Environment.Query.FloorGeometry(bHoMSpace));
 
             gbx.Campus.Building[0].Space.Add(xspace);
         }

@@ -123,10 +123,10 @@ namespace XML_Engine.Modify
             //Check the spaces are now watertight and do not have any removed panels by accident
             foreach(Space s in building.Spaces)
             {
-                while(!BH.Engine.XML.Query.IsClosed(s))
+                while(!BH.Engine.Environment.Query.IsClosed(s))
                 {
                     //There are some missing panels in this space - find them from what we removed and re add them
-                    List<Point> missingPoints = BH.Engine.XML.Query.PointsMissingPals(s);
+                    List<Point> missingPoints = BH.Engine.Environment.Query.UnmatchedElementPoints(s);
 
                     List<BuildingElement> bes = allBEs.Where(x => missingPoints.ContainsTolerance(x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).DiscontinuityPoints())).ToList();
                     if (bes.Count == 0) break;
