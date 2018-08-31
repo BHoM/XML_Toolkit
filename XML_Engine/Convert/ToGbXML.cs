@@ -71,8 +71,8 @@ namespace BH.Engine.XML
 
             GBXMLOpening.PlanarGeometry.PolyLoop = ToGBXML(pline);
             GBXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGBXML();
-            GBXMLOpening.RectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
-            GBXMLOpening.RectangularGeometry.Width = Math.Round(Query.Width(pline, GBXMLOpening.RectangularGeometry.Height), 3);
+            GBXMLOpening.RectangularGeometry.Height = Math.Round(BH.Engine.Environment.Query.LongestSegment(pline), 3);
+            GBXMLOpening.RectangularGeometry.Width = Math.Round(BH.Engine.Environment.Query.Width(pline, GBXMLOpening.RectangularGeometry.Height), 3);
 
             return GBXMLOpening;
         }
@@ -87,8 +87,8 @@ namespace BH.Engine.XML
 
             rectangularGeometry.Tilt = Math.Round(Environment.Query.Tilt(bHoMPanel), 3);
             rectangularGeometry.Azimuth = Math.Round(Environment.Query.Azimuth(bHoMPanel, BHG.Vector.YAxis), 3);
-            rectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
-            rectangularGeometry.Width = Math.Round(Query.Width(pline, rectangularGeometry.Height), 3);
+            rectangularGeometry.Height = Math.Round(BH.Engine.Environment.Query.LongestSegment(pline), 3);
+            rectangularGeometry.Width = Math.Round(BH.Engine.Environment.Query.Width(pline, rectangularGeometry.Height), 3);
             rectangularGeometry.CartesianPoint = ToGBXML(pline.ControlPoints.First());
             //rectangularGeometry.Polyloop = pline.ToGBXML();
 

@@ -30,7 +30,7 @@ namespace BH.Engine.XML
                 * This is a requirement of GBXML Polyloop definitions */
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
 
-                if (!BH.Engine.XML.Query.NormalAwayFromSpace(pline, bHoMSpace))
+                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, bHoMSpace))
                     ploops.Add(BH.Engine.XML.Convert.ToGBXML(pline.Flip()));
                 else
                     ploops.Add(BH.Engine.XML.Convert.ToGBXML(pline));
