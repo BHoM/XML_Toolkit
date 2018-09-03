@@ -43,8 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GBXML\DocumentHistory\CreatedBy.cs" />
+    <Compile Include="GBXML\DocumentHistory\DocumentHistory.cs" />
     <Compile Include="gbXMLObjects.cs" />
+    <Compile Include="GBXML\DocumentHistory\PersonInfo.cs" />
+    <Compile Include="GBXML\DocumentHistory\ProgramInfo.cs" />
+    <Compile Include="GBXML\Layer\Layer.cs" />
+    <Compile Include="GBXML\Layer\MaterialID.cs" />
+    <Compile Include="GBXML\Materials\Material.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GBXML\Zone\Zone.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

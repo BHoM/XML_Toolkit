@@ -46,131 +46,33 @@ namespace BH.oM.XML
     /**** Document History Objects                  ****/
     /***************************************************/
 
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class DocumentHistory : GBXMLObject, IObject
-    {
-        [XmlElement("ProgramInfo")]
-        public ProgramInfo ProgramInfo { get; set; } = new ProgramInfo();
-        [XmlElement("CreatedBy")]
-        public CreatedBy CreatedBy { get; set; } = new CreatedBy();
-        [XmlElement("PersonInfo")]
-        public PersonInfo PersonInfo { get; set; } = new PersonInfo();
-    }
+    
 
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class ProgramInfo : GBXMLObject, IObject
-    {
-        [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "BHoMGBXML";
-        [XmlElement("CompanyName")]
-        public string CompanyName { get; set; } = "BuroHappold Engineering";
-        [XmlElement("ProductName")]
-        public string ProductName { get; set; } = "Autodesk Revit 2018 BEES";
-        [XmlElement("Version")]
-        public string Version { get; set; } = "2018 20170223_1515(x64)";
-        [XmlElement("Platform")]
-        public string Platform { get; set; } = "Microsoft Windows";
-        [XmlElement("ProjectEntity")]
-        public ProjectEntity ProjectEntity { get; set; } = new ProjectEntity();
-    }
+    
 
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class CreatedBy : GBXMLObject, IObject
-    {
-        [XmlAttribute(AttributeName = "personId")]
-        public string PersonID { get; set; } = "BuroHappold";
-        [XmlAttribute(AttributeName = "programId")]
-        public string ProgramID { get; set; } = "BHoMGBXML";
-        [XmlAttribute(AttributeName = "date")]
-        public string Date { get; set; } = "00-00-00";
-        [XmlElement("CADModelId")]
-        public string CADModelID { get; set; } = "Unknown";
-    }
+    
 
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class PersonInfo : GBXMLObject, IObject
-    {
-        [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "BuroHappold";
-    }
+    
 
     /***************************************************/
     /**** Zone Objects                              ****/
     /***************************************************/
 
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class Zone : GBXMLObject, IObject
-    {
-        [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "ZoneID";
-        [XmlElement("AirChangesperHour")]
-        public double AirChangesPerHour { get; set; } = 0;
-        [XmlElement("OAFlowPerArea")]
-        public OAFlowPerArea OAFlowPerArea { get; set; } = new OAFlowPerArea();
-        [XmlElement("OAFlowPerPerson")]
-        public OAFlowPerPerson OAFlowPerPerson { get; set; } = new OAFlowPerPerson();
-        [XmlElement("DesignHeatT")]
-        public DesignHeatT DesignHeatT { get; set; } = new DesignHeatT();
-        [XmlElement("DesignCoolT")]
-        public DesignCoolT DesignCoolT { get; set; } = new DesignCoolT();
-        [XmlElement("TypeCode")]
-        public double TypeCode { get; set; } = 0;
-        [XmlElement("Name")]
-        public string Name { get; set; } = "Zone";
-        [XmlElement("CADObjectId")]
-        public string CADObjectID { get; set; } = "Unknown";
-    }
+    
 
     /***************************************************/
     /**** Material Objects                          ****/
     /***************************************************/
 
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class Material : GBXMLObject, IObject
-    {
-        [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "MaterialID";
-        [XmlElement("Name")]
-        public string Name { get; set; } = "Material";
-        [XmlElement("R-value")]
-        public double RValue { get; set; } = 0;
-        [XmlElement("Thickness")]
-        public double Thickness { get; set; } = 0.001;
-        [XmlElement("Conductivity")]
-        public double Conductivity { get; set; } = 0;
-        [XmlElement("Density")]
-        public double Density { get; set; } = 0;
-        [XmlElement("SpecificHeat")]
-        public double SpecificHeat { get; set; } = 0;
-    }
+    
 
     /***************************************************/
     /**** Layer Objects                             ****/
     /***************************************************/
 
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class Layer : GBXMLObject, IObject
-    {
-        [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "LayerID";
-        [XmlElement("MaterialId")]
-        public MaterialId MaterialID { get; set; } = new MaterialId();
-    }
+    
 
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class MaterialId : GBXMLObject, IObject
-    {
-        [XmlAttribute(AttributeName = "materialIdRef")]
-        public string MaterialIDRef { get; set; } = "MaterialID";
-    }
+    
 
     /***************************************************/
     /**** Construction Objects                      ****/
