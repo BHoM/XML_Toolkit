@@ -8,7 +8,7 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class RectangularGeometry : GBXMLObject, IObject
+    public class RectangularGeometry : GBXMLObject
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "RectangularGeometryID";

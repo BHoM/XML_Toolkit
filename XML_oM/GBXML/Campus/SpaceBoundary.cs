@@ -8,15 +8,13 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class BuildingStorey : GBXMLObject
+    public class SpaceBoundary : GBXMLObject
     {
-        [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "StoreyID";
-        [XmlElement("Level")]
-        public float Level { get; set; } = 0;
+        [XmlAttribute(AttributeName = "isSecondLevelBoundary")]
+        public string IsSecondLevelBoundary { get; set; } = "false";
+        [XmlAttribute(AttributeName = "surfaceIdRef")]
+        public string SurfaceIDRef { get; set; } = "";
         [XmlElement("PlanarGeometry")]
         public PlanarGeometry PlanarGeometry { get; set; } = new PlanarGeometry();
-        [XmlElement("Name")]
-        public string Name { get; set; } = "Storey";
     }
 }

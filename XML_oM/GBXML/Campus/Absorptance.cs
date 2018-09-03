@@ -6,11 +6,12 @@ using BH.oM.Base;
 
 namespace BH.oM.XML
 {
-    [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class LayerId : GBXMLObject
+    public class Absorptance : GBXMLObject
     {
-        [XmlAttribute(AttributeName = "layerIdRef")]
-        public string LayerIDRef { get; set; } = "LayerID";
+        [XmlAttribute("unit")]
+        public string Unit { get; set; } = "Fraction";
+        [XmlAttribute("type")]
+        public string Type { get; set; } = "ExtIR";
     }
 }

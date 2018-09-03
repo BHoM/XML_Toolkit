@@ -8,7 +8,7 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class Building : GBXMLObject, IObject
+    public class Building : GBXMLObject
     {
         [XmlAttribute(AttributeName = "buildingType")]
         public string BuildingType { get; set; } = "Unknown";

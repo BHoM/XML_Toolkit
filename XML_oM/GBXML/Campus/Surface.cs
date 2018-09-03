@@ -8,7 +8,7 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class Surface : GBXMLObject, IObject
+    public class Surface : GBXMLObject
     {
         [XmlAttribute(AttributeName = "surfaceType")]
         public string SurfaceType { get; set; } = "Unknown";

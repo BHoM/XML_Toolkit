@@ -8,9 +8,11 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class LayerId : GBXMLObject
+    public class StationId : GBXMLObject
     {
-        [XmlAttribute(AttributeName = "layerIdRef")]
-        public string LayerIDRef { get; set; } = "LayerID";
+        [XmlAttribute("IDType")]
+        public string IDType { get; set; } = "Unknown";
+        [XmlAttribute("ID")]
+        public string ID { get; set; } = "";
     }
 }

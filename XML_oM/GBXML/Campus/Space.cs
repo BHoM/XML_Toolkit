@@ -8,7 +8,7 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
-    public class Space : GBXMLObject, IObject
+    public class Space : GBXMLObject
     {
         [XmlAttribute(AttributeName = "zoneIdRef")]
         public string ZoneIDRef { get; set; } = "ZoneID";
