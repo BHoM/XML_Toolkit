@@ -6,7 +6,7 @@ using BH.oM.Base;
 
 namespace BH.oM.XML
 {
-    public abstract class GBXMLObject : IObject
+    public abstract class GBXMLObject : BHoMObject
     {
     }
 }
