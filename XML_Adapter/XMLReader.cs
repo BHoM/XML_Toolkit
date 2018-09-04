@@ -12,12 +12,12 @@ namespace XML_Adapter
     public class XMLReader
     {
 
-        public static BH.oM.XML.gbXML Load(string filePath, string Name)
+        public static BH.oM.XML.GBXML Load(string filePath, string Name)
         {
             Name += ".xml";
             TextReader reader = new StreamReader(Path.Combine(filePath, Name));
-            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.gbXML));
-            return (BH.oM.XML.gbXML)szer.Deserialize(reader);
+            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.GBXML));
+            return (BH.oM.XML.GBXML)szer.Deserialize(reader);
         }
     }
 }

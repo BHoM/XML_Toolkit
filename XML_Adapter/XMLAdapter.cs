@@ -8,7 +8,7 @@ using BH.Engine;
 using BH.oM.Base;
 using System.Reflection;
 
-namespace BH.Adapter.gbXML
+namespace BH.Adapter.GBXML
 {
     public partial class XMLAdapter : BHoMAdapter
     {

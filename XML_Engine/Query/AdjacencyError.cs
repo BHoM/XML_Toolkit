@@ -26,7 +26,7 @@ namespace BH.Engine.XML
 
             BHE.BuildingElement buildingElement = null;
 
-            string type = bHoMBuildingElement.ToGbXMLType();
+            string type = bHoMBuildingElement.ToGBXMLType();
 
             if (!string.IsNullOrEmpty(type))
             {

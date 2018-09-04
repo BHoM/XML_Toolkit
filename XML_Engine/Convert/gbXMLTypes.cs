@@ -11,7 +11,7 @@ namespace BH.Engine.XML
     {
         /***************************************************/
 
-        public static string ToGbXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement, bool isIES = false)
+        public static string ToGBXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement, bool isIES = false)
         {
             string type = "Air";
             if (bHoMBuildingElement == null)
@@ -25,7 +25,7 @@ namespace BH.Engine.XML
                     object aObject = bHoMBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"];
 
                     if (aObject != null)
-                        type = ToGbXMLSurfaceType(aObject.ToString()); //modifies the string
+                        type = ToGBXMLSurfaceType(aObject.ToString()); //modifies the string
 
                     if ((isIES && type.Contains("Window") || bHoMBuildingElement.BuildingElementProperties.BuildingElementType == BHE.Elements.BuildingElementType.Window) && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
                         type = "NonSlidingDoor";
@@ -33,7 +33,7 @@ namespace BH.Engine.XML
             }
             else if (bHoMBuildingElement != null)
             {
-                type = ToGbXMLSurfaceType((bHoMBuildingElement.BuildingElementGeometry as BHE.Elements.BuildingElementPanel).ElementType);
+                type = ToGBXMLSurfaceType((bHoMBuildingElement.BuildingElementGeometry as BHE.Elements.BuildingElementPanel).ElementType);
             }
             else
                 type = "Air";
@@ -43,7 +43,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
         //String modification for surface types
-        public static string ToGbXMLSurfaceType(this string type)
+        public static string ToGBXMLSurfaceType(this string type)
         {
             switch (type)
             {

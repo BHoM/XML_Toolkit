@@ -14,7 +14,7 @@ namespace BH.Engine.XML
         /**** Public Methods - Geometry                 ****/
         /***************************************************/
 
-        public static CartesianPoint ToGbXML(this BHG.Point pt)
+        public static CartesianPoint ToGBXML(this BHG.Point pt)
         {
             CartesianPoint cartPoint = new CartesianPoint();
             List<string> coord = new List<string>();
@@ -29,7 +29,7 @@ namespace BH.Engine.XML
         }
         /***************************************************/
 
-        public static Polyloop ToGbXML(this BHG.Polyline polyLine, double tolerance = BHG.Tolerance.Distance)
+        public static Polyloop ToGBXML(this BHG.Polyline polyLine, double tolerance = BHG.Tolerance.Distance)
         {
             List<BHG.Point> pts = polyLine.DiscontinuityPoints();
 
@@ -38,7 +38,7 @@ namespace BH.Engine.XML
             List<CartesianPoint> cartpoint = new List<CartesianPoint>();
             for (int i = 0; i < count; i++)
             {
-                CartesianPoint cpt = ToGbXML(pts[i]);
+                CartesianPoint cpt = ToGBXML(pts[i]);
                 List<string> coord = new List<string>();
                 cartpoint.Add(cpt);
             }
@@ -48,38 +48,38 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        //public static Surface ToGbXML(BHE.BuildingElementPanel bHoMPanel)
+        //public static Surface ToGBXML(BHE.BuildingElementPanel bHoMPanel)
         //{
         //    Surface xmlPanel = new Surface();
 
         //    xmlPanel.Name = bHoMPanel.Name;
-        //    xmlPanel.surfaceType = ToGbXMLSurfaceType(bHoMPanel);
+        //    xmlPanel.surfaceType = ToGBXMLSurfaceType(bHoMPanel);
 
         //    return xmlPanel;
         //}
 
         /***************************************************/
 
-        public static Opening ToGbXML(this BHE.BuildingElementOpening opening)
+        public static Opening ToGBXML(this BHE.BuildingElementOpening opening)
         {
-            Opening gbXMLOpening = new Opening();
+            Opening GBXMLOpening = new Opening();
 
-            //gbXMLOpening.id = opening.BHoM_Guid.ToString();
-            //gbXMLOpening.Name = opening.Name;
+            //GBXMLOpening.id = opening.BHoM_Guid.ToString();
+            //GBXMLOpening.Name = opening.Name;
 
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
 
-            gbXMLOpening.PlanarGeometry.PolyLoop = ToGbXML(pline);
-            gbXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGbXML();
-            gbXMLOpening.RectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
-            gbXMLOpening.RectangularGeometry.Width = Math.Round(Query.Width(pline, gbXMLOpening.RectangularGeometry.Height), 3);
+            GBXMLOpening.PlanarGeometry.PolyLoop = ToGBXML(pline);
+            GBXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGBXML();
+            GBXMLOpening.RectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
+            GBXMLOpening.RectangularGeometry.Width = Math.Round(Query.Width(pline, GBXMLOpening.RectangularGeometry.Height), 3);
 
-            return gbXMLOpening;
+            return GBXMLOpening;
         }
 
         /***************************************************/
 
-        public static RectangularGeometry ToGbXML(this BHE.BuildingElementPanel bHoMPanel) //TODO: change to PolyCurve. Add query methods in Environment engine for PolyCurves
+        public static RectangularGeometry ToGBXML(this BHE.BuildingElementPanel bHoMPanel) //TODO: change to PolyCurve. Add query methods in Environment engine for PolyCurves
         {
             RectangularGeometry rectangularGeometry = new RectangularGeometry();
 
@@ -89,15 +89,15 @@ namespace BH.Engine.XML
             rectangularGeometry.Azimuth = Math.Round(Environment.Query.Azimuth(bHoMPanel, BHG.Vector.YAxis), 3);
             rectangularGeometry.Height = Math.Round(Query.Length(pline), 3);
             rectangularGeometry.Width = Math.Round(Query.Width(pline, rectangularGeometry.Height), 3);
-            rectangularGeometry.CartesianPoint = ToGbXML(pline.ControlPoints.First());
-            //rectangularGeometry.Polyloop = pline.ToGbXML();
+            rectangularGeometry.CartesianPoint = ToGBXML(pline.ControlPoints.First());
+            //rectangularGeometry.Polyloop = pline.ToGBXML();
 
             return rectangularGeometry;
         }
 
         /***************************************************/
 
-        public static Space ToGbXML(this BHE.Space bHoMSpace)
+        public static Space ToGBXML(this BHE.Space bHoMSpace)
         {
             Space xmlSpace = new Space();
 
@@ -106,7 +106,7 @@ namespace BH.Engine.XML
             xmlSpace.Name = bHoMSpace.Number + " " + bHoMSpace.Name;
             //xmlSpace.id = "Space-" + bHoMSpace.Name.ToString();
             //xmlSpace.id = "Space-" + bHoMSpace.Number.ToString();
-            xmlSpace.id = bHoMSpace.Number + "-" + bHoMSpace.Name.ToString();
+            xmlSpace.ID = bHoMSpace.Number + "-" + bHoMSpace.Name.ToString();
 
             //xmlSpace.Area = Environment.Query.FloorArea(bHoMSpace);
             if (bHoMSpace.CustomData.ContainsKey("Area"))
@@ -115,23 +115,23 @@ namespace BH.Engine.XML
             if (bHoMSpace.CustomData.ContainsKey("Volume"))
                 xmlSpace.Volume = Math.Round((double)bHoMSpace.CustomData["Volume"], 3);
             if (bHoMSpace.CustomData.ContainsKey("Revit_elementId"))
-                xmlSpace.CADobjectId = (bHoMSpace.CustomData["Revit_elementId"]).ToString();
+                xmlSpace.CADObjectID = (bHoMSpace.CustomData["Revit_elementId"]).ToString();
 
             //added replacement to spaces to allow compliant with XML format
             if (bHoMSpace.Level != null)
-                xmlSpace.buildingStoreyIdRef = bHoMSpace.Level.Name.Replace(" ", "-");
+                xmlSpace.BuildingStoreyIDRef = bHoMSpace.Level.Name.Replace(" ", "-");
 
             return xmlSpace;
         }
 
         /***************************************************/
 
-        public static BuildingStorey ToGbXML(this BH.oM.Architecture.Elements.Level bHoMLevel)
+        public static BuildingStorey ToGBXML(this BH.oM.Architecture.Elements.Level bHoMLevel)
         {
             BuildingStorey xmlStorey = new BuildingStorey();
 
             xmlStorey.Name = bHoMLevel.Name;
-            xmlStorey.id = bHoMLevel.Name.Replace(" ", "-");
+            xmlStorey.ID = bHoMLevel.Name.Replace(" ", "-");
             xmlStorey.Level = (float)bHoMLevel.Elevation;
             
 
@@ -140,7 +140,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        //public static Building ToGbXML(this BHE.Building bHoMBuilding)
+        //public static Building ToGBXML(this BHE.Building bHoMBuilding)
         //{
         //    Building xmlBuilding = new Building();
 
@@ -155,14 +155,14 @@ namespace BH.Engine.XML
         //    }
         //    foreach (BH.oM.Architecture.Elements.Level level in bHoMBuilding.Levels)
         //    {
-        //        xmlBuilding.BuildingStorey.ToList().Add(level.ToGbXML());
+        //        xmlBuilding.BuildingStorey.ToList().Add(level.ToGBXML());
         //    }
         //    return xmlBuilding;
         //}
 
         /***************************************************/
 
-        public static Location ToGbXML(this BHE.Building bHoMBuilding)
+        public static Location ToGBXML(this BHE.Building bHoMBuilding)
         {
             Location xmlLocation = new Location();
 
@@ -176,7 +176,7 @@ namespace BH.Engine.XML
             if (bHoMBuilding.CustomData.ContainsKey("Place Name"))
                 xmlLocation.Name = (bHoMBuilding.CustomData["Place Name"]).ToString();
             if (bHoMBuilding.CustomData.ContainsKey("Weather Station Name"))
-                xmlLocation.StationId.ID = (bHoMBuilding.CustomData["Weather Station Name"]).ToString();
+                xmlLocation.StationID.ID = (bHoMBuilding.CustomData["Weather Station Name"]).ToString();
 
 
             return xmlLocation;
@@ -184,12 +184,12 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static Construction ToGbXML(this BH.oM.Environment.Properties.BuildingElementProperties beProp)
+        public static Construction ToGBXML(this BH.oM.Environment.Properties.BuildingElementProperties beProp)
         {
             Construction xmlConstruction = new Construction();
 
             //xmlConstruction.Absorptance = ;
-            xmlConstruction.id = "id";
+            xmlConstruction.ID = "id";
             xmlConstruction.Name = beProp.Name;
             //xmlConstruction.Roughness = "VeryRough";
             //xmlConstruction.Uvalue = beProp.UValue;

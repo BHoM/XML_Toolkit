@@ -31,7 +31,7 @@ namespace BH.Engine.XML
                     BHE.Space foundSpace = spaces.Find(x => x.BHoM_Guid == adjSpace);
                     if (foundSpace == null)
                         continue;
-                    adjId.spaceIdRef = foundSpace.Number + "-" + foundSpace.Name;
+                    adjId.SpaceIDRef = foundSpace.Number + "-" + foundSpace.Name;
                     adSpace.Add(adjId);
                 }
             }

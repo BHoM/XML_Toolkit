@@ -46,13 +46,13 @@ namespace BH.Engine.XML
             mergedPlines.AddRange(pLinesOther);
 
             // 3. Ensure that all of the surface coordinates are listed in a counterclockwise order.
-            // This is a requirement of gbXML Polyloop definitions. If this is inconsistent or wrong we end up with a corrupt gbXML file.
+            // This is a requirement of GBXML Polyloop definitions. If this is inconsistent or wrong we end up with a corrupt GBXML file.
             foreach (BHG.Polyline pline in mergedPlines)
             {
                 if (!BH.Engine.XML.Query.NormalAwayFromSpace(pline, bHoMSpace))
-                    ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
+                    ploopsShell.Add(BH.Engine.XML.Convert.ToGBXML(pline.Flip()));
                 else
-                    ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline));
+                    ploopsShell.Add(BH.Engine.XML.Convert.ToGBXML(pline));
             }
 
             return ploopsShell;

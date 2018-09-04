@@ -11,7 +11,7 @@ using BH.Engine;
 using BHE = BH.oM.Environment;
 using XML_Adapter;
 
-namespace BH.Adapter.gbXML
+namespace BH.Adapter.GBXML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
@@ -30,8 +30,8 @@ namespace BH.Adapter.gbXML
 
         private List<Space> ReadSpaces(List<String> ids = null)
         {
-            BH.oM.XML.gbXML gbx = XMLReader.Load(FilePath, FileName);
-            IEnumerable<IBHoMObject> bHoMObject = gbXMLDeserializer.Deserialize(gbx);
+            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, FileName);
+            IEnumerable<IBHoMObject> bHoMObject = GBXMLDeserializer.Deserialize(gbx);
             return bHoMObject.Where(x => x is BHE.Elements.Space).Cast<Space>().ToList();
         }
 
@@ -39,8 +39,8 @@ namespace BH.Adapter.gbXML
 
         private List<BuildingElementPanel> ReadPanels(List<string> ids = null)
         {
-            BH.oM.XML.gbXML gbx = XMLReader.Load(FilePath, FileName);
-            IEnumerable<IBHoMObject> bHoMObject = gbXMLDeserializer.Deserialize(gbx);
+            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, FileName);
+            IEnumerable<IBHoMObject> bHoMObject = GBXMLDeserializer.Deserialize(gbx);
             return bHoMObject.Where(x => x is BHE.Elements.BuildingElementPanel).Cast<BuildingElementPanel>().ToList();
         }
     }

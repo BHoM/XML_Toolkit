@@ -27,13 +27,13 @@ namespace BH.Engine.XML
             foreach (BHG.PolyCurve pCrv in bePanel)
             {
                 /* Ensure that all of the surface coordinates are listed in a counterclockwise order
-                * This is a requirement of gbXML Polyloop definitions */
+                * This is a requirement of GBXML Polyloop definitions */
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
 
                 if (!BH.Engine.XML.Query.NormalAwayFromSpace(pline, bHoMSpace))
-                    ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
+                    ploops.Add(BH.Engine.XML.Convert.ToGBXML(pline.Flip()));
                 else
-                    ploops.Add(BH.Engine.XML.Convert.ToGbXML(pline));
+                    ploops.Add(BH.Engine.XML.Convert.ToGBXML(pline));
             }
 
             SpaceBoundary[] spaceBound = new SpaceBoundary[ploops.Count()];
@@ -47,7 +47,7 @@ namespace BH.Engine.XML
 
                 //Get the id from the referenced panel
                 string refPanel = "Panel-" + be.FindIndex(x => x.BHoM_Guid.ToString() == bHoMSpace.BuildingElements[i].BHoM_Guid.ToString()).ToString();
-                spaceBound[i].surfaceIdRef = refPanel;
+                spaceBound[i].SurfaceIDRef = refPanel;
             }
 
             return spaceBound;

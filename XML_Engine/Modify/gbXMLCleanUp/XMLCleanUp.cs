@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using BH.oM.Environment.Elements;
 using BH.Engine.Geometry;
-using XML_Engine.Modify.gbXMLCleanUp;
+using XML_Engine.Modify.GBXMLCleanUp;
 
 using BH.oM.Geometry;
 
@@ -20,7 +20,7 @@ namespace XML_Engine.Modify
 {
     public static partial class Modify
     {
-        public static Dictionary<BuildingElement, List<BuildingElement>> gbXMLCleanUp_IdentifyOverLaps(this Building building)
+        public static Dictionary<BuildingElement, List<BuildingElement>> XMLCleanUp_IdentifyOverLaps(this Building building)
         {
             building = building.BreakReferenceClone();
 
@@ -37,7 +37,7 @@ namespace XML_Engine.Modify
             return dic;
         }
 
-        public static List<BuildingElement> gbXMLCleanUp_OverLapsList(this Dictionary<BuildingElement, List<BuildingElement>> dic)
+        public static List<BuildingElement> XMLCleanUp_OverLapsList(this Dictionary<BuildingElement, List<BuildingElement>> dic)
         {
             List<BuildingElement> rtn = new List<BuildingElement>();
             foreach (KeyValuePair<BuildingElement, List<BuildingElement>> kvp in dic)
@@ -52,12 +52,12 @@ namespace XML_Engine.Modify
             return rtn;
         }
 
-        public static List<BuildingElement> gbXMLCleanUp_OverLapsListIndex(this Dictionary<BuildingElement, List<BuildingElement>> dic, int index)
+        public static List<BuildingElement> XMLCleanUp_OverLapsListIndex(this Dictionary<BuildingElement, List<BuildingElement>> dic, int index)
         {
             return dic.ElementAt(index).Value;
         }
 
-        public static Building gbXMLCleanUp_Step1(this Building building, Dictionary<BuildingElement, List<BuildingElement>> overlaps)
+        public static Building XMLCleanUp_Step1(this Building building, Dictionary<BuildingElement, List<BuildingElement>> overlaps)
         {
             building = building.BreakReferenceClone();
 
@@ -159,7 +159,7 @@ namespace XML_Engine.Modify
             return building;
         }
 
-        public static Building gbXMLCleanUp_Step2(this Building building)
+        public static Building XMLCleanUp_Step2(this Building building)
         {
             building = building.BreakReferenceClone();
 
@@ -182,7 +182,7 @@ namespace XML_Engine.Modify
             return building;
         }
 
-        public static Building gbXMLCleanUp_Step3(this Building building)
+        public static Building XMLCleanUp_Step3(this Building building)
         {
             building = building.BreakReferenceClone();
 
@@ -205,7 +205,7 @@ namespace XML_Engine.Modify
             return building;
         }
 
-        public static Building gbXMLCleanUp_Step4(this Building building)
+        public static Building XMLCleanUp_Step4(this Building building)
         {
             building = building.BreakReferenceClone();
 
@@ -232,7 +232,7 @@ namespace XML_Engine.Modify
             return building;
         }
         
-        public static Building gbxmlCleanUp_SpaceCleanse(this Building building)
+        public static Building XMLCleanUp_SpaceCleanse(this Building building)
         {
             building = building.BreakReferenceClone();
 
@@ -242,7 +242,7 @@ namespace XML_Engine.Modify
             return building;
         }
 
-        public static Building gbXMLCleanUp_MatchSingleAdjacencies(this Building building)
+        public static Building XMLCleanUp_MatchSingleAdjacencies(this Building building)
         {
             building = building.BreakReferenceClone();
 
@@ -272,7 +272,7 @@ namespace XML_Engine.Modify
             return building;
         }
 
-        public static Building gbXMLCleanUp_FindAdjacencies(this Building building)
+        public static Building XMLCleanUp_FindAdjacencies(this Building building)
         {
             building = building.BreakReferenceClone();
 
@@ -348,7 +348,7 @@ namespace XML_Engine.Modify
             return building;
         }
 
-        public static Building gbXMLCleanUp_RemoveDuplicatesWithIC_OLD(this Building building)
+        public static Building XMLCleanUp_RemoveDuplicatesWithIC_OLD(this Building building)
         {
             building = building.BreakReferenceClone();
 
@@ -426,7 +426,7 @@ namespace XML_Engine.Modify
             return building;
         }
 
-        public static Building gbXMLCleanUp_RemoveDuplicatesWithIC(this Building building, Dictionary<BuildingElement, List<BuildingElement>> overlaps)
+        public static Building XMLCleanUp_RemoveDuplicatesWithIC(this Building building, Dictionary<BuildingElement, List<BuildingElement>> overlaps)
         {
             building = building.BreakReferenceClone();
 

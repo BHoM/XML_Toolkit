@@ -12,13 +12,13 @@ namespace XML_Adapter
     public class XMLWriter
     {
 
-        public static string Save(string filePath, string Name, BH.oM.XML.gbXML gbx)
+        public static string Save(string filePath, string Name, BH.oM.XML.GBXML gbx)
         {
             try
             {
                 Name += ".xml";
                 XmlSerializerNamespaces xns = new XmlSerializerNamespaces();
-                XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.gbXML));
+                XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.GBXML));
                 TextWriter ms = new StreamWriter(Path.Combine(filePath, Name));
                 szer.Serialize(ms, gbx, xns);
                 ms.Close();
