@@ -25,24 +25,12 @@ namespace BH.Engine.XML
 
             List<BHG.Polyline> mergedPolyLines = BH.Engine.Environment.Query.ClosedShellGeometry(bHoMSpace);
 
-<<<<<<< HEAD
-            //2. Add the rest of the geometries
-            mergedPlines.AddRange(pLinesOther);
-
-            // 3. Ensure that all of the surface coordinates are listed in a counterclockwise order.
-            // This is a requirement of GBXML Polyloop definitions. If this is inconsistent or wrong we end up with a corrupt GBXML file.
-            foreach (BHG.Polyline pline in mergedPlines)
-            {
-                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, bHoMSpace))
-                    ploopsShell.Add(BH.Engine.XML.Convert.ToGBXML(pline.Flip()));
-=======
             //Ensure that all of the surface coordinates are listed in a counterclockwise order.
             //This is a requirement of gbXML Polyloop definitions. If this is inconsistent or wrong we end up with a corrupt gbXML file.
             foreach (BHG.Polyline pline in mergedPolyLines)
             {
                 if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, bHoMSpace))
-                    ploopsShell.Add(BH.Engine.XML.Convert.ToGbXML(pline.Flip()));
->>>>>>> Moving a host of methods over to the Environment Engine
+                    ploopsShell.Add(BH.Engine.XML.Convert.ToGBXML(pline.Flip()));
                 else
                     ploopsShell.Add(BH.Engine.XML.Convert.ToGBXML(pline));
             }
