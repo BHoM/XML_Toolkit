@@ -11,7 +11,7 @@ using BH.Engine.Environment;
 
 using BH.Engine.XML;
 
-namespace BH.Adapter.GBXML
+namespace BH.Adapter.XML
 {
     public class GBXMLSerializer
     {

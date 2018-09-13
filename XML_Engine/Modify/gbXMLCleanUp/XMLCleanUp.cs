@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using BH.oM.Environment.Elements;
 using BH.Engine.Geometry;
-using XML_Engine.Modify.GBXMLCleanUp;
 
 using BH.oM.Geometry;
 
@@ -14,9 +13,7 @@ using BH.Engine.Environment;
 
 using BH.Engine.Serialiser;
 
-using BH.Engine.XML;
-
-namespace XML_Engine.Modify
+namespace BH.Engine.XML
 {
     public static partial class Modify
     {

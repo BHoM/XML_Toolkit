@@ -5,10 +5,8 @@ using BH.Engine.Geometry;
 using System.Linq;
 using BHE = BH.oM.Environment.Elements;
 
-
 namespace BH.Engine.XML
 {
-
     public static partial class Query
     {
         /***************************************************/

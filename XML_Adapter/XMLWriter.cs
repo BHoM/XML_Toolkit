@@ -9,7 +9,7 @@ using System.IO;
 
 using BH.oM.Base;
 
-namespace XML_Adapter
+namespace BH.Adapter.XML
 {
     public class XMLWriter
     {

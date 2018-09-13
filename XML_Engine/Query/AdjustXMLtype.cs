@@ -11,7 +11,6 @@ using BH.Engine.Environment;
 
 namespace BH.Engine.XML
 {
-
     public static partial class Query
     {
         /***************************************************/
