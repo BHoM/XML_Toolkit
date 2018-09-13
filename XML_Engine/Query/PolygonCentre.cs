@@ -12,7 +12,6 @@ using BH.Engine.Environment;
 
 namespace BH.Engine.XML
 {
-
     public static partial class Query
     {
         public static Point PolygonCentre(this Polyline pLine, double tolerance = Tolerance.Distance)

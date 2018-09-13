@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 using BH.oM.Base;
 using BHE = BH.oM.Environment;
 using BHX = BH.oM.XML;
-using XML_Adapter;
 
-namespace BH.Adapter.GBXML
+namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
@@ -19,10 +18,10 @@ namespace BH.Adapter.GBXML
 
             if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
             {
-                GBXML.GBXMLSerializer.Serialize(objects, gbx, false);
+                XML.GBXMLSerializer.Serialize(objects, gbx, false);
                 XMLWriter.Save(FilePath, FileName + "_TAS", gbx);
                 gbx = new BHX.GBXML();
-                GBXML.GBXMLSerializer.Serialize(objects, gbx, true);
+                XML.GBXMLSerializer.Serialize(objects, gbx, true);
                 XMLWriter.Save(FilePath, FileName + "_IES", gbx);
             }
 
@@ -33,7 +32,7 @@ namespace BH.Adapter.GBXML
 
         private bool Create(BHE.Elements.BuildingElementPanel bHoMBuildingElementPanel, BHX.GBXML gbx, bool isIES)
         {
-            GBXML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElementPanel as IBHoMObject }, gbx, isIES);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElementPanel as IBHoMObject }, gbx, isIES);
 
             return true;
         }
@@ -42,7 +41,7 @@ namespace BH.Adapter.GBXML
 
         private bool Create(BHE.Elements.Space bHoMSpace, BHX.GBXML gbx, bool isIES)
         {
-            GBXML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMSpace as IBHoMObject }, gbx, isIES);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMSpace as IBHoMObject }, gbx, isIES);
 
             return true;
         }
@@ -51,7 +50,7 @@ namespace BH.Adapter.GBXML
 
         private bool Create(BHE.Elements.Building bHoMBuilding, BHX.GBXML gbx, bool isIES)
         {
-            GBXML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuilding as IBHoMObject }, gbx, isIES);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuilding as IBHoMObject }, gbx, isIES);
 
             return true;
         }
@@ -60,7 +59,7 @@ namespace BH.Adapter.GBXML
 
         private bool Create(BHE.Elements.BuildingElement bHoMBuildingElement, BHX.GBXML gbx, bool isIES)
         {
-            GBXML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElement as IBHoMObject }, gbx, isIES);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElement as IBHoMObject }, gbx, isIES);
 
             return true;
         }

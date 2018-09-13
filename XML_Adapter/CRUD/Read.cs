@@ -9,9 +9,8 @@ using BH.oM.Environment.Interface;
 using BHG = BH.oM.Geometry;
 using BH.Engine;
 using BHE = BH.oM.Environment;
-using XML_Adapter;
 
-namespace BH.Adapter.GBXML
+namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {

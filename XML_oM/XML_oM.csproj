@@ -73,7 +73,7 @@
     <Compile Include="GBXML\DocumentHistory\CreatedBy.cs" />
     <Compile Include="GBXML\DocumentHistory\DocumentHistory.cs" />
     <Compile Include="GBXML\GbXML.cs" />
-    <Compile Include="GBXML\gbXMLObject.cs" />
+    <Compile Include="GBXML\GBXMLObject.cs" />
     <Compile Include="GBXML\DocumentHistory\PersonInfo.cs" />
     <Compile Include="GBXML\DocumentHistory\ProgramInfo.cs" />
     <Compile Include="GBXML\Layer\Layer.cs" />

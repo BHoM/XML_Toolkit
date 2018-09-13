@@ -1,6 +1,6 @@
 ﻿using BH.Adapter;
 
-namespace BH.Adapter.GBXML
+namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {

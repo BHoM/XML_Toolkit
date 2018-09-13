@@ -7,11 +7,10 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.IO;
 
-namespace XML_Adapter
+namespace BH.Adapter.XML
 {
     public class XMLReader
     {
-
         public static BH.oM.XML.GBXML Load(string filePath, string Name)
         {
             Name += ".xml";

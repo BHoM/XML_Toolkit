@@ -9,9 +9,8 @@ using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
 using BH.oM.Geometry;
-using BH.Engine.XML;
 
-namespace XML_Engine.Modify.GBXMLCleanUp
+namespace BH.Engine.XML
 {
     public static class CleanUpUtility
     {
