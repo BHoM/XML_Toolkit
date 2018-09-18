@@ -58,7 +58,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Engine\Query\UnitTest1.cs" />
+    <Compile Include="Adapter\CRUD\Create.cs" />
+    <Compile Include="Engine\Convert\ToBHoM.cs" />
+    <Compile Include="Engine\Modify\CADObjectID.cs" />
+    <Compile Include="Engine\Query\MapByGUID.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,10 +75,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Adapter\CRUD\" />
-    <Folder Include="Engine\Convert\" />
     <Folder Include="Engine\Create\" />
-    <Folder Include="Engine\Modify\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
