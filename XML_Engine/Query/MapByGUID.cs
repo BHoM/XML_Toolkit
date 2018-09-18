@@ -20,6 +20,7 @@ namespace BH.Engine.XML
 
         public static List<List<BHE.BuildingElement>> MapByGUID(this List<BHE.BuildingElement> bHoMBuildingElement)
         {
+            //Map incoming building elements to their GUID - each returned list contains Building Elements which share the same GUID
             if (bHoMBuildingElement == null)
                 return null;
 
