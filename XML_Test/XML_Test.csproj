@@ -73,6 +73,10 @@
       <Project>{dc706f55-e26d-4463-9ec3-5a9827b24bc6}</Project>
       <Name>XML_Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XML_oM\XML_oM.csproj">
+      <Project>{43c9dc2f-18c1-48a9-b06f-b89cf188616e}</Project>
+      <Name>XML_oM</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Engine\Create\" />
