@@ -72,6 +72,7 @@
     <Compile Include="Convert\gbXMLTypes.cs" />
     <Compile Include="Convert\ToBHoM.cs" />
     <Compile Include="Convert\ToGbXML.cs" />
+    <Compile Include="Create\CartesianPoint.cs" />
     <Compile Include="Modify\CadObjectId.cs" />
     <Compile Include="Modify\gbXMLCleanUp\XMLCleanUp.cs" />
     <Compile Include="Modify\gbXMLCleanUp\CleanUpUtility.cs" />
@@ -100,9 +101,7 @@
       <Name>XML_oM</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Create\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
