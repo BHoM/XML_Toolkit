@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace BH.Test.XML
 {
     [TestClass]
-    public class Create
+    public class AdapterCreate
     {
         [TestMethod]
         public void TestCreate_1()
