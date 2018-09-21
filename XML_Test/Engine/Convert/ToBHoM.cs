@@ -13,7 +13,7 @@ using BH.oM.XML;
 namespace BH.Test.XML
 {
     [TestClass]
-    public class ToBHoM
+    public partial class ToBHoM
     {
         [TestMethod]
         public void TestToBHoM_CartesianPoint_3coords()
