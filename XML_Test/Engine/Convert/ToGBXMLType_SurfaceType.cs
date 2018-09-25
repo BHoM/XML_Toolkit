@@ -33,14 +33,14 @@ namespace BH.Test.XML
         }
 
         [TestMethod]
-        public void SurfaceType_InteriorWall()
+        public void SurfaceType_InternalWall()
         {
             string x = "Internal Wall";
             Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("InteriorWall"));
         }
 
         [TestMethod]
-        public void SurfaceType_InteriorFloor()
+        public void SurfaceType_InternalFloor()
         {
             string x = "Internal Floor";
             Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("InteriorFloor"));
@@ -68,7 +68,7 @@ namespace BH.Test.XML
         }
 
         [TestMethod]
-        public void SurfaceType_Ceiling()
+        public void SurfaceType_InternalCeiling()
         {
             string x = "Internal Ceiling";
             Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("Ceiling"));
@@ -89,7 +89,7 @@ namespace BH.Test.XML
         }
 
         [TestMethod]
-        public void SurfaceType_SlabonGrade()
+        public void SurfaceType_SlabOnGrade()
         {
             string x = "Slab on Grade";
             Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("SlabOnGrade"));
@@ -145,7 +145,7 @@ namespace BH.Test.XML
         }
 
         [TestMethod]
-        public void SurfaceType_EsposedFloor_TAS()
+        public void SurfaceType_ExposedFloor_TAS()
         {
             string x = "EXPOSEDFLOOR";
             Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("ExposedFloor"));
