@@ -60,14 +60,14 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static Opening ToGBXML(this BHE.BuildingElementOpening opening)
+        public static Opening ToGBXML(this BHE.Opening opening)
         {
             Opening GBXMLOpening = new Opening();
 
             //GBXMLOpening.id = opening.BHoM_Guid.ToString();
             //GBXMLOpening.Name = opening.Name;
 
-            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.PolyCurve.ControlPoints() };
+            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = opening.OpeningCurve.IControlPoints() };
 
             GBXMLOpening.PlanarGeometry.PolyLoop = ToGBXML(pline);
             GBXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGBXML();
@@ -79,11 +79,11 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static RectangularGeometry ToGBXML(this BHE.BuildingElementPanel bHoMPanel) //TODO: change to PolyCurve. Add query methods in Environment engine for PolyCurves
+        public static RectangularGeometry ToGBXML(this BHE.Panel bHoMPanel) //TODO: change to PolyCurve. Add query methods in Environment engine for PolyCurves
         {
             RectangularGeometry rectangularGeometry = new RectangularGeometry();
 
-            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanel.PolyCurve.ControlPoints() };
+            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanel.PanelCurve.IControlPoints() };
 
             rectangularGeometry.Tilt = Math.Round(Environment.Query.Tilt(bHoMPanel), 3);
             rectangularGeometry.Azimuth = Math.Round(Environment.Query.Azimuth(bHoMPanel, BHG.Vector.YAxis), 3);

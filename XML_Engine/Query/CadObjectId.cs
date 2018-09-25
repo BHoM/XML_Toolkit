@@ -36,7 +36,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static string CadObjectId(BHE.BuildingElementOpening bHoMOpening, List<BHE.BuildingElement> buildingElementsList, bool isIES = false)
+        public static string CadObjectId(BHE.Opening bHoMOpening, List<BHE.BuildingElement> buildingElementsList, bool isIES = false)
         {
             string CADObjectID = "";
             string familyName = "";

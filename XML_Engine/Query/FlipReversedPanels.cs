@@ -17,11 +17,11 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static BHE.BuildingElementPanel FlipReversedPanels(this BHE.BuildingElementPanel panel, BHE.Space space)
+        public static BHE.Panel FlipReversedPanels(this BHE.Panel panel, BHE.Space space)
         {
             /* Ensure that all of the surface coordinates are listed in a counterclockwise order. This is a requirement of GBXML Polyloop definitions */
 
-            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = panel.PolyCurve.ControlPoints() };
+            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = panel.PanelCurve.IControlPoints() };
             BHG.Polyline bound = new BHG.Polyline();
 
             if (!BH.Engine.Geometry.Query.IsClockwise(pline, space.Centre()))
@@ -30,7 +30,7 @@ namespace BH.Engine.XML
                 bound = pline;
             
 
-            BHE.BuildingElementPanel pan = BH.Engine.Environment.Create.BuildingElementPanel(bound);
+            BHE.Panel pan = BH.Engine.Environment.Create.Panel(bound);
             return pan;
 
             /***************************************************/
