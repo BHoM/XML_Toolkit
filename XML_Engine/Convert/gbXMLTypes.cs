@@ -33,7 +33,7 @@ namespace BH.Engine.XML
             }
             else if (bHoMBuildingElement != null)
             {
-                type = ToGBXMLSurfaceType((bHoMBuildingElement.BuildingElementGeometry as BHE.Elements.BuildingElementPanel).ElementType);
+                type = ToGBXMLSurfaceType((bHoMBuildingElement.BuildingElementGeometry as BHE.Elements.Panel).ElementType);
             }
             else
                 type = "Air";
