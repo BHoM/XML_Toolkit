@@ -53,7 +53,9 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -61,6 +63,8 @@
     <Compile Include="Adapter\CRUD\AdapterCreate.cs" />
     <Compile Include="Engine\Convert\ToBHoM_CartesianPoint.cs" />
     <Compile Include="Engine\Convert\ToBHoM_Polyloop.cs" />
+    <Compile Include="Engine\Convert\ToBHoM.cs" />
+    <Compile Include="Engine\Convert\ToGBXMLType_SurfaceType.cs" />
     <Compile Include="Engine\Create\CartesianPoint.cs" />
     <Compile Include="Engine\Modify\CADObjectID.cs" />
     <Compile Include="Engine\Query\MapByGUID.cs" />
