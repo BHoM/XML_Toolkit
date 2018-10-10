@@ -19,13 +19,13 @@ namespace BH.Engine.XML
 
         public static SpaceBoundary[] SpaceBoundaries(this BHE.Space bHoMSpace, List<BHE.BuildingElement> be)
         {
-            List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
+            /*List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
             IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
 
             foreach (BHG.PolyCurve pCrv in bePanel)
             {
-                /* Ensure that all of the surface coordinates are listed in a counterclockwise order
-                * This is a requirement of GBXML Polyloop definitions */
+                // Ensure that all of the surface coordinates are listed in a counterclockwise order
+                //* This is a requirement of GBXML Polyloop definitions
                 BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
 
                 if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, bHoMSpace))
@@ -48,9 +48,38 @@ namespace BH.Engine.XML
                 spaceBound[i].SurfaceIDRef = refPanel;
             }
 
-            return spaceBound;
+            return spaceBound;*/
+            return null;
 
             /***************************************************/
+        }
+
+        public static SpaceBoundary[] SpaceBoundaries(this List<BHE.BuildingElement> spaceBoundaries, List<BHE.BuildingElement> uniqueBEs)
+        {
+            List<Polyloop> pLoops = new List<Polyloop>();
+            List<BHG.Polyline> panels = spaceBoundaries.Select(x => x.PanelCurve.ICollapseToPolyline(BHG.Tolerance.Angle)).ToList();
+
+            foreach(BHG.Polyline pLine in panels)
+            {
+                if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, spaceBoundaries))
+                    pLoops.Add(BH.Engine.XML.Convert.ToGBXML(pLine));
+                else
+                    pLoops.Add(BH.Engine.XML.Convert.ToGBXML(pLine.Flip()));
+            }
+
+            SpaceBoundary[] boundaries = new SpaceBoundary[pLoops.Count];
+
+            for(int x = 0; x < pLoops.Count; x++)
+            {
+                PlanarGeometry planarGeom = new PlanarGeometry();
+                planarGeom.PolyLoop = pLoops[x];
+                boundaries[x] = new SpaceBoundary { PlanarGeometry = planarGeom };
+
+                //Get the ID from the referenced element
+                boundaries[x].SurfaceIDRef = "Panel-" + uniqueBEs.FindIndex(i => i.BHoM_Guid == spaceBoundaries[x].BHoM_Guid).ToString();
+            }
+
+            return boundaries;
         }
     }
 }

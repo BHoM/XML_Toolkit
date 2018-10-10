@@ -71,7 +71,7 @@ namespace BH.Engine.XML
             //{
             //Choose the surface with the same adjacent space (or spaces). What if the adjacencies are wrong?
 
-            BHE.BuildingElement be2 = refElement.Where(x => x.AdjacentSpaces.Count == bHoMBuildingElement.AdjacentSpaces.Count && x.AdjacentSpaces.AdjacencyMatch(bHoMBuildingElement.AdjacentSpaces)).FirstOrDefault();
+            /*BHE.BuildingElement be2 = refElement.Where(x => x.AdjacentSpaces.Count == bHoMBuildingElement.AdjacentSpaces.Count && x.AdjacentSpaces.AdjacencyMatch(bHoMBuildingElement.AdjacentSpaces)).FirstOrDefault();
 
 
             //1. Test with be2. If this fails - use be3. 
@@ -166,7 +166,7 @@ namespace BH.Engine.XML
 
 
 
-            //}
+            //}*/
             return newBe;
         }
 

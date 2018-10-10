@@ -19,7 +19,7 @@ namespace BH.Engine.XML
 
         public static BHE.BuildingElement AdjacentError(this BHE.BuildingElement bHoMBuildingElement)
         {
-            if (bHoMBuildingElement == null)
+            /*if (bHoMBuildingElement == null)
                 return null;
 
             BHE.BuildingElement buildingElement = null;
@@ -42,7 +42,8 @@ namespace BH.Engine.XML
 
             }
 
-            return buildingElement;
+            return buildingElement;*/
+            return null;
 
 
             /***************************************************/

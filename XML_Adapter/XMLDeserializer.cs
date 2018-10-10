@@ -26,11 +26,11 @@ namespace BH.Adapter.XML
             {
                 foreach (Surface srf in srfs)
                 {
-                    BHE.BuildingElementPanel pan = new BHE.BuildingElementPanel();
+                    BHE.Panel pan = new BHE.Panel();
                     pan.Name = srf.Name;
                     //pan.Type = srf.surfaceType;
                     pan.CustomData.Add("GBXML-ID", srf.ID);
-                    pan.PolyCurve = MakeCurveGroup(srf.PlanarGeometry.PolyLoop);
+                    pan.PanelCurve = MakeCurveGroup(srf.PlanarGeometry.PolyLoop);
                     bhomObjects.Add(pan);
                 }
             }
@@ -45,7 +45,7 @@ namespace BH.Adapter.XML
                     xspace.CustomData.Add("GBXML-ID", space.ID);
                     if (4 <= space.ShellGeometry.ClosedShell.PolyLoop.Count())
                     {
-                        List<BHE.BuildingElementPanel> bHomPanel = new List<BHE.BuildingElementPanel>();
+                        List<BHE.Panel> bHomPanel = new List<BHE.Panel>();
                         List<BHE.BuildingElement> bHoMBuildingElement = new List<BHE.BuildingElement>();
                         List<BHG.Polyline> plines = new List<BHG.Polyline>();
                         foreach (BH.oM.XML.Polyloop ploop in space.ShellGeometry.ClosedShell.PolyLoop)
@@ -56,10 +56,10 @@ namespace BH.Adapter.XML
                             }
                         }
 
-                        bHomPanel.AddRange(plines.Select(x => new BHE.BuildingElementPanel { PolyCurve = Create.PolyCurve(new List<BHG.Polyline> { x }) }));  //
-                        bHoMBuildingElement.AddRange(bHomPanel.Select(x => new BHE.BuildingElement { BuildingElementGeometry = x }));
+                        bHomPanel.AddRange(plines.Select(x => new BHE.Panel { PanelCurve = Create.PolyCurve(new List<BHG.Polyline> { x }) }));  //
+                        //bHoMBuildingElement.AddRange(bHomPanel.Select(x => new BHE.BuildingElement { BuildingElementGeometry = x }));
 
-                        xspace.BuildingElements = bHoMBuildingElement;
+                        //xspace.BuildingElements = bHoMBuildingElement;
                     }
                     bhomObjects.Add(xspace);
                 }

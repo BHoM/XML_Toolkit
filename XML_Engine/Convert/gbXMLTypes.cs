@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHE = BH.oM.Environment;
+using BHE = BH.oM.Environment.Elements;
 
 namespace BH.Engine.XML
 {
@@ -11,12 +11,14 @@ namespace BH.Engine.XML
     {
         /***************************************************/
 
-        public static string ToGBXMLType(this BHE.Elements.BuildingElement bHoMBuildingElement, bool isIES = false)
+        public static string ToGBXMLType(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> adjacentSpaces = null, bool isIES = false)
         {
+            if (adjacentSpaces == null) adjacentSpaces = new List<oM.Environment.Elements.Space>();
+
             string type = "Air";
             if (bHoMBuildingElement == null)
                 return type;
-            else if (bHoMBuildingElement.AdjacentSpaces.Count == 0 && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Window && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.Elements.BuildingElementType.Door)
+            else if (adjacentSpaces.Count == 0 && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && bHoMBuildingElement.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)
                 type = "Shade";
             else if (bHoMBuildingElement.BuildingElementProperties != null)
             {
@@ -27,13 +29,22 @@ namespace BH.Engine.XML
                     if (aObject != null)
                         type = ToGBXMLSurfaceType(aObject.ToString()); //modifies the string
 
-                    if ((isIES && type.Contains("Window") || bHoMBuildingElement.BuildingElementProperties.BuildingElementType == BHE.Elements.BuildingElementType.Window) && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                    if ((isIES && type.Contains("Window") || bHoMBuildingElement.BuildingElementProperties.BuildingElementType == BHE.BuildingElementType.Window) && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
                         type = "NonSlidingDoor";
+                }
+                else
+                {
+                    //THIS IS A HACKY FIX FOR COMPLIANCE COMPLETION PURPOSES AND WILL NEED RE-EXAMINING
+                    if (adjacentSpaces.Count == 1)
+                        type = "ExteriorWall";
+                    else if (adjacentSpaces.Count == 2)
+                        type = "InteriorWall";
                 }
             }
             else if (bHoMBuildingElement != null)
             {
-                type = ToGBXMLSurfaceType((bHoMBuildingElement.BuildingElementGeometry as BHE.Elements.Panel).ElementType);
+                //type = ToGBXMLSurfaceType((bHoMBuildingElement.BuildingElementGeometry as BHE.Panel).ElementType);
+                type = "ExteriorWall"; //TODO: Fix building element types to include all of the other types we could have/the element type like we had with the panel...
             }
             else
                 type = "Air";

@@ -61,6 +61,9 @@
     <Compile Include="CRUD\Delete.cs" />
     <Compile Include="CRUD\Read.cs" />
     <Compile Include="CRUD\Update.cs" />
+    <Compile Include="Serialise\Building.cs" />
+    <Compile Include="Serialise\BuildingElement.cs" />
+    <Compile Include="Serialise\Opening.cs" />
     <Compile Include="XMLAdapter.cs" />
     <Compile Include="XMLReader.cs" />
     <Compile Include="XMLDeserializer.cs" />

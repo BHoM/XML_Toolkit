@@ -18,7 +18,7 @@ namespace BH.Adapter.XML
         {
             if (type == typeof(Space))
                 return ReadSpaces();
-            if (type == typeof(BuildingElementPanel))
+            if (type == typeof(Panel))
                 return ReadPanels();
             return null;
         }
@@ -36,11 +36,11 @@ namespace BH.Adapter.XML
 
         /***************************************************/
 
-        private List<BuildingElementPanel> ReadPanels(List<string> ids = null)
+        private List<Panel> ReadPanels(List<string> ids = null)
         {
             BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, FileName);
             IEnumerable<IBHoMObject> bHoMObject = GBXMLDeserializer.Deserialize(gbx);
-            return bHoMObject.Where(x => x is BHE.Elements.BuildingElementPanel).Cast<BuildingElementPanel>().ToList();
+            return bHoMObject.Where(x => x is BHE.Elements.Panel).Cast<Panel>().ToList();
         }
     }
 }

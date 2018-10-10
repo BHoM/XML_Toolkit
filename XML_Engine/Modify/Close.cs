@@ -25,7 +25,7 @@ namespace BH.Engine.XML
                 return space;
 
             space = space.BreakReferenceClone();
-            BHE.Space closedSpace = space.GetShallowClone() as BHE.Space;
+            /*BHE.Space closedSpace = space.GetShallowClone() as BHE.Space;
             List<BHE.BuildingElement> newBes = new List<oM.Environment.Elements.BuildingElement>();
             foreach (BHE.BuildingElement be in closedSpace.BuildingElements)
             {
@@ -55,17 +55,19 @@ namespace BH.Engine.XML
 
                 newPoints.Add(newPoints.First()); //Close the polyloop
                 //update be
-                be.BuildingElementGeometry = BH.Engine.Environment.Create.BuildingElementPanel(new BHG.Polyline() { ControlPoints = newPoints });
+                be.BuildingElementGeometry = BH.Engine.Environment.Create.Panel(new BHG.Polyline() { ControlPoints = newPoints });
                 newBes.Add(be);
 
 
                 //Create or update the building element
                 //Update the current space with the new building element
             }
-
+            
             closedSpace.BuildingElements = newBes;
-
+            
             return closedSpace;
+            */
+            return space;
         }
         /***************************************************/
 

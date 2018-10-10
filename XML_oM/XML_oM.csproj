@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentBuilder.cs" />
     <Compile Include="GBXML\Campus\Absorptance.cs" />
     <Compile Include="GBXML\Campus\AdjacentSpaceID.cs" />
     <Compile Include="GBXML\Campus\Building.cs" />

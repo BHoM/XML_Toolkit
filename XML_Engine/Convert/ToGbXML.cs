@@ -48,7 +48,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        //public static Surface ToGBXML(BHE.BuildingElementPanel bHoMPanel)
+        //public static Surface ToGBXML(BHE.Panel bHoMPanel)
         //{
         //    Surface xmlPanel = new Surface();
 
@@ -96,6 +96,23 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
+        public static RectangularGeometry ToGBXML(this BHE.BuildingElement buildingElement)
+        {
+            RectangularGeometry geom = new RectangularGeometry();
+
+            BHG.Polyline pline = new BHG.Polyline() { ControlPoints = buildingElement.PanelCurve.IControlPoints() };
+
+            geom.Tilt = Math.Round(Environment.Query.Tilt(buildingElement), 3);
+            geom.Azimuth = Math.Round(Environment.Query.Azimuth(buildingElement, BHG.Vector.YAxis), 3);
+            geom.Height = Math.Round(BH.Engine.Environment.Query.LongestSegment(pline), 3);
+            geom.Width = Math.Round(BH.Engine.Environment.Query.Width(pline, geom.Height), 3);
+            geom.CartesianPoint = ToGBXML(pline.ControlPoints.First());
+
+            return geom;
+        }
+
+        /***************************************************/
+
         public static Space ToGBXML(this BHE.Space bHoMSpace)
         {
             Space xmlSpace = new Space();
@@ -117,9 +134,9 @@ namespace BH.Engine.XML
                 xmlSpace.CADObjectID = (bHoMSpace.CustomData["Revit_elementId"]).ToString();
 
             //added replacement to spaces to allow compliant with XML format
-            if (bHoMSpace.Level != null)
+            /*if (bHoMSpace.Level != null)
                 xmlSpace.BuildingStoreyIDRef = bHoMSpace.Level.Name.Replace(" ", "-");
-
+                */
             return xmlSpace;
         }
 
