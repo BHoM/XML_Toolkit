@@ -19,7 +19,7 @@ namespace BH.Engine.XML
 
         public static BHE.BuildingElement CADObjectError(this BHE.BuildingElement bHoMBuildingElement)
         {
-            if (bHoMBuildingElement == null)
+            /*if (bHoMBuildingElement == null)
                 return null;
 
             if (bHoMBuildingElement.CadObjectId() == "")
@@ -33,7 +33,7 @@ namespace BH.Engine.XML
                 return bHoMBuildingElement;
 
             else if (bHoMBuildingElement.AdjacentSpaces.Count > 2) //This should never happen. Maximum value is 2
-                return bHoMBuildingElement;
+                return bHoMBuildingElement;*/
 
             return null;
 

@@ -19,7 +19,7 @@ namespace BH.Engine.XML
 
         public static BHE.Space RemoveDuplicates(this BHE.Space space)
         {
-            BHE.Space newSpace = new BHE.Space();
+            /*BHE.Space newSpace = new BHE.Space();
             newSpace = space.GetShallowClone() as BHE.Space;
 
             newSpace.BuildingElements.Clear();
@@ -28,7 +28,8 @@ namespace BH.Engine.XML
 
             newSpace.BuildingElements.AddRange(uniqueElements);
 
-            return newSpace;
+            return newSpace;*/
+            return space;
         }
     }
 }

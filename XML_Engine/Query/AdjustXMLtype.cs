@@ -25,7 +25,7 @@ namespace BH.Engine.XML
             BHE.BuildingElement newBuildingElement = buildingElement.GetShallowClone() as BHE.BuildingElement;
            
 
-            if (newBuildingElement.BuildingElementProperties == null) //Use geometry
+            /*if (newBuildingElement.BuildingElementProperties == null) //Use geometry
             {
                 newBuildingElement.BuildingElementProperties = new oM.Environment.Properties.BuildingElementProperties();
                 if (buildingElement.AdjacentSpaces.Count == 0)
@@ -79,7 +79,7 @@ namespace BH.Engine.XML
                     newBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"] = "Internal Floor";
                 else if (buildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"].ToString() == "Curtain Wall")
                     newBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"] = "Internal Wall";
-            }
+            }*/
 
             return newBuildingElement;
 

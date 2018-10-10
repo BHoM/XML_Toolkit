@@ -21,7 +21,7 @@ namespace BH.Engine.XML
         {
             building = building.BreakReferenceClone();
 
-            List<BuildingElement> bes = building.GetBuildingElements();
+            /*List<BuildingElement> bes = building.GetBuildingElements();
             Dictionary<BuildingElement, List<BuildingElement>> dic = new Dictionary<BuildingElement, List<BuildingElement>>();
 
             foreach (BuildingElement be in bes)
@@ -31,7 +31,8 @@ namespace BH.Engine.XML
                     dic.Add(be, m[be]);
             }
 
-            return dic;
+            return dic;*/
+            return null;
         }
 
         public static List<BuildingElement> XMLCleanUp_OverLapsList(this Dictionary<BuildingElement, List<BuildingElement>> dic)
@@ -58,7 +59,7 @@ namespace BH.Engine.XML
         {
             building = building.BreakReferenceClone();
 
-            foreach(KeyValuePair<BuildingElement, List<BuildingElement>> kvp in overlaps)
+            /*foreach(KeyValuePair<BuildingElement, List<BuildingElement>> kvp in overlaps)
             {
                 //Split the key by the list of overlaps
                 Dictionary<BuildingElement, List<BuildingElement>> replacements = kvp.Key.SplitElement(kvp.Value);
@@ -151,7 +152,7 @@ namespace BH.Engine.XML
 
                 foreach (BuildingElement be in remove)
                     s.BuildingElements.Remove(be);
-            }
+            }*/
 
             return building;
         }
@@ -183,7 +184,7 @@ namespace BH.Engine.XML
         {
             building = building.BreakReferenceClone();
 
-            List<BuildingElement> allBEs = building.GetBuildingElements();
+            /*List<BuildingElement> allBEs = building.GetBuildingElements();
 
             for (int x = 0; x < allBEs.Count; x++)
             {
@@ -197,7 +198,7 @@ namespace BH.Engine.XML
                             building.Spaces[y].BuildingElements[z] = allBEs[x];
                     }
                 }
-            }
+            }*/
 
             return building;
         }
@@ -206,7 +207,7 @@ namespace BH.Engine.XML
         {
             building = building.BreakReferenceClone();
 
-            List<BuildingElement> allBEs = building.GetBuildingElements();
+            /*List<BuildingElement> allBEs = building.GetBuildingElements();
 
             for (int x = 0; x < allBEs.Count; x++)
             {
@@ -224,7 +225,7 @@ namespace BH.Engine.XML
                             building.Spaces[y].BuildingElements[z] = beTest;
                     }
                 }
-            }
+            }*/
 
             return building;
         }
@@ -233,8 +234,8 @@ namespace BH.Engine.XML
         {
             building = building.BreakReferenceClone();
 
-            for (int x = 0; x < building.Spaces.Count; x++)
-                building.Spaces[x] = building.Spaces[x].CleanSpace();
+            /*for (int x = 0; x < building.Spaces.Count; x++)
+                building.Spaces[x] = building.Spaces[x].CleanSpace();*/
                 
             return building;
         }
@@ -243,7 +244,7 @@ namespace BH.Engine.XML
         {
             building = building.BreakReferenceClone();
 
-            List<BuildingElement> allBEs = building.GetBuildingElements();
+            /*List<BuildingElement> allBEs = building.GetBuildingElements();
             List<BuildingElement> errorBEs = allBEs.Where(x => x.AdjacentError() != null).ToList();
 
             foreach(BuildingElement be in errorBEs)
@@ -264,7 +265,7 @@ namespace BH.Engine.XML
                         }
                     }
                 }
-            }
+            }*/
 
             return building;
         }
@@ -273,7 +274,7 @@ namespace BH.Engine.XML
         {
             building = building.BreakReferenceClone();
 
-            List<BuildingElement> errorBEs = building.GetBuildingElements().Where(x => x.AdjacentError() != null).ToList();
+            /*List<BuildingElement> errorBEs = building.GetBuildingElements().Where(x => x.AdjacentError() != null).ToList();
 
             foreach (Space s in building.Spaces)
             {
@@ -349,7 +350,7 @@ namespace BH.Engine.XML
         {
             building = building.BreakReferenceClone();
 
-            List<BuildingElement> besToRemove = new List<BuildingElement>();
+            /*List<BuildingElement> besToRemove = new List<BuildingElement>();
             List<BuildingElement> allBEs = building.GetBuildingElements();
 
             foreach(BuildingElement be in allBEs)
@@ -417,7 +418,7 @@ namespace BH.Engine.XML
                         }
                     }
                 }
-            }
+            }*/
 
 
             return building;
@@ -427,7 +428,7 @@ namespace BH.Engine.XML
         {
             building = building.BreakReferenceClone();
 
-            List<BuildingElement> removeBEs = new List<BuildingElement>();
+            /*List<BuildingElement> removeBEs = new List<BuildingElement>();
 
             foreach(KeyValuePair<BuildingElement, List<BuildingElement>> kvp in overlaps)
             {
@@ -459,21 +460,21 @@ namespace BH.Engine.XML
                         }
                     }
                 }
-            }
+            }*/
 
             return building;
         }
 
         public static bool IsContainingBEs(this BuildingElement be, BuildingElement be2)
         {
-            Point cPt = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
-            return be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt });
+            Point cPt = be.PanelCurve.ICollapseToPolyline(1e-06).Centre();
+            return be2.PanelCurve.ICollapseToPolyline(1e-06).IsContaining(new List<Point> { cPt });
         }
 
         public static Building ReferenceIssueTest(this Building building)
         {
             building = building.BreakReferenceClone();
-            building.BuildingElements = new List<BuildingElement>();
+            //building.BuildingElements = new List<BuildingElement>();
             return building;
         }
 

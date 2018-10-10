@@ -21,7 +21,7 @@ namespace BH.Engine.XML
 
         public static BHE.Building CadObjectId(this BHE.Building building, List<BHE.BuildingElement> elements)
         {
-            foreach (BHE.BuildingElement element in elements)
+            /*foreach (BHE.BuildingElement element in elements)
             {
                 //Case 1: No CADObjectId at all - at the moment we use the default value: SIM_INT_SLD
                 if (element.BuildingElementProperties == null || element.BuildingElementProperties.Name == "" || element.BuildingElementProperties.CustomData["Family Name"].ToString() == "")
@@ -97,7 +97,7 @@ namespace BH.Engine.XML
                 //1 ajdacency: FamilyName:SIM_EXT_SLD
 
 
-            }
+            }*/
             return building;
         }
 

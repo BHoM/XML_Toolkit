@@ -73,6 +73,7 @@
     <Compile Include="Convert\ToBHoM.cs" />
     <Compile Include="Convert\ToGbXML.cs" />
     <Compile Include="Create\CartesianPoint.cs" />
+    <Compile Include="Create\DocumentBuilder.cs" />
     <Compile Include="Modify\CadObjectId.cs" />
     <Compile Include="Modify\gbXMLCleanUp\XMLCleanUp.cs" />
     <Compile Include="Modify\gbXMLCleanUp\CleanUpUtility.cs" />

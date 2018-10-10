@@ -23,7 +23,7 @@ namespace BH.Engine.XML
 
             BHE.BuildingElement buildingElement = null;
 
-            if (bHoMBuildingElement.AdjacentSpaces.Count > 0)
+            /*if (bHoMBuildingElement.AdjacentSpaces.Count > 0)
             {
                 Guid firstGuid = bHoMBuildingElement.AdjacentSpaces.First();
                 BHE.Space firstSpace = spaces.Find(x => x.BHoM_Guid == firstGuid);
@@ -38,7 +38,7 @@ namespace BH.Engine.XML
             }
 
             else  //Shade elements (no adjacent space)
-                buildingElement = bHoMBuildingElement;
+                buildingElement = bHoMBuildingElement;*/
 
             return buildingElement;          
             

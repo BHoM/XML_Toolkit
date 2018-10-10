@@ -18,7 +18,7 @@ namespace BH.Engine.XML
         {
             List<BHE.BuildingElement> rtn = new List<BHE.BuildingElement>();
 
-            rtn.AddRange(building.BuildingElements.FindAll(x => x.BuildingElementProperties != null && x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)); //Add only shade elements
+            /*rtn.AddRange(building.BuildingElements.FindAll(x => x.BuildingElementProperties != null && x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && x.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door)); //Add only shade elements
         
             foreach(BHE.Space s in building.Spaces)
             {
@@ -28,7 +28,7 @@ namespace BH.Engine.XML
                         if (rtn.Where(x => x.BHoM_Guid == be.BHoM_Guid).FirstOrDefault() == null && be.BuildingElementProperties != null && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Window && be.BuildingElementProperties.BuildingElementType != BHE.BuildingElementType.Door) //Add only shade elements
                             rtn.Add(be);
                 }
-            }
+            }*
 
             return rtn;
         }
@@ -38,7 +38,7 @@ namespace BH.Engine.XML
             Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>> rtn = new Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>>();
             rtn.Add(be, new List<BHE.BuildingElement>());
 
-            Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+            /*Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
 
             foreach (BHE.BuildingElement be2 in bes)
             {
@@ -52,7 +52,7 @@ namespace BH.Engine.XML
                             rtn[be].Add(be2);
                     }
                 }
-            }
+            }*/
 
             return rtn;
         }
@@ -61,7 +61,7 @@ namespace BH.Engine.XML
         {
             Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>> rtn = new Dictionary<BHE.BuildingElement, List<BHE.BuildingElement>>();
 
-            Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+            /*Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
             Dictionary<BHE.BuildingElement, List<Polyline>> replacementGeom = new Dictionary<BHE.BuildingElement, List<Polyline>>();
 
             //Get the new polylines for each building element
@@ -164,7 +164,7 @@ namespace BH.Engine.XML
                         rtn.Add(ori, new List<BHE.BuildingElement>());
                     rtn[ori].Add(ori);
                 }
-            }
+            }*/
 
             return rtn;
         }
@@ -172,7 +172,7 @@ namespace BH.Engine.XML
         public static BHE.Building ChangeBuildingElements(this BHE.Building building, BHE.BuildingElement beToRemove, List<BHE.BuildingElement> besToAdd)
         {
             //Remove the BE from the spaces
-            for (int x = 0; x < building.Spaces.Count; x++)
+            /*for (int x = 0; x < building.Spaces.Count; x++)
             {
                 bool removed = false;
                 for (int y = 0; y < building.Spaces[x].BuildingElements.Count; y++)
@@ -197,14 +197,14 @@ namespace BH.Engine.XML
             {
                 building.BuildingElements.Remove(beToRemove);
                 building.BuildingElements.AddRange(besToAdd);
-            }
+            }*/
 
             return building;
         }
 
         public static BHE.Building RemovePerfectOverlaps(this BHE.Building building, BHE.BuildingElement beToRemove)
         {
-            List<BHE.BuildingElement> allBEs = building.GetBuildingElements();
+            /*List<BHE.BuildingElement> allBEs = building.GetBuildingElements();
             List<BHE.BuildingElement> matchingBEs = allBEs.Where(x => x.MatchBEs(beToRemove)).ToList();
 
             Polyline be1P = beToRemove.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
@@ -218,8 +218,9 @@ namespace BH.Engine.XML
                 foreach (BHE.Space s in spaces)
                     s.BuildingElements.Remove(matchingBEs[x]);
             }
-
+            */
             return building;
+            
             /*double tol = 0.01; //0.01;
 
             List<BHE.BuildingElement> allBes = building.GetBuildingElements();
@@ -304,7 +305,7 @@ namespace BH.Engine.XML
         public static BHE.BuildingElement AmendSingleAdjacencies(this BHE.BuildingElement be, BHE.Building building)
         {
             //Find additional adjacencies from panels that have a similar (within tolerance 'tol') centre point geometry (standard centre point method)
-            if (be.AdjacentSpaces.Count == 1)
+            /*if (be.AdjacentSpaces.Count == 1)
             {
                 double tol = 0.01; //0.01
                 Point beCentre = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre();
@@ -319,7 +320,7 @@ namespace BH.Engine.XML
                                 be.AdjacentSpaces.Add(g);
                     }
                 }
-            }
+            }*/
 
             return be;
         }
@@ -330,7 +331,7 @@ namespace BH.Engine.XML
                 return be;
 
             //Find additional adjacencies from panels with same plane as panels in the space of the single adjacency
-            if (be.AdjacentSpaces.Count == 1)
+            /*if (be.AdjacentSpaces.Count == 1)
             {
                 Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
                 List<BHE.BuildingElement> foundElements = space.BuildingElements.Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).IsCoplanar(be1P)).ToList();
@@ -344,14 +345,14 @@ namespace BH.Engine.XML
                                 be.AdjacentSpaces.Add(g);
                     }
                 }
-            }
+            }*/
             return be;
         }
 
         public static BHE.BuildingElement AmendSingleAdjacencies(this BHE.BuildingElement be, List<BHE.BuildingElement> potentialMatches)
         {
             //Find additional adjacencies from panels that have a similar (within tolerance 'tol') centre point geometry (area centroid method)
-            if (be.AdjacentSpaces.Count == 1)
+           /* if (be.AdjacentSpaces.Count == 1)
             {
                 double tol = 0.01;
                 Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
@@ -368,7 +369,7 @@ namespace BH.Engine.XML
                     }
                 }
             }
-
+            */
             return be;
         }
 
@@ -385,7 +386,7 @@ namespace BH.Engine.XML
             if (!be.BuildingElementProperties.CustomData.ContainsKey(dictionaryKey))
                 be.BuildingElementProperties.CustomData.Add(dictionaryKey, "");
 
-            if (be.AdjacentSpaces.Count == 0)
+            /*if (be.AdjacentSpaces.Count == 0)
                 be.BuildingElementProperties.CustomData[dictionaryKey] = "Shade";
             else
             {
@@ -432,17 +433,17 @@ namespace BH.Engine.XML
                             be.BuildingElementProperties.CustomData[dictionaryKey] = "Internal Wall";
                     }
                 }
-            }
+            }*/
 
             return be;
         }
 
         public static BHE.BuildingElement AmendCadObjectID(this BHE.BuildingElement be, BHE.Building building)
         {
-            if (be.CADObjectError() == null) return null; //This element does not have a CAD object error
+            /*if (be.CADObjectError() == null) return null; //This element does not have a CAD object error
             else return be.PropertiesFromAdjSrf(be.AdjacentSurface(building), building);
 
-            /*String dictionaryKey = "Family Name";
+            String dictionaryKey = "Family Name";
             if (be.BuildingElementProperties == null)
                 be.BuildingElementProperties = new BH.oM.Environment.Properties.BuildingElementProperties();
 
@@ -481,6 +482,7 @@ namespace BH.Engine.XML
             }
 
             return be;*/
+            return be;
         }
 
         public static bool Match2Of3(this Point pt, Point comp)
@@ -501,7 +503,7 @@ namespace BH.Engine.XML
 
         public static bool MatchBEs(this BHE.BuildingElement be2, Polyline be1P)
         {
-            Polyline be2P = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+            /*Polyline be2P = be2.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
 
             double tol = 0.01;
             if (be2P.Centre().Distance(be1P.Centre()) > tol)
@@ -526,12 +528,13 @@ namespace BH.Engine.XML
                 }
             }
 
-            return isMatch;
+            return isMatch;*/
+            return false;
         }
 
         public static bool MatchBEs(this BHE.BuildingElement be2, BHE.BuildingElement refBE)
         {
-            Polyline be1P = refBE.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+            Polyline be1P = refBE.PanelCurve.ICollapseToPolyline(1e-06);
             return be2.MatchBEs(be1P);
         }
 
@@ -558,7 +561,7 @@ namespace BH.Engine.XML
         public static BHE.Space CleanSpace(this BHE.Space space)
         {
             //Make sure there are no duplicate BEs in the space
-            for (int x = 0; x < space.BuildingElements.Count; x++)
+            /*for (int x = 0; x < space.BuildingElements.Count; x++)
             {
                 BHE.BuildingElement newBE = space.BuildingElements[x].GetShallowClone() as BHE.BuildingElement;
                 Polyline be1P = space.BuildingElements[x].BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
@@ -585,14 +588,14 @@ namespace BH.Engine.XML
 
                 if(wasRemoved)
                     space.BuildingElements.Add(newBE);
-            }
+            }*/
 
             return space;
         }
 
         public static BHE.Building CleanBEs(this BHE.Building building, BHE.BuildingElement beToCheck)
         {
-            List<BHE.BuildingElement> allBEs = building.GetBuildingElements();
+            /*List<BHE.BuildingElement> allBEs = building.GetBuildingElements();
 
             List<BHE.BuildingElement> matchingBEs = allBEs.Where(x => x.MatchBEs(beToCheck)).ToList();
 
@@ -602,14 +605,14 @@ namespace BH.Engine.XML
                 List<BHE.Space> spaces = building.Spaces.Where(a => a.BuildingElements.Contains(matchingBEs[x])).ToList();
                 foreach (BHE.Space s in spaces)
                     s.BuildingElements.Remove(matchingBEs[x]);
-            }
+            }*/
 
             return building;
         }
 
         public static BHE.Building CleanBuildingDupAdj(this BHE.Building building, BHE.BuildingElement be)
         {
-            Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
+            /*Polyline be1P = be.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06);
             double tol = 0.1; //0.01
             List<BHE.BuildingElement> nearestElements = building.GetBuildingElements().Where(x => x.BuildingElementGeometry.ICurve().ICollapseToPolyline(1e-06).Centre().Distance(be1P.Centre()) < tol).ToList();
 

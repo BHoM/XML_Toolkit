@@ -30,12 +30,12 @@ namespace BH.Adapter.XML
 
         /***************************************************/
 
-        private bool Create(BHE.Elements.BuildingElementPanel bHoMBuildingElementPanel, BHX.GBXML gbx, bool isIES)
+        /*private bool Create(BHE.Elements.Panel bHoMPanel, BHX.GBXML gbx, bool isIES)
         {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElementPanel as IBHoMObject }, gbx, isIES);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMPanel as IBHoMObject }, gbx, isIES);
 
             return true;
-        }
+        }*/
 
         /***************************************************/
 

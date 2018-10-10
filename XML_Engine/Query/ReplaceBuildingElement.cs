@@ -42,7 +42,7 @@ namespace BH.Engine.XML
 
 
             //Update the spaces
-            foreach (BHE.BuildingElement be in bes)
+            /*foreach (BHE.BuildingElement be in bes)
             {
                 BHE.Space space = building.Spaces.Find(x => x.BHoM_Guid == be.AdjacentSpaces.FirstOrDefault());
 
@@ -55,7 +55,7 @@ namespace BH.Engine.XML
                 BHE.Space spaceToRemove = building.Spaces.Find(x => x.BHoM_Guid == space.BHoM_Guid);
                 building.Spaces.Remove(spaceToRemove);
                 building.Add(space);
-            }
+            }*/
 
             return building;
         }

@@ -17,11 +17,18 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
+        public static AdjacentSpaceId GetAdjacentSpaceID(this BHE.Space space)
+        {
+            AdjacentSpaceId adjId = new AdjacentSpaceId();
+            adjId.SpaceIDRef = space.Number + "-" + space.Name;
+            return adjId;
+        }
+
         public static List<AdjacentSpaceId> GetAdjacentSpace(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> spaces)
         {
             List<AdjacentSpaceId> adSpace = new List<AdjacentSpaceId>();
 
-            foreach (Guid adjSpace in bHoMBuildingElement.AdjacentSpaces)
+           /* foreach (Guid adjSpace in bHoMBuildingElement.AdjacentSpaces)
             {
                 AdjacentSpaceId adjId = new AdjacentSpaceId();
                 if (spaces.Select(x => x.BHoM_Guid).Contains(adjSpace))
@@ -32,7 +39,7 @@ namespace BH.Engine.XML
                     adjId.SpaceIDRef = foundSpace.Number + "-" + foundSpace.Name;
                     adSpace.Add(adjId);
                 }
-            }
+            }*/
 
             return adSpace;
 
@@ -44,10 +51,10 @@ namespace BH.Engine.XML
         {
             List<Guid> adjSpace = new List<Guid>();
 
-            foreach (BHE.BuildingElement element in bHoMBuildingElement)
+            /*foreach (BHE.BuildingElement element in bHoMBuildingElement)
             {
                 adjSpace.Add(element.AdjacentSpaces[0]);
-            }
+            }*/
 
             return adjSpace;
 
