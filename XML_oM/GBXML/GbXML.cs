@@ -7,11 +7,11 @@ using BH.oM.Base;
 namespace BH.oM.XML
 {
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class GBXML : GBXMLObject
     {
         [XmlAttribute(AttributeName = "schemaLocation", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string SchemaLocation { get; set; } = "GBXML http://www.GBXML.org/schema";
+        public string SchemaLocation { get; set; } = "gbxml http://www.gbxml.org/schema";
         [XmlAttribute(AttributeName = "temperatureUnit")]
         public string TemperatureUnit { get; set; } = "C";
         [XmlAttribute(AttributeName = "lengthUnit")]

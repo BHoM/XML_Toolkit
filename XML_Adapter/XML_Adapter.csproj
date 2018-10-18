@@ -63,6 +63,7 @@
     <Compile Include="CRUD\Update.cs" />
     <Compile Include="Serialise\Building.cs" />
     <Compile Include="Serialise\BuildingElement.cs" />
+    <Compile Include="Serialise\Level.cs" />
     <Compile Include="Serialise\Opening.cs" />
     <Compile Include="XMLAdapter.cs" />
     <Compile Include="XMLReader.cs" />

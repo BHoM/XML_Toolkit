@@ -73,6 +73,7 @@ namespace BH.Engine.XML
             GBXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGBXML();
             GBXMLOpening.RectangularGeometry.Height = Math.Round(BH.Engine.Environment.Query.LongestSegment(pline), 3);
             GBXMLOpening.RectangularGeometry.Width = Math.Round(BH.Engine.Environment.Query.Width(pline, GBXMLOpening.RectangularGeometry.Height), 3);
+            GBXMLOpening.RectangularGeometry.ID = "rGeomOpening" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
             return GBXMLOpening;
         }
@@ -82,6 +83,7 @@ namespace BH.Engine.XML
         public static RectangularGeometry ToGBXML(this BHE.Panel bHoMPanel) //TODO: change to PolyCurve. Add query methods in Environment engine for PolyCurves
         {
             RectangularGeometry rectangularGeometry = new RectangularGeometry();
+            rectangularGeometry.ID = "rGeom" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
             BHG.Polyline pline = new BHG.Polyline() { ControlPoints = bHoMPanel.PanelCurve.IControlPoints() };
 
@@ -107,6 +109,7 @@ namespace BH.Engine.XML
             geom.Height = Math.Round(BH.Engine.Environment.Query.LongestSegment(pline), 3);
             geom.Width = Math.Round(BH.Engine.Environment.Query.Width(pline, geom.Height), 3);
             geom.CartesianPoint = ToGBXML(pline.ControlPoints.First());
+            geom.ID = "Geom" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
             return geom;
         }

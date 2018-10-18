@@ -31,8 +31,12 @@ namespace BH.Adapter.XML
 
         public static void SerializeCollection(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, BH.oM.XML.GBXML gbx, bool isIES)
         {
-            foreach(BH.oM.XML.Environment.DocumentBuilder db in documents)
-                SerializeCollection(db.ElementsAsSpaces, gbx, isIES);
+            foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
+            {
+                Serialize(db.Levels, db.ElementsAsSpaces, gbx, isIES);
+                SerializeCollection(db.ElementsAsSpaces, db.Levels, gbx, isIES);
+                SerializeCollection(db.ShadingElements, gbx, isIES);
+            }
         }
 
         /***************************************************/
@@ -64,10 +68,10 @@ namespace BH.Adapter.XML
 
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<BHE.BuildingElement> bHoMBuildingElements, BH.oM.XML.GBXML gbx, bool isIES)
+        /*public static void SerializeCollection(IEnumerable<BHE.BuildingElement> bHoMBuildingElements, BH.oM.XML.GBXML gbx, bool isIES)
         {
             //This is for shading elements only (at the moment the other building elements are accessible from the spaces)
-            /*List<BHE.BuildingElement> shadeElements = new List<BHE.BuildingElement>();
+            List<BHE.BuildingElement> shadeElements = new List<BHE.BuildingElement>();
             List<BHE.Panel> bHoMPanels = new List<BHE.Panel>();
             foreach (BHE.BuildingElement element in bHoMBuildingElements)
             {
@@ -105,8 +109,8 @@ namespace BH.Adapter.XML
 
                 gbx.Campus.Surface.Add(xmlPanel);
                 panelIndex++;
-            }*/
-        }
+            }
+        }*/
 
         /***************************************************/
 

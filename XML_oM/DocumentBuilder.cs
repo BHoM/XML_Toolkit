@@ -11,9 +11,11 @@ namespace BH.oM.XML.Environment
         /**** Properties                                ****/
         /***************************************************/
 
-        public BHoME.Building Building { get; set; } = new BHoME.Building();
+        public List<BHoME.Building> Buildings { get; set; } = new List<BHoME.Building>();
         public List<List<BHoME.BuildingElement>> ElementsAsSpaces { get; set; } = new List<List<BHoME.BuildingElement>>();
+        public List<BHoME.BuildingElement> ShadingElements { get; set; } = new List<BHoME.BuildingElement>();
         public List<BHoME.Space> Spaces { get; set; } = new List<BHoME.Space>();
+        public List<BH.oM.Architecture.Elements.Level> Levels { get; set; } = new List<Architecture.Elements.Level>();
 
         /***************************************************/
     }

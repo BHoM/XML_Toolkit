@@ -15,13 +15,15 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static DocumentBuilder DocumentBuilder(Building building = null, List<List<BuildingElement>> elementsAsSpaces = null, List<Space> spaces = null)
+        public static DocumentBuilder DocumentBuilder(List<Building> building = null, List<List<BuildingElement>> elementsAsSpaces = null, List<BuildingElement> shadingElements = null, List<Space> spaces = null, List<BH.oM.Architecture.Elements.Level> levels = null)
         {
             return new DocumentBuilder
             {
-                Building = building,
+                Buildings = building,
                 ElementsAsSpaces = elementsAsSpaces,
+                ShadingElements = shadingElements,
                 Spaces = spaces,
+                Levels = levels,
             };         
         }
     }
