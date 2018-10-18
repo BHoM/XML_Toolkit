@@ -7,11 +7,11 @@ using BH.oM.Base;
 namespace BH.oM.XML
 {
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Campus : GBXMLObject
     {
         [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "CampusID";
+        public string ID { get; set; } = Guid.NewGuid().ToString().Replace("-", "");
         [XmlElement("Location")]
         public Location Location { get; set; } = new Location();
         [XmlElement("Building")]

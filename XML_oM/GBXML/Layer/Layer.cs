@@ -7,7 +7,7 @@ using BH.oM.Base;
 namespace BH.oM.XML
 {
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Layer : GBXMLObject
     {
         [XmlAttribute(AttributeName = "id")]

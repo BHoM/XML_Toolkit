@@ -7,13 +7,13 @@ using BH.oM.Base;
 namespace BH.oM.XML
 {
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.GBXML.org/schema")]
+    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Location : GBXMLObject
     {
         [XmlElement("StationId")]
         public StationId StationID { get; set; } = new StationId();
         [XmlElement("ZipcodeOrPostalCode")]
-        public string ZipcodeOrPostalCode { get; set; } = "";
+        public string ZipcodeOrPostalCode { get; set; } = "00000";
         [XmlElement("Longitude")]
         public double Longitude { get; set; } = 0;
         [XmlElement("Latitude")]

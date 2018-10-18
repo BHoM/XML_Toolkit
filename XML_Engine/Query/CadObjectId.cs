@@ -69,6 +69,21 @@ namespace BH.Engine.XML
         }
 
         /***************************************************/
+
+        public static string CadObjectId(List<BHE.BuildingElement> space)
+        {
+            string CADObjectID = "";
+
+            Dictionary<string, object> spaceCustomData = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault().CustomData["Space_Custom_Data"] as Dictionary<string, object>;
+
+            if(spaceCustomData != null)
+            {
+                if (spaceCustomData.ContainsKey("Revit_elementId"))
+                    CADObjectID = spaceCustomData["Revit_elementId"].ToString();
+            }
+
+            return CADObjectID;
+        }
     }
 }
 

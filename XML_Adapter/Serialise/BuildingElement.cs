@@ -11,6 +11,8 @@ using BH.Engine.XML;
 using BH.oM.Geometry;
 using BH.Engine.Geometry;
 
+using BH.oM.Architecture.Elements;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -19,7 +21,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<IEnumerable<BuildingElement>> inputElements, BH.oM.XML.GBXML gbx, bool isIES = false)
+        public static void SerializeCollection(IEnumerable<IEnumerable<BuildingElement>> inputElements, List<Level> levels, BH.oM.XML.GBXML gbx, bool isIES = false)
         {
             List<List<BuildingElement>> elementsAsSpaces = new List<List<BuildingElement>>();
 
@@ -100,23 +102,60 @@ namespace BH.Adapter.XML
                 }
 
                 //Create the space in
+                BH.oM.Environment.Elements.Space s = space.Space(gbx.Campus.Building[0].Space.Count, gbx.Campus.Building[0].Space.Count.ToString());
                 BH.oM.XML.Space xmlSpace = new oM.XML.Space();
-                xmlSpace.Name = "NEEDSCHANGING";
-                xmlSpace.ID = "NEEDSCHANGINGNUMBER";
+                xmlSpace.Name = s.Name;
+                xmlSpace.ID = s.Number + "-" + s.Name;
+                xmlSpace.CADObjectID = BH.Engine.XML.Query.CadObjectId(space);
                 xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
+                xmlSpace.ShellGeometry.ID = "Space" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
                 xmlSpace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(space, uniqueBuildingElements);
                 if (BH.Engine.Environment.Query.FloorGeometry(space) != null)
+                {
                     xmlSpace.PlanarGeoemtry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(BH.Engine.Environment.Query.FloorGeometry(space));
+                    xmlSpace.PlanarGeoemtry.ID = "Space" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+                    xmlSpace.Area = BH.Engine.Environment.Query.FloorGeometry(space).Area();
+                    xmlSpace.Volume = space.Volume();
+                }
+                Level spaceLevel = space.Level(levels);
+                if (spaceLevel != null)
+                    xmlSpace.BuildingStoreyIDRef = "Level-" + spaceLevel.Elevation.ToString();
+
 
                 gbx.Campus.Building[0].Space.Add(xmlSpace);
             }
         }
 
-        
-
-        /*public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, BH.oM.XML.GBXML gbx, bool isIES)
+        public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, BH.oM.XML.GBXML gbx, bool isIES)
         {
+            //For serializing shade elements
             List<BuildingElement> buildingElements = inputElements.ToList();
-        }*/
+
+            foreach(BuildingElement be in buildingElements)
+            {
+                Surface xmlSrf = new Surface();
+                xmlSrf.Name = "Shade-" + gbx.Campus.Surface.Count.ToString();
+                xmlSrf.SurfaceType = "Shade";
+                xmlSrf.ID = xmlSrf.Name;
+                xmlSrf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(xmlSrf.SurfaceType).ToString();
+
+                if (be.BuildingElementProperties != null)
+                    xmlSrf.CADObjectID = BH.Engine.XML.Query.CadObjectId(be, isIES);
+
+                if(isIES)
+                    xmlSrf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(be); //Only for IES!
+
+                RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGBXML(be);
+                PlanarGeometry plGeo = new PlanarGeometry();
+                plGeo.ID = "PlanarGeometry-" + "shade-" + gbx.Campus.Surface.Count.ToString();
+                Polyline pline = new Polyline() { ControlPoints = be.PanelCurve.IControlPoints() }; //TODO: Change to ToPolyline method
+                xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGBXML(pline.ControlPoints.Last());
+                plGeo.PolyLoop = BH.Engine.XML.Convert.ToGBXML(pline);
+                xmlSrf.PlanarGeometry = plGeo;
+                xmlSrf.RectangularGeometry = xmlRectangularGeom;
+
+                gbx.Campus.Surface.Add(xmlSrf);
+            }
+        }
     }
 }

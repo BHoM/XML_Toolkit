@@ -29,6 +29,7 @@ namespace BH.Adapter.XML
                 if (opening.OpeningCurve == null) continue;
 
                 BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
+                gbOpening.PlanarGeometry.ID = "openingPGeom" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
                 //Normals away from space
                 if (!BH.Engine.Environment.Query.NormalAwayFromSpace(opening.OpeningCurve.ICollapseToPolyline(BH.oM.Geometry.Tolerance.Angle), space))
@@ -58,7 +59,6 @@ namespace BH.Adapter.XML
                         if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
                             gbOpening.OpeningType = "FixedWindow";
 
-
                         if (isIES && gbOpening.OpeningType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
                             gbOpening.OpeningType = "NonSlidingDoor";
                     }
@@ -69,6 +69,9 @@ namespace BH.Adapter.XML
                 openingCount++;
                 if (isIES)
                     gbOpening.ConstructionIDRef = BH.Engine.XML.Query.IdRef(buildingElement); //Only for IES!
+                else
+                    gbOpening.ConstructionIDRef = null;
+
                 gbOpenings.Add(gbOpening);
             }
 
