@@ -15,7 +15,7 @@ namespace BH.oM.XML
         [XmlAttribute(AttributeName = "exposedToSun")]
         public string ExposedToSun { get; set; } = "false";
         [XmlAttribute(AttributeName = "constructionIdRef")]
-        public string ConstructionIDRef { get; set; } = "";
+        public string ConstructionIDRef { get; set; } = null;
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "SurfaceID";
         [XmlElement("AdjacentSpaceId")]

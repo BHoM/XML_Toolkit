@@ -34,6 +34,24 @@ namespace BH.Engine.XML
             return CADObjectID;
         }
 
+        public static string SurfaceName(this BHE.BuildingElement element, bool isIES = false)
+        {
+            string CADObjectID = "";
+            string familyName = "";
+
+            if (element.BuildingElementProperties != null)
+            {
+                if (element.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
+                    familyName = element.BuildingElementProperties.CustomData["Family Name"].ToString();
+
+                if (isIES && familyName.Contains("Wall") && element.BuildingElementProperties.Name.Contains("GLZ"))
+                    familyName = "Curtain Wall";
+
+                CADObjectID = familyName + ": " + element.BuildingElementProperties.Name;
+            }
+            return CADObjectID;
+        }
+
         /***************************************************/
 
         public static string CadObjectId(BHE.Opening bHoMOpening, List<BHE.BuildingElement> buildingElementsList, bool isIES = false)
@@ -74,12 +92,16 @@ namespace BH.Engine.XML
         {
             string CADObjectID = "";
 
-            Dictionary<string, object> spaceCustomData = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault().CustomData["Space_Custom_Data"] as Dictionary<string, object>;
+            BHE.BuildingElement spaceCustomData = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault();
+
+            if (spaceCustomData == null) return CADObjectID;
+
+            Dictionary<string, object> data = spaceCustomData.CustomData["Space_Custom_Data"] as Dictionary<string, object>;
 
             if(spaceCustomData != null)
             {
-                if (spaceCustomData.ContainsKey("Revit_elementId"))
-                    CADObjectID = spaceCustomData["Revit_elementId"].ToString();
+                if (data.ContainsKey("Revit_elementId"))
+                    CADObjectID = data["Revit_elementId"].ToString();
             }
 
             return CADObjectID;

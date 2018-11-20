@@ -14,7 +14,7 @@ namespace BH.oM.XML
         public string ZoneIDRef { get; set; } = "ZoneID";
         [XmlAttribute(AttributeName = "conditionType")]
         public string ConditionType { get; set; } = "Unknown";
-        [XmlAttribute(AttributeName = "buildingStoryIdRef")]
+        [XmlAttribute(AttributeName = "buildingStoreyIdRef")]
         public string BuildingStoreyIDRef { get; set; } = "StoreyID";
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "SpaceID";
