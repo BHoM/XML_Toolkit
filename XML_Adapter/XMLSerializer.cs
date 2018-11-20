@@ -34,7 +34,7 @@ namespace BH.Adapter.XML
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
                 Serialize(db.Levels, db.ElementsAsSpaces, gbx, isIES);
-                SerializeCollection(db.ElementsAsSpaces, db.Levels, gbx, isIES);
+                SerializeCollection(db.ElementsAsSpaces, db.Levels, db.Openings, gbx, isIES);
                 SerializeCollection(db.ShadingElements, gbx, isIES);
             }
         }

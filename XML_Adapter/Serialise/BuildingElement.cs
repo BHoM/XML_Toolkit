@@ -21,7 +21,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<IEnumerable<BuildingElement>> inputElements, List<Level> levels, BH.oM.XML.GBXML gbx, bool isIES = false)
+        public static void SerializeCollection(IEnumerable<IEnumerable<BuildingElement>> inputElements, List<Level> levels, List<BuildingElement> openings, BH.oM.XML.GBXML gbx, bool isIES = false)
         {
             List<List<BuildingElement>> elementsAsSpaces = new List<List<BuildingElement>>();
 
@@ -30,16 +30,19 @@ namespace BH.Adapter.XML
 
             List<BuildingElement> uniqueBuildingElements = elementsAsSpaces.UniqueBuildingElements();
 
+            List<BuildingElement> allElements = new List<BuildingElement>(uniqueBuildingElements);
+            allElements.AddRange(openings);
+
             List<BH.oM.Environment.Elements.Space> spaces = elementsAsSpaces.Spaces();
 
             List<BuildingElement> usedBEs = new List<BuildingElement>();
 
-            foreach(List<BuildingElement> space in elementsAsSpaces)
+            foreach (List<BuildingElement> space in elementsAsSpaces)
             {
                 //For each collection of BuildingElements that define a space, convert the panels to XML surfaces and add to the GBXML
                 List<Surface> spaceSurfaces = new List<Surface>();
 
-                for(int x = 0; x < space.Count; x++)
+                for (int x = 0; x < space.Count; x++)
                 {
                     if (usedBEs.Where(i => i.BHoM_Guid == space[x].BHoM_Guid).FirstOrDefault() != null) continue;
 
@@ -52,7 +55,7 @@ namespace BH.Adapter.XML
                     if (space[x].BuildingElementProperties != null)
                         srf.CADObjectID = BH.Engine.XML.Query.CadObjectId(space[x], isIES);
 
-                    srf.ID = srf.Name;
+                    srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
                     srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString();
 
                     if (isIES)
@@ -94,17 +97,18 @@ namespace BH.Adapter.XML
 
                     //Openings
                     if (space[x].Openings.Count > 0)
-                        srf.Opening = Serialize(space[x].Openings, space, elementsAsSpaces, spaces, gbx, isIES).ToArray();
+                        srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, spaces, gbx, isIES).ToArray();
 
                     gbx.Campus.Surface.Add(srf);
 
                     usedBEs.Add(space[x]);
                 }
 
+                Dictionary<String, object> spaceData = (space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault() != null ? space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault().CustomData["Space_Custom_Data"] as Dictionary<String, object> : new Dictionary<string, object>());
                 //Create the space in
                 BH.oM.Environment.Elements.Space s = space.Space(gbx.Campus.Building[0].Space.Count, gbx.Campus.Building[0].Space.Count.ToString());
                 BH.oM.XML.Space xmlSpace = new oM.XML.Space();
-                xmlSpace.Name = s.Name;
+                xmlSpace.Name = (spaceData.ContainsKey("SAM_SpaceName") ? spaceData["SAM_SpaceName"].ToString() : s.Name); //CUSTOMDATA SAM_SpaceName
                 xmlSpace.ID = s.Number + "-" + s.Name;
                 xmlSpace.CADObjectID = BH.Engine.XML.Query.CadObjectId(space);
                 xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
@@ -119,7 +123,8 @@ namespace BH.Adapter.XML
                 }
                 Level spaceLevel = space.Level(levels);
                 if (spaceLevel != null)
-                    xmlSpace.BuildingStoreyIDRef = "Level-" + spaceLevel.Elevation.ToString();
+                    xmlSpace.BuildingStoreyIDRef = spaceLevel.Name.Replace(" ", "").ToLower();
+                //xmlSpace.BuildingStoreyIDRef = "Level-" + spaceLevel.Elevation.ToString();
 
 
                 gbx.Campus.Building[0].Space.Add(xmlSpace);

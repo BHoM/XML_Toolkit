@@ -19,7 +19,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BH.oM.XML.Opening> Serialize(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<BuildingElement> space, List<List<BuildingElement>> spaces, List<BH.oM.Environment.Elements.Space> spaceSpaces, BH.oM.XML.GBXML gbx, bool isIES)
+        public static List<BH.oM.XML.Opening> Serialize(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<BuildingElement> space, List<BuildingElement> allElements, List<List<BuildingElement>> spaces, List<BH.oM.Environment.Elements.Space> spaceSpaces, BH.oM.XML.GBXML gbx, bool isIES)
         {
             List<BH.oM.XML.Opening> gbOpenings = new List<oM.XML.Opening>();
 
@@ -42,7 +42,7 @@ namespace BH.Adapter.XML
                 if (opening.CustomData.ContainsKey("Revit_elementId"))
                 {
                     string elementID = (opening.CustomData["Revit_elementId"]).ToString();
-                    buildingElement = space.Find(x => x != null && x.CustomData.ContainsKey("Revit_elementId") && x.CustomData["Revit_elementId"].ToString() == elementID);
+                    buildingElement = allElements.Find(x => x != null && x.CustomData.ContainsKey("Revit_elementId") && x.CustomData["Revit_elementId"].ToString() == elementID);
 
                     if (buildingElement != null)
                     {
@@ -53,7 +53,7 @@ namespace BH.Adapter.XML
                             typeName = buildingElement.BuildingElementProperties.Name;
                         }
 
-                        gbOpening.CADObjectID = BH.Engine.XML.Query.CadObjectId(opening, space, isIES);
+                        gbOpening.CADObjectID = BH.Engine.XML.Query.CadObjectId(opening, allElements, isIES);
                         gbOpening.OpeningType = BH.Engine.XML.Convert.ToGBXMLType(buildingElement, BH.Engine.Environment.Query.AdjacentSpaces(buildingElement, spaces, spaceSpaces), isIES);
 
                         if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
