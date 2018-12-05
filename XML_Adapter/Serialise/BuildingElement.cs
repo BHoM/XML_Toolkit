@@ -108,7 +108,7 @@ namespace BH.Adapter.XML
                 //Create the space in
                 BH.oM.Environment.Elements.Space s = space.Space(gbx.Campus.Building[0].Space.Count, gbx.Campus.Building[0].Space.Count.ToString());
                 BH.oM.XML.Space xmlSpace = new oM.XML.Space();
-                xmlSpace.Name = (spaceData.ContainsKey("SAM_SpaceName") ? spaceData["SAM_SpaceName"].ToString() : s.Name); //CUSTOMDATA SAM_SpaceName
+                xmlSpace.Name = (spaceData.ContainsKey("SAM_SpaceName") && spaceData["SAM_SpaceName"] != null ? spaceData["SAM_SpaceName"].ToString() : s.Name); //CUSTOMDATA SAM_SpaceName
                 xmlSpace.ID = s.Number + "-" + s.Name;
                 xmlSpace.CADObjectID = BH.Engine.XML.Query.CadObjectId(space);
                 xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
