@@ -13,7 +13,7 @@ namespace BH.oM.XML
         [XmlAttribute(AttributeName = "zoneIdRef")]
         public string ZoneIDRef { get; set; } = "ZoneID";
         [XmlAttribute(AttributeName = "conditionType")]
-        public string ConditionType { get; set; } = "Unknown";
+        public string ConditionType { get; set; } = "Unconditioned";
         [XmlAttribute(AttributeName = "buildingStoreyIdRef")]
         public string BuildingStoreyIDRef { get; set; } = "StoreyID";
         [XmlAttribute(AttributeName = "id")]
