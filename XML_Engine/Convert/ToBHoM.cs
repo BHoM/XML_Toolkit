@@ -15,12 +15,14 @@ namespace BH.Engine.XML
 
         public static BHG.Point ToBHoM(CartesianPoint cartesianPoint)
         {
-            BHG.Point pt = new BHG.Point();
-            pt.X = System.Convert.ToDouble(cartesianPoint.Coordinate[0]);
-            pt.Y = System.Convert.ToDouble(cartesianPoint.Coordinate[1]);
-            pt.Z = System.Convert.ToDouble(cartesianPoint.Coordinate[2]);
+            List<double> coords = new List<double>();
+            foreach (String s in cartesianPoint.Coordinate)
+                coords.Add(System.Convert.ToDouble(s));
 
-            return pt;
+            for (int x = coords.Count; x < 3; x++)
+                coords.Add(0); //Add additional elements in case the cartesian point had less than 3 points
+
+            return BH.Engine.Geometry.Create.Point(coords[0], coords[1], coords[2]);
         }
 
         /***************************************************/
