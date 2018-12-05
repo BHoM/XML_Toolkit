@@ -109,15 +109,15 @@ namespace BH.Adapter.XML
                 BH.oM.Environment.Elements.Space s = space.Space(gbx.Campus.Building[0].Space.Count, gbx.Campus.Building[0].Space.Count.ToString());
                 BH.oM.XML.Space xmlSpace = new oM.XML.Space();
                 xmlSpace.Name = (spaceData.ContainsKey("SAM_SpaceName") && spaceData["SAM_SpaceName"] != null ? spaceData["SAM_SpaceName"].ToString() : s.Name); //CUSTOMDATA SAM_SpaceName
-                xmlSpace.ID = s.Number + "-" + s.Name;
+                xmlSpace.ID = "Space-" + s.Number + "-" + s.Name;
                 xmlSpace.CADObjectID = BH.Engine.XML.Query.CadObjectId(space);
                 xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
-                xmlSpace.ShellGeometry.ID = "Space" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+                xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
                 xmlSpace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(space, uniqueBuildingElements);
                 if (BH.Engine.Environment.Query.FloorGeometry(space) != null)
                 {
                     xmlSpace.PlanarGeoemtry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(BH.Engine.Environment.Query.FloorGeometry(space));
-                    xmlSpace.PlanarGeoemtry.ID = "Space" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+                    xmlSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
                     xmlSpace.Area = BH.Engine.Environment.Query.FloorGeometry(space).Area();
                     xmlSpace.Volume = space.Volume();
                 }
