@@ -11,8 +11,8 @@ namespace BH.oM.XML
     public class StationId : GBXMLObject
     {
         [XmlAttribute("IDType")]
-        public string IDType { get; set; } = "Unknown";
-        [XmlAttribute("ID")]
-        public string ID { get; set; } = "";
+        public string IDType { get; set; } = "WMO";
+        [XmlText]
+        public string ID { get; set; } = "03772"; //London Heathrow
     }
 }
