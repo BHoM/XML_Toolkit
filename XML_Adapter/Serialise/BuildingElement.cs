@@ -56,7 +56,7 @@ namespace BH.Adapter.XML
                         srf.CADObjectID = BH.Engine.XML.Query.CadObjectId(space[x], isIES);
 
                     srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
-                    srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString();
+                    srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
 
                     if (isIES)
                         srf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(space[x]);
@@ -140,7 +140,7 @@ namespace BH.Adapter.XML
                 xmlSrf.Name = "Shade-" + gbx.Campus.Surface.Count.ToString();
                 xmlSrf.SurfaceType = "Shade";
                 xmlSrf.ID = xmlSrf.Name;
-                xmlSrf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(xmlSrf.SurfaceType).ToString();
+                xmlSrf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(xmlSrf.SurfaceType).ToString().ToLower();
 
                 if (be.BuildingElementProperties != null)
                     xmlSrf.CADObjectID = BH.Engine.XML.Query.CadObjectId(be, isIES);
