@@ -30,11 +30,9 @@ namespace BH.Adapter.XML
                 if (storeyGeometry == null)
                     continue;
                 storey.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(storeyGeometry);
-                storey.PlanarGeometry.ID = "Level" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
-                //storey.Name = "Level-" + level.Elevation.ToString();
+                storey.PlanarGeometry.ID = "LevelPlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
                 storey.Name = level.Name;
-                //storey.ID = "Level-" + level.Elevation.ToString();
-                storey.ID = level.Name.Replace(" ", "").ToLower();
+                storey.ID = "Level-" + level.Name.Replace(" ", "").ToLower();
                 storey.Level = (float)level.Elevation;
                 xmlLevels.Add(storey);
             }
