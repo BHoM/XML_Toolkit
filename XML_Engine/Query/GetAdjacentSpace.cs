@@ -20,7 +20,7 @@ namespace BH.Engine.XML
         public static AdjacentSpaceId GetAdjacentSpaceID(this BHE.Space space)
         {
             AdjacentSpaceId adjId = new AdjacentSpaceId();
-            adjId.SpaceIDRef = space.Number + "-" + space.Name;
+            adjId.SpaceIDRef = "Space-" + space.Number + "-" + space.Name;
             return adjId;
         }
 
