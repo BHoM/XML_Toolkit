@@ -63,7 +63,7 @@ namespace BH.Adapter.XML
 
                     RectangularGeometry srfGeom = BH.Engine.XML.Convert.ToGBXML(space[x]);
                     PlanarGeometry plGeom = new PlanarGeometry();
-                    plGeom.ID = "PlanarGeometry-" + x.ToString();
+                    plGeom.ID = "PlanarGeometry-" + x.ToString() + "-" + space[x].BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
 
                     // Ensure that all of the surface coordinates are listed in a counterclockwise order
                     // This is a requirement of GBXML Polyloop definitions 
@@ -114,10 +114,10 @@ namespace BH.Adapter.XML
                 xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
                 xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
                 xmlSpace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(space, uniqueBuildingElements);
+                xmlSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
                 if (BH.Engine.Environment.Query.FloorGeometry(space) != null)
                 {
                     xmlSpace.PlanarGeoemtry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(BH.Engine.Environment.Query.FloorGeometry(space));
-                    xmlSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
                     xmlSpace.Area = BH.Engine.Environment.Query.FloorGeometry(space).Area();
                     xmlSpace.Volume = space.Volume();
                 }

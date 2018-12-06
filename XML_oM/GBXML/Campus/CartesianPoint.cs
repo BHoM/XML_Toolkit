@@ -11,6 +11,6 @@ namespace BH.oM.XML
     public class CartesianPoint : GBXMLObject
     {
         [XmlElement("Coordinate")]
-        public string[] Coordinate { get; set; } = new List<string> { "0" }.ToArray();
+        public string[] Coordinate { get; set; } = new List<string> { "0", "0", "0" }.ToArray();
     }
 }
