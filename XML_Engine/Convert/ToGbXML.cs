@@ -6,6 +6,8 @@ using BHE = BH.oM.Environment.Elements;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 
+using BH.Engine.Environment;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
@@ -71,8 +73,8 @@ namespace BH.Engine.XML
 
             GBXMLOpening.PlanarGeometry.PolyLoop = ToGBXML(pline);
             GBXMLOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pline).ToGBXML();
-            GBXMLOpening.RectangularGeometry.Height = Math.Round(BH.Engine.Environment.Query.LongestSegment(pline), 3);
-            GBXMLOpening.RectangularGeometry.Width = Math.Round(BH.Engine.Environment.Query.Width(pline, GBXMLOpening.RectangularGeometry.Height), 3);
+            GBXMLOpening.RectangularGeometry.Height = Math.Round(opening.Height(), 3);
+            GBXMLOpening.RectangularGeometry.Width = Math.Round(opening.Width(), 3);
             GBXMLOpening.RectangularGeometry.ID = "rGeomOpening" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
             return GBXMLOpening;
@@ -89,8 +91,8 @@ namespace BH.Engine.XML
 
             rectangularGeometry.Tilt = Math.Round(Environment.Query.Tilt(bHoMPanel), 3);
             rectangularGeometry.Azimuth = Math.Round(Environment.Query.Azimuth(bHoMPanel, BHG.Vector.YAxis), 3);
-            rectangularGeometry.Height = Math.Round(BH.Engine.Environment.Query.LongestSegment(pline), 3);
-            rectangularGeometry.Width = Math.Round(BH.Engine.Environment.Query.Width(pline, rectangularGeometry.Height), 3);
+            rectangularGeometry.Height = Math.Round(bHoMPanel.Height(), 3);
+            rectangularGeometry.Width = Math.Round(bHoMPanel.Width(), 3);
             rectangularGeometry.CartesianPoint = ToGBXML(pline.ControlPoints.First());
 
             return rectangularGeometry;
@@ -106,8 +108,8 @@ namespace BH.Engine.XML
 
             geom.Tilt = Math.Round(Environment.Query.Tilt(buildingElement), 3);
             geom.Azimuth = Math.Round(Environment.Query.Azimuth(buildingElement, BHG.Vector.YAxis), 3);
-            geom.Height = Math.Round(BH.Engine.Environment.Query.LongestSegment(pline), 3);
-            geom.Width = Math.Round(BH.Engine.Environment.Query.Width(pline, geom.Height), 3);
+            geom.Height = Math.Round(buildingElement.Height(), 3);
+            geom.Width = Math.Round(buildingElement.Width(), 3);
             geom.CartesianPoint = ToGBXML(pline.ControlPoints.First());
             geom.ID = "Geom" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
