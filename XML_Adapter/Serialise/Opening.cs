@@ -64,7 +64,7 @@ namespace BH.Adapter.XML
                     }
                 }
 
-                gbOpening.ID = "opening-" + openingCount.ToString();
+                gbOpening.ID = "opening-" + openingCount.ToString() + "-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
                 gbOpening.Name = "opening-" + openingCount.ToString();
                 openingCount++;
                 if (isIES)
