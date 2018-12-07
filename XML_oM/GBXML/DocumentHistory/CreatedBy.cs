@@ -15,7 +15,7 @@ namespace BH.oM.XML
         [XmlAttribute(AttributeName = "programId")]
         public string ProgramID { get; set; } = "BHoMGBXML";
         [XmlAttribute(AttributeName = "date")]
-        public string Date { get; set; } = "00-00-00";
+        public string Date { get; set; } = "0000-00-00";
         [XmlElement("CADModelId")]
         public string CADModelID { get; set; } = "Unknown";
     }

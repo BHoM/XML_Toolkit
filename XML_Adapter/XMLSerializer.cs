@@ -25,7 +25,7 @@ namespace BH.Adapter.XML
 
             // Document History                          
             DocumentHistory DocumentHistory = new DocumentHistory();
-            DocumentHistory.CreatedBy.Date = DateTime.Now.ToString();
+            DocumentHistory.CreatedBy.Date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
             gbx.DocumentHistory = DocumentHistory;
         }
 
