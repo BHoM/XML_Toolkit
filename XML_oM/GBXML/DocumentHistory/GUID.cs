@@ -8,11 +8,12 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class ProjectEntity : GBXMLObject
+    public class GUID: GBXMLObject
     {
-        [XmlElement("URI")]
-        public string URI { get; set; } = "Unknown";
-        [XmlElement("GUID")]
-        public GUID GUID { get; set; } = new GUID();
+        [XmlAttribute("entity")]
+        public string Entity { get; set; } = "Model";
+
+        [XmlText]
+        public string GUIDAttribute { get; set; } = "Unknown";
     }
 }

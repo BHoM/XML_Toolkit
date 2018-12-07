@@ -36,9 +36,9 @@ namespace BH.Engine.XML
 
             if (bHoMprop == null) return "-1"; //Return an error (-1) if the property isn't really here
 
-            String rtnID = "";
+            String rtnID = bHoMprop.Name[0].ToString();
 
-            for (int x = 0; x < bHoMprop.Name.Length; x++)
+            for (int x = 1; x < bHoMprop.Name.Length; x++)
                 rtnID += ((int)bHoMprop.Name[x]).ToString();
 
             return rtnID;
