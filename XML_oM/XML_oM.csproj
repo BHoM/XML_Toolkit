@@ -73,6 +73,7 @@
     <Compile Include="GBXML\Construction\LayerID.cs" />
     <Compile Include="GBXML\DocumentHistory\CreatedBy.cs" />
     <Compile Include="GBXML\DocumentHistory\DocumentHistory.cs" />
+    <Compile Include="GBXML\DocumentHistory\GUID.cs" />
     <Compile Include="GBXML\GbXML.cs" />
     <Compile Include="GBXML\GBXMLObject.cs" />
     <Compile Include="GBXML\DocumentHistory\PersonInfo.cs" />
