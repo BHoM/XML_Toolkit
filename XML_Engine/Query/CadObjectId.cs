@@ -5,6 +5,8 @@ using BH.Engine.Geometry;
 using System.Linq;
 using BHE = BH.oM.Environment.Elements;
 
+using BH.oM.XML.Enums;
+
 namespace BH.Engine.XML
 {
     public static partial class Query
@@ -13,7 +15,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string CadObjectId(this BHE.BuildingElement bHoMBuildingElement, bool isIES = false)
+        public static string CadObjectId(this BHE.BuildingElement bHoMBuildingElement, ExportType exportType)
         {
             string CADObjectID = "";
             string revitElementID = "";
@@ -26,7 +28,7 @@ namespace BH.Engine.XML
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
                     familyName = bHoMBuildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
 
-                if (isIES && familyName.Contains("Wall") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
+                if (exportType == ExportType.gbXMLIES && familyName.Contains("Wall") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
                     familyName = "Curtain Wall";
 
                 CADObjectID = familyName + ": " + bHoMBuildingElement.BuildingElementProperties.Name + " [" + revitElementID + "]";
@@ -34,7 +36,7 @@ namespace BH.Engine.XML
             return CADObjectID;
         }
 
-        public static string SurfaceName(this BHE.BuildingElement element, bool isIES = false)
+        public static string SurfaceName(this BHE.BuildingElement element, ExportType exportType)
         {
             string CADObjectID = "";
             string familyName = "";
@@ -44,7 +46,7 @@ namespace BH.Engine.XML
                 if (element.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
                     familyName = element.BuildingElementProperties.CustomData["Family Name"].ToString();
 
-                if (isIES && familyName.Contains("Wall") && element.BuildingElementProperties.Name.Contains("GLZ"))
+                if (exportType == ExportType.gbXMLIES && familyName.Contains("Wall") && element.BuildingElementProperties.Name.Contains("GLZ"))
                     familyName = "Curtain Wall";
 
                 CADObjectID = familyName + ": " + element.BuildingElementProperties.Name;
@@ -54,7 +56,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static string CadObjectId(BHE.Opening bHoMOpening, List<BHE.BuildingElement> buildingElementsList, bool isIES = false)
+        public static string CadObjectId(BHE.Opening bHoMOpening, List<BHE.BuildingElement> buildingElementsList, ExportType exportType)
         {
             string CADObjectID = "";
             string familyName = "";

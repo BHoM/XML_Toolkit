@@ -11,6 +11,8 @@ using BH.Engine.XML;
 using BH.oM.Geometry;
 using BH.Engine.Geometry;
 
+using BH.oM.XML.Enums;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -19,7 +21,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BH.oM.XML.Opening> Serialize(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<BuildingElement> space, List<BuildingElement> allElements, List<List<BuildingElement>> spaces, List<BH.oM.Environment.Elements.Space> spaceSpaces, BH.oM.XML.GBXML gbx, bool isIES)
+        public static List<BH.oM.XML.Opening> Serialize(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<BuildingElement> space, List<BuildingElement> allElements, List<List<BuildingElement>> spaces, List<BH.oM.Environment.Elements.Space> spaceSpaces, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             List<BH.oM.XML.Opening> gbOpenings = new List<oM.XML.Opening>();
 
@@ -53,13 +55,13 @@ namespace BH.Adapter.XML
                             typeName = buildingElement.BuildingElementProperties.Name;
                         }
 
-                        gbOpening.CADObjectID = BH.Engine.XML.Query.CadObjectId(opening, allElements, isIES);
-                        gbOpening.OpeningType = BH.Engine.XML.Convert.ToGBXMLType(buildingElement, BH.Engine.Environment.Query.AdjacentSpaces(buildingElement, spaces, spaceSpaces), isIES);
+                        gbOpening.CADObjectID = BH.Engine.XML.Query.CadObjectId(opening, allElements, exportType);
+                        gbOpening.OpeningType = BH.Engine.XML.Convert.ToGBXMLType(buildingElement, BH.Engine.Environment.Query.AdjacentSpaces(buildingElement, spaces, spaceSpaces), exportType);
 
                         if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
                             gbOpening.OpeningType = "FixedWindow";
 
-                        if (isIES && gbOpening.OpeningType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                        if (exportType == ExportType.gbXMLIES && gbOpening.OpeningType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
                             gbOpening.OpeningType = "NonSlidingDoor";
                     }
                 }
@@ -67,7 +69,7 @@ namespace BH.Adapter.XML
                 gbOpening.ID = "opening-" + openingCount.ToString() + "-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
                 gbOpening.Name = "opening-" + openingCount.ToString();
                 openingCount++;
-                if (isIES)
+                if (exportType == ExportType.gbXMLIES)
                     gbOpening.ConstructionIDRef = BH.Engine.XML.Query.IdRef(buildingElement); //Only for IES!
                 else
                     gbOpening.ConstructionIDRef = null;

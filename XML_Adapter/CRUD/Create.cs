@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 using BH.oM.Base;
 using BHE = BH.oM.Environment;
-using BHX = BH.oM.XML;
+using BH.oM.XML;
+using BH.oM.XML.Enums;
 
 namespace BH.Adapter.XML
 {
@@ -14,15 +15,25 @@ namespace BH.Adapter.XML
     {
         protected override bool Create<T>(IEnumerable<T> objects, bool replaceAll = false)
         {
-            BHX.GBXML gbx = new BHX.GBXML();
+            string fileName = FileName;
+            switch(ExportType)
+            {
+                case ExportType.gbXMLIES:
+                    fileName += "_IES";
+                    break;
+                case ExportType.gbXMLTAS:
+                    fileName += "_TAS";
+                    break;
+                default :
+                    fileName += "";
+                    break;
+            }
 
+            GBXML gbx = new GBXML();
             if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
             {
-                XML.GBXMLSerializer.Serialize(objects, gbx, false);
-                XMLWriter.Save(FilePath, FileName + "_TAS", gbx);
-                gbx = new BHX.GBXML();
-                XML.GBXMLSerializer.Serialize(objects, gbx, true);
-                XMLWriter.Save(FilePath, FileName + "_IES", gbx);
+                XML.GBXMLSerializer.Serialize(objects, gbx, ExportType);
+                XMLWriter.Save(FilePath, fileName, gbx);
             }
 
             return true;
@@ -39,27 +50,27 @@ namespace BH.Adapter.XML
 
         /***************************************************/
 
-        private bool Create(BHE.Elements.Space bHoMSpace, BHX.GBXML gbx, bool isIES)
+        private bool Create(BHE.Elements.Space bHoMSpace, GBXML gbx, ExportType exportType)
         {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMSpace as IBHoMObject }, gbx, isIES);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMSpace as IBHoMObject }, gbx, exportType);
 
             return true;
         }
 
         /***************************************************/
 
-        private bool Create(BHE.Elements.Building bHoMBuilding, BHX.GBXML gbx, bool isIES)
+        private bool Create(BHE.Elements.Building bHoMBuilding, GBXML gbx, ExportType exportType)
         {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuilding as IBHoMObject }, gbx, isIES);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuilding as IBHoMObject }, gbx, exportType);
 
             return true;
         }
 
         /***************************************************/
 
-        private bool Create(BHE.Elements.BuildingElement bHoMBuildingElement, BHX.GBXML gbx, bool isIES)
+        private bool Create(BHE.Elements.BuildingElement bHoMBuildingElement, GBXML gbx, ExportType exportType)
         {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElement as IBHoMObject }, gbx, isIES);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElement as IBHoMObject }, gbx, exportType);
 
             return true;
         }

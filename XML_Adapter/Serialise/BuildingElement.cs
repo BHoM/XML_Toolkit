@@ -13,6 +13,8 @@ using BH.Engine.Geometry;
 
 using BH.oM.Architecture.Elements;
 
+using BH.oM.XML.Enums;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -21,7 +23,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<IEnumerable<BuildingElement>> inputElements, List<Level> levels, List<BuildingElement> openings, BH.oM.XML.GBXML gbx, bool isIES = false)
+        public static void SerializeCollection(IEnumerable<IEnumerable<BuildingElement>> inputElements, List<Level> levels, List<BuildingElement> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             List<List<BuildingElement>> elementsAsSpaces = new List<List<BuildingElement>>();
 
@@ -50,15 +52,15 @@ namespace BH.Adapter.XML
 
                     Surface srf = new Surface();
                     srf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
-                    srf.SurfaceType = BH.Engine.XML.Convert.ToGBXMLType(space[x], adjacentSpaces, isIES);
+                    srf.SurfaceType = BH.Engine.XML.Convert.ToGBXMLType(space[x], adjacentSpaces, exportType);
 
                     if (space[x].BuildingElementProperties != null)
-                        srf.CADObjectID = BH.Engine.XML.Query.CadObjectId(space[x], isIES);
+                        srf.CADObjectID = BH.Engine.XML.Query.CadObjectId(space[x], exportType);
 
                     srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
                     srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
 
-                    if (isIES)
+                    if (exportType == ExportType.gbXMLIES)
                         srf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(space[x]);
 
                     RectangularGeometry srfGeom = BH.Engine.XML.Convert.ToGBXML(space[x]);
@@ -97,7 +99,7 @@ namespace BH.Adapter.XML
 
                     //Openings
                     if (space[x].Openings.Count > 0)
-                        srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, spaces, gbx, isIES).ToArray();
+                        srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, spaces, gbx, exportType).ToArray();
 
                     gbx.Campus.Surface.Add(srf);
 
@@ -129,7 +131,7 @@ namespace BH.Adapter.XML
             }
         }
 
-        public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, BH.oM.XML.GBXML gbx, bool isIES)
+        public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             //For serializing shade elements
             List<BuildingElement> buildingElements = inputElements.ToList();
@@ -143,9 +145,9 @@ namespace BH.Adapter.XML
                 xmlSrf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(xmlSrf.SurfaceType).ToString().ToLower();
 
                 if (be.BuildingElementProperties != null)
-                    xmlSrf.CADObjectID = BH.Engine.XML.Query.CadObjectId(be, isIES);
+                    xmlSrf.CADObjectID = BH.Engine.XML.Query.CadObjectId(be, exportType);
 
-                if(isIES)
+                if(exportType == ExportType.gbXMLIES)
                     xmlSrf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(be); //Only for IES!
 
                 RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGBXML(be);
