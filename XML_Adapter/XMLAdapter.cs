@@ -12,9 +12,9 @@ namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
-        public XMLAdapter(String xmlFileName, String xmlDirectoryPath)
+        public XMLAdapter(String xmlFileName = "BHoM_gbXML_Export", String xmlDirectoryPath = null)
         {
-            FilePath = xmlDirectoryPath;
+            FilePath = (xmlDirectoryPath == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : xmlDirectoryPath);
             FileName = xmlFileName;
 
             AdapterId = "XML_Adapter";
