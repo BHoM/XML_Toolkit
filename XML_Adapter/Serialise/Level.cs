@@ -11,6 +11,8 @@ using BH.Engine.XML;
 using BH.oM.Geometry;
 using BH.Engine.Geometry;
 
+using BH.oM.XML.Enums;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -19,7 +21,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize(List<BH.oM.Architecture.Elements.Level> levels, List<List<BuildingElement>> spaces, BH.oM.XML.GBXML gbx, bool isIES)
+        public static void Serialize(List<BH.oM.Architecture.Elements.Level> levels, List<List<BuildingElement>> spaces, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             List<BH.oM.XML.BuildingStorey> xmlLevels = new List<BuildingStorey>();
 

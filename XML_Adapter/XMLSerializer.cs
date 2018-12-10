@@ -10,6 +10,7 @@ using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
 using BH.Engine.XML;
+using BH.oM.XML.Enums;
 
 namespace BH.Adapter.XML
 {
@@ -19,9 +20,9 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, bool isIES) where T : IObject
+        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, ExportType exportType) where T : IObject
         {
-            SerializeCollection(bhomObjects as dynamic, gbx, isIES);
+            SerializeCollection(bhomObjects as dynamic, gbx, exportType);
 
             // Document History                          
             DocumentHistory DocumentHistory = new DocumentHistory();
@@ -29,19 +30,19 @@ namespace BH.Adapter.XML
             gbx.DocumentHistory = DocumentHistory;
         }
 
-        public static void SerializeCollection(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, BH.oM.XML.GBXML gbx, bool isIES)
+        public static void SerializeCollection(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
-                Serialize(db.Levels, db.ElementsAsSpaces, gbx, isIES);
-                SerializeCollection(db.ElementsAsSpaces, db.Levels, db.Openings, gbx, isIES);
-                SerializeCollection(db.ShadingElements, gbx, isIES);
+                Serialize(db.Levels, db.ElementsAsSpaces, gbx, exportType);
+                SerializeCollection(db.ElementsAsSpaces, db.Levels, db.Openings, gbx, exportType);
+                SerializeCollection(db.ShadingElements, gbx, exportType);
             }
         }
 
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<BHE.Building> bHoMBuilding, BH.oM.XML.GBXML gbx, bool isIES)
+        public static void SerializeCollection(IEnumerable<BHE.Building> bHoMBuilding, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             /*int buildingIndex = 0;
             foreach (BHE.Building building in bHoMBuilding)
@@ -114,7 +115,7 @@ namespace BH.Adapter.XML
 
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<BHE.Space> bhomSpaces, BH.oM.XML.GBXML gbx, bool isIES = false, BHE.Building building = null)
+        public static void SerializeCollection(IEnumerable<BHE.Space> bhomSpaces, BH.oM.XML.GBXML gbx, ExportType exportType, BHE.Building building = null)
         {
             //Levels unique by name in all spaces. We can access this info from the building, but we need it if the input is space (without building):
             /*List<BH.oM.Architecture.Elements.Level> levels = bhomSpaces.Select(x => x.Level).Distinct(new BH.Engine.Base.Objects.BHoMObjectNameComparer()).Select(x => x as BH.oM.Architecture.Elements.Level).ToList();
@@ -259,7 +260,7 @@ namespace BH.Adapter.XML
 
         /***************************************************/
 
-        public static void Serialize(List<BH.oM.Architecture.Elements.Level> levels, List<BHE.Space> bHoMSpaces, BH.oM.XML.GBXML gbx, bool isIES)
+        public static void Serialize(List<BH.oM.Architecture.Elements.Level> levels, List<BHE.Space> bHoMSpaces, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             //Levels unique by name in all spaces:
             List<BH.oM.XML.BuildingStorey> xmlLevels = new List<BuildingStorey>();
@@ -339,7 +340,7 @@ namespace BH.Adapter.XML
 
         /***************************************************/
 
-        public static void Serialize(BHE.Space bHoMSpace, List<BHE.BuildingElement> uniqueBEs, BH.oM.XML.GBXML gbx, bool isIES)
+        public static void Serialize(BHE.Space bHoMSpace, List<BHE.BuildingElement> uniqueBEs, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             List<BH.oM.XML.Space> xspaces = new List<Space>();
             BH.oM.XML.Space xspace = BH.Engine.XML.Convert.ToGBXML(bHoMSpace);
@@ -359,13 +360,13 @@ namespace BH.Adapter.XML
 
         /***************************************************/
 
-        public static void Serialize(BHE.Panel bHoMPanel, BH.oM.XML.GBXML gbx, bool isIES)
+        public static void Serialize(BHE.Panel bHoMPanel, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             throw new NotImplementedException();
         }
 
         /***************************************************/
-        public static void SerializeCollection(List<BHP.BuildingElementProperties> bHoMProperties, BH.oM.XML.GBXML gbx, bool isIES) //Only for IES export
+        public static void SerializeCollection(List<BHP.BuildingElementProperties> bHoMProperties, BH.oM.XML.GBXML gbx, ExportType exportType) //Only for IES export
         {
             //Construction, Layers and Materials
             List<BH.oM.XML.Construction> xmlConstructions = new List<Construction>();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BHE = BH.oM.Environment.Elements;
+using BH.oM.XML.Enums;
 
 namespace BH.Engine.XML
 {
@@ -11,7 +12,7 @@ namespace BH.Engine.XML
     {
         /***************************************************/
 
-        public static string ToGBXMLType(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> adjacentSpaces = null, bool isIES = false)
+        public static string ToGBXMLType(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> adjacentSpaces = null, ExportType exportType = ExportType.gbXMLTAS)
         {
             if (adjacentSpaces == null) adjacentSpaces = new List<oM.Environment.Elements.Space>();
 
@@ -29,7 +30,7 @@ namespace BH.Engine.XML
                     if (aObject != null)
                         type = ToGBXMLSurfaceType(aObject.ToString()); //modifies the string
 
-                    if ((isIES && type.Contains("Window") || bHoMBuildingElement.BuildingElementProperties.BuildingElementType == BHE.BuildingElementType.Window) && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                    if ((exportType == ExportType.gbXMLIES && type.Contains("Window") || bHoMBuildingElement.BuildingElementProperties.BuildingElementType == BHE.BuildingElementType.Window) && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
                         type = "NonSlidingDoor";
                 }
                 else
