@@ -9,6 +9,6 @@ namespace BH.oM.XML
     public class Roughness : GBXMLObject
     {
         [XmlAttribute("value")]
-        public string Value { get; set; } = "VeryRough"; //TODO: what should the default value be?
+        public string Value { get; set; } = "Rough";
     }
 }

@@ -39,6 +39,10 @@ namespace BH.Adapter.XML
 
             List<BuildingElement> usedBEs = new List<BuildingElement>();
 
+            List<BH.oM.XML.Construction> usedConstructions = new List<BH.oM.XML.Construction>();
+            List<BH.oM.XML.Material> usedMaterials = new List<Material>();
+            List<BH.oM.XML.Layer> usedLayers = new List<Layer>();
+
             foreach (List<BuildingElement> space in elementsAsSpaces)
             {
                 //For each collection of BuildingElements that define a space, convert the panels to XML surfaces and add to the GBXML
@@ -104,6 +108,25 @@ namespace BH.Adapter.XML
                     gbx.Campus.Surface.Add(srf);
 
                     usedBEs.Add(space[x]);
+
+                    if (exportType == ExportType.gbXMLIES)
+                    {
+                        BH.oM.XML.Construction conc = space[x].ToGBXMLConstruction();
+                        BH.oM.XML.Construction test = usedConstructions.Where(y => y.ID == conc.ID).FirstOrDefault();
+                        if (test == null)
+                        {
+                            List<BH.oM.XML.Material> materials = new List<Material>();
+                            foreach (BH.oM.Environment.Materials.Material m in space[x].BuildingElementProperties.Construction.Materials)
+                                materials.Add(m.ToGBXML());
+
+                            BH.oM.XML.Layer layer = materials.ToGBXML();
+                            conc.LayerID.LayerIDRef = layer.ID;
+
+                            usedConstructions.Add(conc);
+                            usedLayers.Add(layer);
+                            usedMaterials.AddRange(materials);
+                        }
+                    }
                 }
 
                 Dictionary<String, object> spaceData = (space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault() != null ? space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault().CustomData["Space_Custom_Data"] as Dictionary<String, object> : new Dictionary<string, object>());
@@ -129,6 +152,10 @@ namespace BH.Adapter.XML
 
                 gbx.Campus.Building[0].Space.Add(xmlSpace);
             }
+
+            gbx.Construction = usedConstructions.ToArray();
+            gbx.Layer = usedLayers.ToArray();
+            gbx.Material = usedMaterials.ToArray();
         }
 
         public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, BH.oM.XML.GBXML gbx, ExportType exportType)

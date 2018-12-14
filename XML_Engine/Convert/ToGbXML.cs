@@ -205,20 +205,131 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static Construction ToGBXML(this BH.oM.Environment.Properties.BuildingElementProperties beProp)
+        public static Construction ToGBXMLConstruction(this BH.oM.Environment.Elements.BuildingElement buildingElement)
         {
             Construction xmlConstruction = new Construction();
 
-            //xmlConstruction.Absorptance = ;
-            xmlConstruction.ID = "id";
-            xmlConstruction.Name = beProp.Name;
-            //xmlConstruction.Roughness = "VeryRough";
-            //xmlConstruction.Uvalue = beProp.UValue;
+            BHE.Construction construction = buildingElement.BuildingElementProperties.Construction;
+            if (construction == null) return xmlConstruction;
 
+            xmlConstruction.ID = "conc-" + construction.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
+            xmlConstruction.Absorptance = construction.ToGBXML();
+            xmlConstruction.Name = construction.Name;
+            xmlConstruction.Roughness = construction.Roughness.ToGBXML();
+            xmlConstruction.UValue.Value = buildingElement.UValue().ToString();
 
             return xmlConstruction;
         }
 
         /***************************************************/
+
+        public static Roughness ToGBXML(this BHE.ConstructionRoughness roughness)
+        {
+            Roughness r = new Roughness();
+
+            switch(roughness)
+            {
+                case BHE.ConstructionRoughness.MediumRough:
+                    r.Value = "MediumRough";
+                    break;
+                case oM.Environment.Elements.ConstructionRoughness.MediumSmooth:
+                    r.Value = "MediumSmooth";
+                    break;
+                case oM.Environment.Elements.ConstructionRoughness.Rough:
+                    r.Value = "Rough";
+                    break;
+                case oM.Environment.Elements.ConstructionRoughness.Smooth:
+                    r.Value = "Smooth";
+                    break;
+                case oM.Environment.Elements.ConstructionRoughness.VeryRough:
+                    r.Value = "VeryRough";
+                    break;
+                case oM.Environment.Elements.ConstructionRoughness.VerySmooth:
+                    r.Value = "VerySmooth";
+                    break;
+            }
+
+            return r;
+        }
+
+        public static Absorptance ToGBXML(this BHE.Construction construction)
+        {
+            Absorptance a = new Absorptance();
+            a.Unit = construction.AbsorptanceUnit.ToGBXML();
+            a.Type = construction.AbsorptanceType.ToGBXML();
+            return a;
+        }
+
+        public static string ToGBXML(this BHE.AbsorptanceUnit aUnit)
+        {
+            switch(aUnit)
+            {
+                case BHE.AbsorptanceUnit.Fraction:
+                    return "Fraction";
+                case BHE.AbsorptanceUnit.Percent:
+                    return "Percent";
+                default: return "Fraction";
+            }
+        }
+
+        public static string ToGBXML(this BHE.AbsorptanceType aType)
+        {
+            switch(aType)
+            {
+                case BHE.AbsorptanceType.ExtIR:
+                    return "ExtIR";
+                case BHE.AbsorptanceType.ExtSolar:
+                    return "ExtSolar";
+                case BHE.AbsorptanceType.ExtTotal:
+                    return "ExtTotal";
+                case BHE.AbsorptanceType.ExtVisible:
+                    return "ExtVisible";
+                case BHE.AbsorptanceType.IntIR:
+                    return "IntIR";
+                case BHE.AbsorptanceType.IntSolar:
+                    return "IntSolar";
+                case BHE.AbsorptanceType.IntTotal:
+                    return "IntTotal";
+                case BHE.AbsorptanceType.IntVisible:
+                    return "IntVisible";
+                default:
+                    return "ExtIR";
+            }
+        }
+
+        public static Material ToGBXML(this BH.oM.Environment.Materials.Material material)
+        {
+            Material m = new Material();
+            if (material == null || material.MaterialProperties == null) return m;
+
+            m.ID = "material-" + material.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
+            m.Name = material.Name;
+            m.RValue = (material.Thickness / material.MaterialProperties.Conductivity);
+            m.Thickness = material.Thickness;
+            m.Conductivity = material.MaterialProperties.Conductivity;
+            m.Density = material.MaterialProperties.Density;
+            m.SpecificHeat = material.MaterialProperties.SpecificHeat;
+
+            return m;
+        }
+
+        public static Layer ToGBXML(this List<BH.oM.XML.Material> materials)
+        {
+            Layer l = new Layer();
+
+            l.ID = "layer-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+
+            List<MaterialId> materialIDs = new List<MaterialId>();
+            foreach(Material m in materials)
+            {
+                MaterialId id = new MaterialId();
+                id.MaterialIDRef = m.ID;
+                materialIDs.Add(id);
+            }
+
+            l.MaterialID = materialIDs.ToArray();
+
+            return l;
+        }
     }
 }

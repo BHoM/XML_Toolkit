@@ -379,7 +379,7 @@ namespace BH.Adapter.XML
             foreach (BHP.BuildingElementProperties prop in props)
             {
                 //Construction: Add all unique constructions to the xml file
-                BH.oM.XML.Construction xmlConstruction = BH.Engine.XML.Convert.ToGBXML(prop);
+                /*BH.oM.XML.Construction xmlConstruction = BH.Engine.XML.Convert.ToGBXML(prop);
                 xmlConstruction.ID = BH.Engine.XML.Query.IdRef(prop);
                 xmlConstruction.LayerID.LayerIDRef = BH.Engine.XML.Query.IdRef(prop);
                 xmlConstructions.Add(xmlConstruction);
@@ -387,7 +387,7 @@ namespace BH.Adapter.XML
                 //Layers: Add all unique layers to the xml file
                 BH.oM.XML.Layer xmlLayer = new BH.oM.XML.Layer();
                 xmlLayer.ID = BH.Engine.XML.Query.IdRef(prop);
-                xmlLayer.MaterialID.MaterialIDRef = BH.Engine.XML.Query.IdRef(prop);
+                //xmlLayer.MaterialID.MaterialIDRef = BH.Engine.XML.Query.IdRef(prop);
                 xmlLayers.Add(xmlLayer);
 
                 //Materials: Add all unique materials to the xml file
@@ -396,7 +396,7 @@ namespace BH.Adapter.XML
                 xmlMaterial.Name = prop.Name.ToString();
                 xmlMaterial.Thickness = 0.01; //TODO: get the real thickness. At the moment we use this value because we need a thickess. Otherwise we end up with errors. 
                 //xmlMaterial.Conductivity = prop.ThermalConductivity;
-                xmlMaterials.Add(xmlMaterial);
+                xmlMaterials.Add(xmlMaterial);*/
             }
 
             gbx.Construction = xmlConstructions.ToArray();

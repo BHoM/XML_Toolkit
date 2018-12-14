@@ -11,5 +11,8 @@ namespace BH.oM.XML
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "WPerSquareMeterK";
+
+        [XmlText]
+        public string Value { get; set; } = "0.0";
     }
 }
