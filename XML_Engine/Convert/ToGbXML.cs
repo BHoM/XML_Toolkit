@@ -212,7 +212,7 @@ namespace BH.Engine.XML
             BHE.Construction construction = buildingElement.BuildingElementProperties.Construction;
             if (construction == null) return xmlConstruction;
 
-            xmlConstruction.ID = "conc-" + construction.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
+            xmlConstruction.ID = buildingElement.IdRef();
             xmlConstruction.Absorptance = construction.ToGBXML();
             xmlConstruction.Name = construction.Name;
             xmlConstruction.Roughness = construction.Roughness.ToGBXML();

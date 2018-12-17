@@ -34,12 +34,14 @@ namespace BH.Engine.XML
             //Originally we used the GUID and got the combinations below - but each name is unique so each returned string ID will be unique anyway - but the following comment line is being left in as a nice little factoid for the next person... (//TD)
             //Using the first 8 digits of the GUID gives 218,340,105,584,896 possible combinations of IDs, so the liklihood of 2 different GUIDs producing the same result from this function is fairly small...
 
-            if (bHoMprop == null) return "-1"; //Return an error (-1) if the property isn't really here
+            if (bHoMprop == null || bHoMprop.Construction == null) return "-1"; //Return an error (-1) if the property isn't really here
 
-            String rtnID = bHoMprop.Name[0].ToString();
+            if (bHoMprop.Construction.Name == "") return null;
 
-            for (int x = 1; x < bHoMprop.Name.Length; x++)
-                rtnID += ((int)bHoMprop.Name[x]).ToString();
+            String rtnID = bHoMprop.Construction.Name[0].ToString();
+
+            for (int x = 1; x < bHoMprop.Construction.Name.Length; x++)
+                rtnID += ((int)bHoMprop.Construction.Name[x]).ToString();
 
             return rtnID;
         }

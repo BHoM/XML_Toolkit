@@ -175,7 +175,7 @@ namespace BH.Adapter.XML
                     xmlSrf.CADObjectID = BH.Engine.XML.Query.CadObjectId(be, exportType);
 
                 if(exportType == ExportType.gbXMLIES)
-                    xmlSrf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(be); //Only for IES!
+                    xmlSrf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(be); ; //Only for IES!
 
                 RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGBXML(be);
                 PlanarGeometry plGeo = new PlanarGeometry();
