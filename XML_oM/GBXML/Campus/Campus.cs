@@ -11,7 +11,7 @@ namespace BH.oM.XML
     public class Campus : GBXMLObject
     {
         [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = Guid.NewGuid().ToString().Replace("-", "");
+        public string ID { get; set; } = "C-" + Guid.NewGuid().ToString().Replace("-", "");
         [XmlElement("Location")]
         public Location Location { get; set; } = new Location();
         [XmlElement("Building")]

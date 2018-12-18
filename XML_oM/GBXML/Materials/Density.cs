@@ -8,10 +8,10 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class OAFlowPerPerson : GBXMLObject
+    public class Density : GBXMLObject
     {
         [XmlAttribute("unit")]
-        public string Unit { get; set; } = "LPerSec";
+        public string Unit { get; set; } = "KgPerCubicM";
 
         [XmlText]
         public string Value { get; set; } = "0";

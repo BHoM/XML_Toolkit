@@ -13,5 +13,7 @@ namespace BH.oM.XML
         public string Unit { get; set; } = "Fraction";
         [XmlAttribute("type")]
         public string Type { get; set; } = "ExtIR";
+        [XmlText]
+        public string Value { get; set; } = "0";
     }
 }
