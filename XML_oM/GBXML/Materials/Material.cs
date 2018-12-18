@@ -15,14 +15,14 @@ namespace BH.oM.XML
         [XmlElement("Name")]
         public string Name { get; set; } = "Material";
         [XmlElement("R-value")]
-        public double RValue { get; set; } = 0;
+        public RValue RValue { get; set; } = new RValue();
         [XmlElement("Thickness")]
         public double Thickness { get; set; } = 0.001;
         [XmlElement("Conductivity")]
-        public double Conductivity { get; set; } = 0;
+        public Conductivity Conductivity { get; set; } = new Conductivity();
         [XmlElement("Density")]
-        public double Density { get; set; } = 0;
+        public Density Density { get; set; } = new Density();
         [XmlElement("SpecificHeat")]
-        public double SpecificHeat { get; set; } = 0;
+        public SpecificHeat SpecificHeat { get; set; } = new SpecificHeat();
     }
 }

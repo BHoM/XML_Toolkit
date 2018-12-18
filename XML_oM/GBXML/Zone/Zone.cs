@@ -12,7 +12,7 @@ namespace BH.oM.XML
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "ZoneID";
-        [XmlElement("AirChangesperHour")]
+        [XmlElement("AirChangesPerHour")]
         public double AirChangesPerHour { get; set; } = 0;
         [XmlElement("OAFlowPerArea")]
         public OAFlowPerArea OAFlowPerArea { get; set; } = new OAFlowPerArea();

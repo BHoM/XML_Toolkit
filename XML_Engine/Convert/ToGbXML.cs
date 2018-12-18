@@ -257,6 +257,7 @@ namespace BH.Engine.XML
             Absorptance a = new Absorptance();
             a.Unit = construction.AbsorptanceUnit.ToGBXML();
             a.Type = construction.AbsorptanceType.ToGBXML();
+            a.Value = construction.AbsorptanceValue.ToString();
             return a;
         }
 
@@ -302,13 +303,17 @@ namespace BH.Engine.XML
             Material m = new Material();
             if (material == null || material.MaterialProperties == null) return m;
 
+            double rValue = Math.Round((material.Thickness / material.MaterialProperties.Conductivity), 3);
+            if (double.IsInfinity(rValue))
+                rValue = -1; //Error
+
             m.ID = "material-" + material.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
             m.Name = material.Name;
-            m.RValue = (material.Thickness / material.MaterialProperties.Conductivity);
-            m.Thickness = material.Thickness;
-            m.Conductivity = material.MaterialProperties.Conductivity;
-            m.Density = material.MaterialProperties.Density;
-            m.SpecificHeat = material.MaterialProperties.SpecificHeat;
+            m.RValue.Value = rValue.ToString();
+            m.Thickness = Math.Round(material.Thickness, 3);
+            m.Conductivity.Value = Math.Round(material.MaterialProperties.Conductivity, 3).ToString();
+            m.Density.Value = material.MaterialProperties.Density.ToString();
+            m.SpecificHeat.Value = material.MaterialProperties.SpecificHeat.ToString();
 
             return m;
         }
