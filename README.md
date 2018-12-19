@@ -1,22 +1,19 @@
 <img src="https://raw.githubusercontent.com/BHoM/documentation/master/wiki/images/XML_Toolkit/XML_Toolkit_01.png?token=AY52hkjdBCzVZ2mKV9KlejdAkoORD2pmks5cIrYCwA%3D%3D" height= 150>  
 
-### Welcome to gbXML_Toolkit :notes:
+### Welcome to XML_Toolkit :notes:
 
-gbXML is an industry supported schema for sharing building information between wide range of building simulatio software tools.  
-gbXML eliminates the need to re-enter the same building data and informatin over and over again into multiple building analysis tools.
+The Green Building XML schema (gbXML) is an open schema developed to facilitate transfer of building data stored in Building Information Models (BIM) to engineering analysis tools. gbXML eliminates the need to re-enter the same building data and information over and over again into multiple building analysis tools. gbXML is being integrated into a range of software CAD and engineering tools and supported by leading 3D BIM vendors. Please find out more about gbXML here: http://www.gbxml.org/
 
-XML_Toolkit helps you to generate cleaner and better quality of gbXML files.
+XML_Toolkit helps by generating cleaner and better quality gbXML files.
 
-The Green Building XML schema (gbXML) is an open schema developed to facilitate transfer of building data stored in Building Information Models (BIM) to engineering analysis tools. gbXML is being integrated into a range of software CAD and engineering tools and supported by leading 3D BIM vendors. 
-Please find out more about schema XML_Toolkit http://www.gbxml.org/
-
-**Check [Wiki](https://github.com/BHoM/XML_Toolkit/wiki) to get started** with your journey regardless if you are MEP engineer, Architect or Energy modeler using Grasshopper, DynamoBIM or Excel.
+Anyone can use XML_Toolkit, regardless of experience using Grasshopper, DynamoBIM or Excel or background as an MEP/Building Physics engineer or otherwise. To get started, **see guidance on the [Wiki](https://github.com/BHoM/XML_Toolkit/wiki) page.**
+If you have any queries, feel free to contact any of the those accredited below for further guidance. 
 
 ### Contribute :v: ###
-Tas_Toolkit is a BuroHappold open-source project and will not be anything special without its community.  You can submit your own code to the BHoM project via a Github [pull request](https://help.github.com/articles/using-pull-requests).
+XML_Toolkit is a BuroHappold open-source project and will thrive with contribution from the wider community.  You can submit your own code to the BHoM project via a Github [pull request](https://help.github.com/articles/using-pull-requests).
 
 ### License ###
-Tas_Toolkit is licensed under the Apache License. Tas_Toolkit also uses a number of third party libraries, some with different licenses.
+XML_Toolkit is licensed under the Apache License. XML_Toolkit also uses a number of third party libraries, some with different licenses.
 
 ### :clap: Credits: ###
 [Michal Dengusiak](https://github.com/michaldengusiak)  
