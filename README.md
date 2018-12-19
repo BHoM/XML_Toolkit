@@ -10,7 +10,7 @@ Anyone can use XML_Toolkit, regardless of experience using Grasshopper, DynamoBI
 If you have any queries, feel free to contact any of the those accredited below for further guidance. 
 
 ### Contribute :v: ###
-XML_Toolkit is a BuroHappold open-source project and will thrive with contribution from the wider community.  You can submit your own code to the BHoM project via a Github [pull request](https://help.github.com/articles/using-pull-requests).
+XML_Toolkit is an open-source project and will thrive with contribution from the wider community.  You can submit your own code to the BHoM project via a Github [pull request](https://help.github.com/articles/using-pull-requests).
 
 ### License ###
 XML_Toolkit is licensed under the GNU LGPL v3.0 License (available [here](https://www.gnu.org/licenses/lgpl-3.0.html)). XML_Toolkit also uses a number of third party libraries, some with different licenses.
