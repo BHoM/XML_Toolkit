@@ -13,7 +13,7 @@ If you have any queries, feel free to contact any of the those accredited below 
 XML_Toolkit is a BuroHappold open-source project and will thrive with contribution from the wider community.  You can submit your own code to the BHoM project via a Github [pull request](https://help.github.com/articles/using-pull-requests).
 
 ### License ###
-XML_Toolkit is licensed under the Apache License. XML_Toolkit also uses a number of third party libraries, some with different licenses.
+XML_Toolkit is licensed under the GNU LGPL v3.0 License (available [here](https://www.gnu.org/licenses/lgpl-3.0.html). XML_Toolkit also uses a number of third party libraries, some with different licenses.
 
 ### :clap: Credits: ###
 [Michal Dengusiak](https://github.com/michaldengusiak)  
