@@ -37,7 +37,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static DocumentBuilder DocumentBuilder(List<Building> building = null, List<List<BuildingElement>> elementsAsSpaces = null, List<BuildingElement> shadingElements = null, List<Space> spaces = null, List<BH.oM.Architecture.Elements.Level> levels = null, List<BuildingElement> openings = null)
+        public static DocumentBuilder DocumentBuilder(List<Building> building = default(List<Building>), List<List<BuildingElement>> elementsAsSpaces = default(List<List<BuildingElement>>), List<BuildingElement> shadingElements = default(List<BuildingElement>), List<Space> spaces = default(List<Space>), List<BH.oM.Architecture.Elements.Level> levels = default(List<BH.oM.Architecture.Elements.Level>), List<BuildingElement> openings = default(List<BuildingElement>))
         {
             return new DocumentBuilder
             {
