@@ -46,7 +46,11 @@ Then build as many User Interface Repositories as you like:
 
 You are good to go! 
 
+## XML_Toolkit :notes:
 
+XML_Toolkit is set up to help you by generating cleaner and better quality gbXML files. The Green Building XML schema (gbXML) is an open schema developed to facilitate transfer of building data stored in Building Information Models (BIM) to engineering analysis tools. gbXML eliminates the need to re-enter the same building data and information over and over again into multiple building analysis tools. gbXML is being integrated into a range of software CAD and engineering tools and supported by leading 3D BIM vendors. Please find out more about gbXML here: http://www.gbxml.org/
+
+To find out more about XML_Toolkit and get started, **see guidance on the [XML_Toolkit Wiki](https://github.com/BHoM/XML_Toolkit/wiki) page.**
 
 ## Want to contribute? ##
 
