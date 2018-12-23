@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/BHoM/documentation/master/wiki/images/XML_Toolkit/XML_Toolkit_01.png?token=AY52hkjdBCzVZ2mKV9KlejdAkoORD2pmks5cIrYCwA%3D%3D" height= 150>  
 
-## Welcome to XML_Toolkit :notes:
+## Welcome to XML_Toolkit
 
 
 # BHoM
