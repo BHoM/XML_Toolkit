@@ -1,7 +1,12 @@
-[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)   
+
+<img src="https://raw.githubusercontent.com/BHoM/documentation/master/wiki/images/XML_Toolkit/XML_Toolkit_01.png?token=AY52hkjdBCzVZ2mKV9KlejdAkoORD2pmks5cIrYCwA%3D%3D" height= 150>  
+
+## Welcome to XML_Toolkit :notes:
+
+
 # BHoM
 
-A great place to start is reading our Wiki [here](https://github.com/BHoM/documentation/wiki) including pages like the [Structure of the BHoM](https://github.com/BHoM/documentation/wiki/Structure-of-the-BHoM) and [Using the BHoM](https://github.com/BHoM/documentation/wiki/Using-the-BHoM).
 
 ## Quick start ##
 
@@ -52,10 +57,16 @@ XML_Toolkit is set up to help you by generating cleaner and better quality gbXML
 
 To find out more about XML_Toolkit and get started, **see guidance on the [XML_Toolkit Wiki](https://github.com/BHoM/XML_Toolkit/wiki) page.**
 
+### :clap: XML_Toolkit Credits: ###
+[Michal Dengusiak](https://github.com/michaldengusiak)  
+[Fraser Greenroyd](https://github.com/FraserGreenroyd)   
+[Maria Tjader](https://github.com/mariatjader)   
+[Sofia Malmsten](https://github.com/SofiaMalmsten)    
+[Victoria Beardow](https://github.com/vbeardow)   
+
 ## Want to contribute? ##
 
 BHoM is an open-source project and would be nothing without its community. Take a look at our contributing guidelines and tips [here](https://github.com/BHoM/BHoM/blob/master/CONTRIBUTING.md).
-
 
 ## Licence ##
 
