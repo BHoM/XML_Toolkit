@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -39,36 +39,5 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static BHE.BuildingElement AdjacentError(this BHE.BuildingElement bHoMBuildingElement)
-        {
-            /*if (bHoMBuildingElement == null)
-                return null;
-
-            BHE.BuildingElement buildingElement = null;
-
-            string type = bHoMBuildingElement.ToGBXMLType();
-
-            if (!string.IsNullOrEmpty(type))
-            {
-                if (type.Contains("Shade") && bHoMBuildingElement.AdjacentSpaces.Count != 0)
-                    buildingElement = bHoMBuildingElement;
-
-                if ((type.Contains("Exterior") || type.Contains("Roof") || type.Contains("Raised") || type.Contains("Slab") || type.Contains("Underground") || type.Contains("Exposed")) && bHoMBuildingElement.AdjacentSpaces.Count != 1)
-                    buildingElement = bHoMBuildingElement;
-
-                if ((type.Contains("Interior") || type.Contains("Ceiling") || type.Contains("Air")) && bHoMBuildingElement.AdjacentSpaces.Count != 2)
-                    buildingElement = bHoMBuildingElement;
-
-                if (bHoMBuildingElement.AdjacentSpaces.Count > 2) //This should never happen. Maximum value is 2
-                    buildingElement = bHoMBuildingElement;
-
-            }
-
-            return buildingElement;*/
-            return null;
-
-
-            /***************************************************/
-        }
     }
 }
