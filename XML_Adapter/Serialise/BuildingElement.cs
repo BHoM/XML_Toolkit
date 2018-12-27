@@ -185,7 +185,7 @@ namespace BH.Adapter.XML
             //For serializing shade elements
             List<BuildingElement> buildingElements = inputElements.ToList();
 
-            foreach(BuildingElement be in buildingElements)
+            foreach (BuildingElement be in buildingElements)
             {
                 Surface xmlSrf = new Surface();
                 xmlSrf.Name = "Shade-" + gbx.Campus.Surface.Count.ToString();
@@ -196,7 +196,7 @@ namespace BH.Adapter.XML
                 if (be.BuildingElementProperties != null)
                     xmlSrf.CADObjectID = BH.Engine.XML.Query.CadObjectId(be, exportType);
 
-                if(exportType == ExportType.gbXMLIES)
+                if (exportType == ExportType.gbXMLIES)
                     xmlSrf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(be); ; //Only for IES!
 
                 RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGBXML(be);
@@ -210,6 +210,127 @@ namespace BH.Adapter.XML
 
                 gbx.Campus.Surface.Add(xmlSrf);
             }
+        }
+
+        public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, List<Level> levels, List<BuildingElement> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
+        {
+            //Building shell export - everything belongs to one space
+            List<BuildingElement> allElements = new List<BuildingElement>(inputElements.ToList());
+            allElements.AddRange(openings);
+
+            List<BuildingElement> usedBEs = new List<BuildingElement>();
+
+            List<BH.oM.XML.Construction> usedConstructions = new List<BH.oM.XML.Construction>();
+            List<BH.oM.XML.Material> usedMaterials = new List<Material>();
+            List<BH.oM.XML.Layer> usedLayers = new List<Layer>();
+
+            foreach (BuildingElement element in allElements)
+            {
+                //For each collection of BuildingElements that define a space, convert the panels to XML surfaces and add to the GBXML
+                List<Surface> spaceSurfaces = new List<Surface>();
+
+                if (usedBEs.Where(i => i.BHoM_Guid == element.BHoM_Guid).FirstOrDefault() != null) continue;
+
+                Surface srf = new Surface();
+                srf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
+                srf.SurfaceType = BH.Engine.XML.Convert.ToGBXMLType(element, null, exportType);
+
+                if (element.BuildingElementProperties != null)
+                    srf.CADObjectID = BH.Engine.XML.Query.CadObjectId(element, exportType);
+
+                srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
+                srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
+
+                if (exportType == ExportType.gbXMLIES)
+                    srf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(element);
+
+                RectangularGeometry srfGeom = BH.Engine.XML.Convert.ToGBXML(element);
+                PlanarGeometry plGeom = new PlanarGeometry();
+                plGeom.ID = "PlanarGeometry-" + element.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
+
+                // Ensure that all of the surface coordinates are listed in a counterclockwise order
+                // This is a requirement of GBXML Polyloop definitions 
+
+                Polyline pline = new Polyline() { ControlPoints = element.PanelCurve.IControlPoints() }; //TODO: Change to ToPolyline method
+                Polyline srfBound = new Polyline();
+
+                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, allElements))
+                {
+                    plGeom.PolyLoop = BH.Engine.XML.Convert.ToGBXML(pline.Flip());
+                    srfBound = pline.Flip();
+
+                    srfGeom.Tilt = Math.Round(BH.Engine.Environment.Query.Tilt(srfBound), 3);
+                    srfGeom.Azimuth = Math.Round(BH.Engine.Environment.Query.Azimuth(srfBound, Vector.YAxis), 3);
+
+                }
+                else
+                {
+                    plGeom.PolyLoop = BH.Engine.XML.Convert.ToGBXML(pline);
+                    srfBound = pline;
+                }
+
+                srf.PlanarGeometry = plGeom;
+                srf.RectangularGeometry = srfGeom;
+
+                //Adjacent Spaces
+                List<AdjacentSpaceId> adjIDs = new List<AdjacentSpaceId>();
+                AdjacentSpaceId adjId = new AdjacentSpaceId();
+                adjId.SpaceIDRef = "Space-BuildingShell";
+                adjIDs.Add(adjId);
+                srf.AdjacentSpaceID = adjIDs.ToArray();
+
+                //Openings
+                if (element.Openings.Count > 0)
+                    srf.Opening = Serialize(element.Openings, allElements, allElements, null, null, gbx, exportType).ToArray();
+
+                gbx.Campus.Surface.Add(srf);
+
+                usedBEs.Add(element);
+
+                if (exportType == ExportType.gbXMLIES)
+                {
+                    BH.oM.XML.Construction conc = element.ToGBXMLConstruction();
+                    BH.oM.XML.Construction test = usedConstructions.Where(y => y.ID == conc.ID).FirstOrDefault();
+                    if (test == null)
+                    {
+                        List<BH.oM.XML.Material> materials = new List<Material>();
+                        foreach (BH.oM.Environment.Materials.Material m in element.BuildingElementProperties.Construction.Materials)
+                            materials.Add(m.ToGBXML());
+
+                        BH.oM.XML.Layer layer = materials.ToGBXML();
+                        conc.LayerID.LayerIDRef = layer.ID;
+
+                        usedConstructions.Add(conc);
+                        usedLayers.Add(layer);
+                        usedMaterials.AddRange(materials);
+                    }
+                }
+
+                //Create the space in
+                BH.oM.XML.Space xmlSpace = new oM.XML.Space();
+                xmlSpace.Name = "BuildingShellSpace";
+                xmlSpace.ID = "Space-BuildingShell";
+                xmlSpace.CADObjectID = BH.Engine.XML.Query.CadObjectId(allElements);
+                xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(allElements).ToArray();
+                xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+                xmlSpace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(allElements, allElements);
+                xmlSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+                if (BH.Engine.Environment.Query.FloorGeometry(allElements) != null)
+                {
+                    xmlSpace.PlanarGeoemtry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(BH.Engine.Environment.Query.FloorGeometry(allElements));
+                    xmlSpace.Area = BH.Engine.Environment.Query.FloorGeometry(allElements).Area();
+                    xmlSpace.Volume = allElements.Volume();
+                }
+                Level spaceLevel = allElements.Level(levels);
+                if (spaceLevel != null)
+                    xmlSpace.BuildingStoreyIDRef = "Level-" + spaceLevel.Name.Replace(" ", "").ToLower();
+
+                gbx.Campus.Building[0].Space.Add(xmlSpace);
+            }
+
+            gbx.Construction = usedConstructions.ToArray();
+            gbx.Layer = usedLayers.ToArray();
+            gbx.Material = usedMaterials.ToArray();
         }
     }
 }

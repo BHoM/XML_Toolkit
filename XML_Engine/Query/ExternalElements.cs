@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BH.oM.XML;
 using BH.oM.Base;
-using BHE = BH.oM.Environment.Elements;
+using BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Properties;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
@@ -38,6 +38,14 @@ namespace BH.Engine.XML
         /***************************************************/
         /**** Public Methods                            ****/
         /***************************************************/
+        public static List<BuildingElement> ExternalElements(this List<List<BuildingElement>> elementsAsSpaces)
+        {
+            List<BuildingElement> externalElements = new List<BuildingElement>();
 
+            foreach(List<BuildingElement> space in elementsAsSpaces)
+                externalElements.AddRange(space.Where(x => x.AdjacentSpaces(elementsAsSpaces).Count == 1).ToList());
+
+            return externalElements;
+        }
     }
 }
