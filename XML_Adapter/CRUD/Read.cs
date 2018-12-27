@@ -51,7 +51,7 @@ namespace BH.Adapter.XML
 
         private List<Space> ReadSpaces(List<String> ids = null)
         {
-            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, FileName);
+            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, ProjectName);
             IEnumerable<IBHoMObject> bHoMObject = GBXMLDeserializer.Deserialize(gbx);
             return bHoMObject.Where(x => x is BHE.Elements.Space).Cast<Space>().ToList();
         }
@@ -60,7 +60,7 @@ namespace BH.Adapter.XML
 
         private List<Panel> ReadPanels(List<string> ids = null)
         {
-            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, FileName);
+            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, ProjectName);
             IEnumerable<IBHoMObject> bHoMObject = GBXMLDeserializer.Deserialize(gbx);
             return bHoMObject.Where(x => x is BHE.Elements.Panel).Cast<Panel>().ToList();
         }
