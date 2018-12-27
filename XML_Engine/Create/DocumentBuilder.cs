@@ -28,6 +28,9 @@ using System.Threading.Tasks;
 
 using BH.oM.Environment.Elements;
 using BH.oM.XML.Environment;
+using BH.oM.Base;
+using BH.oM.Architecture.Elements;
+using BH.Engine.Environment;
 
 namespace BH.Engine.XML
 {
@@ -47,6 +50,32 @@ namespace BH.Engine.XML
                 Levels = levels,
                 Openings = openings,
             };         
+        }
+
+        public static DocumentBuilder DocumentBuilder(List<IBHoMObject> objs)
+        {
+            List<BuildingElement> buildingElements = objs.BuildingElements();
+            List<Space> spaces = objs.Spaces();
+            List<Level> levels = objs.ConvertAll(x => (BHoMObject)x).Levels();
+            List<Building> buildings = objs.Buildings();
+
+            List<BuildingElement> openings = buildingElements.ElementsByType(BuildingElementType.Door);
+            openings.AddRange(buildingElements.ElementsByType(BuildingElementType.Rooflight));
+            openings.AddRange(buildingElements.ElementsByType(BuildingElementType.RooflightWithFrame));
+            openings.AddRange(buildingElements.ElementsByType(BuildingElementType.Window));
+            openings.AddRange(buildingElements.ElementsByType(BuildingElementType.WindowWithFrame));
+
+            List<BuildingElement> shadingElements = buildingElements.ShadingElements();
+
+            buildingElements = buildingElements.StripOpenings();
+
+            List<string> uniqueSpaceNames = buildingElements.UniqueSpaceNames();
+
+            List<List<BuildingElement>> elementsAsSpaces = buildingElements.BuildSpaces(uniqueSpaceNames);
+
+            elementsAsSpaces = elementsAsSpaces.MatchSpaces(spaces);
+
+            return DocumentBuilder(buildings, elementsAsSpaces, shadingElements, levels, openings);
         }
     }
 }
