@@ -37,7 +37,7 @@ namespace BH.Adapter.XML
     {
         protected override bool Create<T>(IEnumerable<T> objects, bool replaceAll = false)
         {
-            string fileName = FileName;
+            string fileName = ProjectName;
             switch(ExportType)
             {
                 case ExportType.gbXMLIES:
@@ -54,7 +54,7 @@ namespace BH.Adapter.XML
             GBXML gbx = new GBXML();
             if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
             {
-                XML.GBXMLSerializer.Serialize(objects, gbx, ExportType);
+                XML.GBXMLSerializer.Serialize(objects, gbx, ExportType, ExportDetail);
                 XMLWriter.Save(FilePath, fileName, gbx);
             }
 
@@ -72,27 +72,27 @@ namespace BH.Adapter.XML
 
         /***************************************************/
 
-        private bool Create(BHE.Elements.Space bHoMSpace, GBXML gbx, ExportType exportType)
+        private bool Create(BHE.Elements.Space bHoMSpace, GBXML gbx, ExportType exportType, ExportDetail exportDetail)
         {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMSpace as IBHoMObject }, gbx, exportType);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMSpace as IBHoMObject }, gbx, exportType, exportDetail);
 
             return true;
         }
 
         /***************************************************/
 
-        private bool Create(BHE.Elements.Building bHoMBuilding, GBXML gbx, ExportType exportType)
+        private bool Create(BHE.Elements.Building bHoMBuilding, GBXML gbx, ExportType exportType, ExportDetail exportDetail)
         {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuilding as IBHoMObject }, gbx, exportType);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuilding as IBHoMObject }, gbx, exportType, exportDetail);
 
             return true;
         }
 
         /***************************************************/
 
-        private bool Create(BHE.Elements.BuildingElement bHoMBuildingElement, GBXML gbx, ExportType exportType)
+        private bool Create(BHE.Elements.BuildingElement bHoMBuildingElement, GBXML gbx, ExportType exportType, ExportDetail exportDetail)
         {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElement as IBHoMObject }, gbx, exportType);
+            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElement as IBHoMObject }, gbx, exportType, exportDetail);
 
             return true;
         }

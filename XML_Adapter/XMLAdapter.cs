@@ -36,11 +36,12 @@ namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
-        public XMLAdapter(String xmlFileName = "BHoM_gbXML_Export", String xmlDirectoryPath = null, ExportType exportType = ExportType.gbXMLTAS)
+        public XMLAdapter(String projectName = "BHoM_gbXML_Export", String SaveDirectoryPath = null, ExportType exportType = ExportType.gbXMLTAS, ExportDetail exportDetail = ExportDetail.Full)
         {
-            FilePath = (xmlDirectoryPath == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : xmlDirectoryPath);
-            FileName = xmlFileName;
+            FilePath = (SaveDirectoryPath == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : SaveDirectoryPath);
+            ProjectName = projectName;
             ExportType = exportType;
+            ExportDetail = exportDetail;
 
             AdapterId = "XML_Adapter";
             Config.MergeWithComparer = false;   //Set to true after comparers have been implemented
@@ -65,7 +66,8 @@ namespace BH.Adapter.XML
         }
 
         private String FilePath { get; set; }
-        private String FileName { get; set; }
+        private String ProjectName { get; set; }
         private ExportType ExportType { get; set; }
+        private ExportDetail ExportDetail { get; set; }
     }
 }
