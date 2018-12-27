@@ -54,12 +54,34 @@ namespace BH.Adapter.XML
 
         public static void SerializeCollection(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, BH.oM.XML.GBXML gbx, ExportType exportType, ExportDetail exportDetail)
         {
+            switch(exportDetail)
+            {
+                case ExportDetail.Full:
+                    SerializeCollectionFull(documents, gbx, exportType);
+                    break;
+                case ExportDetail.BuildingShell:
+                    SerializeBuildingShell(documents, gbx, exportType);
+                    break;
+                case ExportDetail.IndividualSpaces:
+                    throw new NotImplementedException("We have not yet implemented the option to export each space individually. Please check back soon");
+                default:
+                    throw new NotImplementedException("That option has not been implemented");               
+            }
+        }
+
+        private static void SerializeCollectionFull(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, ExportType exportType)
+        {
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
                 Serialize(db.Levels, db.ElementsAsSpaces, gbx, exportType);
                 SerializeCollection(db.ElementsAsSpaces, db.Levels, db.Openings, gbx, exportType);
                 SerializeCollection(db.ShadingElements, gbx, exportType);
             }
+        }
+
+        private static void SerializeBuildingShell(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, ExportType exportType)
+        {
+
         }
     }
 
