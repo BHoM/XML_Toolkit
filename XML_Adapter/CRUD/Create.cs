@@ -60,41 +60,5 @@ namespace BH.Adapter.XML
 
             return true;
         }
-
-        /***************************************************/
-
-        /*private bool Create(BHE.Elements.Panel bHoMPanel, BHX.GBXML gbx, bool isIES)
-        {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMPanel as IBHoMObject }, gbx, isIES);
-
-            return true;
-        }*/
-
-        /***************************************************/
-
-        private bool Create(BHE.Elements.Space bHoMSpace, GBXML gbx, ExportType exportType, ExportDetail exportDetail)
-        {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMSpace as IBHoMObject }, gbx, exportType, exportDetail);
-
-            return true;
-        }
-
-        /***************************************************/
-
-        private bool Create(BHE.Elements.Building bHoMBuilding, GBXML gbx, ExportType exportType, ExportDetail exportDetail)
-        {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuilding as IBHoMObject }, gbx, exportType, exportDetail);
-
-            return true;
-        }
-
-        /***************************************************/
-
-        private bool Create(BHE.Elements.BuildingElement bHoMBuildingElement, GBXML gbx, ExportType exportType, ExportDetail exportDetail)
-        {
-            XML.GBXMLSerializer.Serialize(new List<IBHoMObject> { bHoMBuildingElement as IBHoMObject }, gbx, exportType, exportDetail);
-
-            return true;
-        }
     }
 }
