@@ -81,7 +81,12 @@ namespace BH.Adapter.XML
 
         private static void SerializeBuildingShell(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, ExportType exportType)
         {
-
+            foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
+            {
+                Serialize(db.Levels, db.ElementsAsSpaces, gbx, exportType);
+                SerializeCollection(db.ElementsAsSpaces.ExternalElements(), db.Levels, db.Openings, gbx, exportType);
+                SerializeCollection(db.ShadingElements, gbx, exportType);
+            }
         }
     }
 
