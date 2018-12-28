@@ -214,8 +214,12 @@ namespace BH.Adapter.XML
 
         public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, List<Level> levels, List<BuildingElement> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
+            List<List<BuildingElement>> elementsAsSpaces = new List<List<BuildingElement>>();
+            elementsAsSpaces.Add(inputElements.ToList());
+
+            SerializeCollection(elementsAsSpaces, levels, openings, gbx, exportType);
             //Building shell export - everything belongs to one space
-            List<BuildingElement> allElements = new List<BuildingElement>(inputElements.ToList());
+            /*List<BuildingElement> allElements = new List<BuildingElement>(inputElements.ToList());
             allElements.AddRange(openings);
 
             List<BuildingElement> usedBEs = new List<BuildingElement>();
@@ -223,6 +227,9 @@ namespace BH.Adapter.XML
             List<BH.oM.XML.Construction> usedConstructions = new List<BH.oM.XML.Construction>();
             List<BH.oM.XML.Material> usedMaterials = new List<Material>();
             List<BH.oM.XML.Layer> usedLayers = new List<Layer>();
+
+            List<List<BuildingElement>> elementsAsSpaces = new List<List<BuildingElement>>();
+            elementsAsSpaces.Add(inputElements.ToList());
 
             foreach (BuildingElement element in allElements)
             {
@@ -281,7 +288,7 @@ namespace BH.Adapter.XML
 
                 //Openings
                 if (element.Openings.Count > 0)
-                    srf.Opening = Serialize(element.Openings, allElements, allElements, null, null, gbx, exportType).ToArray();
+                    srf.Opening = Serialize(element.Openings, allElements, allElements, elementsAsSpaces, elementsAsSpaces.Spaces(), gbx, exportType).ToArray();
 
                 gbx.Campus.Surface.Add(srf);
 
@@ -330,7 +337,7 @@ namespace BH.Adapter.XML
 
             gbx.Construction = usedConstructions.ToArray();
             gbx.Layer = usedLayers.ToArray();
-            gbx.Material = usedMaterials.ToArray();
+            gbx.Material = usedMaterials.ToArray();*/
         }
     }
 }
