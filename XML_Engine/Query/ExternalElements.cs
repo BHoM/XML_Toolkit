@@ -47,5 +47,11 @@ namespace BH.Engine.XML
 
             return externalElements;
         }
+
+        public static bool IsExternal(this List<BuildingElement> space, List<List<BuildingElement>> elementsAsSpaces)
+        {
+            //Check whether the space contains at least one external element
+            return (space.Where(x => x.AdjacentSpaces(elementsAsSpaces).Count == 1).ToList().Count > 0);
+        }
     }
 }
