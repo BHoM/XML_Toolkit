@@ -37,7 +37,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string CadObjectId(this BHE.BuildingElement bHoMBuildingElement, ExportType exportType)
+        public static string CADObjectID(this BHE.BuildingElement bHoMBuildingElement, ExportType exportType = ExportType.gbXMLTAS)
         {
             string CADObjectID = "";
             string revitElementID = "";
@@ -55,6 +55,25 @@ namespace BH.Engine.XML
 
                 CADObjectID = familyName + ": " + bHoMBuildingElement.BuildingElementProperties.Name + " [" + revitElementID + "]";
             }
+            return CADObjectID;
+        }
+
+        public static string CADObjectID(this List<BHE.BuildingElement> space)
+        {
+            string CADObjectID = "";
+
+            BHE.BuildingElement spaceCustomData = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault();
+
+            if (spaceCustomData == null) return CADObjectID;
+
+            Dictionary<string, object> data = spaceCustomData.CustomData["Space_Custom_Data"] as Dictionary<string, object>;
+
+            if (spaceCustomData != null)
+            {
+                if (data.ContainsKey("Revit_elementId"))
+                    CADObjectID = data["Revit_elementId"].ToString();
+            }
+
             return CADObjectID;
         }
 

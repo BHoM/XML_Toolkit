@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -22,29 +22,42 @@
 
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-using BH.oM.Base;
+using BHE = BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Properties;
+using BHX = BH.oM.XML;
+using BHG = BH.oM.Geometry;
 
-namespace BH.oM.XML
+using BH.Engine.Geometry;
+using BH.Engine.Environment;
+
+namespace BH.Engine.XML
 {
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Opening : GBXMLObject
+    public static partial class Convert
     {
-        [XmlAttribute(AttributeName = "constructionConstructionID")]
-        public string ConstructionConstructionID { get; set; } = "";
-        [XmlAttribute(AttributeName = "openingType")]
-        public string OpeningType { get; set; } = "FixedWindow";
-        [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "OpeningID";
-        [XmlElement("RectangularGeometry")]
-        public RectangularGeometryOpenings RectangularGeometry { get; set; } = new RectangularGeometryOpenings();
-        [XmlElement("PlanarGeometry")]
-        public PlanarGeometry PlanarGeometry { get; set; } = new PlanarGeometry();
-        [XmlElement("CADObjectId")]
-        public string CADObjectID { get; set; } = "WinInst: SIM_EXT_GLZ [xxxxxx]";
-        [XmlElement("Name")]
-        public string Name { get; set; } = "Opening";
+        public static string ToGBXML(this BHE.AbsorptanceUnit aUnit)
+        {
+            switch (aUnit)
+            {
+                case BHE.AbsorptanceUnit.Fraction:
+                    return "Fraction";
+                case BHE.AbsorptanceUnit.Percent:
+                    return "Percent";
+                default: return "Fraction";
+            }
+        }
+
+        public static BHE.AbsorptanceUnit ToBHoMAbsorptanceUnit(this string aUnit)
+        {
+            if (aUnit.Equals("Fraction"))
+                return BHE.AbsorptanceUnit.Fraction;
+            if (aUnit.Equals("Percent"))
+                return BHE.AbsorptanceUnit.Percent;
+
+            return BHE.AbsorptanceUnit.Undefined;
+        }
     }
 }

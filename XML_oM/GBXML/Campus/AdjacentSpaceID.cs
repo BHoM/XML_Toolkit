@@ -32,7 +32,7 @@ namespace BH.oM.XML
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class AdjacentSpaceId : GBXMLObject
     {
-        [XmlAttribute(AttributeName = "spaceIdRef")]
+        [XmlAttribute(AttributeName = "spaceIDRef")]
         public string SpaceIDRef { get; set; } = "AdjacentSpaceID";
     }
 }

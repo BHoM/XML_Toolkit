@@ -32,11 +32,11 @@ namespace BH.oM.XML
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Space : GBXMLObject
     {
-        [XmlAttribute(AttributeName = "zoneIdRef")]
+        [XmlAttribute(AttributeName = "zoneIDRef")]
         public string ZoneIDRef { get; set; } = "ZoneID";
         [XmlAttribute(AttributeName = "conditionType")]
         public string ConditionType { get; set; } = "Unconditioned";
-        [XmlAttribute(AttributeName = "buildingStoreyIdRef")]
+        [XmlAttribute(AttributeName = "buildingStoreyIDRef")]
         public string BuildingStoreyIDRef { get; set; } = "StoreyID";
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "SpaceID";

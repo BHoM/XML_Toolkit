@@ -39,7 +39,7 @@ namespace BH.Adapter.XML
             List<Building> buildings = inputBuildings.ToList();
             for(int x = 0; x < buildings.Count; x++)
             {
-                gbx.Campus.Location = BH.Engine.XML.Convert.ToGBXML(buildings[x]);
+                gbx.Campus.Location = BH.Engine.XML.Convert.ToGBXMLLocation(buildings[x]);
 
                 if (buildings[x].CustomData.ContainsKey("Place Name"))
                     gbx.Campus.Building[x].StreetAddress = (buildings[x].CustomData["Place Name"]).ToString();

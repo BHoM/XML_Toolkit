@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -25,15 +25,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using BHE = BH.oM.Environment.Elements;
+using BHX = BH.oM.XML;
+using BHG = BH.oM.Geometry;
+
+using BH.Engine.Geometry;
+using BH.Engine.Environment;
+
 using BH.oM.XML.Enums;
 
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        /***************************************************/
-
         public static string ToGBXMLType(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> adjacentSpaces = null, ExportType exportType = ExportType.gbXMLTAS)
         {
             if (adjacentSpaces == null) adjacentSpaces = new List<oM.Environment.Elements.Space>();
@@ -50,7 +55,7 @@ namespace BH.Engine.XML
                     object aObject = bHoMBuildingElement.BuildingElementProperties.CustomData["SAM_BuildingElementType"];
 
                     if (aObject != null)
-                        type = ToGBXMLSurfaceType(aObject.ToString()); //modifies the string
+                        type = ToGBXMLType(aObject.ToString()); //modifies the string
 
                     if ((exportType == ExportType.gbXMLIES && type.Contains("Window") || bHoMBuildingElement.BuildingElementProperties.BuildingElementType == BHE.BuildingElementType.Window) && bHoMBuildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
                         type = "NonSlidingDoor";
@@ -75,9 +80,7 @@ namespace BH.Engine.XML
             return type;
         }
 
-        /***************************************************/
-        //String modification for surface types
-        public static string ToGBXMLSurfaceType(this string type)
+        public static string ToGBXMLType(this string type)
         {
             switch (type)
             {
@@ -155,7 +158,5 @@ namespace BH.Engine.XML
                     return "Air"; //Adiabatic
             }
         }
-
-        /***************************************************/
     }
 }

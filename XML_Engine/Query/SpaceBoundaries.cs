@@ -67,7 +67,7 @@ namespace BH.Engine.XML
 
                 //Get the id from the referenced panel
                 string refPanel = "Panel-" + be.FindIndex(x => x.BHoM_Guid.ToString() == bHoMSpace.BuildingElements[i].BHoM_Guid.ToString()).ToString();
-                spaceBound[i].SurfaceIDRef = refPanel;
+                spaceBound[i].SurfaceConstructionID = refPanel;
             }
 
             return spaceBound;*/
@@ -99,7 +99,7 @@ namespace BH.Engine.XML
                 boundaries[x] = new SpaceBoundary { PlanarGeometry = planarGeom };
 
                 //Get the ID from the referenced element
-                boundaries[x].SurfaceIDRef = "Panel-" + uniqueBEs.FindIndex(i => i.BHoM_Guid == spaceBoundaries[x].BHoM_Guid).ToString();
+                boundaries[x].SurfaceConstructionID = "Panel-" + uniqueBEs.FindIndex(i => i.BHoM_Guid == spaceBoundaries[x].BHoM_Guid).ToString();
             }
 
             return boundaries;

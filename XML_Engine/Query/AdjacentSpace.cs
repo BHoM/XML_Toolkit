@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -23,13 +23,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.XML;
-using BH.oM.Base;
+using System.Text;
+using System.Threading.Tasks;
+
 using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Properties;
-using BHG = BH.oM.Geometry;
-using BH.Engine.Geometry;
-using BH.Engine.Environment;
+using BHX = BH.oM.XML;
 
 namespace BH.Engine.XML
 {
@@ -39,39 +37,11 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string IdRef(this BHE.BuildingElement bHoMBuildingElement)
+        public static BHX.AdjacentSpaceId AdjacentSpaceID(this BHE.Space space)
         {
-            if (bHoMBuildingElement == null)
-                return "-1"; //Return an error (-1)
-
-            return bHoMBuildingElement.BuildingElementProperties.IdRef();
+            BHX.AdjacentSpaceId adjId = new BHX.AdjacentSpaceId();
+            adjId.SpaceIDRef = "Space-" + space.Number + "-" + space.Name;
+            return adjId;
         }
-
-        /***************************************************/
-
-        public static string IdRef(this BHP.BuildingElementProperties bHoMprop)
-        {
-            //Method for constructing an ID based on the name of the property - this allows the same string ID to be generated for the same property for consistency in finding string IDs
-
-            //Originally we used the GUID and got the combinations below - but each name is unique so each returned string ID will be unique anyway - but the following comment line is being left in as a nice little factoid for the next person... (//TD)
-            //Using the first 8 digits of the GUID gives 218,340,105,584,896 possible combinations of IDs, so the liklihood of 2 different GUIDs producing the same result from this function is fairly small...
-
-            if (bHoMprop == null || bHoMprop.Construction == null) return "-1"; //Return an error (-1) if the property isn't really here
-
-            if (bHoMprop.Construction.Name == "") return null;
-
-            String rtnID = bHoMprop.Construction.Name[0].ToString();
-
-            for (int x = 1; x < bHoMprop.Construction.Name.Length; x++)
-                rtnID += ((int)bHoMprop.Construction.Name[x]).ToString();
-
-            return rtnID;
-        }
-
-        /***************************************************/
     }
 }
-
-
-
-

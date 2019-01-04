@@ -76,52 +76,15 @@ namespace BH.Adapter.XML
 
                     List<BH.oM.Environment.Elements.Space> adjacentSpaces = BH.Engine.Environment.Query.AdjacentSpaces(space[x], elementsAsSpaces, spaces);
 
-                    Surface srf = new Surface();
+                    Surface srf = space[x].ToGBXML(adjacentSpaces, space);
+                    srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
                     srf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
-                    srf.SurfaceType = BH.Engine.XML.Convert.ToGBXMLType(space[x], adjacentSpaces, exportType);
 
                     if (space[x].BuildingElementProperties != null)
-                        srf.CADObjectID = BH.Engine.XML.Query.CadObjectId(space[x], exportType);
-
-                    srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
-                    srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
+                        srf.CADObjectID = BH.Engine.XML.Query.CADObjectID(space[x], exportType);
 
                     if (exportType == ExportType.gbXMLIES)
-                        srf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(space[x]);
-
-                    RectangularGeometry srfGeom = BH.Engine.XML.Convert.ToGBXML(space[x]);
-                    PlanarGeometry plGeom = new PlanarGeometry();
-                    plGeom.ID = "PlanarGeometry-" + x.ToString() + "-" + space[x].BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
-
-                    // Ensure that all of the surface coordinates are listed in a counterclockwise order
-                    // This is a requirement of GBXML Polyloop definitions 
-
-                    Polyline pline = new Polyline() { ControlPoints = space[x].PanelCurve.IControlPoints() }; //TODO: Change to ToPolyline method
-                    Polyline srfBound = new Polyline();
-
-                    if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, space))
-                    {
-                        plGeom.PolyLoop = BH.Engine.XML.Convert.ToGBXML(pline.Flip());
-                        srfBound = pline.Flip();
-
-                        srfGeom.Tilt = Math.Round(BH.Engine.Environment.Query.Tilt(srfBound), 3);
-                        srfGeom.Azimuth = Math.Round(BH.Engine.Environment.Query.Azimuth(srfBound, Vector.YAxis), 3);
-
-                    }
-                    else
-                    {
-                        plGeom.PolyLoop = BH.Engine.XML.Convert.ToGBXML(pline);
-                        srfBound = pline;
-                    }
-
-                    srf.PlanarGeometry = plGeom;
-                    srf.RectangularGeometry = srfGeom;
-
-                    //Adjacent Spaces
-                    List<AdjacentSpaceId> adjIDs = new List<AdjacentSpaceId>();
-                    foreach (BH.oM.Environment.Elements.Space sp in adjacentSpaces)
-                        adjIDs.Add(sp.GetAdjacentSpaceID());
-                    srf.AdjacentSpaceID = adjIDs.ToArray();
+                        srf.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(space[x]);
 
                     //Openings
                     if (space[x].Openings.Count > 0)
@@ -142,7 +105,7 @@ namespace BH.Adapter.XML
                                 materials.Add(m.ToGBXML());
 
                             BH.oM.XML.Layer layer = materials.ToGBXML();
-                            conc.LayerID.LayerIDRef = layer.ID;
+                            conc.LayerID.LayerConstructionID = layer.ID;
 
                             usedConstructions.Add(conc);
                             usedLayers.Add(layer);
@@ -187,28 +150,18 @@ namespace BH.Adapter.XML
 
             foreach (BuildingElement be in buildingElements)
             {
-                Surface xmlSrf = new Surface();
-                xmlSrf.Name = "Shade-" + gbx.Campus.Surface.Count.ToString();
-                xmlSrf.SurfaceType = "Shade";
-                xmlSrf.ID = xmlSrf.Name;
-                xmlSrf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(xmlSrf.SurfaceType).ToString().ToLower();
+                Surface gbSrf = be.ToGBXML();
+                gbSrf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
+                gbSrf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
+                gbSrf.SurfaceType = "Shade";
+                gbSrf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(gbSrf.SurfaceType).ToString().ToLower();
 
                 if (be.BuildingElementProperties != null)
-                    xmlSrf.CADObjectID = BH.Engine.XML.Query.CadObjectId(be, exportType);
+                    gbSrf.CADObjectID = be.CADObjectID();
 
-                if (exportType == ExportType.gbXMLIES)
-                    xmlSrf.ConstructionIDRef = BH.Engine.XML.Query.IdRef(be); ; //Only for IES!
+                gbSrf.ConstructionIDRef = be.ConstructionID();
 
-                RectangularGeometry xmlRectangularGeom = BH.Engine.XML.Convert.ToGBXML(be);
-                PlanarGeometry plGeo = new PlanarGeometry();
-                plGeo.ID = "PlanarGeometry-" + "shade-" + gbx.Campus.Surface.Count.ToString();
-                Polyline pline = new Polyline() { ControlPoints = be.PanelCurve.IControlPoints() }; //TODO: Change to ToPolyline method
-                xmlRectangularGeom.CartesianPoint = BH.Engine.XML.Convert.ToGBXML(pline.ControlPoints.Last());
-                plGeo.PolyLoop = BH.Engine.XML.Convert.ToGBXML(pline);
-                xmlSrf.PlanarGeometry = plGeo;
-                xmlSrf.RectangularGeometry = xmlRectangularGeom;
-
-                gbx.Campus.Surface.Add(xmlSrf);
+                gbx.Campus.Surface.Add(gbSrf);
             }
         }
 

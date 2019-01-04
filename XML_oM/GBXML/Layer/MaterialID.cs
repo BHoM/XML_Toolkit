@@ -32,7 +32,7 @@ namespace BH.oM.XML
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class MaterialId : GBXMLObject
     {
-        [XmlAttribute(AttributeName = "materialIdRef")]
+        [XmlAttribute(AttributeName = "materialIDRef")]
         public string MaterialIDRef { get; set; } = "MaterialID";
     }
 }

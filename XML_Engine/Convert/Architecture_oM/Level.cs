@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -23,49 +23,48 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.XML;
+using System.Text;
+using System.Threading.Tasks;
+
+using BHE = BH.oM.Environment.Elements;
+using BHA = BH.oM.Architecture.Elements;
+using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;
+
 using BH.Engine.Geometry;
+using BH.Engine.Environment;
 
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        /***************************************************/
-        /**** Public Methods - Geometry                 ****/
-        /***************************************************/
-
-        public static BHG.Point ToBHoM(CartesianPoint cartesianPoint)
+        public static BHX.BuildingStorey ToGBXML(this BHA.Level level, List<List<BHE.BuildingElement>> spaces = null)
         {
-            List<double> coords = new List<double>();
-            foreach (String s in cartesianPoint.Coordinate)
-                coords.Add(System.Convert.ToDouble(s));
+            BHX.BuildingStorey storey = new BHX.BuildingStorey();
 
-            for (int x = coords.Count; x < 3; x++)
-                coords.Add(0); //Add additional elements in case the cartesian point had less than 3 points
-
-            return BH.Engine.Geometry.Create.Point(coords[0], coords[1], coords[2]);
-        }
-
-        /***************************************************/
-
-        public static BHG.Polyline ToBHoM(Polyloop ploop)
-        {
-            List<BHG.Point> pts = new List<BH.oM.Geometry.Point>();
-            if (1 <= ploop.CartesianPoint.Count())
+            if (spaces != null)
             {
-                foreach (CartesianPoint Cpt in ploop.CartesianPoint)
-                {
-                    pts.Add(ToBHoM(Cpt));
-                }
-                pts.Add((BHG.Point)pts[0].Clone());
+                BHG.Polyline storeyGeometry = level.StoreyGeometry(spaces);
+                if (storeyGeometry != null)
+                    storey.PlanarGeometry.PolyLoop = storeyGeometry.ToGBXML();
             }
-            BHG.Polyline pline = BH.Engine.Geometry.Create.Polyline(pts);
-            return pline;
+
+            storey.PlanarGeometry.ID = "level-planar-geometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+            storey.Name = level.Name;
+            storey.ID = "Level-" + level.Name.Replace(" ", "").ToLower();
+            storey.Level = (float)level.Elevation;
+
+            return storey;
         }
 
+        public static BHA.Level ToBHoM(this BHX.BuildingStorey storey)
+        {
+            BHA.Level level = new BHA.Level();
 
+            level.Name = storey.Name;
+            level.Elevation = storey.Level;
 
-        /***************************************************/
+            return level;
+        }
     }
 }
