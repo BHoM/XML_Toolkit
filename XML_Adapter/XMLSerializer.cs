@@ -42,7 +42,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, ExportType exportType, ExportDetail exportDetail) where T : IObject
+        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, ExportType exportType, ExportDetail exportDetail, string filePath, string projectName) where T : IObject
         {
             switch (exportDetail)
             {
@@ -53,7 +53,8 @@ namespace BH.Adapter.XML
                     SerializeBuildingShell(bhomObjects as dynamic, gbx, exportType);
                     break;
                 case ExportDetail.IndividualSpaces:
-                    throw new NotImplementedException("We have not yet implemented the option to export each space individually. Please check back soon");
+                    Serialize(bhomObjects, exportType, filePath, projectName);
+                    break;
                 default:
                     throw new NotImplementedException("That option has not been implemented");
             }

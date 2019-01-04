@@ -51,21 +51,11 @@ namespace BH.Adapter.XML
                     break;
             }
 
-            if (ExportDetail != ExportDetail.IndividualSpaces)
+            GBXML gbx = new GBXML();
+            if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
             {
-                GBXML gbx = new GBXML();
-                if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
-                {
-                    XML.GBXMLSerializer.Serialize(objects, gbx, ExportType, ExportDetail);
-                    XMLWriter.Save(FilePath, fileName, gbx);
-                }
-            }
-            else if (ExportDetail == ExportDetail.IndividualSpaces)
-            {
-                if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
-                {
-                    XML.GBXMLSerializer.Serialize(objects, ExportType, FilePath, ProjectName);
-                }
+                XML.GBXMLSerializer.Serialize(objects, gbx, ExportType, ExportDetail, FilePath, ProjectName);
+                XMLWriter.Save(FilePath, fileName, gbx);
             }
 
             return true;
