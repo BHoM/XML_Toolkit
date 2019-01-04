@@ -37,210 +37,210 @@ namespace BH.Test.XML
         public void SurfaceType_Rooflight()
         {
             string x = "Rooflight";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("OperableSkylight"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("OperableSkylight"));
         }
 
         [TestMethod]
         public void SurfaceType_Roof()
         {
             string x = "Roof";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("Roof"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("Roof"));
         }
 
         [TestMethod]
         public void SurfaceType_ExternalWall()
         {
             string x = "External Wall";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("ExteriorWall"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("ExteriorWall"));
         }
 
         [TestMethod]
         public void SurfaceType_InternalWall()
         {
             string x = "Internal Wall";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("InteriorWall"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("InteriorWall"));
         }
 
         [TestMethod]
         public void SurfaceType_InternalFloor()
         {
             string x = "Internal Floor";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("InteriorFloor"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("InteriorFloor"));
         }
 
         [TestMethod]
         public void SurfaceType_Shade()
         {
             string x = "Shade";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("Shade"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("Shade"));
         }
 
         [TestMethod]
         public void SurfaceType_UndergroundWall()
         {
             string x = "Underground Wall";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("UndergroundWall"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("UndergroundWall"));
         }
 
         [TestMethod]
         public void SurfaceType_UndergroundSlab()
         {
             string x = "Underground Slab";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("UndergroundSlab"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("UndergroundSlab"));
         }
 
         [TestMethod]
         public void SurfaceType_InternalCeiling()
         {
             string x = "Internal Ceiling";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("Ceiling"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("Ceiling"));
         }
 
         [TestMethod]
         public void SurfaceType_UndergroundCeiling()
         {
             string x = "Underground Ceiling";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("UndergroundCeiling"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("UndergroundCeiling"));
         }
 
         [TestMethod]
         public void SurfaceType_RaisedFloor()
         {
             string x = "Raised Floor";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("RaisedFloor"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("RaisedFloor"));
         }
 
         [TestMethod]
         public void SurfaceType_SlabOnGrade()
         {
             string x = "Slab on Grade";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("SlabOnGrade"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("SlabOnGrade"));
         }
 
         [TestMethod]
         public void SurfaceType_CurtainWall()
         {
             string x = "Curtain Wall";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("ExteriorWall"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("ExteriorWall"));
         }
 
         [TestMethod]
         public void SurfaceType_ExposedFloor()
         {
             string x = "Exposed Floor";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("RaisedFloor"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("RaisedFloor"));
         }
 
         [TestMethod]
         public void SurfaceType_NoType()
         {
             string x = "No Type";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("Air"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("Air"));
         }
 
         [TestMethod]
         public void SurfaceType_ExternalWall_TAS()
         {
             string x = "EXTERNALWALL";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("ExteriorWall"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("ExteriorWall"));
         }
 
         [TestMethod]
         public void SurfaceType_InternalWall_TAS()
         {
             string x = "INTERNALWALL";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("InteriorWall"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("InteriorWall"));
         }
 
         [TestMethod]
         public void SurfaceType_RoofElement_TAS()
         {
             string x = "ROOFELEMENT";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("Roof"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("Roof"));
         }
 
         [TestMethod]
         public void SurfaceType_InternalFloor_TAS()
         {
             string x = "INTERNALFLOOR";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("InteriorFloor"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("InteriorFloor"));
         }
 
         [TestMethod]
         public void SurfaceType_ExposedFloor_TAS()
         {
             string x = "EXPOSEDFLOOR";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("ExposedFloor"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("ExposedFloor"));
         }
 
         [TestMethod]
         public void SurfaceType_ShadeElement_TAS()
         {
             string x = "SHADEELEMENT";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("Shade"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("Shade"));
         }
 
         [TestMethod]
         public void SurfaceType_UndergroundWall_TAS()
         {
             string x = "UNDERGROUNDWALL";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("UndergroundWall"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("UndergroundWall"));
         }
 
         [TestMethod]
         public void SurfaceType_UndergroundSlab_TAS()
         {
             string x = "UNDERGROUNDSLAB";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("UndergroundSlab"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("UndergroundSlab"));
         }
 
         [TestMethod]
         public void SurfaceType_Ceiling_TAS()
         {
             string x = "CEILING";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("Ceiling"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("Ceiling"));
         }
 
         [TestMethod]
         public void SurfaceType_UndergroundCeiling_TAS()
         {
             string x = "UNDERGROUNDCEILING";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("UndergroundCeiling"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("UndergroundCeiling"));
         }
 
         [TestMethod]
         public void SurfaceType_RaisedFloor_TAS()
         {
             string x = "Raised Floor";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("RaisedFloor"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("RaisedFloor"));
         }
 
         [TestMethod]
         public void SurfaceType_SlabOnGrade_TAS()
         {
             string x = "SLABONGRADE";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("SlabOnGrade"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("SlabOnGrade"));
         }
 
         [TestMethod]
         public void SurfaceType_Glazing()
         {
             string x = "Glazing";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("FixedWindow"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("FixedWindow"));
         }
 
         [TestMethod]
         public void SurfaceType_Door()
         {
             string x = "Door";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("NonSlidingDoor"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("NonSlidingDoor"));
         }
 
         [TestMethod]
         public void SurfaceType_Default()
         {
             string x = "null";
-            Assert.IsTrue(x.ToGBXMLSurfaceType().Equals("Air"));
+            Assert.IsTrue(x.ToGBXMLType().Equals("Air"));
         }
     }
 }

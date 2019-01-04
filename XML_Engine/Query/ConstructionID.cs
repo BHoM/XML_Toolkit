@@ -39,50 +39,34 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static AdjacentSpaceId GetAdjacentSpaceID(this BHE.Space space)
+        public static string ConstructionID(this BHE.BuildingElement element)
         {
-            AdjacentSpaceId adjId = new AdjacentSpaceId();
-            adjId.SpaceIDRef = "Space-" + space.Number + "-" + space.Name;
-            return adjId;
+            if (element.BuildingElementProperties == null) return null;
+            return element.BuildingElementProperties.ConstructionID();
         }
 
-        public static List<AdjacentSpaceId> GetAdjacentSpace(this BHE.BuildingElement bHoMBuildingElement, List<BHE.Space> spaces)
+        public static string ConstructionID(this BHP.BuildingElementProperties props)
         {
-            List<AdjacentSpaceId> adSpace = new List<AdjacentSpaceId>();
-
-           /* foreach (Guid adjSpace in bHoMBuildingElement.AdjacentSpaces)
-            {
-                AdjacentSpaceId adjId = new AdjacentSpaceId();
-                if (spaces.Select(x => x.BHoM_Guid).Contains(adjSpace))
-                {
-                    BHE.Space foundSpace = spaces.Find(x => x.BHoM_Guid == adjSpace);
-                    if (foundSpace == null)
-                        continue;
-                    adjId.SpaceConstructionID = foundSpace.Number + "-" + foundSpace.Name;
-                    adSpace.Add(adjId);
-                }
-            }*/
-
-            return adSpace;
-
+            if (props.Construction == null) return null;
+            return props.Construction.ConstructionID();
         }
 
-        /***************************************************/
-
-        public static List<Guid> GetAdjacentSpace(this List<BHE.BuildingElement> bHoMBuildingElement)
+        public static string ConstructionID(this BHE.Construction construction)
         {
-            List<Guid> adjSpace = new List<Guid>();
+            //Method for constructing an ID based on the name of the property - this allows the same string ID to be generated for the same property for consistency in finding string IDs
 
-            /*foreach (BHE.BuildingElement element in bHoMBuildingElement)
-            {
-                adjSpace.Add(element.AdjacentSpaces[0]);
-            }*/
+            //Originally we used the GUID and got the combinations below - but each name is unique so each returned string ID will be unique anyway - but the following comment line is being left in as a nice little factoid for the next person... (//TD)
+            //Using the first 8 digits of the GUID gives 218,340,105,584,896 possible combinations of IDs, so the liklihood of 2 different GUIDs producing the same result from this function is fairly small...
 
-            return adjSpace;
+            if (construction.Name == "") return null;
 
-            /***************************************************/
+            String rtnID = construction.Name[0].ToString();
+
+            for (int x = 1; x < construction.Name.Length; x++)
+                rtnID += ((int)construction.Name[x]).ToString();
+
+            return rtnID;
         }
-
     }
 }
 

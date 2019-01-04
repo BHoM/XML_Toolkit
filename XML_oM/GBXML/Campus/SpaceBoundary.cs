@@ -34,8 +34,8 @@ namespace BH.oM.XML
     {
         [XmlAttribute(AttributeName = "isSecondLevelBoundary")]
         public string IsSecondLevelBoundary { get; set; } = "false";
-        [XmlAttribute(AttributeName = "surfaceIdRef")]
-        public string SurfaceIDRef { get; set; } = "";
+        [XmlAttribute(AttributeName = "surfaceConstructionID")]
+        public string SurfaceConstructionID { get; set; } = "";
         [XmlElement("PlanarGeometry")]
         public PlanarGeometry PlanarGeometry { get; set; } = new PlanarGeometry();
     }
