@@ -105,7 +105,7 @@ namespace BH.Adapter.XML
                                 materials.Add(m.ToGBXML());
 
                             BH.oM.XML.Layer layer = materials.ToGBXML();
-                            conc.LayerID.LayerConstructionID = layer.ID;
+                            conc.LayerID.LayerIDRef = layer.ID;
 
                             usedConstructions.Add(conc);
                             usedLayers.Add(layer);

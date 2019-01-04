@@ -99,7 +99,7 @@ namespace BH.Engine.XML
                 boundaries[x] = new SpaceBoundary { PlanarGeometry = planarGeom };
 
                 //Get the ID from the referenced element
-                boundaries[x].SurfaceConstructionID = "Panel-" + uniqueBEs.FindIndex(i => i.BHoM_Guid == spaceBoundaries[x].BHoM_Guid).ToString();
+                boundaries[x].SurfaceIDRef = "Panel-" + uniqueBEs.FindIndex(i => i.BHoM_Guid == spaceBoundaries[x].BHoM_Guid).ToString();
             }
 
             return boundaries;

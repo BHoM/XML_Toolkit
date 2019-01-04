@@ -32,8 +32,8 @@ namespace BH.oM.XML
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class Opening : GBXMLObject
     {
-        [XmlAttribute(AttributeName = "constructionConstructionID")]
-        public string ConstructionConstructionID { get; set; } = "";
+        [XmlAttribute(AttributeName = "constructionIdRef")]
+        public string ConstructionIDRef { get; set; } = "";
         [XmlAttribute(AttributeName = "openingType")]
         public string OpeningType { get; set; } = "FixedWindow";
         [XmlAttribute(AttributeName = "id")]

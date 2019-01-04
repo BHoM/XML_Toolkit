@@ -36,7 +36,7 @@ namespace BH.oM.XML
         public string SurfaceType { get; set; } = "Unknown";
         [XmlAttribute(AttributeName = "exposedToSun")]
         public string ExposedToSun { get; set; } = "false";
-        [XmlAttribute(AttributeName = "constructionIDRef")]
+        [XmlAttribute(AttributeName = "constructionIdRef")]
         public string ConstructionIDRef { get; set; } = null;
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "SurfaceID";
