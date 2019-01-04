@@ -92,9 +92,9 @@ namespace BH.Adapter.XML
                 gbOpening.Name = "opening-" + openingCount.ToString();
                 openingCount++;
                 if (exportType == ExportType.gbXMLIES)
-                    gbOpening.ConstructionConstructionID = BH.Engine.XML.Query.ConstructionID(buildingElement); //Only for IES!
+                    gbOpening.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement); //Only for IES!
                 else
-                    gbOpening.ConstructionConstructionID = null;
+                    gbOpening.ConstructionIDRef = null;
 
                 gbOpenings.Add(gbOpening);
             }
