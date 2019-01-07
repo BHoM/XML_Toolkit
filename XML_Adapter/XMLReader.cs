@@ -36,9 +36,12 @@ namespace BH.Adapter.XML
         public static BH.oM.XML.GBXML Load(string filePath, string Name)
         {
             Name += ".xml";
+            BH.oM.XML.GBXML gbx = null;
             TextReader reader = new StreamReader(Path.Combine(filePath, Name));
             XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.GBXML));
-            return (BH.oM.XML.GBXML)szer.Deserialize(reader);
+            gbx = (BH.oM.XML.GBXML)szer.Deserialize(reader);
+            reader.Close();
+            return gbx;
         }
     }
 }

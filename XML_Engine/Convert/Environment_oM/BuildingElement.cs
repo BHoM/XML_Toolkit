@@ -104,6 +104,8 @@ namespace BH.Engine.XML
         {
             BHE.BuildingElement buildingElement = new BHE.BuildingElement();
 
+            surface.Opening = surface.Opening ?? new List<BHX.Opening>().ToArray();
+
             buildingElement.PanelCurve = surface.PlanarGeometry.PolyLoop.ToBHoM();
             foreach (BHX.Opening opening in surface.Opening)
                 buildingElement.Openings.Add(opening.ToBHoM());

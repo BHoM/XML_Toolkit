@@ -25,44 +25,87 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using BH.oM.Base;
-using BH.oM.Environment.Elements;
+using BHE = BH.oM.Environment.Elements;
 using BH.oM.Environment.Properties;
 using BH.oM.Environment.Interface;
 using BHG = BH.oM.Geometry;
 using BH.Engine;
-using BHE = BH.oM.Environment;
+
+using BH.Engine.XML;
+using BHX = BH.oM.XML;
+using BHA = BH.oM.Architecture.Elements;
 
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
+        
         protected override IEnumerable<IBHoMObject> Read(Type type, IList indices = null)
         {
-            if (type == typeof(Space))
-                return ReadSpaces();
-            if (type == typeof(Panel))
-                return ReadPanels();
-            return null;
+            return Read(type);
+        }
+
+        private IEnumerable<IBHoMObject> Read(Type type)
+        {
+            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, ProjectName);
+
+            if (type == typeof(BHE.Building))
+                return ReadBuilding(gbx);
+            else if (type == typeof(BHE.BuildingElement))
+                return ReadBuildingElements(gbx);
+            else if (type == typeof(BHE.Construction))
+                return ReadConstructions(gbx);
+            else if (type == typeof(BH.oM.Environment.Materials.Material))
+                return ReadMaterials(gbx);
+            else if (type == typeof(BHA.Level))
+                return ReadLevels(gbx);
+            else
+                return ReadFullXMLFile(gbx);            
         }
 
         /***************************************************/
         /**** Private Methods                           ****/
         /***************************************************/
 
-        private List<Space> ReadSpaces(List<String> ids = null)
+        private List<IBHoMObject> ReadFullXMLFile(BH.oM.XML.GBXML gbx, List<string> ids = null)
         {
-            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, ProjectName);
-            IEnumerable<IBHoMObject> bHoMObject = GBXMLDeserializer.Deserialize(gbx);
-            return bHoMObject.Where(x => x is BHE.Elements.Space).Cast<Space>().ToList();
+            List<IBHoMObject> objects = new List<IBHoMObject>();
+
+            objects.AddRange(ReadBuilding(gbx));
+            objects.AddRange(ReadBuildingElements(gbx));
+            objects.AddRange(ReadConstructions(gbx));
+            objects.AddRange(ReadMaterials(gbx));
+            objects.AddRange(ReadLevels(gbx));
+
+            return objects;
         }
 
-        /***************************************************/
-
-        private List<Panel> ReadPanels(List<string> ids = null)
+        private List<BHE.Building> ReadBuilding(BHX.GBXML gbx, List<string> ids = null)
         {
-            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, ProjectName);
-            IEnumerable<IBHoMObject> bHoMObject = GBXMLDeserializer.Deserialize(gbx);
-            return bHoMObject.Where(x => x is BHE.Elements.Panel).Cast<Panel>().ToList();
+            return new List<BHE.Building>() { gbx.Campus.Location.ToBHoM() };
+        }
+
+        private List<BHE.BuildingElement> ReadBuildingElements(BHX.GBXML gbx, List<string> ids = null)
+        {
+            return gbx.Campus.Surface.Select(x => x.ToBHoM()).ToList();
+        }
+
+        private List<BHE.Construction> ReadConstructions(BHX.GBXML gbx, List<string> ids = null)
+        {
+            return gbx.Construction.Select(x => x.ToBHoM()).ToList();
+        }
+
+        private List<BH.oM.Environment.Materials.Material> ReadMaterials(BHX.GBXML gbx, List<string> ids = null)
+        {
+            return gbx.Material.Select(x => x.ToBHoM()).ToList();
+        }
+
+        private List<BHA.Level> ReadLevels(BHX.GBXML gbx, List<string> ids = null)
+        {
+            if (gbx.Campus.Building.Length > 0)
+                return gbx.Campus.Building[0].BuildingStorey.Select(x => x.ToBHoM()).ToList();
+            else
+                return new List<BHA.Level>();
         }
     }
 }

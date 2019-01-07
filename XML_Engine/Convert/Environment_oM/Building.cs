@@ -39,16 +39,16 @@ namespace BH.Engine.XML
     {
         public static BHX.Building ToGBXML(this BHE.Building building)
         {
-            BHX.Building jsonBuilding = new BHX.Building();
+            BHX.Building gbBuilding = new BHX.Building();
 
-            jsonBuilding.Name = building.Name;
+            gbBuilding.Name = building.Name;
             if (building.CustomData.ContainsKey("Place Name"))
-                jsonBuilding.StreetAddress = (building.CustomData["Place Name"]).ToString();
+                gbBuilding.StreetAddress = (building.CustomData["Place Name"]).ToString();
 
             if (building.CustomData.ContainsKey("Building Name"))
-                jsonBuilding.BuildingType = (building.CustomData["Building Name"]).ToString();
+                gbBuilding.BuildingType = (building.CustomData["Building Name"]).ToString();
 
-            return jsonBuilding;
+            return gbBuilding;
         }
 
         public static BHX.Location ToGBXMLLocation(this BHE.Building building)
@@ -66,13 +66,13 @@ namespace BH.Engine.XML
             return location;
         }
 
-        public static BHE.Building ToBHoM(this BHX.Building jsonBuilding)
+        public static BHE.Building ToBHoM(this BHX.Building gbBuilding)
         {
             BHE.Building building = new BHE.Building();
 
-            building.Name = jsonBuilding.Name;
-            building.CustomData.Add("Place Name", jsonBuilding.StreetAddress);
-            building.CustomData.Add("Building Name", jsonBuilding.BuildingType);
+            building.Name = gbBuilding.Name;
+            building.CustomData.Add("Place Name", gbBuilding.StreetAddress);
+            building.CustomData.Add("Building Name", gbBuilding.BuildingType);
 
             return building;
         }

@@ -28,7 +28,20 @@ using BH.oM.Base;
 
 namespace BH.oM.XML
 {
-    public abstract class GBXMLObject : BHoMObject
+    public abstract class GBXMLObject : IBHoMObject
     {
+        [XmlIgnore]
+        public Guid BHoM_Guid { get; set; }
+        [XmlIgnore]
+        public Dictionary<string, object> CustomData { get; set; }
+        [XmlIgnore]
+        public string Name { get; set; }
+        [XmlIgnore]
+        public HashSet<string> Tags { get; set; }
+
+        public IBHoMObject GetShallowClone(bool newGuid = false)
+        {
+            return this;
+        }
     }
 }

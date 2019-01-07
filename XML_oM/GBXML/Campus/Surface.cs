@@ -47,7 +47,7 @@ namespace BH.oM.XML
         [XmlElement("PlanarGeometry")]
         public PlanarGeometry PlanarGeometry { get; set; } = new PlanarGeometry();
         [XmlElement("Opening")]
-        public Opening[] Opening { get; set; }
+        public Opening[] Opening { get; set; } = new List<Opening>().ToArray();
         [XmlElement("CADObjectId")]
         public string CADObjectID { get; set; } = "";
         [XmlElement("Name")]
