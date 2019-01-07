@@ -44,8 +44,6 @@ namespace BH.Engine.XML
     {
         public static BHX.Space ToGBXML(this BHE.Space space, List<BHE.BuildingElement> elementsAsSpace, List<BHE.BuildingElement> uniqueBuildingElements, List<BHA.Level> levels)
         {
-            BHX.Space jsonSpace = new BHX.Space();
-
             Dictionary<string, object> spaceData = (elementsAsSpace.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault() != null ? elementsAsSpace.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault().CustomData["Space_Custom_Data"] as Dictionary<string, object> : new Dictionary<string, object>());
 
             BHX.Space gbSpace = new BHX.Space();
@@ -67,7 +65,7 @@ namespace BH.Engine.XML
             if (spaceLevel != null)
                 gbSpace.BuildingStoreyIDRef = "Level-" + spaceLevel.Name.Replace(" ", "").ToLower();
 
-            return jsonSpace;
+            return gbSpace;
         }
     }
 }

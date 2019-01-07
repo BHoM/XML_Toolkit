@@ -32,13 +32,15 @@ using System.Reflection;
 
 using BH.oM.XML.Enums;
 
+using BH.oM.DataManipulation.Queries;
+
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
         public XMLAdapter(String projectName = "BHoM_gbXML_Export", String SaveDirectoryPath = null, ExportType exportType = ExportType.gbXMLTAS, ExportDetail exportDetail = ExportDetail.Full)
         {
-            FilePath = (SaveDirectoryPath == null ? Environment.GetFolderPath(Environment.SpecialFolder.Desktop) : SaveDirectoryPath);
+            FilePath = SaveDirectoryPath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             ProjectName = projectName;
             ExportType = exportType;
             ExportDetail = exportDetail;
@@ -63,6 +65,16 @@ namespace BH.Adapter.XML
             }
 
             return success ? objects.ToList() : new List<IObject>();
+        }
+
+        public override IEnumerable<object> Pull(IQuery query, Dictionary<string, object> config = null)
+        {
+            if (!System.IO.File.Exists(System.IO.Path.Combine(FilePath, ProjectName + ".xml")))
+                return new List<IBHoMObject>();
+
+            FilterQuery filterQuery = query as FilterQuery;           
+
+            return Read(filterQuery.Type);
         }
 
         private String FilePath { get; set; }
