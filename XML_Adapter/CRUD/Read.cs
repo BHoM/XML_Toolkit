@@ -45,11 +45,13 @@ namespace BH.Adapter.XML
             return Read(type);
         }
 
-        private IEnumerable<IBHoMObject> Read(Type type)
+        private IEnumerable<IBHoMObject> Read(Type type = null)
         {
             BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, ProjectName);
 
-            if (type == typeof(BHE.Building))
+            if (type == null)
+                return ReadFullXMLFile(gbx);
+            else if (type == typeof(BHE.Building))
                 return ReadBuilding(gbx);
             else if (type == typeof(BHE.BuildingElement))
                 return ReadBuildingElements(gbx);
@@ -82,22 +84,34 @@ namespace BH.Adapter.XML
 
         private List<BHE.Building> ReadBuilding(BHX.GBXML gbx, List<string> ids = null)
         {
-            return new List<BHE.Building>() { gbx.Campus.Location.ToBHoM() };
+            if (gbx.Campus != null)
+                return new List<BHE.Building>() { gbx.Campus.Location.ToBHoM() };
+            else
+                return new List<BHE.Building>();
         }
 
         private List<BHE.BuildingElement> ReadBuildingElements(BHX.GBXML gbx, List<string> ids = null)
         {
-            return gbx.Campus.Surface.Select(x => x.ToBHoM()).ToList();
+            if (gbx.Campus != null && gbx.Campus.Surface != null)
+                return gbx.Campus.Surface.Select(x => x.ToBHoM()).ToList();
+            else
+                return new List<BHE.BuildingElement>();
         }
 
         private List<BHE.Construction> ReadConstructions(BHX.GBXML gbx, List<string> ids = null)
         {
-            return gbx.Construction.Select(x => x.ToBHoM()).ToList();
+            if (gbx.Construction != null)
+                return gbx.Construction.Select(x => x.ToBHoM()).ToList();
+            else
+                return new List<BHE.Construction>();
         }
 
         private List<BH.oM.Environment.Materials.Material> ReadMaterials(BHX.GBXML gbx, List<string> ids = null)
         {
-            return gbx.Material.Select(x => x.ToBHoM()).ToList();
+            if (gbx.Material != null)
+                return gbx.Material.Select(x => x.ToBHoM()).ToList();
+            else
+                return new List<BH.oM.Environment.Materials.Material>();
         }
 
         private List<BHA.Level> ReadLevels(BHX.GBXML gbx, List<string> ids = null)

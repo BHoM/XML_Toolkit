@@ -72,9 +72,14 @@ namespace BH.Adapter.XML
             if (!System.IO.File.Exists(System.IO.Path.Combine(FilePath, ProjectName + ".xml")))
                 return new List<IBHoMObject>();
 
-            FilterQuery filterQuery = query as FilterQuery;           
+            if (query != null)
+            {
+                FilterQuery filterQuery = query as FilterQuery;
 
-            return Read(filterQuery.Type);
+                return Read(filterQuery.Type);
+            }
+            else
+                return Read(null);
         }
 
         private String FilePath { get; set; }
