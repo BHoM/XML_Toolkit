@@ -45,6 +45,7 @@ namespace BH.Engine.XML
 
             if (bHoMBuildingElement.BuildingElementProperties != null)
             {
+                //TODO: Make this non-dependent on Revit somehow so we can do the same thing but from another adapter, e.g. info pulled from TAS or from another gbXML
                 if (bHoMBuildingElement.CustomData.ContainsKey("Revit_elementId"))
                     revitElementID = bHoMBuildingElement.CustomData["Revit_elementId"].ToString();
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))

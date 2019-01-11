@@ -41,7 +41,7 @@ namespace BH.Engine.XML
 
         public static string ConstructionID(this BHE.BuildingElement element)
         {
-            if (element.BuildingElementProperties == null) return null;
+            if (element == null || element.BuildingElementProperties == null) return null;
             return element.BuildingElementProperties.ConstructionID();
         }
 

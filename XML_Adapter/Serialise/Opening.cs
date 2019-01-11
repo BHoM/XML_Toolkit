@@ -66,7 +66,8 @@ namespace BH.Adapter.XML
                 if (opening.CustomData.ContainsKey("Revit_elementId"))
                 {
                     string elementID = (opening.CustomData["Revit_elementId"]).ToString();
-                    buildingElement = allElements.Find(x => x != null && x.CustomData.ContainsKey("Revit_elementId") && x.CustomData["Revit_elementId"].ToString() == elementID);
+                    //buildingElement = allElements.Find(x => x != null && x.CustomData.ContainsKey("Revit_elementId") && x.CustomData["Revit_elementId"].ToString() == elementID);
+                    buildingElement = allElements.Find(x => x != null && x.Openings.Find(y => y.BHoM_Guid == opening.BHoM_Guid) != null);
 
                     if (buildingElement != null)
                     {
