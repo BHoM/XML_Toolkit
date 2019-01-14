@@ -30,7 +30,7 @@ using BH.Engine.Environment;
 using BH.oM.XML;
 using BH.Engine.XML;
 
-using BH.oM.Geometry;
+using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 
 using BH.oM.Architecture.Elements;
@@ -84,7 +84,25 @@ namespace BH.Adapter.XML
                         srf.CADObjectID = BH.Engine.XML.Query.CADObjectID(space[x], exportType);
 
                     if (exportType == ExportType.gbXMLIES)
+                    {
                         srf.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(space[x]);
+
+                        //If the surface is a curtain wall, add the wall as an opening
+                        if(srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ"))
+                        {
+                            List<BHG.Polyline> newOpeningBounds = new List<oM.Geometry.Polyline>();
+                            if (space[x].Openings.Count > 0)
+                            {
+                                //This surface already has openings - cut them out of the new opening
+                                List<BHG.Polyline> refRegion = space[x].Openings.Where(y => y.OpeningCurve != null).ToList().Select(z => z.OpeningCurve.ICollapseToPolyline(BHG.Tolerance.Angle)).ToList();
+                                newOpeningBounds.AddRange((new List<BHG.Polyline> { space[x].PanelCurve.ICollapseToPolyline(BHG.Tolerance.Angle) }).BooleanDifference(refRegion, 0.01));
+                            }
+                            else
+                                newOpeningBounds.Add(space[x].PanelCurve.ICollapseToPolyline(BHG.Tolerance.Angle));
+
+                            space[x].Openings.Add(BH.Engine.Environment.Create.Opening(newOpeningBounds));
+                        }
+                    }
 
                     //Openings
                     if (space[x].Openings.Count > 0)
