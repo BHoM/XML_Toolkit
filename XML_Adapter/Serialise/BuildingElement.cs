@@ -64,6 +64,7 @@ namespace BH.Adapter.XML
             List<BH.oM.XML.Construction> usedConstructions = new List<BH.oM.XML.Construction>();
             List<BH.oM.XML.Material> usedMaterials = new List<Material>();
             List<BH.oM.XML.Layer> usedLayers = new List<Layer>();
+            List<string> usedSpaceNames = new List<string>();
 
             foreach (List<BuildingElement> space in elementsAsSpaces)
             {
@@ -132,8 +133,13 @@ namespace BH.Adapter.XML
                     }
                 }
 
-                Dictionary<String, object> spaceData = (space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault() != null ? space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault().CustomData["Space_Custom_Data"] as Dictionary<String, object> : new Dictionary<string, object>());
-                //Create the space in
+                BuildingElement elementForSpace = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data") && !usedSpaceNames.Contains((x.CustomData["Space_Custom_Data"] as Dictionary<string, object>)["SAM_SpaceName"].ToString())).FirstOrDefault();
+                Dictionary<string, object> spaceData = null;
+                if (elementForSpace != null)
+                    spaceData = elementForSpace.CustomData["Space_Custom_Data"] as Dictionary<string, object>;
+
+                spaceData = spaceData ?? new Dictionary<string, object>();
+
                 BH.oM.Environment.Elements.Space s = space.Space(gbx.Campus.Building[0].Space.Count, gbx.Campus.Building[0].Space.Count.ToString());
                 BH.oM.XML.Space xmlSpace = new oM.XML.Space();
                 xmlSpace.Name = (spaceData.ContainsKey("SAM_SpaceName") && spaceData["SAM_SpaceName"] != null ? spaceData["SAM_SpaceName"].ToString() : s.Name); //CUSTOMDATA SAM_SpaceName
@@ -154,6 +160,8 @@ namespace BH.Adapter.XML
                     xmlSpace.BuildingStoreyIDRef = "Level-" + spaceLevel.Name.Replace(" ", "").ToLower();
 
                 gbx.Campus.Building[0].Space.Add(xmlSpace);
+
+                usedSpaceNames.Add(xmlSpace.Name);
             }
 
             gbx.Construction = usedConstructions.ToArray();
