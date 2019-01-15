@@ -68,7 +68,7 @@ namespace BH.Engine.XML
             surface.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
 
             BHG.Polyline pLine = new BHG.Polyline() { ControlPoints = element.PanelCurve.IControlPoints() };
-            if (pLine.NormalAwayFromSpace(space))
+            if (!pLine.NormalAwayFromSpace(space))
             {
                 pLine = pLine.Flip();
                 surface.PlanarGeometry.PolyLoop = pLine.ToGBXML();
