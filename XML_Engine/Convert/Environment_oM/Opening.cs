@@ -49,8 +49,13 @@ namespace BH.Engine.XML
             jsonOpening.PlanarGeometry.ID = "openingPGeom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             jsonOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pLine).ToGBXML();
             jsonOpening.RectangularGeometry.Height = Math.Round(opening.Height(), 3);
+            //TO DO: temporary solution to get valid file to be replaced with correct height
+            if (opening.Height() == 0)
+               jsonOpening.RectangularGeometry.Height = 0.1;
             jsonOpening.RectangularGeometry.Width = Math.Round(opening.Width(), 3);
-            jsonOpening.RectangularGeometry.ID = "rGeomOpening-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
+            //if (opening.Width() == 0)
+            //    jsonOpening.RectangularGeometry.Width = 0.1;
+            jsonOpening.RectangularGeometry.ID = "rGeomOpening-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
             return jsonOpening;
         }

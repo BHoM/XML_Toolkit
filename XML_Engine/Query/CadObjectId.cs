@@ -51,8 +51,13 @@ namespace BH.Engine.XML
                 if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
                     familyName = bHoMBuildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
 
-                if (exportType == ExportType.gbXMLIES && familyName.Contains("Wall") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
-                    familyName = "Curtain Wall";
+                // change only Basic Wall and keep Curtain as it is
+                if (exportType == ExportType.gbXMLIES && familyName.Contains("Basic Wall") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
+                    familyName = "Curtain Basic Wall";
+                else if (exportType == ExportType.gbXMLIES && familyName.Contains("Floor") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
+                    familyName = "Curtain Basic Floor";
+                else if (exportType == ExportType.gbXMLIES && familyName.Contains("Roof") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
+                    familyName = "Curtain Basic Roof";
 
                 CADObjectID = familyName + ": " + bHoMBuildingElement.BuildingElementProperties.Name + " [" + revitElementID + "]";
             }
@@ -88,8 +93,8 @@ namespace BH.Engine.XML
                 if (element.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
                     familyName = element.BuildingElementProperties.CustomData["Family Name"].ToString();
 
-                if (exportType == ExportType.gbXMLIES && familyName.Contains("Wall") && element.BuildingElementProperties.Name.Contains("GLZ"))
-                    familyName = "Curtain Wall";
+                if (exportType == ExportType.gbXMLIES && familyName.Contains("Basic Wall") && element.BuildingElementProperties.Name.Contains("GLZ"))
+                    familyName = "Curtain Basic Wall";
 
                 CADObjectID = familyName + ": " + element.BuildingElementProperties.Name;
             }
