@@ -89,7 +89,7 @@ namespace BH.Adapter.XML
                         srf.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(space[x]);
 
                         //If the surface is a curtain wall, add the wall as an opening
-                        if(srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ"))
+                        if(srf.CADObjectID.Contains("System Panel") && srf.CADObjectID.Contains("GLZ"))
                         {
                             List<BHG.Polyline> newOpeningBounds = new List<oM.Geometry.Polyline>();
                             if (space[x].Openings.Count > 0)
