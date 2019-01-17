@@ -37,29 +37,22 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string CADObjectID(this BHE.BuildingElement bHoMBuildingElement, ExportType exportType = ExportType.gbXMLTAS)
+        public static string CADObjectID(this BHE.BuildingElement element, ExportType exportType = ExportType.gbXMLTAS)
         {
             string CADObjectID = "";
             string revitElementID = "";
-            string familyName = "";
 
-            if (bHoMBuildingElement.BuildingElementProperties != null)
+            if (element.BuildingElementProperties != null)
             {
                 //TODO: Make this non-dependent on Revit somehow so we can do the same thing but from another adapter, e.g. info pulled from TAS or from another gbXML
-                if (bHoMBuildingElement.CustomData.ContainsKey("Revit_elementId"))
-                    revitElementID = bHoMBuildingElement.CustomData["Revit_elementId"].ToString();
-                if (bHoMBuildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
-                    familyName = bHoMBuildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
+                if (element.CustomData.ContainsKey("Revit_elementId"))
+                    revitElementID = element.CustomData["Revit_elementId"].ToString();
 
                 // change only Basic Wall and keep Curtain as it is
-                if (exportType == ExportType.gbXMLIES && familyName.Contains("Basic Wall") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
-                    familyName = "Curtain Basic Wall";
-                else if (exportType == ExportType.gbXMLIES && familyName.Contains("Floor") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
-                    familyName = "Curtain Basic Floor";
-                else if (exportType == ExportType.gbXMLIES && familyName.Contains("Roof") && bHoMBuildingElement.BuildingElementProperties.Name.Contains("GLZ"))
-                    familyName = "Curtain Basic Roof";
+                if (exportType == ExportType.gbXMLIES && element.Name.Contains("GLZ") && (element.Name.Contains("Basic Wall") || element.Name.Contains("Floor") || element.Name.Contains("Roof")))
+                    element.Name = "Curtain " + element.Name;
 
-                CADObjectID = familyName + ": " + bHoMBuildingElement.BuildingElementProperties.Name + " [" + revitElementID + "]";
+                CADObjectID = element.Name + " [" + revitElementID + "]";
             }
             return CADObjectID;
         }
