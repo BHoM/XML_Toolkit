@@ -81,7 +81,7 @@ namespace BH.Adapter.XML
                     srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
                     srf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
 
-                    if (space[x].BuildingElementProperties != null)
+                    if (space[x] != null)
                         srf.CADObjectID = BH.Engine.XML.Query.CADObjectID(space[x], exportType);
 
                     if (exportType == ExportType.gbXMLIES)
@@ -105,6 +105,8 @@ namespace BH.Adapter.XML
                             space[x].Openings.Add(BH.Engine.Environment.Create.Opening(newOpeningBounds));
                         }
                     }
+                    else if (exportType == ExportType.gbXMLTAS)
+                        srf.ConstructionIDRef = null;
 
                     //Openings
                     if (space[x].Openings.Count > 0)
