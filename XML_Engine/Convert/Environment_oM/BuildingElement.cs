@@ -110,6 +110,9 @@ namespace BH.Engine.XML
             foreach (BHX.Opening opening in surface.Opening)
                 buildingElement.Openings.Add(opening.ToBHoM());
 
+            buildingElement.Name = surface.CADObjectID.Split('[')[0].Trim();
+            buildingElement.BuildingElementProperties.Name = surface.CADObjectID.Split('[')[0].Trim();
+
             return buildingElement;
         }
     }
