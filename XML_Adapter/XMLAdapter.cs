@@ -45,6 +45,12 @@ namespace BH.Adapter.XML
             ExportType = exportType;
             ExportDetail = exportDetail;
 
+            if(System.IO.Path.HasExtension(ProjectName) && System.IO.Path.GetExtension(ProjectName) == ".xml")
+            {
+                BH.Engine.Reflection.Compute.RecordError("Project Name cannot contain a file extension");
+                return;
+            }
+
             AdapterId = "XML_Adapter";
             Config.MergeWithComparer = false;   //Set to true after comparers have been implemented
             Config.ProcessInMemory = false;
