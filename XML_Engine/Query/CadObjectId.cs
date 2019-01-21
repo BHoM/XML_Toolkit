@@ -44,9 +44,7 @@ namespace BH.Engine.XML
 
             if (element.BuildingElementProperties != null)
             {
-                //TODO: Make this non-dependent on Revit somehow so we can do the same thing but from another adapter, e.g. info pulled from TAS or from another gbXML
-                if (element.CustomData.ContainsKey("Revit_elementId"))
-                    revitElementID = element.CustomData["Revit_elementId"].ToString();
+                revitElementID = element.ElementID;
 
                 // change only Basic Wall and keep Curtain as it is
                 if (exportType == ExportType.gbXMLIES && element.Name.Contains("GLZ") && (element.Name.Contains("Basic Wall") || element.Name.Contains("Floor") || element.Name.Contains("Roof")))
@@ -105,7 +103,7 @@ namespace BH.Engine.XML
             if (bHoMOpening.CustomData.ContainsKey("Revit_elementId"))
             {
                 string elementID = (bHoMOpening.CustomData["Revit_elementId"]).ToString();
-                BHE.BuildingElement buildingElement = buildingElementsList.Find(x => x != null && x.CustomData.ContainsKey("Revit_elementId") && x.CustomData["Revit_elementId"].ToString() == elementID);
+                BHE.BuildingElement buildingElement = buildingElementsList.Find(x => x != null && x.ElementID == elementID);
                 if (buildingElement != null && buildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
                 {
                     familyName = buildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
