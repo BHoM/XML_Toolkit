@@ -47,13 +47,11 @@ namespace BH.Adapter.XML
         {
             List<BH.oM.XML.Opening> gbOpenings = new List<oM.XML.Opening>();
 
-            int openingCount = 0;
             foreach (BH.oM.Environment.Elements.Opening opening in openings)
             {
                 if (opening.OpeningCurve == null) continue;
 
                 BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
-                gbOpening.PlanarGeometry.ID = "openingPGeom" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
                 //Normals away from space
                 if (!BH.Engine.Environment.Query.NormalAwayFromSpace(opening.OpeningCurve.ICollapseToPolyline(BH.oM.Geometry.Tolerance.Angle), space))
@@ -89,9 +87,6 @@ namespace BH.Adapter.XML
                     }
                 }
 
-                gbOpening.ID = "opening-" + openingCount.ToString() + "-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
-                gbOpening.Name = "opening-" + openingCount.ToString();
-                openingCount++;
                 if (exportType == ExportType.gbXMLIES)
                     gbOpening.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement); //Only for IES!
                 else

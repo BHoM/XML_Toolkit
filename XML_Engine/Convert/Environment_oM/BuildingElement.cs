@@ -45,7 +45,7 @@ namespace BH.Engine.XML
 
             BHX.RectangularGeometry geom = element.ToGBXMLGeometry();
             BHX.PlanarGeometry planarGeom = new BHX.PlanarGeometry();
-            planarGeom.ID = "PlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+            planarGeom.ID = "PlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
             BHG.Polyline pLine = new BHG.Polyline() { ControlPoints = element.PanelCurve.IControlPoints() };
             planarGeom.PolyLoop = pLine.ToGBXML();
@@ -95,7 +95,7 @@ namespace BH.Engine.XML
             geom.Height = Math.Round(element.Height(), 3);
             geom.Width = Math.Round(element.Width(), 3);
             geom.CartesianPoint = pLine.ControlPoints.First().ToGBXML();
-            geom.ID = "geom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+            geom.ID = "geom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
             return geom;
         }

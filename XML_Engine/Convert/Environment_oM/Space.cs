@@ -51,9 +51,9 @@ namespace BH.Engine.XML
             gbSpace.ID = "Space-" + space.Number + "-" + space.Name;
             gbSpace.CADObjectID = elementsAsSpace.CADObjectID();
             gbSpace.ShellGeometry.ClosedShell.PolyLoop = elementsAsSpace.ClosedShellGeometry().ToArray();
-            gbSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+            gbSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             gbSpace.SpaceBoundary = elementsAsSpace.SpaceBoundaries(uniqueBuildingElements);
-            gbSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+            gbSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             if (elementsAsSpace.FloorGeometry() != null)
             {
                 gbSpace.PlanarGeoemtry.PolyLoop = elementsAsSpace.FloorGeometry().ToGBXML();
