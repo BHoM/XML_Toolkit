@@ -39,34 +39,34 @@ namespace BH.Engine.XML
     {
         public static BHX.Opening ToGBXML(this BHE.Opening opening)
         {
-            BHX.Opening jsonOpening = new BHX.Opening();
+            BHX.Opening gbOpening = new BHX.Opening();
 
             BHG.Polyline pLine = new oM.Geometry.Polyline() { ControlPoints = opening.OpeningCurve.IControlPoints() };
 
-            jsonOpening.Name = "opening-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
-            jsonOpening.ID = "opening-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
-            jsonOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML();
-            jsonOpening.PlanarGeometry.ID = "openingPGeom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
-            jsonOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pLine).ToGBXML();
-            jsonOpening.RectangularGeometry.Height = Math.Round(opening.Height(), 3);
-            //TO DO: temporary solution to get valid file to be replaced with correct height
+            gbOpening.Name = "opening-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
+            gbOpening.ID = "opening-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
+            gbOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML();
+            gbOpening.PlanarGeometry.ID = "openingPGeom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+            gbOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pLine).ToGBXML();
+            gbOpening.RectangularGeometry.Height = Math.Round(opening.Height(), 3);
+            //TODO: temporary solution to get valid file to be replaced with correct height
             if (opening.Height() == 0)
-               jsonOpening.RectangularGeometry.Height = 0.1;
-            jsonOpening.RectangularGeometry.Width = Math.Round(opening.Width(), 3);
+               gbOpening.RectangularGeometry.Height = 0.1;
+            gbOpening.RectangularGeometry.Width = Math.Round(opening.Width(), 3);
             //if (opening.Width() == 0)
             //    jsonOpening.RectangularGeometry.Width = 0.1;
-            jsonOpening.RectangularGeometry.ID = "rGeomOpening-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+            gbOpening.RectangularGeometry.ID = "rGeomOpening-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
-            return jsonOpening;
+            return gbOpening;
         }
 
         public static BHX.Opening ToJson(this BHE.Opening opening, List<BHE.BuildingElement> space, List<BHE.BuildingElement> allElements, List<List<BHE.BuildingElement>> spaces, List<BHE.Space> spaceSpaces)
         {
-            BHX.Opening jsonOpening = opening.ToGBXML();
+            BHX.Opening gbOpening = opening.ToGBXML();
 
             BHG.Polyline pLine = new BHG.Polyline() { ControlPoints = opening.OpeningCurve.IControlPoints() };
             if (pLine.NormalAwayFromSpace(space))
-                jsonOpening.PlanarGeometry.PolyLoop = pLine.Flip().ToGBXML();
+                gbOpening.PlanarGeometry.PolyLoop = pLine.Flip().ToGBXML();
 
             BHE.BuildingElement buildingElement = new BHE.BuildingElement();
             string familyName = "";
@@ -85,18 +85,18 @@ namespace BH.Engine.XML
                         typeName = buildingElement.BuildingElementProperties.Name;
                     }
 
-                    jsonOpening.CADObjectID = buildingElement.CADObjectID();
-                    jsonOpening.OpeningType = buildingElement.ToGBXMLType(buildingElement.AdjacentSpaces(spaces, spaceSpaces));
+                    gbOpening.CADObjectID = buildingElement.CADObjectID();
+                    gbOpening.OpeningType = buildingElement.ToGBXMLType(buildingElement.AdjacentSpaces(spaces, spaceSpaces));
 
                     if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
-                        jsonOpening.OpeningType = "FixedWindow";
+                        gbOpening.OpeningType = "FixedWindow";
 
-                    if (jsonOpening.OpeningType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors
-                        jsonOpening.OpeningType = "NonSlidingDoor";
+                    if (gbOpening.OpeningType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors
+                        gbOpening.OpeningType = "NonSlidingDoor";
                 }
             }
 
-            return jsonOpening;
+            return gbOpening;
         }
 
         public static BHE.Opening ToBHoM(this BHX.Opening opening)
