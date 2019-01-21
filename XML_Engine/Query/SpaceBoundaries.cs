@@ -95,7 +95,7 @@ namespace BH.Engine.XML
             {
                 PlanarGeometry planarGeom = new PlanarGeometry();
                 planarGeom.PolyLoop = pLoops[x];
-                planarGeom.ID = "pGeom" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+                planarGeom.ID = "pGeom" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
                 boundaries[x] = new SpaceBoundary { PlanarGeometry = planarGeom };
 
                 //Get the ID from the referenced element

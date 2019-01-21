@@ -43,13 +43,14 @@ namespace BH.Engine.XML
 
             BHG.Polyline pLine = new oM.Geometry.Polyline() { ControlPoints = opening.OpeningCurve.IControlPoints() };
 
+            jsonOpening.Name = "opening-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
             jsonOpening.ID = "opening-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
             jsonOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML();
-            jsonOpening.PlanarGeometry.ID = "openingPGeom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+            jsonOpening.PlanarGeometry.ID = "openingPGeom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             jsonOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pLine).ToGBXML();
             jsonOpening.RectangularGeometry.Height = Math.Round(opening.Height(), 3);
             jsonOpening.RectangularGeometry.Width = Math.Round(opening.Width(), 3);
-            jsonOpening.RectangularGeometry.ID = "rGeomOpening-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+            jsonOpening.RectangularGeometry.ID = "rGeomOpening-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
             return jsonOpening;
         }
