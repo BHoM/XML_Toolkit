@@ -106,6 +106,10 @@ namespace BH.Engine.XML
             BHG.Polyline pLine = opening.PlanarGeometry.PolyLoop.ToBHoM();
             bhomOpening.OpeningCurve = pLine;
 
+            string[] cadSplit = opening.CADObjectID.Split('[');
+            if (cadSplit.Length > 0)
+                bhomOpening.Name = cadSplit[0].Trim();
+
             return bhomOpening;
         }
     }
