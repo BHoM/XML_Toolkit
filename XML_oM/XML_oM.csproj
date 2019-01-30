@@ -93,6 +93,14 @@
     <Compile Include="GBXML\Materials\Material.cs" />
     <Compile Include="GBXML\Materials\RValue.cs" />
     <Compile Include="GBXML\Materials\SpecificHeat.cs" />
+    <Compile Include="GBXML\Window\Emittance.cs" />
+    <Compile Include="GBXML\Window\Gap.cs" />
+    <Compile Include="GBXML\Window\Glaze.cs" />
+    <Compile Include="GBXML\Window\Reflectance.cs" />
+    <Compile Include="GBXML\Window\SolarHeatGainCoefficient.cs" />
+    <Compile Include="GBXML\Window\Thickness.cs" />
+    <Compile Include="GBXML\Window\Transmittance.cs" />
+    <Compile Include="GBXML\Window\WindowType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GBXML\Zone\Zone.cs" />
   </ItemGroup>
