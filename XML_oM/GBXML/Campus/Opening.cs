@@ -34,6 +34,8 @@ namespace BH.oM.XML
     {
         [XmlAttribute(AttributeName = "constructionIdRef")]
         public string ConstructionIDRef { get; set; } = "";
+        [XmlAttribute(AttributeName = "windowTypeIdRef")]
+        public string WindowTypeIDRef { get; set; } = "";
         [XmlAttribute(AttributeName = "openingType")]
         public string OpeningType { get; set; } = "FixedWindow";
         [XmlAttribute(AttributeName = "id")]
