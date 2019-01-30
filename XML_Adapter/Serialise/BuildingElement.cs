@@ -65,6 +65,7 @@ namespace BH.Adapter.XML
             List<BH.oM.XML.Material> usedMaterials = new List<Material>();
             List<BH.oM.XML.Layer> usedLayers = new List<Layer>();
             List<string> usedSpaceNames = new List<string>();
+            List<BH.oM.XML.WindowType> usedWindows = new List<WindowType>();
 
             foreach (List<BuildingElement> space in elementsAsSpaces)
             {
@@ -110,7 +111,14 @@ namespace BH.Adapter.XML
 
                     //Openings
                     if (space[x].Openings.Count > 0)
+                    {
                         srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, spaces, gbx, exportType).ToArray();
+                        foreach(BH.oM.XML.Opening o in srf.Opening)
+                        {
+                            usedWindows.Add(new WindowType());
+                            usedWindows.Last().ID = o.WindowTypeIDRef;
+                        }
+                    }
 
                     gbx.Campus.Surface.Add(srf);
 
@@ -136,6 +144,7 @@ namespace BH.Adapter.XML
                     }
                 }
 
+                //BuildingElement elementForSpace = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data") && !usedSpaceNames.Contains(x.CustomData["SAM_SPACE_NAME_TEST"].ToString())).FirstOrDefault();
                 BuildingElement elementForSpace = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data") && !usedSpaceNames.Contains((x.CustomData["Space_Custom_Data"] as Dictionary<string, object>)["SAM_SpaceName"].ToString())).FirstOrDefault();
                 Dictionary<string, object> spaceData = null;
                 if (elementForSpace != null)
@@ -170,6 +179,7 @@ namespace BH.Adapter.XML
             gbx.Construction = usedConstructions.ToArray();
             gbx.Layer = usedLayers.ToArray();
             gbx.Material = usedMaterials.ToArray();
+            gbx.WindowType = usedWindows.ToArray();
         }
 
         public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, BH.oM.XML.GBXML gbx, ExportType exportType)
