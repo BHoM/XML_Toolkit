@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -30,45 +30,30 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class GBXML : GBXMLObject
+    public class Glaze : GBXMLObject
     {
-        [XmlAttribute(AttributeName = "temperatureUnit")]
-        public string TemperatureUnit { get; set; } = "C";
+        [XmlAttribute("id")]
+        public string ID { get; set; } = "";
 
-        [XmlAttribute(AttributeName = "lengthUnit")]
-        public string LengthUnit { get; set; } = "Meters";
+        [XmlElement("Name")]
+        public string Name { get; set; } = "Glazing";
 
-        [XmlAttribute(AttributeName = "areaUnit")]
-        public string AreaUnit { get; set; } = "SquareMeters";
+        [XmlElement("Description")]
+        public string Description { get; set; } = "";
 
-        [XmlAttribute(AttributeName = "volumeUnit")]
-        public string VolumeUnit { get; set; } = "CubicMeters";
+        [XmlElement("Thickness")]
+        public Thickness Thickness { get; set; } = new Thickness();
 
-        [XmlAttribute(AttributeName = "useSIUnitsForResults")]
-        public string UseSIUnitsForResults { get; set; } = "true";
+        [XmlElement("Conductivity")]
+        public Conductivity Conductivity { get; set; } = new Conductivity();
 
-        [XmlAttribute(AttributeName = "version")]
-        public string Version { get; set; } = "0.37";
+        [XmlElement("Transmittance")]
+        public Transmittance[] Transmittance { get; set; } = new List<Transmittance> { new Transmittance() }.ToArray();
 
-        [XmlElement("Campus")]
-        public Campus Campus { get; set; } = new Campus();
+        [XmlElement("Reflectance")]
+        public Reflectance[] Reflectance { get; set; } = new List<Reflectance> { new Reflectance() }.ToArray();
 
-        [XmlElement("Construction")]
-        public Construction[] Construction { get; set; }
-
-        [XmlElement("Layer")]
-        public Layer[] Layer { get; set; }
-
-        [XmlElement("Material")]
-        public Material[] Material { get; set; }
-
-        [XmlElement("Zone")]
-        public Zone[] Zone { get; set; } = new List<Zone> { new Zone() }.ToArray();
-
-        [XmlElement("WindowType")]
-        public WindowType[] WindowType { get; set; } = new List<WindowType> { new WindowType() }.ToArray();
-
-        [XmlElement("DocumentHistory")]
-        public DocumentHistory DocumentHistory { get; set; } = new DocumentHistory();
+        [XmlElement("Emittance")]
+        public Emittance[] Emittance { get; set; } = new List<Emittance> { new Emittance() }.ToArray();
     }
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -30,45 +30,15 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class GBXML : GBXMLObject
+    public class Emittance : GBXMLObject
     {
-        [XmlAttribute(AttributeName = "temperatureUnit")]
-        public string TemperatureUnit { get; set; } = "C";
+        [XmlAttribute("type")]
+        public string Type { get; set; } = "ExtIR";
 
-        [XmlAttribute(AttributeName = "lengthUnit")]
-        public string LengthUnit { get; set; } = "Meters";
+        [XmlAttribute("unit")]
+        public string Unit { get; set; } = "Fraction";
 
-        [XmlAttribute(AttributeName = "areaUnit")]
-        public string AreaUnit { get; set; } = "SquareMeters";
-
-        [XmlAttribute(AttributeName = "volumeUnit")]
-        public string VolumeUnit { get; set; } = "CubicMeters";
-
-        [XmlAttribute(AttributeName = "useSIUnitsForResults")]
-        public string UseSIUnitsForResults { get; set; } = "true";
-
-        [XmlAttribute(AttributeName = "version")]
-        public string Version { get; set; } = "0.37";
-
-        [XmlElement("Campus")]
-        public Campus Campus { get; set; } = new Campus();
-
-        [XmlElement("Construction")]
-        public Construction[] Construction { get; set; }
-
-        [XmlElement("Layer")]
-        public Layer[] Layer { get; set; }
-
-        [XmlElement("Material")]
-        public Material[] Material { get; set; }
-
-        [XmlElement("Zone")]
-        public Zone[] Zone { get; set; } = new List<Zone> { new Zone() }.ToArray();
-
-        [XmlElement("WindowType")]
-        public WindowType[] WindowType { get; set; } = new List<WindowType> { new WindowType() }.ToArray();
-
-        [XmlElement("DocumentHistory")]
-        public DocumentHistory DocumentHistory { get; set; } = new DocumentHistory();
+        [XmlText]
+        public string Value { get; set; } = "0";
     }
 }
