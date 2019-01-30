@@ -92,6 +92,8 @@ namespace BH.Adapter.XML
                 else
                     gbOpening.ConstructionIDRef = null;
 
+                gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement) + "window"; //TODO: This is a temporary solution, resolve properly when information available
+
                 gbOpenings.Add(gbOpening);
             }
 

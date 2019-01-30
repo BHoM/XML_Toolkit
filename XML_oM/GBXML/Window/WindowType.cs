@@ -32,6 +32,9 @@ namespace BH.oM.XML
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class WindowType : GBXMLObject
     {
+        [XmlAttribute("id")]
+        public string ID{ get; set; } = "WindowID";
+
         [XmlElement("Name")]
         public string Name { get; set; } = "WindowType";
 
