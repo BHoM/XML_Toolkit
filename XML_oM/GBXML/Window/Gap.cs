@@ -33,13 +33,16 @@ namespace BH.oM.XML
     public class Gap : GBXMLObject
     {
         [XmlAttribute("id")]
-        public string ID { get; set; } = "";
+        public string ID { get; set; } = "Gap identification";
+
+        [XmlAttribute("gas")]
+        public string Gas { get; set; } = "Argon";
 
         [XmlElement("Name")]
         public string Name { get; set; } = "Glazing";
 
         [XmlElement("Description")]
-        public string Description { get; set; } = "";
+        public string Description { get; set; } = "Standard Dbl Glazed";
 
         [XmlElement("Thickness")]
         public Thickness Thickness { get; set; } = new Thickness();

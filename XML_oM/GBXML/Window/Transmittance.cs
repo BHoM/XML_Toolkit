@@ -35,6 +35,9 @@ namespace BH.oM.XML
         [XmlAttribute("type")]
         public string Type { get; set; } = "Visible";
 
+        [XmlAttribute("unit")]
+        public string Unit { get; set; } = "Fraction";
+
         [XmlText]
         public string Value { get; set; } = "0";
     }
