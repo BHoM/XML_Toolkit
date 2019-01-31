@@ -33,13 +33,13 @@ namespace BH.oM.XML
     public class WindowType : GBXMLObject
     {
         [XmlAttribute("id")]
-        public string ID{ get; set; } = "WindowID";
+        public string ID { get; set; } = "WindowID";
 
         [XmlElement("Name")]
         public string Name { get; set; } = "WindowType";
 
         [XmlElement("Description")]
-        public string Description { get; set; } = "";
+        public string Description { get; set; } = "Standard Dbl Glazed";
 
         [XmlElement("U-value")]
         public UValue UValue { get; set; } = new UValue();
@@ -51,9 +51,12 @@ namespace BH.oM.XML
         public Transmittance Transmittance { get; set; } = new Transmittance();
 
         [XmlElement("Glaze")]
-        public Glaze[] Glaze { get; set; } = new List<Glaze> { new Glaze() }.ToArray();
+        public Glaze InternalGlaze { get; set; } = new Glaze();
 
         [XmlElement("Gap")]
         public Gap Gap { get; set; } = new Gap();
+
+        [XmlElement("Glaze")]
+        public Glaze ExternalGlaze { get; set; } = new Glaze();
     }
 }
