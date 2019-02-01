@@ -35,28 +35,28 @@ namespace BH.oM.XML
         [XmlAttribute("id")]
         public string ID { get; set; } = "WindowID";
 
-        [XmlElement("Name")]
+        [XmlElement("Name", Order = 1)]
         public string Name { get; set; } = "WindowType";
 
-        [XmlElement("Description")]
+        [XmlElement("Description", Order = 2)]
         public string Description { get; set; } = "Standard Dbl Glazed";
 
-        [XmlElement("U-value")]
+        [XmlElement("U-value", Order = 3)]
         public UValue UValue { get; set; } = new UValue();
 
-        [XmlElement("SolarHeatGainCoeff")]
+        [XmlElement("SolarHeatGainCoeff", Order = 4)]
         public SolarHeatGainCoefficient SolarHeatGainCoefficient { get; set; } = new SolarHeatGainCoefficient();
 
-        [XmlElement("Transmittance")]
+        [XmlElement("Transmittance", Order = 5)]
         public Transmittance Transmittance { get; set; } = new Transmittance();
 
-        [XmlElement(ElementName = "Glaze")]
+        [XmlElement(ElementName = "Glaze", Order = 6)]
         public Glaze InternalGlaze { get; set; } = new Glaze();
 
-        [XmlElement("Gap")]
+        [XmlElement("Gap", Order = 7)]
         public Gap Gap { get; set; } = new Gap();
 
-        [XmlElement(ElementName = "Glaze")]
+        [XmlElement(ElementName = "Glaze", Order = 8)]
         public Glaze ExternalGlaze { get; set; } = new Glaze();
     }
 }
