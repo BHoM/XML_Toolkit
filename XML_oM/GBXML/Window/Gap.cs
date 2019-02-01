@@ -33,7 +33,7 @@ namespace BH.oM.XML
     public class Gap : GBXMLObject
     {
         [XmlAttribute("id")]
-        public string ID { get; set; } = "Gap identification";
+        public string ID { get; set; } = "GapIdentification";
 
         [XmlAttribute("gas")]
         public string Gas { get; set; } = "Argon";
