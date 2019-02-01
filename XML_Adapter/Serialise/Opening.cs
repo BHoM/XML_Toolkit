@@ -88,7 +88,8 @@ namespace BH.Adapter.XML
                 }
 
                 if (exportType == ExportType.gbXMLIES)
-                    gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement) + "window"; //TODO: This is a temporary solution, resolve properly when information available
+                    //gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement) + "window"; //TODO//: This is a temporary solution, resolve properly when information available
+                    gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.GetCleanName(buildingElement.BuildingElementProperties.Name);
                 else
                     gbOpening.WindowTypeIDRef = null;
                 /*gbOpening.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement); //Only for IES!
@@ -101,5 +102,6 @@ namespace BH.Adapter.XML
 
             return gbOpenings;
         }
+
     }
 }

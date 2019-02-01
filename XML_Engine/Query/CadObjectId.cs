@@ -97,19 +97,12 @@ namespace BH.Engine.XML
         public static string CadObjectId(BHE.Opening bHoMOpening, List<BHE.BuildingElement> buildingElementsList, ExportType exportType)
         {
             string CADObjectID = "";
-            string familyName = "";
-            string typeName = "";
 
             if (bHoMOpening.CustomData.ContainsKey("Revit_elementId"))
             {
                 string elementID = (bHoMOpening.CustomData["Revit_elementId"]).ToString();
                 BHE.BuildingElement buildingElement = buildingElementsList.Find(x => x != null && x.ElementID == elementID);
-                if (buildingElement != null && buildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
-                {
-                    familyName = buildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
-                    typeName = buildingElement.BuildingElementProperties.Name;
-                }
-                CADObjectID = familyName + ": " + typeName + " [" + elementID + "]";
+                CADObjectID = buildingElement.BuildingElementProperties.Name + " [" + elementID + "]";
             }
             return CADObjectID;
         }
