@@ -89,6 +89,7 @@
     <Compile Include="Create\DocumentBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\AdjacentSpace.cs" />
+    <Compile Include="Query\GetCleanName.cs" />
     <Compile Include="Query\ExternalElements.cs" />
     <Compile Include="Query\PolygonCentre.cs" />
     <Compile Include="Query\PropertiesFromAdjSrf.cs" />
