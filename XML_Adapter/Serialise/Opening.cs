@@ -88,11 +88,13 @@ namespace BH.Adapter.XML
                 }
 
                 if (exportType == ExportType.gbXMLIES)
-                    gbOpening.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement); //Only for IES!
+                    gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement) + "window"; //TODO: This is a temporary solution, resolve properly when information available
                 else
-                    gbOpening.ConstructionIDRef = null;
+                    gbOpening.WindowTypeIDRef = null;
+                /*gbOpening.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement); //Only for IES!
+                else*/
 
-                gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement) + "window"; //TODO: This is a temporary solution, resolve properly when information available
+                gbOpening.ConstructionIDRef = null;
 
                 gbOpenings.Add(gbOpening);
             }
