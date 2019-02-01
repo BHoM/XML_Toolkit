@@ -50,13 +50,13 @@ namespace BH.oM.XML
         [XmlElement("Transmittance")]
         public Transmittance Transmittance { get; set; } = new Transmittance();
 
-        [XmlElement("Glaze")]
+        [XmlElement(ElementName = "Glaze")]
         public Glaze InternalGlaze { get; set; } = new Glaze();
 
         [XmlElement("Gap")]
         public Gap Gap { get; set; } = new Gap();
 
-        [XmlElement("Glaze")]
+        [XmlElement(ElementName = "Glaze")]
         public Glaze ExternalGlaze { get; set; } = new Glaze();
     }
 }

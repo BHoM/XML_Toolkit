@@ -30,6 +30,7 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
+    [XmlType("Glaze")]
     public class Glaze : GBXMLObject
     {
         [XmlAttribute("id")]
