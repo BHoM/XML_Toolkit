@@ -38,6 +38,9 @@ namespace BH.oM.XML
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "Fraction";
 
+        [XmlAttribute("surfaceType")]
+        public string SurfaceType { get; set; } = "Both";
+
         [XmlText]
         public string Value { get; set; } = "0";
     }
