@@ -179,7 +179,11 @@ namespace BH.Adapter.XML
             gbx.Construction = usedConstructions.ToArray();
             gbx.Layer = usedLayers.ToArray();
             gbx.Material = usedMaterials.ToArray();
-            gbx.WindowType = usedWindows.ToArray();
+
+            if (exportType == ExportType.gbXMLIES)
+                gbx.WindowType = usedWindows.ToArray();
+            else if (exportType == ExportType.gbXMLTAS)
+                gbx.WindowType = null;
         }
 
         public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, BH.oM.XML.GBXML gbx, ExportType exportType)
@@ -198,7 +202,10 @@ namespace BH.Adapter.XML
                 if (be.BuildingElementProperties != null)
                     gbSrf.CADObjectID = be.CADObjectID();
 
-                gbSrf.ConstructionIDRef = be.ConstructionID();
+                if (exportType == ExportType.gbXMLIES)
+                    gbSrf.ConstructionIDRef = be.ConstructionID();
+                else if (exportType == ExportType.gbXMLTAS)
+                    gbSrf.ConstructionIDRef = null;
 
                 gbx.Campus.Surface.Add(gbSrf);
             }
