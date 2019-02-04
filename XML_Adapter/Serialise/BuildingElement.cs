@@ -182,7 +182,7 @@ namespace BH.Adapter.XML
 
             if (exportType == ExportType.gbXMLIES)
                 gbx.WindowType = usedWindows.ToArray();
-            else if (exportType == ExportType.gbXMLTAS)//We have to force nill otherwise WindowType will be created
+            else if (exportType == ExportType.gbXMLTAS)//We have to force null otherwise WindowType will be created
                 gbx.WindowType = null;
         }
 
@@ -204,7 +204,7 @@ namespace BH.Adapter.XML
 
                 if (exportType == ExportType.gbXMLIES)
                     gbSrf.ConstructionIDRef = be.ConstructionID();
-                else if (exportType == ExportType.gbXMLTAS) //We have to force nill otherwise Construction will be created
+                else if (exportType == ExportType.gbXMLTAS) //We have to force null otherwise Construction will be created
                     gbSrf.ConstructionIDRef = null;
 
                 gbx.Campus.Surface.Add(gbSrf);
