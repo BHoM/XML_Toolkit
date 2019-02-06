@@ -27,6 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Properties;
 using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;
 
@@ -60,7 +61,7 @@ namespace BH.Engine.XML
             return gbOpening;
         }
 
-        public static BHX.Opening ToJson(this BHE.Opening opening, List<BHE.BuildingElement> space, List<BHE.BuildingElement> allElements, List<List<BHE.BuildingElement>> spaces, List<BHE.Space> spaceSpaces)
+        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.BuildingElement> space, List<BHE.BuildingElement> allElements, List<List<BHE.BuildingElement>> spaces, List<BHE.Space> spaceSpaces)
         {
             BHX.Opening gbOpening = opening.ToGBXML();
 
@@ -72,9 +73,12 @@ namespace BH.Engine.XML
             string familyName = "";
             string typeName = "";
 
-            if (opening.CustomData.ContainsKey("Revit_elementId"))
+            BHP.EnvironmentContextProperties contextProperties = opening.ContextProperties() as BHP.EnvironmentContextProperties;
+
+
+            if (contextProperties != null)
             {
-                string elementID = (opening.CustomData["Revit_elementId"]).ToString();
+                string elementID = contextProperties.ElementID;
                 buildingElement = allElements.Find(x => x != null && x.ElementID == elementID);
 
                 if (buildingElement != null)

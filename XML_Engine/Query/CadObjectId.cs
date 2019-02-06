@@ -26,8 +26,11 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System.Linq;
 using BHE = BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Properties;
 
 using BH.oM.XML.Enums;
+
+using BH.Engine.Environment;
 
 namespace BH.Engine.XML
 {
@@ -94,16 +97,17 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static string CadObjectId(BHE.Opening bHoMOpening, List<BHE.BuildingElement> buildingElementsList, ExportType exportType)
+        public static string CadObjectId(BHE.Opening opening, List<BHE.BuildingElement> buildingElementsList, ExportType exportType)
         {
             string CADObjectID = "";
 
-            if (bHoMOpening.CustomData.ContainsKey("Revit_elementId"))
-            {
-                string elementID = (bHoMOpening.CustomData["Revit_elementId"]).ToString();
-                BHE.BuildingElement buildingElement = buildingElementsList.Find(x => x != null && x.ElementID == elementID);
-                CADObjectID = buildingElement.BuildingElementProperties.Name + " [" + elementID + "]";
-            }
+            BHP.EnvironmentContextProperties contextProp = opening.ContextProperties() as BHP.EnvironmentContextProperties;
+            if (contextProp == null) return CADObjectID;
+
+            string elementID = contextProp.ElementID;
+            BHE.BuildingElement buildingElement = buildingElementsList.Find(x => x != null && x.ElementID == elementID);
+            CADObjectID = buildingElement.BuildingElementProperties.Name + " [" + elementID + "]";
+
             return CADObjectID;
         }
 
