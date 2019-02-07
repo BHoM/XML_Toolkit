@@ -156,7 +156,7 @@ namespace BH.Adapter.XML
                 BH.oM.XML.Space xmlSpace = new oM.XML.Space();
                 xmlSpace.Name = (spaceData.ContainsKey("SAM_SpaceName") && spaceData["SAM_SpaceName"] != null ? spaceData["SAM_SpaceName"].ToString() : s.Name); //CUSTOMDATA SAM_SpaceName
                 xmlSpace.ID = "Space-" + s.Number + "-" + s.Name;
-                xmlSpace.CADObjectID = BH.Engine.XML.Query.CadObjectId(space);
+                xmlSpace.CADObjectID = BH.Engine.XML.Query.CADObjectID(space);
                 xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
                 xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
                 xmlSpace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(space, uniqueBuildingElements);

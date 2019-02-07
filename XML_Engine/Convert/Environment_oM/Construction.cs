@@ -26,6 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using BHI = BH.oM.Environment.Interface;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Properties;
 using BHX = BH.oM.XML;
@@ -40,12 +41,13 @@ namespace BH.Engine.XML
     {
         public static BHX.Construction ToGBXMLConstruction(this BHE.BuildingElement element)
         {
-            if (element == null || element.BuildingElementProperties == null) return null;
-            return element.BuildingElementProperties.ToGBXMLConstruction();
+            if (element == null || element.ElementProperties() == null) return null;
+            return element.ElementProperties().ToGBXMLConstruction();
         }
 
-        public static BHX.Construction ToGBXMLConstruction(this BHP.BuildingElementProperties props)
+        public static BHX.Construction ToGBXMLConstruction(this BHI.IBHoMExtendedProperties properties)
         {
+            BHP.ElementProperties props = properties as BHP.ElementProperties;
             if (props == null || props.Construction == null) return null;
             return props.Construction.ToGBXML();
         }
