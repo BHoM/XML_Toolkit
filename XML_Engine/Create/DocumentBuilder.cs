@@ -67,7 +67,7 @@ namespace BH.Engine.XML
 
             List<BuildingElement> shadingElements = buildingElements.ShadingElements();
 
-            buildingElements = buildingElements.StripOpenings();
+            //buildingElements = buildingElements.StripOpenings();
 
             List<string> uniqueSpaceNames = buildingElements.UniqueSpaceNames();
 
