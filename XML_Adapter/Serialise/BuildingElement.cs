@@ -37,6 +37,8 @@ using BH.oM.Architecture.Elements;
 
 using BH.oM.XML.Enums;
 
+using BHP = BH.oM.Environment.Properties;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -130,16 +132,21 @@ namespace BH.Adapter.XML
                         BH.oM.XML.Construction test = usedConstructions.Where(y => y.ID == conc.ID).FirstOrDefault();
                         if (test == null)
                         {
-                            List<BH.oM.XML.Material> materials = new List<Material>();
-                            foreach (BH.oM.Environment.Materials.Material m in space[x].BuildingElementProperties.Construction.Materials)
-                                materials.Add(m.ToGBXML());
+                            if (space[x].ElementProperties() != null)
+                            {
+                                List<BH.oM.XML.Material> materials = new List<Material>();
+                                BH.oM.Environment.Elements.Construction construction = (space[x].ElementProperties() as BHP.ElementProperties).Construction;
 
-                            BH.oM.XML.Layer layer = materials.ToGBXML();
-                            conc.LayerID.LayerIDRef = layer.ID;
+                                foreach (BH.oM.Environment.Materials.Material m in construction.Materials)
+                                    materials.Add(m.ToGBXML());
 
-                            usedConstructions.Add(conc);
-                            usedLayers.Add(layer);
-                            usedMaterials.AddRange(materials);
+                                BH.oM.XML.Layer layer = materials.ToGBXML();
+                                conc.LayerID.LayerIDRef = layer.ID;
+
+                                usedConstructions.Add(conc);
+                                usedLayers.Add(layer);
+                                usedMaterials.AddRange(materials);
+                            }
                         }
                     }
                 }
@@ -198,9 +205,7 @@ namespace BH.Adapter.XML
                 gbSrf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
                 gbSrf.SurfaceType = "Shade";
                 gbSrf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(gbSrf.SurfaceType).ToString().ToLower();
-
-                if (be.BuildingElementProperties != null)
-                    gbSrf.CADObjectID = be.CADObjectID();
+                gbSrf.CADObjectID = be.CADObjectID();
 
                 if (exportType == ExportType.gbXMLIES)
                     gbSrf.ConstructionIDRef = be.ConstructionID();

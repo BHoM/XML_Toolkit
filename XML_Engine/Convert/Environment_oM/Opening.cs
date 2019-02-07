@@ -55,13 +55,13 @@ namespace BH.Engine.XML
                gbOpening.RectangularGeometry.Height = 0.1;
             gbOpening.RectangularGeometry.Width = Math.Round(opening.Width(), 3);
             //if (opening.Width() == 0)
-            //    jsonOpening.RectangularGeometry.Width = 0.1;
+            //    gbOpening.RectangularGeometry.Width = 0.1;
             gbOpening.RectangularGeometry.ID = "rGeomOpening-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
             return gbOpening;
         }
 
-        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.BuildingElement> space, List<BHE.BuildingElement> allElements, List<List<BHE.BuildingElement>> spaces, List<BHE.Space> spaceSpaces)
+        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.BuildingElement> space, List<BHE.BuildingElement> allElements, List<List<BHE.BuildingElement>> spaces, List<BHE.Space> spaceSpaces, BHX.Enums.ExportType exportType = BHX.Enums.ExportType.gbXMLTAS)
         {
             BHX.Opening gbOpening = opening.ToGBXML();
 
@@ -69,33 +69,23 @@ namespace BH.Engine.XML
             if (pLine.NormalAwayFromSpace(space))
                 gbOpening.PlanarGeometry.PolyLoop = pLine.Flip().ToGBXML();
 
-            BHE.BuildingElement buildingElement = new BHE.BuildingElement();
-            string familyName = "";
-            string typeName = "";
-
             BHP.EnvironmentContextProperties contextProperties = opening.ContextProperties() as BHP.EnvironmentContextProperties;
-
+            BHP.ElementProperties elementProperties = opening.ElementProperties() as BHP.ElementProperties;
 
             if (contextProperties != null)
             {
                 string elementID = contextProperties.ElementID;
-                buildingElement = allElements.Find(x => x != null && x.ElementID == elementID);
+                string familyName = contextProperties.TypeName;
 
-                if (buildingElement != null)
+                gbOpening.CADObjectID = opening.CADObjectID(exportType);
+                gbOpening.OpeningType = opening.ElementProperties().ToGBXMLType();
+
+                if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
+                    gbOpening.OpeningType = "FixedWindow";
+
+                if (elementProperties != null)
                 {
-                    if (buildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
-                    {
-                        familyName = buildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
-                        typeName = buildingElement.BuildingElementProperties.Name;
-                    }
-
-                    gbOpening.CADObjectID = buildingElement.CADObjectID();
-                    gbOpening.OpeningType = buildingElement.ToGBXMLType(buildingElement.AdjacentSpaces(spaces, spaceSpaces));
-
-                    if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
-                        gbOpening.OpeningType = "FixedWindow";
-
-                    if (gbOpening.OpeningType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors
+                    if (gbOpening.OpeningType.Contains("Window") && elementProperties.Construction.Name.Contains("SLD")) //Change windows with SLD construction into doors
                         gbOpening.OpeningType = "NonSlidingDoor";
                 }
             }
@@ -103,18 +93,18 @@ namespace BH.Engine.XML
             return gbOpening;
         }
 
-        public static BHE.Opening ToBHoM(this BHX.Opening opening)
+        public static BHE.Opening ToBHoM(this BHX.Opening gbOpening)
         {
-            BHE.Opening bhomOpening = new BHE.Opening();
+            BHE.Opening opening = new BHE.Opening();
 
-            BHG.Polyline pLine = opening.PlanarGeometry.PolyLoop.ToBHoM();
-            bhomOpening.OpeningCurve = pLine;
+            BHG.Polyline pLine = gbOpening.PlanarGeometry.PolyLoop.ToBHoM();
+            opening.OpeningCurve = pLine;
 
-            string[] cadSplit = opening.CADObjectID.Split('[');
+            string[] cadSplit = gbOpening.CADObjectID.Split('[');
             if (cadSplit.Length > 0)
-                bhomOpening.Name = cadSplit[0].Trim();
+                opening.Name = cadSplit[0].Trim();
 
-            return bhomOpening;
+            return opening;
         }
     }
 }
