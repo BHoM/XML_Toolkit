@@ -27,6 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Properties;
 using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;
 
@@ -42,8 +43,12 @@ namespace BH.Engine.XML
             BHX.Building gbBuilding = new BHX.Building();
 
             gbBuilding.Name = building.Name;
-            if (building.CustomData.ContainsKey("Place Name"))
-                gbBuilding.StreetAddress = (building.CustomData["Place Name"]).ToString();
+
+            if (building.ContextProperties() != null)
+            {
+                BHP.BuildingContextProperties properties = building.ContextProperties() as BHP.BuildingContextProperties;
+                gbBuilding.StreetAddress = properties.PlaceName;
+            }
 
             if (building.CustomData.ContainsKey("Building Name"))
                 gbBuilding.BuildingType = (building.CustomData["Building Name"]).ToString();
@@ -58,10 +63,12 @@ namespace BH.Engine.XML
             location.Latitude = Math.Round(building.Latitude, 5);
             location.Elevation = Math.Round(building.Elevation, 5);
 
-            if (building.CustomData.ContainsKey("Place Name"))
-                location.Name = (building.CustomData["Place Name"]).ToString();
-            if (building.CustomData.ContainsKey("Weather Station Name"))
-                location.StationID.ID = (building.CustomData["Weather Station Name"]).ToString();
+            if (building.ContextProperties() != null)
+            {
+                BHP.BuildingContextProperties properties = building.ContextProperties() as BHP.BuildingContextProperties;
+                location.Name = properties.PlaceName;
+                location.StationID.ID = properties.WeatherStation;
+            }
 
             return location;
         }
@@ -71,7 +78,9 @@ namespace BH.Engine.XML
             BHE.Building building = new BHE.Building();
 
             building.Name = gbBuilding.Name;
-            building.CustomData.Add("Place Name", gbBuilding.StreetAddress);
+            BHP.BuildingContextProperties props = new BHP.BuildingContextProperties();
+            props.PlaceName = gbBuilding.StreetAddress;
+            building.ExtendedProperties.Add(props);
             building.CustomData.Add("Building Name", gbBuilding.BuildingType);
 
             return building;
@@ -85,8 +94,10 @@ namespace BH.Engine.XML
             building.Longitude = location.Longitude;
             building.Latitude = location.Latitude;
 
-            building.CustomData.Add("Place Name", location.Name);
-            building.CustomData.Add("Weather Station Name", location.StationID.ID);
+            BHP.BuildingContextProperties props = new BHP.BuildingContextProperties();
+            props.PlaceName = location.Name;
+            props.WeatherStation = location.StationID.ID;
+            building.ExtendedProperties.Add(props);
 
             return building;
         }
