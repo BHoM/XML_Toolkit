@@ -43,24 +43,25 @@ namespace BH.Engine.XML
         public static string CADObjectID(this BHE.BuildingElement element, ExportType exportType = ExportType.gbXMLTAS)
         {
             string CADObjectID = "";
-            string revitElementID = "";
+            if (element == null) return CADObjectID;
 
-            if (element.BuildingElementProperties != null)
+            BHP.EnvironmentContextProperties contextProperties = element.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+
+            if (contextProperties != null)
             {
-                revitElementID = element.ElementID;
-
                 // change only Basic Wall and keep Curtain as it is
                 if (exportType == ExportType.gbXMLIES && element.Name.Contains("GLZ") && (element.Name.Contains("Basic Wall") || element.Name.Contains("Floor") || element.Name.Contains("Roof")))
                     element.Name = "Curtain " + element.Name;
 
-                CADObjectID = element.Name + " [" + revitElementID + "]";
+                CADObjectID = element.Name + " [" + contextProperties.ElementID + "]";
             }
+
             return CADObjectID;
         }
 
         public static string CADObjectID(this List<BHE.BuildingElement> space)
         {
-            string CADObjectID = "";
+            /*string CADObjectID = "";
 
             BHE.BuildingElement spaceCustomData = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault();
 
@@ -74,78 +75,29 @@ namespace BH.Engine.XML
                     CADObjectID = data["Revit_elementId"].ToString();
             }
 
-            return CADObjectID;
-        }
+            return CADObjectID;*/
 
-        public static string SurfaceName(this BHE.BuildingElement element, ExportType exportType)
-        {
-            string CADObjectID = "";
-            string familyName = "";
-
-            if (element.BuildingElementProperties != null)
-            {
-                if (element.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
-                    familyName = element.BuildingElementProperties.CustomData["Family Name"].ToString();
-
-                if (exportType == ExportType.gbXMLIES && familyName.Contains("Basic Wall") && element.BuildingElementProperties.Name.Contains("GLZ"))
-                    familyName = "Curtain Basic Wall";
-
-                CADObjectID = familyName + ": " + element.BuildingElementProperties.Name;
-            }
-            return CADObjectID;
+            return "FIX CAD OBJECT ID FOR SPACE";
         }
 
         /***************************************************/
 
-        public static string CadObjectId(BHE.Opening opening, List<BHE.BuildingElement> buildingElementsList, ExportType exportType)
+        public static string CADObjectID(BHE.Opening opening, List<BHE.BuildingElement> buildingElementsList, ExportType exportType)
         {
-            string CADObjectID = "";
-
             BHP.EnvironmentContextProperties contextProp = opening.ContextProperties() as BHP.EnvironmentContextProperties;
-            if (contextProp == null) return CADObjectID;
+            if (contextProp == null) return "";
 
-            string elementID = contextProp.ElementID;
-            BHE.BuildingElement buildingElement = buildingElementsList.Find(x => x != null && x.ElementID == elementID);
-            CADObjectID = buildingElement.BuildingElementProperties.Name + " [" + elementID + "]";
-
-            return CADObjectID;
+            return contextProp.TypeName + " [" + contextProp.ElementID + "]";
         }
 
         /***************************************************/
 
-        public static string CadObjectId(BHE.Space bHoMSpace)
+        public static string CADObjectID(BHE.Space space)
         {
-            string CADObjectID = "";
+            BHP.EnvironmentContextProperties contextProp = space.ContextProperties() as BHP.EnvironmentContextProperties;
+            if (contextProp == null) return "";
 
-            if (bHoMSpace.CustomData.ContainsKey("Revit_elementId"))
-                CADObjectID = (bHoMSpace.CustomData["Revit_elementId"]).ToString();
-
-            return CADObjectID;
-        }
-
-        /***************************************************/
-
-        public static string CadObjectId(List<BHE.BuildingElement> space)
-        {
-            string CADObjectID = "";
-
-            BHE.BuildingElement spaceCustomData = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault();
-
-            if (spaceCustomData == null) return CADObjectID;
-
-            Dictionary<string, object> data = spaceCustomData.CustomData["Space_Custom_Data"] as Dictionary<string, object>;
-
-            if(spaceCustomData != null)
-            {
-                if (data.ContainsKey("Revit_elementId"))
-                    CADObjectID = data["Revit_elementId"].ToString();
-            }
-
-            return CADObjectID;
+            return contextProp.TypeName + " [" + contextProp.ElementID + "]";
         }
     }
 }
-
-
-
-

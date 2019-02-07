@@ -33,7 +33,7 @@ namespace BH.Test.XML
     [TestClass]
     public class ToGBXMLTypeSurfaceType
     {
-        [TestMethod]
+        /*[TestMethod]
         public void SurfaceType_Rooflight()
         {
             string x = "Rooflight";
@@ -241,6 +241,6 @@ namespace BH.Test.XML
         {
             string x = "null";
             Assert.IsTrue(x.ToGBXMLType().Equals("Air"));
-        }
+        }*/
     }
 }

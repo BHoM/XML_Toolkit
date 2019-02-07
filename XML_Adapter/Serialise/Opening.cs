@@ -76,7 +76,7 @@ namespace BH.Adapter.XML
                             typeName = buildingElement.BuildingElementProperties.Name;
                         }
 
-                        gbOpening.CADObjectID = BH.Engine.XML.Query.CadObjectId(opening, allElements, exportType);
+                        gbOpening.CADObjectID = BH.Engine.XML.Query.CADObjectID(opening, allElements, exportType);
                         gbOpening.OpeningType = BH.Engine.XML.Convert.ToGBXMLType(buildingElement, BH.Engine.Environment.Query.AdjacentSpaces(buildingElement, spaces, spaceSpaces), exportType);
 
                         if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
