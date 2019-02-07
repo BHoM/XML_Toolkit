@@ -116,7 +116,6 @@ namespace BH.Engine.XML
                 case BHE.BuildingElementType.VehicleDoor:
                     return "VehicleDoor";
                 case BHE.BuildingElementType.Wall:
-                    return "Wall";
                 case BHE.BuildingElementType.WallExternal:
                     return "ExteriorWall";
                 case BHE.BuildingElementType.WallInternal:

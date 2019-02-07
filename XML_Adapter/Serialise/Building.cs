@@ -26,6 +26,9 @@ using System.Collections.Generic;
 
 using System.Linq;
 
+using BH.Engine.Environment;
+using BHP = BH.oM.Environment.Properties;
+
 namespace BH.Adapter.XML
 {
     public static partial class XMLSerializer
@@ -41,8 +44,13 @@ namespace BH.Adapter.XML
             {
                 gbx.Campus.Location = BH.Engine.XML.Convert.ToGBXMLLocation(buildings[x]);
 
-                if (buildings[x].CustomData.ContainsKey("Place Name"))
-                    gbx.Campus.Building[x].StreetAddress = (buildings[x].CustomData["Place Name"]).ToString();
+                if (buildings[x].ContextProperties() != null)
+                {
+                    BHP.BuildingContextProperties props = buildings[x].ContextProperties() as BHP.BuildingContextProperties;
+                    if(props != null)
+                        gbx.Campus.Building[x].StreetAddress = props.PlaceName;
+                }
+
                 if (buildings[x].CustomData.ContainsKey("Building Name"))
                     gbx.Campus.Building[x].BuildingType = (buildings[x].CustomData["Building Name"]).ToString();
             }

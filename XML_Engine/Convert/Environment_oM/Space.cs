@@ -42,7 +42,7 @@ namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static BHX.Space ToGBXML(this BHE.Space space, List<BHE.BuildingElement> elementsAsSpace, List<BHE.BuildingElement> uniqueBuildingElements, List<BHA.Level> levels)
+        /*public static BHX.Space ToGBXML(this BHE.Space space, List<BHE.BuildingElement> elementsAsSpace, List<BHE.BuildingElement> uniqueBuildingElements, List<BHA.Level> levels)
         {
             Dictionary<string, object> spaceData = (elementsAsSpace.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault() != null ? elementsAsSpace.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault().CustomData["Space_Custom_Data"] as Dictionary<string, object> : new Dictionary<string, object>());
 
@@ -66,7 +66,7 @@ namespace BH.Engine.XML
                 gbSpace.BuildingStoreyIDRef = "Level-" + spaceLevel.Name.Replace(" ", "").ToLower();
 
             return gbSpace;
-        }
+        }*/
     }
 }
 
