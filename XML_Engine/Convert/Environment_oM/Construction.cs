@@ -47,6 +47,7 @@ namespace BH.Engine.XML
 
         public static BHX.Construction ToGBXMLConstruction(this BHI.IBHoMExtendedProperties properties)
         {
+            if (properties == null) return null;
             BHP.ElementProperties props = properties as BHP.ElementProperties;
             if (props == null || props.Construction == null) return null;
             return props.Construction.ToGBXML();

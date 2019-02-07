@@ -27,6 +27,7 @@ using BH.oM.XML;
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Properties;
+using BHI = BH.oM.Environment.Interface;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
@@ -41,11 +42,19 @@ namespace BH.Engine.XML
 
         public static string ConstructionID(this BHE.BuildingElement element)
         {
-            if (element == null || element.BuildingElementProperties == null) return null;
-            return element.BuildingElementProperties.ConstructionID();
+            if (element == null || element.ElementProperties() == null) return null;
+            return element.ElementProperties().ConstructionID();
         }
 
-        public static string ConstructionID(this BHP.BuildingElementProperties props)
+        public static string ConstructionID(this BHI.IBHoMExtendedProperties props)
+        {
+            if (props == null) return null;
+            BHP.ElementProperties properties = props as BHP.ElementProperties;
+            if (properties == null) return null;
+            return ConstructionID(properties);
+        }
+
+        public static string ConstructionID(this BHP.ElementProperties props)
         {
             if (props.Construction == null) return null;
             return props.Construction.ConstructionID();

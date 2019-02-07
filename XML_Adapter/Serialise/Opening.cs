@@ -35,6 +35,8 @@ using BH.Engine.Geometry;
 
 using BH.oM.XML.Enums;
 
+using BHP = BH.oM.Environment.Properties;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -58,50 +60,37 @@ namespace BH.Adapter.XML
                     gbOpening.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(opening.OpeningCurve.ICollapseToPolyline(BH.oM.Geometry.Tolerance.Angle).Flip());
 
                 BuildingElement buildingElement = new BuildingElement();
-                string familyName = "";
-                string typeName = "";
+                
 
-                if (opening.CustomData.ContainsKey("Revit_elementId"))
+                if (opening.ElementProperties() != null && opening.EnvironmentContextProperties() != null)
                 {
-                    string elementID = (opening.CustomData["Revit_elementId"]).ToString();
-                    buildingElement = allElements.Find(x => x != null && x.ElementID == elementID);
-                    //buildingElement = allElements.Find(x => x != null && x.Openings.Find(y => y.BHoM_Guid == opening.BHoM_Guid) != null);
 
-                    if (buildingElement != null)
-                    {
+                    BHP.ElementProperties elementProperties = opening.ElementProperties() as BHP.ElementProperties;
+                    BHP.EnvironmentContextProperties contextProperties = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
 
-                        if (buildingElement.BuildingElementProperties.CustomData.ContainsKey("Family Name"))
-                        {
-                            familyName = buildingElement.BuildingElementProperties.CustomData["Family Name"].ToString();
-                            typeName = buildingElement.BuildingElementProperties.Name;
-                        }
+                    string elementID = contextProperties.ElementID;
+                    string familyName = contextProperties.TypeName;
 
-                        gbOpening.CADObjectID = BH.Engine.XML.Query.CADObjectID(opening, allElements, exportType);
-                        gbOpening.OpeningType = BH.Engine.XML.Convert.ToGBXMLType(buildingElement, BH.Engine.Environment.Query.AdjacentSpaces(buildingElement, spaces, spaceSpaces), exportType);
+                    gbOpening.CADObjectID = opening.CADObjectID(exportType);
+                    gbOpening.OpeningType = elementProperties.ToGBXMLType();
 
-                        if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
-                            gbOpening.OpeningType = "FixedWindow";
+                    if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
+                        gbOpening.OpeningType = "FixedWindow";
 
-                        if (exportType == ExportType.gbXMLIES && gbOpening.OpeningType.Contains("Window") && buildingElement.BuildingElementProperties.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
-                            gbOpening.OpeningType = "NonSlidingDoor";
-                    }
+                    if (exportType == ExportType.gbXMLIES && gbOpening.OpeningType.Contains("Window") && elementProperties.Construction.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                        gbOpening.OpeningType = "NonSlidingDoor";
+
+                    if (exportType == ExportType.gbXMLIES)
+                        gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.GetCleanName(elementProperties.Construction.Name);
+                    else
+                        gbOpening.WindowTypeIDRef = null;
                 }
 
-                if (exportType == ExportType.gbXMLIES)
-                    //gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement) + "window"; //TODO//: This is a temporary solution, resolve properly when information available
-                    gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.GetCleanName(buildingElement.BuildingElementProperties.Name);
-                else
-                    gbOpening.WindowTypeIDRef = null;
-                /*gbOpening.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(buildingElement); //Only for IES!
-                else*/
-
-                gbOpening.ConstructionIDRef = null;
-
+                gbOpening.ConstructionIDRef = null; //ToDo review having this property on an opening?
                 gbOpenings.Add(gbOpening);
             }
 
             return gbOpenings;
         }
-
     }
 }

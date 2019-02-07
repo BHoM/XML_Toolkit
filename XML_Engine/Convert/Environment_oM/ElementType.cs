@@ -28,6 +28,7 @@ using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Properties;
+using BHI = BH.oM.Environment.Interface;
 using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;
 
@@ -52,12 +53,23 @@ namespace BH.Engine.XML
 
             if (adjacentSpaces.Count == 0 && elementProperties.BuildingElementType != BHE.BuildingElementType.Window && elementProperties.BuildingElementType != BHE.BuildingElementType.Door)
                 type = "Shade";
-            else if (element.BuildingElementProperties != null)
-                type = elementProperties.BuildingElementType.ToGBXML();
             else
-                type = "Air";
+                type = elementProperties.BuildingElementType.ToGBXML();
 
             return type;
+        }
+
+        public static string ToGBXMLType(this BHI.IBHoMExtendedProperties props)
+        {
+            if (props == null) return "";
+            return ToGBXMLType(props as dynamic);
+        }
+
+        public static string ToGBXMLType(this BHP.ElementProperties elementProperties)
+        {
+            if (elementProperties == null) return "";
+
+            return elementProperties.BuildingElementType.ToGBXML();
         }
 
         public static string ToGBXML(this BHE.BuildingElementType type)
