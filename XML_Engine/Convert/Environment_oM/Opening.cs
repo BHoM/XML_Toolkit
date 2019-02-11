@@ -44,7 +44,7 @@ namespace BH.Engine.XML
 
             BHG.Polyline pLine = new oM.Geometry.Polyline() { ControlPoints = opening.OpeningCurve.IControlPoints() };
 
-            gbOpening.Name = "opening-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
+            gbOpening.Name = opening.Name;
             gbOpening.ID = "opening-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
             gbOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML();
             gbOpening.PlanarGeometry.ID = "openingPGeom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
