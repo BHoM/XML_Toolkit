@@ -98,7 +98,7 @@ namespace BH.Engine.XML
 
             BHX.Glaze glaze = new BHX.Glaze();
 
-            glaze.ID = "glaze-" + material.Name;
+            glaze.ID = "glaze-" + material.Name.Replace(" ", "-");
             glaze.Name = material.Name;
             glaze.Thickness.Value = material.Thickness.ToString();
             glaze.Conductivity.Value = props.Conductivity.ToString();
@@ -117,7 +117,7 @@ namespace BH.Engine.XML
 
             BHX.Gap gap = new BHX.Gap();
 
-            gap.ID = "gap-" + material.Name;
+            gap.ID = "gap-" + material.Name.Replace(" ", "-");
             gap.Name = material.Name;
             gap.Thickness.Value = material.Thickness.ToString();
             gap.Conductivity.Value = props.Conductivity.ToString();

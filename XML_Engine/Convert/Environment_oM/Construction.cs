@@ -86,7 +86,7 @@ namespace BH.Engine.XML
         {
             BHX.WindowType window = new BHX.WindowType();
 
-            window.ID = "window-" + BH.Engine.XML.Query.GetCleanName(construction.Name);
+            window.ID = "window-" + BH.Engine.XML.Query.GetCleanName(construction.Name).Replace(" ", "-");
             window.Name = BH.Engine.XML.Query.GetCleanName(construction.Name);
             window.UValue.Value = (extraProperties == null ? "0" : extraProperties.UValue.ToString());
             window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());
