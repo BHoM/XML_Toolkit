@@ -31,6 +31,7 @@ using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Properties;
 using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;
+using BHM = BH.oM.Environment.Materials;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
@@ -45,12 +46,26 @@ namespace BH.Engine.XML
             return element.ElementProperties().ToGBXMLConstruction();
         }
 
+        public static BHX.WindowType ToGBXMLWindow(this BHE.Opening opening)
+        {
+            if (opening == null || opening.ElementProperties() == null) return null;
+            return opening.ElementProperties().ToGBXMLWindow();
+        }
+
         public static BHX.Construction ToGBXMLConstruction(this BHI.IBHoMExtendedProperties properties)
         {
             if (properties == null) return null;
             BHP.ElementProperties props = properties as BHP.ElementProperties;
             if (props == null || props.Construction == null) return null;
             return props.Construction.ToGBXML();
+        }
+
+        public static BHX.WindowType ToGBXMLWindow(this BHI.IBHoMExtendedProperties properties)
+        {
+            if (properties == null) return null;
+            BHP.ElementProperties props = properties as BHP.ElementProperties;
+            if (props == null || props.Construction == null) return null;
+            return props.Construction.ToGBXMLWindow();
         }
 
         public static BHX.Construction ToGBXML(this BHE.Construction construction, BHE.BuildingElement element = null)
@@ -65,6 +80,25 @@ namespace BH.Engine.XML
                 gbConstruction.UValue.Value = element.UValue().ToString();
 
             return gbConstruction;
+        }
+
+        public static BHX.WindowType ToGBXMLWindow(this BHE.Construction construction, BHP.BuildingElementAnalyticalProperties extraProperties = null)
+        {
+            BHX.WindowType window = new BHX.WindowType();
+
+            window.ID = "window-" + BH.Engine.XML.Query.GetCleanName(construction.Name);
+            window.Name = BH.Engine.XML.Query.GetCleanName(construction.Name);
+            window.UValue.Value = (extraProperties == null ? "0" : extraProperties.UValue.ToString());
+            window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());
+            window.SolarHeatGainCoefficient.Value = (extraProperties == null ? "0" : extraProperties.GValue.ToString());
+            if (construction.Materials.Count > 0)
+                window.InternalGlaze = (construction.Materials[0] as BHM.Material).ToGBXGlazed();
+            if (construction.Materials.Count > 1)
+                window.Gap = (construction.Materials[1] as BHM.Material).ToGBXGap();
+            if (construction.Materials.Count > 2)
+                window.ExternalGlaze = (construction.Materials[2] as BHM.Material).ToGBXGlazed(true);
+
+            return window;
         }
 
         public static BHX.Absorptance ToGBXMLAbsorptance(this BHE.Construction construction)

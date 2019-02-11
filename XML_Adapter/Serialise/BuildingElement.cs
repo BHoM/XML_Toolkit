@@ -115,10 +115,15 @@ namespace BH.Adapter.XML
                     if (space[x].Openings.Count > 0)
                     {
                         srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, spaces, gbx, exportType).ToArray();
-                        foreach(BH.oM.XML.Opening o in srf.Opening)
+                        foreach(BH.oM.Environment.Elements.Opening o in space[x].Openings)
                         {
-                            usedWindows.Add(new WindowType());
-                            usedWindows.Last().ID = o.WindowTypeIDRef;
+                            BHP.ElementProperties elementProperties = o.ElementProperties() as BHP.ElementProperties;
+                            if(elementProperties != null)
+                            {
+                                var t = usedWindows.Where(a => a.Name == BH.Engine.XML.Query.GetCleanName(elementProperties.Construction.Name)).FirstOrDefault();
+                                if (t == null)
+                                    usedWindows.Add(elementProperties.Construction.ToGBXMLWindow());
+                            }
                         }
                     }
 

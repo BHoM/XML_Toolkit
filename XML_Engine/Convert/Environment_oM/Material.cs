@@ -89,5 +89,40 @@ namespace BH.Engine.XML
 
             return material;
         }
+
+        public static BHX.Glaze ToGBXGlazed(this BHM.Material material, bool external = false)
+        {
+            if (material == null) return null;
+            BHP.MaterialPropertiesTransparent props = material.MaterialProperties as BHP.MaterialPropertiesTransparent;
+            if (props == null) return null;
+
+            BHX.Glaze glaze = new BHX.Glaze();
+
+            glaze.ID = "glaze-" + material.Name;
+            glaze.Name = material.Name;
+            glaze.Thickness.Value = material.Thickness.ToString();
+            glaze.Conductivity.Value = props.Conductivity.ToString();
+            glaze.Transmittance = new List<BHX.Transmittance> { new BHX.Transmittance { Value = props.SolarTransmittance.ToString() } }.ToArray();
+            glaze.Reflectance = new List<BHX.Reflectance> { new BHX.Reflectance { Value = (external ? props.SolarReflectanceExternal.ToString() : props.SolarReflectanceInternal.ToString()) } }.ToArray();
+            glaze.Emittance = new List<BHX.Emittance> { new BHX.Emittance { Value = (external ? props.EmissivityExternal.ToString() : props.EmissivityInternal.ToString()) } }.ToArray();
+
+            return glaze;
+        }
+
+        public static BHX.Gap ToGBXGap(this BHM.Material material)
+        {
+            if (material == null) return null;
+            BHP.MaterialPropertiesGas props = material.MaterialProperties as BHP.MaterialPropertiesGas;
+            if (props == null) return null;
+
+            BHX.Gap gap = new BHX.Gap();
+
+            gap.ID = "gap-" + material.Name;
+            gap.Name = material.Name;
+            gap.Thickness.Value = material.Thickness.ToString();
+            gap.Conductivity.Value = props.Conductivity.ToString();
+
+            return gap;
+        }
     }
 }
