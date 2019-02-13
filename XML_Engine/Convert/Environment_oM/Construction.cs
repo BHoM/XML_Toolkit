@@ -72,12 +72,19 @@ namespace BH.Engine.XML
         {
             BHX.Construction gbConstruction = new BHX.Construction();
 
-            gbConstruction.ID = construction.ConstructionID();
+            BHP.EnvironmentContextProperties contextProperties = null;
+            BHP.BuildingElementAnalyticalProperties analysisProperties = null;
+            if (element != null)
+            {
+                contextProperties = element.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+                analysisProperties = element.AnalyticalProperties() as BHP.BuildingElementAnalyticalProperties;
+            }
+
+            gbConstruction.ID = (contextProperties == null ? construction.ConstructionID() : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
             gbConstruction.Absorptance = construction.ToGBXMLAbsorptance();
             gbConstruction.Name = construction.Name;
             gbConstruction.Roughness = construction.Roughness.ToGBXML();
-            if (element != null)
-                gbConstruction.UValue.Value = element.UValue().ToString();
+            gbConstruction.UValue.Value = (analysisProperties == null ? (element != null ? element.UValue() : 0) : analysisProperties.UValue).ToString();
 
             return gbConstruction;
         }

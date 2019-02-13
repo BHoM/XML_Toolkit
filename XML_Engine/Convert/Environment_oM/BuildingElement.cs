@@ -33,15 +33,19 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
+using BHP = BH.oM.Environment.Properties;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
         public static BHX.Surface ToGBXML(this BHE.BuildingElement element)
         {
+            BHP.EnvironmentContextProperties contextProperties = element.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+
             BHX.Surface surface = new BHX.Surface();
             surface.CADObjectID = element.CADObjectID();
-            surface.ConstructionIDRef = element.ConstructionID();
+            surface.ConstructionIDRef = (contextProperties == null ? element.ConstructionID() : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
 
             BHX.RectangularGeometry geom = element.ToGBXMLGeometry();
             BHX.PlanarGeometry planarGeom = new BHX.PlanarGeometry();
