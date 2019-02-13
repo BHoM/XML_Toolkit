@@ -90,7 +90,7 @@ namespace BH.Engine.XML
             return material;
         }
 
-        public static BHX.Glaze ToGBXGlazed(this BHM.Material material, bool external = false)
+        public static BHX.Glaze ToGBXGlazed(this BHM.Material material)
         {
             if (material == null) return null;
             BHP.MaterialPropertiesTransparent props = material.MaterialProperties as BHP.MaterialPropertiesTransparent;
@@ -102,9 +102,23 @@ namespace BH.Engine.XML
             glaze.Name = material.Name;
             glaze.Thickness.Value = material.Thickness.ToString();
             glaze.Conductivity.Value = props.Conductivity.ToString();
-            glaze.Transmittance = new List<BHX.Transmittance> { new BHX.Transmittance { Value = props.SolarTransmittance.ToString() } }.ToArray();
-            glaze.Reflectance = new List<BHX.Reflectance> { new BHX.Reflectance { Value = (external ? props.SolarReflectanceExternal.ToString() : props.SolarReflectanceInternal.ToString()) } }.ToArray();
-            glaze.Emittance = new List<BHX.Emittance> { new BHX.Emittance { Value = (external ? props.EmissivityExternal.ToString() : props.EmissivityInternal.ToString()) } }.ToArray();
+
+            List<BHX.Transmittance> transmittance = new List<BHX.Transmittance>();
+            transmittance.Add(new BHX.Transmittance { Value = Math.Round(props.SolarTransmittance, 3).ToString(), Type = "Solar" });
+            transmittance.Add(new BHX.Transmittance { Value = Math.Round(props.LightTransmittance, 3).ToString(), Type = "Visible" });
+            glaze.Transmittance = transmittance.ToArray();
+
+            List<BHX.Reflectance> reflectance = new List<BHX.Reflectance>();
+            reflectance.Add(new BHX.Reflectance { Value = Math.Round(props.SolarReflectanceExternal, 3).ToString(), Type = "ExtSolar" });
+            reflectance.Add(new BHX.Reflectance { Value = Math.Round(props.SolarReflectanceInternal, 3).ToString(), Type = "IntSolar" });
+            reflectance.Add(new BHX.Reflectance { Value = Math.Round(props.LightReflectanceExternal, 3).ToString(), Type = "ExtVisible" });
+            reflectance.Add(new BHX.Reflectance { Value = Math.Round(props.LightReflectanceInternal, 3).ToString(), Type = "IntVisible" });
+            glaze.Reflectance = reflectance.ToArray();
+
+            List<BHX.Emittance> emittance = new List<BHX.Emittance>();
+            emittance.Add(new BHX.Emittance { Value = Math.Round(props.EmissivityExternal, 3).ToString(), Type = "ExtIR" });
+            emittance.Add(new BHX.Emittance { Value = Math.Round(props.EmissivityInternal, 3).ToString(), Type = "IntIR" });
+            glaze.Emittance = emittance.ToArray();
 
             return glaze;
         }
