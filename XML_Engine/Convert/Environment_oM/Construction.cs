@@ -99,7 +99,7 @@ namespace BH.Engine.XML
             if (construction.Materials.Count > 1)
                 window.Gap = (construction.Materials[1] as BHM.Material).ToGBXGap();
             if (construction.Materials.Count > 2)
-                window.ExternalGlaze = (construction.Materials[2] as BHM.Material).ToGBXGlazed(true);
+                window.ExternalGlaze = (construction.Materials[2] as BHM.Material).ToGBXGlazed();
 
             return window;
         }
