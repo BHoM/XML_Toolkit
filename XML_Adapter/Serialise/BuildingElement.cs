@@ -78,10 +78,14 @@ namespace BH.Adapter.XML
                 {
                     if (usedBEs.Where(i => i.BHoM_Guid == space[x].BHoM_Guid).FirstOrDefault() != null) continue;
 
+                    BHP.EnvironmentContextProperties envContextProperties = space[x].EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+
                     List<BH.oM.Environment.Elements.Space> adjacentSpaces = BH.Engine.Environment.Query.AdjacentSpaces(space[x], elementsAsSpaces, spaces);
 
                     Surface srf = space[x].ToGBXML(adjacentSpaces, space);
                     srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
+                    //srf.ID = BH.Engine.XML.Query.CADObjectID(space[x], exportType);
+                    //srf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
                     srf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
 
                     if (space[x] != null)
@@ -89,7 +93,7 @@ namespace BH.Adapter.XML
 
                     if (exportType == ExportType.gbXMLIES)
                     {
-                        srf.ConstructionIDRef = BH.Engine.XML.Query.ConstructionID(space[x]);
+                        srf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.GetCleanName().Replace(" ", "-") : space[x].ConstructionID());
 
                         //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID trnalsation add the wall as an opening
                         //                        if(srf.CADObjectID.Contains("System Panel") && srf.CADObjectID.Contains("GLZ"))
