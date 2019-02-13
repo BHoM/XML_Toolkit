@@ -33,7 +33,7 @@ namespace BH.oM.XML
     public class Thickness : GBXMLObject
     {
         [XmlAttribute("unit")]
-        public string Unit { get; set; } = "Millimeters";
+        public string Unit { get; set; } = "Meters";
 
         [XmlText]
         public string Value { get; set; } = "0";
