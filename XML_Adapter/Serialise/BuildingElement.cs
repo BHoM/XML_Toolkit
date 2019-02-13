@@ -122,7 +122,7 @@ namespace BH.Adapter.XML
                             {
                                 var t = usedWindows.Where(a => a.Name == BH.Engine.XML.Query.GetCleanName(elementProperties.Construction.Name)).FirstOrDefault();
                                 if (t == null)
-                                    usedWindows.Add(elementProperties.Construction.ToGBXMLWindow());
+                                    usedWindows.Add(elementProperties.Construction.ToGBXMLWindow(o));
                             }
                         }
                     }

@@ -49,7 +49,7 @@ namespace BH.Engine.XML
         public static BHX.WindowType ToGBXMLWindow(this BHE.Opening opening)
         {
             if (opening == null || opening.ElementProperties() == null) return null;
-            return opening.ElementProperties().ToGBXMLWindow();
+            return opening.ElementProperties().ToGBXMLWindow(opening);
         }
 
         public static BHX.Construction ToGBXMLConstruction(this BHI.IBHoMExtendedProperties properties)
@@ -60,12 +60,12 @@ namespace BH.Engine.XML
             return props.Construction.ToGBXML();
         }
 
-        public static BHX.WindowType ToGBXMLWindow(this BHI.IBHoMExtendedProperties properties)
+        public static BHX.WindowType ToGBXMLWindow(this BHI.IBHoMExtendedProperties properties, BHE.Opening opening)
         {
             if (properties == null) return null;
             BHP.ElementProperties props = properties as BHP.ElementProperties;
             if (props == null || props.Construction == null) return null;
-            return props.Construction.ToGBXMLWindow();
+            return props.Construction.ToGBXMLWindow(opening);
         }
 
         public static BHX.Construction ToGBXML(this BHE.Construction construction, BHE.BuildingElement element = null)
@@ -82,12 +82,15 @@ namespace BH.Engine.XML
             return gbConstruction;
         }
 
-        public static BHX.WindowType ToGBXMLWindow(this BHE.Construction construction, BHP.BuildingElementAnalyticalProperties extraProperties = null)
+        public static BHX.WindowType ToGBXMLWindow(this BHE.Construction construction, BHE.Opening opening)
         {
             BHX.WindowType window = new BHX.WindowType();
 
-            window.ID = "window-" + BH.Engine.XML.Query.GetCleanName(construction.Name).Replace(" ", "-");
-            window.Name = BH.Engine.XML.Query.GetCleanName(construction.Name);
+            BHP.BuildingElementAnalyticalProperties extraProperties = opening.PropertiesByType(typeof(BHP.BuildingElementAnalyticalProperties)) as BHP.BuildingElementAnalyticalProperties;
+            BHP.EnvironmentContextProperties contextProperties = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+
+            window.ID = (contextProperties == null ? "window-" + construction.Name.GetCleanName().Replace(" ", "-") : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
+            window.Name = (contextProperties == null ? construction.Name.GetCleanName() : contextProperties.TypeName.GetCleanName());
             window.UValue.Value = (extraProperties == null ? "0" : extraProperties.UValue.ToString());
             window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());
             window.SolarHeatGainCoefficient.Value = (extraProperties == null ? "0" : extraProperties.GValue.ToString());
