@@ -82,7 +82,7 @@ namespace BH.Engine.XML
 
             gbConstruction.ID = (contextProperties == null ? construction.ConstructionID() : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
             gbConstruction.Absorptance = construction.ToGBXMLAbsorptance();
-            gbConstruction.Name = construction.Name;
+            gbConstruction.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
             gbConstruction.Roughness = construction.Roughness.ToGBXML();
             gbConstruction.UValue.Value = (analysisProperties == null ? (element != null ? element.UValue() : 0) : analysisProperties.UValue).ToString();
 
