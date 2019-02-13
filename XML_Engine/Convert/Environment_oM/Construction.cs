@@ -90,7 +90,7 @@ namespace BH.Engine.XML
             BHP.EnvironmentContextProperties contextProperties = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
 
             window.ID = (contextProperties == null ? "window-" + construction.Name.GetCleanName().Replace(" ", "-") : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
-            window.Name = (contextProperties == null ? construction.Name.GetCleanName() : contextProperties.TypeName.GetCleanName());
+            window.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
             window.UValue.Value = (extraProperties == null ? "0" : extraProperties.UValue.ToString());
             window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());
             window.SolarHeatGainCoefficient.Value = (extraProperties == null ? "0" : extraProperties.GValue.ToString());
