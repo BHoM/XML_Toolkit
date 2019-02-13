@@ -68,8 +68,13 @@ namespace BH.Adapter.XML
                     BHP.ElementProperties elementProperties = opening.ElementProperties() as BHP.ElementProperties;
                     BHP.EnvironmentContextProperties contextProperties = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
 
-                    string elementID = contextProperties.ElementID;
-                    string familyName = contextProperties.TypeName;
+                    string elementID = "";
+                    string familyName = "";
+                    if (contextProperties != null)
+                    {
+                        elementID = contextProperties.ElementID;
+                        familyName = contextProperties.TypeName;
+                    }
 
                     gbOpening.CADObjectID = opening.CADObjectID(exportType);
                     gbOpening.OpeningType = elementProperties.ToGBXMLType();
@@ -81,7 +86,7 @@ namespace BH.Adapter.XML
                         gbOpening.OpeningType = "NonSlidingDoor";
 
                     if (exportType == ExportType.gbXMLIES)
-                        gbOpening.WindowTypeIDRef = BH.Engine.XML.Query.GetCleanName(elementProperties.Construction.Name);
+                        gbOpening.WindowTypeIDRef = (contextProperties == null? elementProperties.Construction.Name.GetCleanName().Replace(" ", "-") : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
                     else
                         gbOpening.WindowTypeIDRef = null;
                 }
