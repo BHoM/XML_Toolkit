@@ -36,25 +36,31 @@ namespace BH.oM.XML
         [XmlAttribute("id")]
         public string ID { get; set; } = "GlazingIdentification";
 
-        [XmlElement("Name")]
+        [XmlElement("Name", Order = 1)]
         public string Name { get; set; } = "Glazing";
 
-        [XmlElement("Description")]
+        [XmlElement("Description", Order = 2)]
         public string Description { get; set; } = "Standard Dbl Glazed";
 
-        [XmlElement("Thickness")]
+        [XmlElement("Thickness", Order = 3)]
         public Thickness Thickness { get; set; } = new Thickness();
 
-        [XmlElement("Conductivity")]
+        [XmlElement("Conductivity", Order = 4)]
         public Conductivity Conductivity { get; set; } = new Conductivity();
 
-        [XmlElement("Transmittance")]
-        public Transmittance[] Transmittance { get; set; } = new List<Transmittance> { new Transmittance() }.ToArray();
+        [XmlElement("Transmittance", Order = 5)]
+        public Transmittance SolarTransmittance { get; set; } = new Transmittance();
 
-        [XmlElement("Reflectance")]
-        public Reflectance[] Reflectance { get; set; } = new List<Reflectance> { new Reflectance() }.ToArray();
+        [XmlElement("Reflectance", Order = 6)]
+        public Reflectance[] SolarReflectance { get; set; } = new List<Reflectance> { new Reflectance() }.ToArray();
 
-        [XmlElement("Emittance")]
+        [XmlElement("Transmittance", Order = 7)]
+        public Transmittance LightTransmittance { get; set; } = new Transmittance();
+
+        [XmlElement("Reflectance", Order = 8)]
+        public Reflectance[] LightReflectance { get; set; } = new List<Reflectance> { new Reflectance() }.ToArray();
+
+        [XmlElement("Emittance", Order = 9)]
         public Emittance[] Emittance { get; set; } = new List<Emittance> { new Emittance() }.ToArray();
     }
 }
