@@ -84,7 +84,7 @@ namespace BH.Engine.XML
 
         public static string CADObjectID(this BHE.Opening opening, ExportType exportType)
         {
-            BHP.EnvironmentContextProperties contextProp = opening.ContextProperties() as BHP.EnvironmentContextProperties;
+            BHP.EnvironmentContextProperties contextProp = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
             if (contextProp == null) return "";
 
             return contextProp.TypeName + " [" + contextProp.ElementID + "]";
@@ -94,7 +94,7 @@ namespace BH.Engine.XML
 
         public static string CADObjectID(this BHE.Space space)
         {
-            BHP.EnvironmentContextProperties contextProp = space.ContextProperties() as BHP.EnvironmentContextProperties;
+            BHP.EnvironmentContextProperties contextProp = space.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
             if (contextProp == null) return "";
 
             return contextProp.TypeName + " [" + contextProp.ElementID + "]";
