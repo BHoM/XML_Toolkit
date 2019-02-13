@@ -100,7 +100,7 @@ namespace BH.Engine.XML
 
             glaze.ID = "glaze-" + material.Name.Replace(" ", "-");
             glaze.Name = material.Name;
-            glaze.Thickness.Value = material.Thickness.ToString();
+            glaze.Thickness.Value = Math.Round(material.Thickness, 4).ToString();
             glaze.Conductivity.Value = props.Conductivity.ToString();
 
             List<BHX.Transmittance> transmittance = new List<BHX.Transmittance>();
@@ -133,8 +133,8 @@ namespace BH.Engine.XML
 
             gap.ID = "gap-" + material.Name.Replace(" ", "-");
             gap.Name = material.Name;
-            gap.Thickness.Value = material.Thickness.ToString();
-            gap.Conductivity.Value = props.Conductivity.ToString();
+            gap.Thickness.Value = Math.Round(material.Thickness, 4).ToString();
+            gap.Conductivity.Value = Math.Round(props.Conductivity, 3).ToString();
 
             return gap;
         }
