@@ -43,7 +43,7 @@ namespace BH.Engine.XML
         public static BHX.Construction ToGBXMLConstruction(this BHE.BuildingElement element)
         {
             if (element == null || element.ElementProperties() == null) return null;
-            return element.ElementProperties().ToGBXMLConstruction();
+            return element.ElementProperties().ToGBXMLConstruction(element);
         }
 
         public static BHX.WindowType ToGBXMLWindow(this BHE.Opening opening)
@@ -52,12 +52,12 @@ namespace BH.Engine.XML
             return opening.ElementProperties().ToGBXMLWindow(opening);
         }
 
-        public static BHX.Construction ToGBXMLConstruction(this BHI.IBHoMExtendedProperties properties)
+        public static BHX.Construction ToGBXMLConstruction(this BHI.IBHoMExtendedProperties properties, BHE.BuildingElement element)
         {
             if (properties == null) return null;
             BHP.ElementProperties props = properties as BHP.ElementProperties;
             if (props == null || props.Construction == null) return null;
-            return props.Construction.ToGBXML();
+            return props.Construction.ToGBXML(element);
         }
 
         public static BHX.WindowType ToGBXMLWindow(this BHI.IBHoMExtendedProperties properties, BHE.Opening opening)
