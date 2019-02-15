@@ -96,7 +96,7 @@ namespace BH.Engine.XML
             BHP.BuildingElementAnalyticalProperties extraProperties = opening.PropertiesByType(typeof(BHP.BuildingElementAnalyticalProperties)) as BHP.BuildingElementAnalyticalProperties;
             BHP.EnvironmentContextProperties contextProperties = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
 
-            window.ID = (contextProperties == null ? "window-" + construction.Name.GetCleanName().Replace(" ", "-") : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
+            window.ID = "window-" + (contextProperties == null ? construction.Name.GetCleanName().Replace(" ", "-") : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
             window.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
             window.UValue.Value = (extraProperties == null ? "0" : extraProperties.UValue.ToString());
             window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());

@@ -123,10 +123,10 @@ namespace BH.Adapter.XML
                             {
                                 curtainElementProperties.BuildingElementType = BuildingElementType.CurtainWall;
                                 curtainElementProperties.Construction = elementProperties.Construction;
-
-                                //Update the host elements element type
-                                srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
                             }
+
+                            //Update the host elements element type
+                            srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
 
                             curtainWallOpening.ExtendedProperties.Add(curtainWallProperties);
                             curtainWallOpening.ExtendedProperties.Add(curtainElementProperties);
@@ -148,13 +148,19 @@ namespace BH.Adapter.XML
                         srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, spaces, gbx, exportType).ToArray();
                         foreach(BH.oM.Environment.Elements.Opening o in space[x].Openings)
                         {
+                            string nameCheck = "";
+
+                            BHP.EnvironmentContextProperties openingEnvContextProperties = o.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
                             BHP.ElementProperties openingElementProperties = o.ElementProperties() as BHP.ElementProperties;
-                            if(openingElementProperties != null)
-                            {
-                                var t = usedWindows.Where(a => a.Name == BH.Engine.XML.Query.GetCleanName(openingElementProperties.Construction.Name)).FirstOrDefault();
-                                if (t == null)
-                                    usedWindows.Add(openingElementProperties.Construction.ToGBXMLWindow(o));
-                            }
+
+                            if (openingEnvContextProperties != null)
+                                nameCheck = openingEnvContextProperties.TypeName;
+                            else if (openingElementProperties != null && openingElementProperties.Construction != null)
+                                nameCheck = openingElementProperties.Construction.Name;
+                            
+                            var t = usedWindows.Where(a => a.Name == nameCheck).FirstOrDefault();
+                            if (t == null)
+                                usedWindows.Add(openingElementProperties.Construction.ToGBXMLWindow(o));
                         }
                     }
 
