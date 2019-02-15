@@ -39,6 +39,8 @@ using BH.oM.XML.Enums;
 
 using BHP = BH.oM.Environment.Properties;
 
+using BH.oM.Environment.Interface;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -79,13 +81,12 @@ namespace BH.Adapter.XML
                     if (usedBEs.Where(i => i.BHoM_Guid == space[x].BHoM_Guid).FirstOrDefault() != null) continue;
 
                     BHP.EnvironmentContextProperties envContextProperties = space[x].EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+                    BHP.ElementProperties elementProperties = space[x].ElementProperties() as BHP.ElementProperties;
 
                     List<BH.oM.Environment.Elements.Space> adjacentSpaces = BH.Engine.Environment.Query.AdjacentSpaces(space[x], elementsAsSpaces, spaces);
 
                     Surface srf = space[x].ToGBXML(adjacentSpaces, space);
                     srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
-                    //srf.ID = BH.Engine.XML.Query.CADObjectID(space[x], exportType);
-                    //srf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
                     srf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
 
                     if (space[x] != null)
@@ -95,9 +96,8 @@ namespace BH.Adapter.XML
                     {
                         srf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.GetCleanName().Replace(" ", "-") : space[x].ConstructionID());
 
-                        //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID trnalsation add the wall as an opening
-                        //                        if(srf.CADObjectID.Contains("System Panel") && srf.CADObjectID.Contains("GLZ"))
-                        if (srf.CADObjectID.Contains("Curtain Basic") && srf.CADObjectID.Contains("GLZ"))
+                        //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID translation add the wall as an opening
+                        if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("Wall") && srf.CADObjectID.Contains("GLZ"))
                         {
                             List<BHG.Polyline> newOpeningBounds = new List<oM.Geometry.Polyline>();
                             if (space[x].Openings.Count > 0)
@@ -109,11 +109,38 @@ namespace BH.Adapter.XML
                             else
                                 newOpeningBounds.Add(space[x].PanelCurve.ICollapseToPolyline(BHG.Tolerance.Angle));
 
-                            space[x].Openings.Add(BH.Engine.Environment.Create.Opening(newOpeningBounds));
+                            BH.oM.Environment.Elements.Opening curtainWallOpening = BH.Engine.Environment.Create.Opening(newOpeningBounds);
+                            curtainWallOpening.Name = space[x].Name;
+                            BHP.EnvironmentContextProperties curtainWallProperties = new BHP.EnvironmentContextProperties();
+                            if (envContextProperties != null)
+                            {
+                                curtainWallProperties.ElementID = envContextProperties.ElementID;
+                                curtainWallProperties.TypeName = envContextProperties.TypeName;
+                            }
+
+                            BHP.ElementProperties curtainElementProperties = new BHP.ElementProperties();
+                            if (elementProperties != null)
+                            {
+                                curtainElementProperties.BuildingElementType = BuildingElementType.CurtainWall;
+                                curtainElementProperties.Construction = elementProperties.Construction;
+
+                                //Update the host elements element type
+                                srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
+                            }
+
+                            curtainWallOpening.ExtendedProperties.Add(curtainWallProperties);
+                            curtainWallOpening.ExtendedProperties.Add(curtainElementProperties);
+
+                            space[x].Openings.Add(curtainWallOpening);
                         }
                     }
                     else if (exportType == ExportType.gbXMLTAS)
+                    {
                         srf.ConstructionIDRef = null;
+                        //Fix surface type for curtain walls
+                        if (srf.CADObjectID.Contains("Curtain Basic") && srf.CADObjectID.Contains("GLZ") && elementProperties != null && elementProperties.BuildingElementType == BuildingElementType.CurtainWall)
+                            srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
+                    }                   
 
                     //Openings
                     if (space[x].Openings.Count > 0)
@@ -121,12 +148,12 @@ namespace BH.Adapter.XML
                         srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, spaces, gbx, exportType).ToArray();
                         foreach(BH.oM.Environment.Elements.Opening o in space[x].Openings)
                         {
-                            BHP.ElementProperties elementProperties = o.ElementProperties() as BHP.ElementProperties;
-                            if(elementProperties != null)
+                            BHP.ElementProperties openingElementProperties = o.ElementProperties() as BHP.ElementProperties;
+                            if(openingElementProperties != null)
                             {
-                                var t = usedWindows.Where(a => a.Name == BH.Engine.XML.Query.GetCleanName(elementProperties.Construction.Name)).FirstOrDefault();
+                                var t = usedWindows.Where(a => a.Name == BH.Engine.XML.Query.GetCleanName(openingElementProperties.Construction.Name)).FirstOrDefault();
                                 if (t == null)
-                                    usedWindows.Add(elementProperties.Construction.ToGBXMLWindow(o));
+                                    usedWindows.Add(openingElementProperties.Construction.ToGBXMLWindow(o));
                             }
                         }
                     }
