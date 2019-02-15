@@ -78,23 +78,22 @@ namespace BH.Engine.XML
             {
                 case BHE.BuildingElementType.Ceiling:
                     return "Ceiling";
-                case oM.Environment.Elements.BuildingElementType.CurtainWall:
-                    return "ExteriorWall";
-                case oM.Environment.Elements.BuildingElementType.Door:
+                case BHE.BuildingElementType.Door:
                     return "NonSlidingDoor";
-                case oM.Environment.Elements.BuildingElementType.Floor:
+                case BHE.BuildingElementType.Floor:
                     return "Floor";
-                case oM.Environment.Elements.BuildingElementType.FloorExposed:
+                case BHE.BuildingElementType.FloorExposed:
                     return "ExposedFloor";
-                case oM.Environment.Elements.BuildingElementType.FloorInternal:
+                case BHE.BuildingElementType.FloorInternal:
                     return "InternalFloor";
-                case oM.Environment.Elements.BuildingElementType.FloorRaised:
+                case BHE.BuildingElementType.FloorRaised:
                     return "RaisedFloor";
                 case BHE.BuildingElementType.Frame:
                     return "Frame";
                 case BHE.BuildingElementType.Glazing:
                 case BHE.BuildingElementType.Window:
                 case BHE.BuildingElementType.WindowWithFrame:
+                case BHE.BuildingElementType.CurtainWall:
                     return "FixedWindow";
                 case BHE.BuildingElementType.Roof:
                     return "Roof";

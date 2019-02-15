@@ -79,6 +79,9 @@ namespace BH.Adapter.XML
                     gbOpening.CADObjectID = opening.CADObjectID(exportType);
                     gbOpening.OpeningType = elementProperties.ToGBXMLType();
 
+                    if (gbOpening.OpeningType.ToLower() == "fixedwindow" && contextProperties != null && contextProperties.TypeName.ToLower().Contains("skylight"))
+                        gbOpening.OpeningType = "FixedSkylight";
+
                     if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
                         gbOpening.OpeningType = "FixedWindow";
 
