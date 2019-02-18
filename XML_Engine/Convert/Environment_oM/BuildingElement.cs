@@ -45,7 +45,7 @@ namespace BH.Engine.XML
 
             BHX.Surface surface = new BHX.Surface();
             surface.CADObjectID = element.CADObjectID();
-            surface.ConstructionIDRef = (contextProperties == null ? element.ConstructionID() : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
+            surface.ConstructionIDRef = (contextProperties == null ? element.ConstructionID() : contextProperties.TypeName.CleanName());
 
             BHX.RectangularGeometry geom = element.ToGBXMLGeometry();
             BHX.PlanarGeometry planarGeom = new BHX.PlanarGeometry();

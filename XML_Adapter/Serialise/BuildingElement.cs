@@ -94,7 +94,7 @@ namespace BH.Adapter.XML
 
                     if (exportType == ExportType.gbXMLIES)
                     {
-                        srf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.GetCleanName().Replace(" ", "-") : space[x].ConstructionID());
+                        srf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.CleanName() : space[x].ConstructionID());
 
                         //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID translation add the wall as an opening
                         if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("Wall") && srf.CADObjectID.Contains("GLZ"))
@@ -187,7 +187,12 @@ namespace BH.Adapter.XML
 
                                 usedConstructions.Add(conc);
                                 usedLayers.Add(layer);
-                                usedMaterials.AddRange(materials);
+
+                                foreach(BH.oM.XML.Material mat in materials)
+                                {
+                                    if (usedMaterials.Where(y => y.ID == mat.ID).FirstOrDefault() == null)
+                                        usedMaterials.Add(mat);
+                                }
                             }
                         }
                     }

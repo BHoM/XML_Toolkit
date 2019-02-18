@@ -80,7 +80,7 @@ namespace BH.Engine.XML
                 analysisProperties = element.AnalyticalProperties() as BHP.BuildingElementAnalyticalProperties;
             }
 
-            gbConstruction.ID = (contextProperties == null ? construction.ConstructionID() : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
+            gbConstruction.ID = (contextProperties == null ? construction.ConstructionID() : contextProperties.TypeName.CleanName().Replace(" ", "-"));
             gbConstruction.Absorptance = construction.ToGBXMLAbsorptance();
             gbConstruction.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
             gbConstruction.Roughness = construction.Roughness.ToGBXML();
@@ -96,7 +96,7 @@ namespace BH.Engine.XML
             BHP.BuildingElementAnalyticalProperties extraProperties = opening.PropertiesByType(typeof(BHP.BuildingElementAnalyticalProperties)) as BHP.BuildingElementAnalyticalProperties;
             BHP.EnvironmentContextProperties contextProperties = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
 
-            window.ID = "window-" + (contextProperties == null ? construction.Name.GetCleanName().Replace(" ", "-") : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
+            window.ID = "window-" + (contextProperties == null ? construction.Name.CleanName() : contextProperties.TypeName.CleanName());
             window.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
             window.UValue.Value = (extraProperties == null ? "0" : extraProperties.UValue.ToString());
             window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());
