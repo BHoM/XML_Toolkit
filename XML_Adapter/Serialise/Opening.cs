@@ -89,7 +89,7 @@ namespace BH.Adapter.XML
                         gbOpening.OpeningType = "NonSlidingDoor";
 
                     if (exportType == ExportType.gbXMLIES)
-                        gbOpening.WindowTypeIDRef = "window-" + (contextProperties == null? elementProperties.Construction.Name.GetCleanName().Replace(" ", "-") : contextProperties.TypeName.GetCleanName().Replace(" ", "-"));
+                        gbOpening.WindowTypeIDRef = "window-" + (contextProperties == null? elementProperties.Construction.Name.CleanName() : contextProperties.TypeName.CleanName());
                     else
                         gbOpening.WindowTypeIDRef = null;
                 }

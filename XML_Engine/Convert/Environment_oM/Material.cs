@@ -46,7 +46,8 @@ namespace BH.Engine.XML
             double rValue = Math.Round(material.Thickness / material.MaterialProperties.Conductivity, 3);
             if (double.IsInfinity(rValue) || double.IsNaN(rValue)) rValue = -1; //Error
 
-            gbMaterial.ID = "material-" + material.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
+            //gbMaterial.ID = "material-" + material.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
+            gbMaterial.ID = "material-" + material.Name.CleanName();
             gbMaterial.Name = material.Name;
             gbMaterial.RValue.Value = rValue.ToString();
             gbMaterial.Thickness = Math.Round(material.Thickness, 3);

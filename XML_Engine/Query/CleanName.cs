@@ -37,18 +37,20 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        static public string GetCleanName(this string Name)
+        static public string CleanName(this string name)
         {
-            if (Name == null)
+            if (name == null)
                 return null;
 
-            if (Name == string.Empty)
+            if (name == string.Empty)
                 return string.Empty;
 
-            string aName = Name.Replace(":", "_");
-            aName = aName.Replace(" ", string.Empty);
+            name = name.Replace(":", "_");
+            name = name.Replace(" ", "");
+            name = name.Replace(",", "");
+            name = name.Replace("/", "");
 
-            return aName;
+            return name;
         }
     }
 }
