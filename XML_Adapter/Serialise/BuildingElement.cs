@@ -186,7 +186,9 @@ namespace BH.Adapter.XML
                                 conc.LayerID.LayerIDRef = layer.ID;
 
                                 usedConstructions.Add(conc);
-                                usedLayers.Add(layer);
+                                
+                                if(usedLayers.Where(y => y.ID == layer.ID).FirstOrDefault() == null)
+                                    usedLayers.Add(layer);
 
                                 foreach(BH.oM.XML.Material mat in materials)
                                 {

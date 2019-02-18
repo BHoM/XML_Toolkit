@@ -62,11 +62,12 @@ namespace BH.Engine.XML
         {
             BHX.Layer l = new BHX.Layer();
 
-            l.ID = "layer-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
+            l.ID = "layer";// + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
             List<BHX.MaterialId> materialIDs = new List<BHX.MaterialId>();
             foreach (BHX.Material m in materials)
             {
+                l.ID += "-" + m.Name.CleanName();
                 BHX.MaterialId id = new BHX.MaterialId();
                 id.MaterialIDRef = m.ID;
                 materialIDs.Add(id);
