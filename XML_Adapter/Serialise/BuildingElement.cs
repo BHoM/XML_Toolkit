@@ -138,7 +138,7 @@ namespace BH.Adapter.XML
                     {
                         srf.ConstructionIDRef = null;
                         //Fix surface type for curtain walls
-                        if (srf.CADObjectID.Contains("Curtain Basic") && srf.CADObjectID.Contains("GLZ") && elementProperties != null && elementProperties.BuildingElementType == BuildingElementType.CurtainWall)
+                        if(elementProperties != null && elementProperties.BuildingElementType == BuildingElementType.CurtainWall)
                             srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
                     }                   
 
