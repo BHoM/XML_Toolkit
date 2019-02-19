@@ -200,17 +200,9 @@ namespace BH.Adapter.XML
                     }
                 }
 
-                //BuildingElement elementForSpace = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data") && !usedSpaceNames.Contains(x.CustomData["SAM_SPACE_NAME_TEST"].ToString())).FirstOrDefault();
-                BuildingElement elementForSpace = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data") && !usedSpaceNames.Contains((x.CustomData["Space_Custom_Data"] as Dictionary<string, object>)["SAM_SpaceName"].ToString())).FirstOrDefault();
-                Dictionary<string, object> spaceData = null;
-                if (elementForSpace != null)
-                    spaceData = elementForSpace.CustomData["Space_Custom_Data"] as Dictionary<string, object>;
-
-                spaceData = spaceData ?? new Dictionary<string, object>();
-
                 BH.oM.Environment.Elements.Space s = space.Space(gbx.Campus.Building[0].Space.Count, gbx.Campus.Building[0].Space.Count.ToString());
                 BH.oM.XML.Space xmlSpace = new oM.XML.Space();
-                xmlSpace.Name = (spaceData.ContainsKey("SAM_SpaceName") && spaceData["SAM_SpaceName"] != null ? spaceData["SAM_SpaceName"].ToString() : s.Name); //CUSTOMDATA SAM_SpaceName
+                xmlSpace.Name = space.CommonSpaceName();
                 xmlSpace.ID = "Space-" + s.Number + "-" + s.Name;
                 xmlSpace.CADObjectID = BH.Engine.XML.Query.CADObjectID(space);
                 xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
