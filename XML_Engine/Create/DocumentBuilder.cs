@@ -66,6 +66,7 @@ namespace BH.Engine.XML
             openings.AddRange(buildingElements.ElementsByType(BuildingElementType.WindowWithFrame));
 
             List<BuildingElement> shadingElements = buildingElements.ShadingElements();
+            buildingElements = buildingElements.ElementsWithoutType(BuildingElementType.Shade); //Remove shading if it exists
 
             List<string> uniqueSpaceNames = buildingElements.UniqueSpaceNames();
 

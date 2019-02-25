@@ -81,11 +81,10 @@ namespace BH.Engine.XML
                 case BHE.BuildingElementType.Door:
                     return "NonSlidingDoor";
                 case BHE.BuildingElementType.Floor:
-                    return "Floor";
                 case BHE.BuildingElementType.FloorExposed:
                     return "ExposedFloor";
                 case BHE.BuildingElementType.FloorInternal:
-                    return "InternalFloor";
+                    return "InteriorFloor";
                 case BHE.BuildingElementType.FloorRaised:
                     return "RaisedFloor";
                 case BHE.BuildingElementType.Frame:
