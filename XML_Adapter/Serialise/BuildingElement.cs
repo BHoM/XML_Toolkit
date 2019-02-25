@@ -127,6 +127,7 @@ namespace BH.Adapter.XML
 
                             //Update the host elements element type
                             srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
+                            srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
 
                             curtainWallOpening.ExtendedProperties.Add(curtainWallProperties);
                             curtainWallOpening.ExtendedProperties.Add(curtainElementProperties);
@@ -138,8 +139,11 @@ namespace BH.Adapter.XML
                     {
                         srf.ConstructionIDRef = null;
                         //Fix surface type for curtain walls
-                        if(elementProperties != null && elementProperties.BuildingElementType == BuildingElementType.CurtainWall)
+                        if (elementProperties != null && elementProperties.BuildingElementType == BuildingElementType.CurtainWall)
+                        {
                             srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
+                            srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
+                        }
                     }                   
 
                     //Openings
