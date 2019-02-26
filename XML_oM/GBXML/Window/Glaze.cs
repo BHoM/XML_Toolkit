@@ -34,7 +34,7 @@ namespace BH.oM.XML
     public class Glaze : GBXMLObject
     {
         [XmlAttribute("id")]
-        public string ID { get; set; } = "GlazingIdentification";
+        public string ID { get; set; } = "GlazingIdentification" + Guid.NewGuid().ToString().Substring(0, 5);
 
         [XmlElement("Name", Order = 1)]
         public string Name { get; set; } = "Glazing";

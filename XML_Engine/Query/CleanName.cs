@@ -49,6 +49,8 @@ namespace BH.Engine.XML
             name = name.Replace(" ", "");
             name = name.Replace(",", "");
             name = name.Replace("/", "");
+            name = name.Replace("(", "");
+            name = name.Replace(")", "");
 
             return name;
         }
