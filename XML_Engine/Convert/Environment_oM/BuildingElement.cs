@@ -35,6 +35,8 @@ using BH.Engine.Environment;
 
 using BHP = BH.oM.Environment.Properties;
 
+using BH.oM.Environment.Interface;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
@@ -118,7 +120,12 @@ namespace BH.Engine.XML
             if(cadSplit.Length > 0)
                 buildingElement.Name = cadSplit[0].Trim();
             if (cadSplit.Length > 1)
-                buildingElement.ElementID = cadSplit[1].Split(']')[0].Trim();            
+            {
+                BHP.EnvironmentContextProperties envContext = new BHP.EnvironmentContextProperties();
+                envContext.ElementID = cadSplit[1].Split(']')[0].Trim();
+                if (buildingElement.ExtendedProperties == null) buildingElement.ExtendedProperties = new List<IBHoMExtendedProperties>();
+                buildingElement.ExtendedProperties.Add(envContext);
+            }
 
             return buildingElement;
         }
