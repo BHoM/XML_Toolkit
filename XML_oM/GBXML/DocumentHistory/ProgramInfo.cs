@@ -35,11 +35,11 @@ namespace BH.oM.XML
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "BHoMGBXML";
         [XmlElement("CompanyName")]
-        public string CompanyName { get; set; } = "BHoM";
+        public string CompanyName { get; set; } = "BuroHappold Engineering";
         [XmlElement("ProductName")]
-        public string ProductName { get; set; } = "BHoM XML Toolkit";
+        public string ProductName { get; set; } = "Autodesk Revit 2018 BEES";
         [XmlElement("Version")]
-        public string Version { get; set; } = "2019";
+        public string Version { get; set; } = "2018 20170223_1515(x64)";
         [XmlElement("Platform")]
         public string Platform { get; set; } = "Microsoft Windows";
         [XmlElement("ProjectEntity")]
