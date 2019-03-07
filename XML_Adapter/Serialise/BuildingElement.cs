@@ -221,7 +221,15 @@ namespace BH.Adapter.XML
                 }
                 Level spaceLevel = space.Level(levels);
                 if (spaceLevel != null)
-                    xmlSpace.BuildingStoreyIDRef = "Level-" + spaceLevel.Name.Replace(" ", "").ToLower();
+                {
+                    string levelName = "";
+                    if (spaceLevel.Name == "")
+                        levelName = spaceLevel.Elevation.ToString();
+                    else
+                        levelName = spaceLevel.Name;
+
+                    xmlSpace.BuildingStoreyIDRef = "Level-" + levelName.Replace(" ", "").ToLower();
+                }
 
                 gbx.Campus.Building[0].Space.Add(xmlSpace);
 
