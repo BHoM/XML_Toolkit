@@ -39,7 +39,7 @@ namespace BH.oM.XML
         [XmlElement("StreetAddress")]
         public string StreetAddress { get; set; } = "Unknown";
         [XmlElement("Area")]
-        public float Area { get; set; } = 0;
+        public double Area { get; set; } = 0;
         [XmlElement("Space")]
         public List<Space> Space { get; set; } = new List<Space>();
         [XmlElement("BuildingStorey")]

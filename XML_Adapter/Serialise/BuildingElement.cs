@@ -244,6 +244,15 @@ namespace BH.Adapter.XML
                 gbx.WindowType = usedWindows.ToArray();
             else if (exportType == ExportType.gbXMLTAS)//We have to force null otherwise WindowType will be created
                 gbx.WindowType = null;
+
+            //Set the building area
+            List<BuildingElement> floorElements = allElements.Where(x => (x.ElementProperties() as BHP.ElementProperties) != null && ((x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.Floor || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.FloorExposed || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.FloorInternal || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.FloorRaised || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.SlabOnGrade || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.UndergroundSlab)).ToList();
+
+            double buildingFloorArea = 0;
+            foreach (BuildingElement be in floorElements)
+                buildingFloorArea += be.Area();
+
+            gbx.Campus.Building[0].Area = buildingFloorArea;
         }
 
         public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, BH.oM.XML.GBXML gbx, ExportType exportType)
