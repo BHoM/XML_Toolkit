@@ -103,6 +103,11 @@ namespace BH.Engine.XML
             geom.CartesianPoint = pLine.ControlPoints.First().ToGBXML();
             geom.ID = "geom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
+            if(geom.Height == 0)
+                geom.Height = Math.Round(element.Area() / geom.Width, 3);
+            if (geom.Width == 0)
+                geom.Width = Math.Round(element.Area() / geom.Height, 3);
+
             return geom;
         }
 
