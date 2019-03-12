@@ -28,6 +28,7 @@ using System.Linq;
 
 using BH.Engine.Environment;
 using BHP = BH.oM.Environment.Properties;
+using BH.Engine.XML;
 
 namespace BH.Adapter.XML
 {
@@ -40,9 +41,11 @@ namespace BH.Adapter.XML
         public static void SerializeCollection(IEnumerable<Building> inputBuildings, BH.oM.XML.GBXML gbx, bool isIES)
         {
             List<Building> buildings = inputBuildings.ToList();
+            gbx.Campus.Building = new oM.XML.Building[buildings.Count];
             for(int x = 0; x < buildings.Count; x++)
             {
-                gbx.Campus.Location = BH.Engine.XML.Convert.ToGBXMLLocation(buildings[x]);
+                gbx.Campus.Building[x] = buildings[x].ToGBXML();
+                gbx.Campus.Location = buildings[x].ToGBXMLLocation();
 
                 if (buildings[x].ContextProperties() != null)
                 {
