@@ -77,7 +77,7 @@ namespace BH.Engine.XML
 
             return CADObjectID;*/
 
-            return "FIX CAD OBJECT ID FOR SPACE";
+            return "[" + space.CommonSpaceName() + "]"; //ToDo: Fix this properly when the oM changes are made
         }
 
         /***************************************************/
