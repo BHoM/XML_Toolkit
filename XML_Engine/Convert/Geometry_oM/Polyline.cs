@@ -41,6 +41,7 @@ namespace BH.Engine.XML
             BHX.Polyloop polyloop = new BHX.Polyloop();
 
             List<BHG.Point> pts = pLine.DiscontinuityPoints();
+            if (pts.Count == 0) return polyloop;
 
             int count = ((pts.First().SquareDistance(pts.Last()) < (tolerance * tolerance)) ? pts.Count - 1 : pts.Count);
             List<BHX.CartesianPoint> cartpoint = new List<BHX.CartesianPoint>();

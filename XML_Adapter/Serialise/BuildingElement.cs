@@ -97,7 +97,7 @@ namespace BH.Adapter.XML
                         srf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.CleanName() : space[x].ConstructionID());
 
                         //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID translation add the wall as an opening
-                        if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("Wall") && srf.CADObjectID.Contains("GLZ"))
+                        if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("Wall") && srf.CADObjectID.Contains("GLZ") && (space[x].ElementProperties() as BHP.ElementProperties).BuildingElementType != BuildingElementType.CurtainWall)
                         {
                             List<BHG.Polyline> newOpeningBounds = new List<oM.Geometry.Polyline>();
                             if (space[x].Openings.Count > 0)
@@ -125,14 +125,16 @@ namespace BH.Adapter.XML
                                 curtainElementProperties.Construction = elementProperties.Construction;
                             }
 
-                            //Update the host elements element type
-                            srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
-                            srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
-
                             curtainWallOpening.ExtendedProperties.Add(curtainWallProperties);
                             curtainWallOpening.ExtendedProperties.Add(curtainElementProperties);
 
                             space[x].Openings.Add(curtainWallOpening);
+                        }
+                        else if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("Wall") && srf.CADObjectID.Contains("GLZ") && (space[x].ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.CurtainWall)
+                        {
+                            //Update the host elements element type
+                            srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
+                            srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
                         }
                     }
                     else if (exportType == ExportType.gbXMLTAS)
