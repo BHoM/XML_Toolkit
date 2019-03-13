@@ -61,7 +61,10 @@ namespace BH.Engine.XML
 
             surface.Opening = new BHX.Opening[element.Openings.Count];
             for (int x = 0; x < element.Openings.Count; x++)
-                surface.Opening[x] = element.Openings[x].ToGBXML();
+            {
+                if(element.Openings[x].OpeningCurve.IControlPoints().Count != 0)
+                    surface.Opening[x] = element.Openings[x].ToGBXML();
+            }
 
             return surface;
         }
