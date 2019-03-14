@@ -97,7 +97,7 @@ namespace BH.Adapter.XML
                         srf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.CleanName() : space[x].ConstructionID());
 
                         //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID translation add the wall as an opening
-                        if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("Wall") && srf.CADObjectID.Contains("GLZ") && (space[x].ElementProperties() as BHP.ElementProperties).BuildingElementType != BuildingElementType.CurtainWall)
+                        if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ") && (space[x].ElementProperties() as BHP.ElementProperties).BuildingElementType != BuildingElementType.CurtainWall)
                         {
                             List<BHG.Polyline> newOpeningBounds = new List<oM.Geometry.Polyline>();
                             if (space[x].Openings.Count > 0)
@@ -262,6 +262,10 @@ namespace BH.Adapter.XML
             //For serializing shade elements
             List<BuildingElement> buildingElements = inputElements.ToList();
 
+            List<BH.oM.XML.Construction> usedConstructions = new List<oM.XML.Construction>(gbx.Construction);
+            List<BH.oM.XML.Material> usedMaterials = new List<Material>(gbx.Material);
+            List<BH.oM.XML.Layer> usedLayers = new List<Layer>(gbx.Layer);
+
             foreach (BuildingElement be in buildingElements)
             {
                 Surface gbSrf = be.ToGBXML();
@@ -272,12 +276,47 @@ namespace BH.Adapter.XML
                 gbSrf.CADObjectID = be.CADObjectID();
 
                 if (exportType == ExportType.gbXMLIES)
-                    gbSrf.ConstructionIDRef = be.ConstructionID();
+                {
+                    BHP.EnvironmentContextProperties envContextProperties = be.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+
+                    gbSrf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.CleanName() : be.ConstructionID());
+                    BH.oM.XML.Construction conc = be.ToGBXMLConstruction();
+                    BH.oM.XML.Construction test = usedConstructions.Where(y => y.ID == conc.ID).FirstOrDefault();
+                    if (test == null)
+                    {
+                        if (be.ElementProperties() != null)
+                        {
+                            List<BH.oM.XML.Material> materials = new List<Material>();
+                            BH.oM.Environment.Elements.Construction construction = (be.ElementProperties() as BHP.ElementProperties).Construction;
+
+                            foreach (BH.oM.Environment.Materials.Material m in construction.Materials)
+                                materials.Add(m.ToGBXML());
+
+                            BH.oM.XML.Layer layer = materials.ToGBXML();
+                            conc.LayerID.LayerIDRef = layer.ID;
+
+                            usedConstructions.Add(conc);
+
+                            if (usedLayers.Where(y => y.ID == layer.ID).FirstOrDefault() == null)
+                                usedLayers.Add(layer);
+
+                            foreach (BH.oM.XML.Material mat in materials)
+                            {
+                                if (usedMaterials.Where(y => y.ID == mat.ID).FirstOrDefault() == null)
+                                    usedMaterials.Add(mat);
+                            }
+                        }
+                    }
+                }
                 else if (exportType == ExportType.gbXMLTAS) //We have to force null otherwise Construction will be created
                     gbSrf.ConstructionIDRef = null;
 
                 gbx.Campus.Surface.Add(gbSrf);
             }
+
+            gbx.Construction = usedConstructions.ToArray();
+            gbx.Layer = usedLayers.ToArray();
+            gbx.Material = usedMaterials.ToArray();
         }
 
         public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, List<Level> levels, List<BuildingElement> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
