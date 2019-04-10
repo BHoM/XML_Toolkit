@@ -238,6 +238,9 @@ namespace BH.Adapter.XML
                 usedSpaceNames.Add(xmlSpace.Name);
             }
 
+            //Reorder the spaces
+            gbx.Campus.Building[0].Space = gbx.Campus.Building[0].Space.OrderBy(x => x.Name).ToList();
+
             gbx.Construction = usedConstructions.ToArray();
             gbx.Layer = usedLayers.ToArray();
             gbx.Material = usedMaterials.ToArray();
