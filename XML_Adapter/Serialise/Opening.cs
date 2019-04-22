@@ -45,54 +45,48 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BH.oM.XML.Opening> Serialize(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<BuildingElement> space, List<BuildingElement> allElements, List<List<BuildingElement>> spaces, List<BH.oM.Environment.Elements.Space> spaceSpaces, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static List<BH.oM.XML.Opening> Serialize(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<Panel> space, List<Panel> allElements, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             List<BH.oM.XML.Opening> gbOpenings = new List<oM.XML.Opening>();
 
             foreach (BH.oM.Environment.Elements.Opening opening in openings)
             {
-                if (opening.OpeningCurve == null) continue;
+                if (opening.ToPolyline() == null) continue;
 
                 BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
 
                 //Normals away from space
-                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(opening.OpeningCurve.ICollapseToPolyline(BH.oM.Geometry.Tolerance.Angle), space))
-                    gbOpening.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(opening.OpeningCurve.ICollapseToPolyline(BH.oM.Geometry.Tolerance.Angle).Flip());
+                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(opening.ToPolyline(), space))
+                    gbOpening.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(opening.ToPolyline().Flip());
 
-                BuildingElement buildingElement = new BuildingElement();
-                
+                Panel buildingElement = new Panel();
+;
+                BHP.OriginContextFragment contextProperties = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
-                if (opening.ElementProperties() != null && opening.EnvironmentContextProperties() != null)
+                string elementID = "";
+                string familyName = "";
+                if (contextProperties != null)
                 {
-
-                    BHP.ElementProperties elementProperties = opening.ElementProperties() as BHP.ElementProperties;
-                    BHP.EnvironmentContextProperties contextProperties = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
-
-                    string elementID = "";
-                    string familyName = "";
-                    if (contextProperties != null)
-                    {
-                        elementID = contextProperties.ElementID;
-                        familyName = contextProperties.TypeName;
-                    }
-
-                    gbOpening.CADObjectID = opening.CADObjectID(exportType);
-                    gbOpening.OpeningType = elementProperties.ToGBXMLType();
-
-                    if (gbOpening.OpeningType.ToLower() == "fixedwindow" && contextProperties != null && contextProperties.TypeName.ToLower().Contains("skylight"))
-                        gbOpening.OpeningType = "FixedSkylight";
-
-                    if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
-                        gbOpening.OpeningType = "FixedWindow";
-
-                    if (exportType == ExportType.gbXMLIES && gbOpening.OpeningType.Contains("Window") && elementProperties.Construction.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
-                        gbOpening.OpeningType = "NonSlidingDoor";
-
-                    if (exportType == ExportType.gbXMLIES)
-                        gbOpening.WindowTypeIDRef = "window-" + (contextProperties == null? elementProperties.Construction.Name.CleanName() : contextProperties.TypeName.CleanName());
-                    else
-                        gbOpening.WindowTypeIDRef = null;
+                    elementID = contextProperties.ElementID;
+                    familyName = contextProperties.TypeName;
                 }
+
+                gbOpening.CADObjectID = opening.CADObjectID(exportType);
+                gbOpening.OpeningType = opening.Type.ToGBXML();
+
+                if (gbOpening.OpeningType.ToLower() == "fixedwindow" && contextProperties != null && contextProperties.TypeName.ToLower().Contains("skylight"))
+                    gbOpening.OpeningType = "FixedSkylight";
+
+                if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
+                    gbOpening.OpeningType = "FixedWindow";
+
+                if (exportType == ExportType.gbXMLIES && gbOpening.OpeningType.Contains("Window") && opening.OpeningConstruction.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                    gbOpening.OpeningType = "NonSlidingDoor";
+
+                if (exportType == ExportType.gbXMLIES)
+                    gbOpening.WindowTypeIDRef = "window-" + (contextProperties == null? opening.OpeningConstruction.Name.CleanName() : contextProperties.TypeName.CleanName());
+                else
+                    gbOpening.WindowTypeIDRef = null;
 
                 gbOpening.ConstructionIDRef = null; //ToDo review having this property on an opening?
                 gbOpenings.Add(gbOpening);

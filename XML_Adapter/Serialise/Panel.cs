@@ -159,7 +159,7 @@ namespace BH.Adapter.XML
                             
                             var t = usedWindows.Where(a => a.Name == nameCheck).FirstOrDefault();
                             if (t == null)
-                                usedWindows.Add(o.OpeningConstruction.ToGBXMLWindow(o));
+                                usedWindows.Add(o.OpeningConstruction.ToGBXMLWindow());
                         }
                     }
 

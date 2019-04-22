@@ -52,7 +52,7 @@ namespace BH.Engine.XML
             return ToGBXML(construction as dynamic, panel);
         }
 
-        public static BHX.Construction ToGBXMLWindow(this BHC.IConstruction construction, BHE.Panel panel = null)
+        public static BHX.WindowType ToGBXMLWindow(this BHC.IConstruction construction, BHE.Panel panel = null)
         {
             return ToGBXML(construction as dynamic, panel);
         }

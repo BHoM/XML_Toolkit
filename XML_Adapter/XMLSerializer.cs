@@ -98,7 +98,7 @@ namespace BH.Adapter.XML
 
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
-                foreach(List<BuildingElement> space in db.ElementsAsSpaces)
+                foreach(List<Panel> space in db.ElementsAsSpaces)
                 {
                     if (space.IsExternal(db.ElementsAsSpaces))
                     {

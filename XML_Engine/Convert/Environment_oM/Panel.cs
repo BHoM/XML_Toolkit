@@ -84,7 +84,7 @@ namespace BH.Engine.XML
             }
 
             List<BHX.AdjacentSpaceId> adjIDs = new List<BHX.AdjacentSpaceId>();
-            foreach (BHE.Space sp in adjacentSpaces)
+            foreach (List<BHE.Panel> sp in adjacentSpaces)
                 adjIDs.Add(sp.AdjacentSpaceID());
             surface.AdjacentSpaceID = adjIDs.ToArray();
 

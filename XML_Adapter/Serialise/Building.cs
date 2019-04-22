@@ -47,12 +47,9 @@ namespace BH.Adapter.XML
                 gbx.Campus.Building[x] = buildings[x].ToGBXML();
                 gbx.Campus.Location = buildings[x].ToGBXMLLocation();
 
-                if (buildings[x].ContextProperties() != null)
-                {
-                    BHP.BuildingContextProperties props = buildings[x].ContextProperties() as BHP.BuildingContextProperties;
-                    if(props != null)
-                        gbx.Campus.Building[x].StreetAddress = props.PlaceName;
-                }
+                BHP.BuildingContextFragment props = buildings[x].FindFragment<BHP.BuildingContextFragment>(typeof(BHP.BuildingContextFragment));
+                if(props != null)
+                    gbx.Campus.Building[x].StreetAddress = props.PlaceName;
 
                 if (buildings[x].CustomData.ContainsKey("Building Name"))
                     gbx.Campus.Building[x].BuildingType = (buildings[x].CustomData["Building Name"]).ToString();

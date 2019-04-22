@@ -28,6 +28,7 @@ using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
 using BHX = BH.oM.XML;
+using BH.Engine.Environment;
 
 namespace BH.Engine.XML
 {
@@ -37,10 +38,10 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static BHX.AdjacentSpaceId AdjacentSpaceID(this BHE.Space space)
+        public static BHX.AdjacentSpaceId AdjacentSpaceID(this List<BHE.Panel> space)
         {
             BHX.AdjacentSpaceId adjId = new BHX.AdjacentSpaceId();
-            adjId.SpaceIDRef = "Space-" + space.Name;
+            adjId.SpaceIDRef = "Space-" + space.ConnectedSpaceName();
             return adjId;
         }
     }
