@@ -72,7 +72,7 @@ namespace BH.Engine.XML
             BHX.Surface surface = element.ToGBXML();
 
             surface.SurfaceType = element.ToGBXMLType(adjacentSpaces);
-            surface.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
+            surface.ExposedToSun = Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
 
             BHG.Polyline pLine = element.ToPolyline();
             if (!pLine.NormalAwayFromSpace(space))

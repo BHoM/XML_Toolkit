@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -23,13 +23,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.XML;
-using BH.oM.Base;
-using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Properties;
-using BHG = BH.oM.Geometry;
-using BH.Engine.Geometry;
-using BH.Engine.Environment;
+
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
 
 namespace BH.Engine.XML
 {
@@ -39,28 +35,16 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static BHE.BuildingElement CADObjectError(this BHE.BuildingElement bHoMBuildingElement)
+        [Description("BH.Engine.XML.Query.ExposedToSun => Returns whether a given gbXML surface type string can be classed as being exposed to the sun")]
+        [Input("surfaceType", "A gbXML string representing a surface type")]
+        [Output("exposedToSun", "True if the surface type can be considered to be exposed to the sun, false otherwise")]
+        public static bool ExposedToSun(string surfaceType)
         {
-            /*if (bHoMBuildingElement == null)
-                return null;
+            if (String.IsNullOrEmpty(surfaceType)) return false;
 
-            if (bHoMBuildingElement.CadObjectId() == "")
-                return bHoMBuildingElement;
+            surfaceType = surfaceType.Replace(" ", String.Empty).ToLower();
 
-            //Check invalid combinations of adjacent spaces and CADobjectID
-            else if (bHoMBuildingElement.CadObjectId().Contains("EXT") && bHoMBuildingElement.AdjacentSpaces.Count != 1)
-                return bHoMBuildingElement;
-
-            else if (bHoMBuildingElement.CadObjectId().Contains("INT") && bHoMBuildingElement.AdjacentSpaces.Count != 2)
-                return bHoMBuildingElement;
-
-            else if (bHoMBuildingElement.AdjacentSpaces.Count > 2) //This should never happen. Maximum value is 2
-                return bHoMBuildingElement;*/
-
-            return null;
-
-
-            /***************************************************/
+            return surfaceType == "raisedfloor" || surfaceType == "exteriorwall" || surfaceType == "roof";
         }
     }
 }
