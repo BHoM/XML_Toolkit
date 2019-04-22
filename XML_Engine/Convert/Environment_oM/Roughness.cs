@@ -26,40 +26,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Properties;
-using BHX = BH.oM.XML;
-using BHG = BH.oM.Geometry;
+using BH.oM.Environment.Materials;
 
-using BH.Engine.Geometry;
-using BH.Engine.Environment;
+using BHX = BH.oM.XML;
 
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static BHX.Roughness ToGBXML(this BHE.ConstructionRoughness roughness)
+        public static BHX.Roughness ToGBXML(this Roughness roughness)
         {
             BHX.Roughness r = new BHX.Roughness();
 
             switch (roughness)
             {
-                case BHE.ConstructionRoughness.MediumRough:
+                case Roughness.MediumRough:
                     r.Value = "MediumRough";
                     break;
-                case oM.Environment.Elements.ConstructionRoughness.MediumSmooth:
+                case Roughness.MediumSmooth:
                     r.Value = "MediumSmooth";
                     break;
-                case oM.Environment.Elements.ConstructionRoughness.Rough:
+                case Roughness.Rough:
                     r.Value = "Rough";
                     break;
-                case oM.Environment.Elements.ConstructionRoughness.Smooth:
+                case Roughness.Smooth:
                     r.Value = "Smooth";
                     break;
-                case oM.Environment.Elements.ConstructionRoughness.VeryRough:
+                case Roughness.VeryRough:
                     r.Value = "VeryRough";
                     break;
-                case oM.Environment.Elements.ConstructionRoughness.VerySmooth:
+                case Roughness.VerySmooth:
                     r.Value = "VerySmooth";
                     break;
             }
@@ -67,22 +63,22 @@ namespace BH.Engine.XML
             return r;
         }
 
-        public static BHE.ConstructionRoughness ToBHoM(this BHX.Roughness roughness)
+        public static Roughness ToBHoM(this BHX.Roughness roughness)
         {
             if (roughness.Value.Equals("MediumRough"))
-                return BHE.ConstructionRoughness.MediumRough;
+                return Roughness.MediumRough;
             if (roughness.Value.Equals("MediumSmooth"))
-                return BHE.ConstructionRoughness.MediumSmooth;
+                return Roughness.MediumSmooth;
             if (roughness.Value.Equals("Rough"))
-                return BHE.ConstructionRoughness.Rough;
+                return Roughness.Rough;
             if (roughness.Value.Equals("Smooth"))
-                return BHE.ConstructionRoughness.Smooth;
+                return Roughness.Smooth;
             if (roughness.Value.Equals("VeryRough"))
-                return BHE.ConstructionRoughness.VeryRough;
+                return Roughness.VeryRough;
             if (roughness.Value.Equals("VerySmooth"))
-                return BHE.ConstructionRoughness.VerySmooth;
+                return Roughness.VerySmooth;
 
-            return BHE.ConstructionRoughness.Undefined;
+            return Roughness.Undefined;
         }
     }
 }

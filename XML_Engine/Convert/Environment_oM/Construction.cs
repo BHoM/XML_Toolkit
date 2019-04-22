@@ -26,7 +26,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BHI = BH.oM.Environment.Interface;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Properties;
 using BHX = BH.oM.XML;
@@ -36,102 +35,75 @@ using BHM = BH.oM.Environment.Materials;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
+using BHC = BH.oM.Physical.Properties.Construction;
+using BHEM = BH.oM.Environment.Materials;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static BHX.Construction ToGBXMLConstruction(this BHE.BuildingElement element)
+        public static BHX.Construction ToGBXMLConstruction(this BHE.Panel element)
         {
-            if (element == null || element.ElementProperties() == null) return null;
-            return element.ElementProperties().ToGBXMLConstruction(element);
+            return element.Construction.ToGBXML(element);
         }
 
-        public static BHX.WindowType ToGBXMLWindow(this BHE.Opening opening)
+        public static BHX.Construction ToGBXML(this BHC.IConstruction construction, BHE.Panel panel = null)
         {
-            if (opening == null || opening.ElementProperties() == null) return null;
-            return opening.ElementProperties().ToGBXMLWindow(opening);
+            return ToGBXML(construction as dynamic, panel);
         }
 
-        public static BHX.Construction ToGBXMLConstruction(this BHI.IBHoMExtendedProperties properties, BHE.BuildingElement element)
-        {
-            if (properties == null) return null;
-            BHP.ElementProperties props = properties as BHP.ElementProperties;
-            if (props == null || props.Construction == null) return null;
-            return props.Construction.ToGBXML(element);
-        }
-
-        public static BHX.WindowType ToGBXMLWindow(this BHI.IBHoMExtendedProperties properties, BHE.Opening opening)
-        {
-            if (properties == null) return null;
-            BHP.ElementProperties props = properties as BHP.ElementProperties;
-            if (props == null || props.Construction == null) return null;
-            return props.Construction.ToGBXMLWindow(opening);
-        }
-
-        public static BHX.Construction ToGBXML(this BHE.Construction construction, BHE.BuildingElement element = null)
+        public static BHX.Construction ToGBXML(this BHC.Construction construction, BHE.Panel element = null)
         {
             BHX.Construction gbConstruction = new BHX.Construction();
 
-            BHP.EnvironmentContextProperties contextProperties = null;
-            BHP.BuildingElementAnalyticalProperties analysisProperties = null;
+            BHP.OriginContextFragment contextProperties = null;
+            BHP.PanelAnalyticalFragment analysisProperties = null;
             if (element != null)
             {
-                contextProperties = element.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
-                analysisProperties = element.AnalyticalProperties() as BHP.BuildingElementAnalyticalProperties;
+                contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
+                analysisProperties = element.FindFragment<BHP.PanelAnalyticalFragment>(typeof(BHP.PanelAnalyticalFragment));
             }
 
             gbConstruction.ID = (contextProperties == null ? construction.ConstructionID() : contextProperties.TypeName.CleanName().Replace(" ", "-"));
             gbConstruction.Absorptance = construction.ToGBXMLAbsorptance();
             gbConstruction.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
-            gbConstruction.Roughness = construction.Roughness.ToGBXML();
-            gbConstruction.UValue.Value = (analysisProperties == null ? (element != null ? element.UValue() : 0) : analysisProperties.UValue).ToString();
+            gbConstruction.Roughness = construction.Roughness().ToGBXML();
+            gbConstruction.UValue.Value = (analysisProperties == null ? construction.UValue() : analysisProperties.UValue).ToString();
 
             return gbConstruction;
         }
 
-        public static BHX.WindowType ToGBXMLWindow(this BHE.Construction construction, BHE.Opening opening)
+        public static BHX.WindowType ToGBXMLWindow(this BHC.Construction construction, BHE.Opening opening)
         {
             BHX.WindowType window = new BHX.WindowType();
 
-            BHP.BuildingElementAnalyticalProperties extraProperties = opening.PropertiesByType(typeof(BHP.BuildingElementAnalyticalProperties)) as BHP.BuildingElementAnalyticalProperties;
-            BHP.EnvironmentContextProperties contextProperties = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+            BHP.PanelAnalyticalFragment extraProperties = opening.FindFragment<BHP.PanelAnalyticalFragment>(typeof(BHP.PanelAnalyticalFragment));
+            BHP.OriginContextFragment contextProperties = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
             window.ID = "window-" + (contextProperties == null ? construction.Name.CleanName() : contextProperties.TypeName.CleanName());
             window.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
             window.UValue.Value = (extraProperties == null ? "0" : extraProperties.UValue.ToString());
             window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());
             window.SolarHeatGainCoefficient.Value = (extraProperties == null ? "0" : extraProperties.GValue.ToString());
-            if (construction.Materials.Count > 0)
-                window.InternalGlaze = (construction.Materials[0] as BHM.Material).ToGBXGlazed();
-            if (construction.Materials.Count > 1)
-                window.Gap = (construction.Materials[1] as BHM.Material).ToGBXGap();
-            if (construction.Materials.Count > 2)
-                window.ExternalGlaze = (construction.Materials[2] as BHM.Material).ToGBXGlazed();
+            if (construction.Layers.Count > 0)
+                window.InternalGlaze = (construction.Layers[0].Material).ToGBXGlazed();
+            if (construction.Layers.Count > 1)
+                window.Gap = (construction.Layers[1].Material).ToGBXGap();
+            if (construction.Layers.Count > 2)
+                window.ExternalGlaze = (construction.Layers[2].Material).ToGBXGlazed();
 
             return window;
         }
 
-        public static BHX.Absorptance ToGBXMLAbsorptance(this BHE.Construction construction)
+        public static BHX.Absorptance ToGBXMLAbsorptance(this BHC.Construction construction)
         {
             BHX.Absorptance absorptance = new BHX.Absorptance();
-            absorptance.Unit = construction.AbsorptanceUnit.ToGBXML();
-            absorptance.Type = construction.AbsorptanceType.ToGBXML();
-            absorptance.Value = construction.AbsorptanceValue.ToString();
+            BHEM.Absorptance abs = construction.Absorptance();
+
+            absorptance.Unit = abs.AbsorptanceUnit.ToGBXML();
+            absorptance.Type = abs.AbsorptanceType.ToGBXML();
+            absorptance.Value = abs.Value.ToString();
             return absorptance;
-        }
-
-        public static BHE.Construction ToBHoM(this BHX.Construction gbConstruction)
-        {
-            BHE.Construction construction = new BHE.Construction();
-
-            construction.AbsorptanceType = gbConstruction.Absorptance.Type.ToBHoMAbsorptanceType();
-            construction.AbsorptanceUnit = gbConstruction.Absorptance.Unit.ToBHoMAbsorptanceUnit();
-            construction.AbsorptanceValue = System.Convert.ToDouble(gbConstruction.Absorptance.Value);
-
-            construction.Roughness = gbConstruction.Roughness.ToBHoM();
-            construction.Name = gbConstruction.Name;
-
-            return construction;
         }
     }
 }

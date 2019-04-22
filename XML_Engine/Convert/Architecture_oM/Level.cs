@@ -38,7 +38,7 @@ namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static BHX.BuildingStorey ToGBXML(this BHA.Level level, List<List<BHE.BuildingElement>> spaces = null)
+        public static BHX.BuildingStorey ToGBXML(this BHA.Level level, List<List<BHE.Panel>> spaces = null)
         {
             BHX.BuildingStorey storey = new BHX.BuildingStorey();
 
