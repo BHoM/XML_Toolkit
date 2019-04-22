@@ -53,7 +53,7 @@ namespace BH.Engine.XML
             gbMaterial.Thickness = Math.Round(layer.Thickness, 3);
             gbMaterial.Density.Value = Math.Round(layer.Material.Density, 3).ToString();
 
-            IEnvironmentMaterial envMaterial = layer.Material.Properties.Where(x => x.GetType() == typeof(IEnvironmentMaterial)).FirstOrDefault() as IEnvironmentMaterial;
+            IEnvironmentMaterial envMaterial = layer.Material.Properties.Where(x => x is IEnvironmentMaterial).FirstOrDefault() as IEnvironmentMaterial;
 
             if (envMaterial != null)
             {
@@ -106,7 +106,7 @@ namespace BH.Engine.XML
         public static BHX.Glaze ToGBXGlazed(this BHC.Layer layer)
         {
             if (layer == null || layer.Material == null) return null;
-            SolidMaterial transparentProperties = layer.Material.Properties.Where(x => x.GetType() == typeof(SolidMaterial)).FirstOrDefault() as SolidMaterial;
+            SolidMaterial transparentProperties = layer.FindMaterial<SolidMaterial>(typeof(SolidMaterial));
             if (transparentProperties == null) return null;
 
             BHX.Glaze glaze = new BHX.Glaze();
@@ -141,7 +141,7 @@ namespace BH.Engine.XML
         public static BHX.Gap ToGBXGap(this BHC.Layer layer)
         {
             if (layer == null || layer.Material == null) return null;
-            GasMaterial gasProperties = layer.Material.Properties.Where(x => x.GetType() == typeof(GasMaterial)).FirstOrDefault() as GasMaterial;
+            GasMaterial gasProperties = layer.FindMaterial<GasMaterial>(typeof(GasMaterial));
             if (gasProperties == null) return null;
 
             BHX.Gap gap = new BHX.Gap();

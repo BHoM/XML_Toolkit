@@ -43,7 +43,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize(List<BH.oM.Architecture.Elements.Level> levels, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static void SerializeLevels(List<BH.oM.Architecture.Elements.Level> levels, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             List<BH.oM.XML.BuildingStorey> xmlLevels = new List<BuildingStorey>();
 

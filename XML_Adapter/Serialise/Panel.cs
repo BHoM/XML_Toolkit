@@ -145,7 +145,7 @@ namespace BH.Adapter.XML
                     //Openings
                     if (space[x].Openings.Count > 0)
                     {
-                        srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, gbx, exportType).ToArray();
+                        srf.Opening = SerializeOpenings(space[x].Openings, space, allElements, elementsAsSpaces, gbx, exportType).ToArray();
                         foreach(BH.oM.Environment.Elements.Opening o in space[x].Openings)
                         {
                             string nameCheck = "";
@@ -159,7 +159,7 @@ namespace BH.Adapter.XML
                             
                             var t = usedWindows.Where(a => a.Name == nameCheck).FirstOrDefault();
                             if (t == null)
-                                usedWindows.Add(o.OpeningConstruction.ToGBXMLWindow());
+                                usedWindows.Add(o.OpeningConstruction.ToGBXMLWindow(o));
                         }
                     }
 
