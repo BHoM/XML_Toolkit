@@ -40,7 +40,7 @@ namespace BH.Engine.XML
         public static BHX.AdjacentSpaceId AdjacentSpaceID(this BHE.Space space)
         {
             BHX.AdjacentSpaceId adjId = new BHX.AdjacentSpaceId();
-            adjId.SpaceIDRef = "Space-" + space.Number + "-" + space.Name;
+            adjId.SpaceIDRef = "Space-" + space.Name;
             return adjId;
         }
     }
