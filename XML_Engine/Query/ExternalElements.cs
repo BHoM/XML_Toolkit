@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
  *
@@ -21,47 +21,37 @@
  */
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-using BH.Adapter.XML;
-using BH.Engine.XML;
-
-using BH.oM.Environment.Elements;
-
 using System.Collections.Generic;
+using System.Linq;
+using BH.oM.XML;
+using BH.oM.Base;
+using BH.oM.Environment.Elements;
+using BHP = BH.oM.Environment.Properties;
+using BHG = BH.oM.Geometry;
+using BH.Engine.Geometry;
+using BH.Engine.Environment;
 
-namespace BH.Test.XML
+namespace BH.Engine.XML
 {
-    [TestClass]
-    public class MapByGUID
+    public static partial class Query
     {
-        [TestMethod]
-        public void TestMapByGUID_1()
+        /***************************************************/
+        /**** Public Methods                            ****/
+        /***************************************************/
+        public static List<Panel> ExternalElements(this List<List<Panel>> elementsAsSpaces)
         {
-            //Test to check a null list returns a null object
-            List<BuildingElement> elements = null;
-            Assert.IsNull(elements.MapByGUID());
+            List<Panel> externalElements = new List<Panel>();
+
+            foreach (List<Panel> space in elementsAsSpaces)
+                externalElements.AddRange(space.Where(x => x.AdjacentSpaces(elementsAsSpaces).Count == 1).ToList());
+
+            return externalElements;
         }
 
-        [TestMethod]
-        public void TestMapByGUID_2()
+        public static bool IsExternal(this List<Panel> space, List<List<Panel>> elementsAsSpaces)
         {
-            //Test if building elements are mapped by their GUID
-            List<BuildingElement> elements = new List<BuildingElement>();
-            elements.Add(new BuildingElement());
-            elements.Add(new BuildingElement());
-            elements.Add(new BuildingElement());
-
-            elements[0].BHoM_Guid = elements[1].BHoM_Guid;
-
-            List<List<BuildingElement>> rtn = elements.MapByGUID();
-
-            Assert.IsNotNull(rtn);
-            Assert.IsTrue(rtn.Count == 2);
-            Assert.IsTrue(rtn[0].Count == 2);
-            Assert.IsTrue(rtn[1].Count == 1);
-            Assert.IsTrue(rtn[0][0].BHoM_Guid == rtn[0][1].BHoM_Guid);
-            Assert.IsTrue(rtn[0][1].BHoM_Guid != rtn[1][0].BHoM_Guid);
+            //Check whether the space contains at least one external element
+            return (space.Where(x => x.AdjacentSpaces(elementsAsSpaces).Count == 1).ToList().Count > 0);
         }
     }
 }
