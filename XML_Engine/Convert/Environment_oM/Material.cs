@@ -26,8 +26,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BHE = BH.oM.Environment.Elements;
-using BHM = BH.oM.Environment.Materials;
+using BH.oM.Environment.Materials;
+using BHM = BH.oM.Physical.Properties;
+using BHC = BH.oM.Physical.Properties.Construction;
 using BHP = BH.oM.Environment.Properties;
 using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;
@@ -39,21 +40,26 @@ namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static BHX.Material ToGBXML(this BHM.Material material)
+        public static BHX.Material ToGBXML(this BHC.Layer layer)
         {
             BHX.Material gbMaterial = new BHX.Material();
 
-            double rValue = Math.Round(material.Thickness / material.MaterialProperties.Conductivity, 3);
+            double rValue = Math.Round(layer.RValue(), 3);
             if (double.IsInfinity(rValue) || double.IsNaN(rValue)) rValue = -1; //Error
 
-            //gbMaterial.ID = "material-" + material.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
-            gbMaterial.ID = "material-" + material.Name.CleanName();
-            gbMaterial.Name = material.Name;
+            gbMaterial.ID = "material-" + layer.Material.Name.CleanName();
+            gbMaterial.Name = layer.Material.Name;
             gbMaterial.RValue.Value = rValue.ToString();
-            gbMaterial.Thickness = Math.Round(material.Thickness, 3);
-            gbMaterial.Conductivity.Value = Math.Round(material.MaterialProperties.Conductivity, 3).ToString();
-            gbMaterial.Density.Value = Math.Round(material.MaterialProperties.Density, 3).ToString();
-            gbMaterial.SpecificHeat.Value = material.MaterialProperties.SpecificHeat.ToString();
+            gbMaterial.Thickness = Math.Round(layer.Thickness, 3);
+            gbMaterial.Density.Value = Math.Round(layer.Material.Density, 3).ToString();
+
+            IEnvironmentMaterial envMaterial = layer.Material.Properties.Where(x => x.GetType() == typeof(IEnvironmentMaterial)).FirstOrDefault() as IEnvironmentMaterial;
+
+            if (envMaterial != null)
+            {
+                gbMaterial.Conductivity.Value = Math.Round(envMaterial.Conductivity, 3).ToString();
+                gbMaterial.SpecificHeat.Value = envMaterial.SpecificHeat.ToString();
+            }
 
             return gbMaterial;
         }
@@ -78,67 +84,72 @@ namespace BH.Engine.XML
             return l;
         }
 
-        public static BHM.Material ToBHoM(this BHX.Material gbMaterial)
+        public static BHC.Layer ToBHoM(this BHX.Material gbMaterial)
         {
+            BHC.Layer layer = new BHC.Layer();
+            layer.Thickness = System.Convert.ToDouble(gbMaterial.Thickness);
+
+            SolidMaterial materialProperties = new SolidMaterial();
+            materialProperties.Conductivity = System.Convert.ToDouble(gbMaterial.Conductivity.Value);
+            materialProperties.SpecificHeat = System.Convert.ToDouble(gbMaterial.SpecificHeat.Value);
+
             BHM.Material material = new BHM.Material();
-
             material.Name = gbMaterial.Name;
-            material.Thickness = System.Convert.ToDouble(gbMaterial.Thickness);
-            material.MaterialProperties = new BHP.MaterialPropertiesOpaque();
-            material.MaterialProperties.Conductivity = System.Convert.ToDouble(gbMaterial.Conductivity.Value);
-            material.MaterialProperties.Density = System.Convert.ToDouble(gbMaterial.Density.Value);
-            material.MaterialProperties.SpecificHeat = System.Convert.ToDouble(gbMaterial.SpecificHeat.Value);
+            material.Density = System.Convert.ToDouble(gbMaterial.Density.Value);
 
-            return material;
+            material.Properties.Add(materialProperties);
+            layer.Material = material;
+
+            return layer;
         }
 
-        public static BHX.Glaze ToGBXGlazed(this BHM.Material material)
+        public static BHX.Glaze ToGBXGlazed(this BHC.Layer layer)
         {
-            if (material == null) return null;
-            BHP.MaterialPropertiesTransparent props = material.MaterialProperties as BHP.MaterialPropertiesTransparent;
-            if (props == null) return null;
+            if (layer == null || layer.Material == null) return null;
+            SolidMaterial transparentProperties = layer.Material.Properties.Where(x => x.GetType() == typeof(SolidMaterial)).FirstOrDefault() as SolidMaterial;
+            if (transparentProperties == null) return null;
 
             BHX.Glaze glaze = new BHX.Glaze();
 
-            glaze.ID = "glaze-" + material.Name.Replace(" ", "-").Replace(",", "") + material.BHoM_Guid.ToString().Substring(0, 5);
-            glaze.Name = material.Name;
-            glaze.Thickness.Value = Math.Round(material.Thickness, 4).ToString();
-            glaze.Conductivity.Value = props.Conductivity.ToString();
+            glaze.ID = "glaze-" + layer.Material.Name.Replace(" ", "-").Replace(",", "") + layer.Material.BHoM_Guid.ToString().Substring(0, 5);
+            glaze.Name = layer.Material.Name;
+            glaze.Thickness.Value = Math.Round(layer.Thickness, 4).ToString();
+            glaze.Conductivity.Value = transparentProperties.Conductivity.ToString();
 
-            glaze.SolarTransmittance = new BHX.Transmittance { Value = Math.Round(props.SolarTransmittance, 3).ToString(), Type = "Solar" };
+            glaze.SolarTransmittance = new BHX.Transmittance { Value = Math.Round(transparentProperties.SolarTransmittance, 3).ToString(), Type = "Solar" };
 
             List<BHX.Reflectance> solarReflectance = new List<BHX.Reflectance>();
-            solarReflectance.Add(new BHX.Reflectance { Value = Math.Round(props.SolarReflectanceExternal, 3).ToString(), Type = "ExtSolar" });
-            solarReflectance.Add(new BHX.Reflectance { Value = Math.Round(props.SolarReflectanceInternal, 3).ToString(), Type = "IntSolar" });
+            solarReflectance.Add(new BHX.Reflectance { Value = Math.Round(transparentProperties.SolarReflectanceExternal, 3).ToString(), Type = "ExtSolar" });
+            solarReflectance.Add(new BHX.Reflectance { Value = Math.Round(transparentProperties.SolarReflectanceInternal, 3).ToString(), Type = "IntSolar" });
             glaze.SolarReflectance = solarReflectance.ToArray();
 
-            glaze.LightTransmittance = new BHX.Transmittance { Value = Math.Round(props.LightTransmittance, 3).ToString(), Type = "Visible" };
+            glaze.LightTransmittance = new BHX.Transmittance { Value = Math.Round(transparentProperties.LightTransmittance, 3).ToString(), Type = "Visible" };
 
             List<BHX.Reflectance> lightReflectance = new List<BHX.Reflectance>();
-            lightReflectance.Add(new BHX.Reflectance { Value = Math.Round(props.LightReflectanceExternal, 3).ToString(), Type = "ExtVisible" });
-            lightReflectance.Add(new BHX.Reflectance { Value = Math.Round(props.LightReflectanceInternal, 3).ToString(), Type = "IntVisible" });
+            lightReflectance.Add(new BHX.Reflectance { Value = Math.Round(transparentProperties.LightReflectanceExternal, 3).ToString(), Type = "ExtVisible" });
+            lightReflectance.Add(new BHX.Reflectance { Value = Math.Round(transparentProperties.LightReflectanceInternal, 3).ToString(), Type = "IntVisible" });
             glaze.LightReflectance = lightReflectance.ToArray();
 
             List<BHX.Emittance> emittance = new List<BHX.Emittance>();
-            emittance.Add(new BHX.Emittance { Value = Math.Round(props.EmissivityExternal, 3).ToString(), Type = "ExtIR" });
-            emittance.Add(new BHX.Emittance { Value = Math.Round(props.EmissivityInternal, 3).ToString(), Type = "IntIR" });
+            emittance.Add(new BHX.Emittance { Value = Math.Round(transparentProperties.EmissivityExternal, 3).ToString(), Type = "ExtIR" });
+            emittance.Add(new BHX.Emittance { Value = Math.Round(transparentProperties.EmissivityInternal, 3).ToString(), Type = "IntIR" });
             glaze.Emittance = emittance.ToArray();
 
             return glaze;
         }
 
-        public static BHX.Gap ToGBXGap(this BHM.Material material)
+        public static BHX.Gap ToGBXGap(this BHC.Layer layer)
         {
-            if (material == null) return null;
-            BHP.MaterialPropertiesGas props = material.MaterialProperties as BHP.MaterialPropertiesGas;
-            if (props == null) return null;
+            if (layer == null || layer.Material == null) return null;
+            GasMaterial gasProperties = layer.Material.Properties.Where(x => x.GetType() == typeof(GasMaterial)).FirstOrDefault() as GasMaterial;
+            if (gasProperties == null) return null;
 
             BHX.Gap gap = new BHX.Gap();
 
-            gap.ID = "gap-" + material.Name.Replace(" ", "-").Replace(",", "") + material.BHoM_Guid.ToString().Substring(0, 5);
-            gap.Name = material.Name;
-            gap.Thickness.Value = Math.Round(material.Thickness, 4).ToString();
-            gap.Conductivity.Value = Math.Round(props.Conductivity, 3).ToString();
+            gap.ID = "gap-" + layer.Material.Name.Replace(" ", "-").Replace(",", "") + layer.Material.BHoM_Guid.ToString().Substring(0, 5);
+            gap.Name = layer.Material.Name;
+            gap.Thickness.Value = Math.Round(layer.Thickness, 4).ToString();
+            gap.Conductivity.Value = Math.Round(gasProperties.Conductivity, 3).ToString();
 
             return gap;
         }

@@ -26,38 +26,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Properties;
-using BHX = BH.oM.XML;
-using BHG = BH.oM.Geometry;
-
-using BH.Engine.Geometry;
-using BH.Engine.Environment;
+using BH.oM.Environment.Materials;
 
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static string ToGBXML(this BHE.AbsorptanceUnit aUnit)
+        public static string ToGBXML(this AbsorptanceUnit aUnit)
         {
             switch (aUnit)
             {
-                case BHE.AbsorptanceUnit.Fraction:
+                case AbsorptanceUnit.Fraction:
                     return "Fraction";
-                case BHE.AbsorptanceUnit.Percent:
+                case AbsorptanceUnit.Percent:
                     return "Percent";
                 default: return "Fraction";
             }
         }
 
-        public static BHE.AbsorptanceUnit ToBHoMAbsorptanceUnit(this string aUnit)
+        public static AbsorptanceUnit ToBHoMAbsorptanceUnit(this string aUnit)
         {
             if (aUnit.Equals("Fraction"))
-                return BHE.AbsorptanceUnit.Fraction;
+                return AbsorptanceUnit.Fraction;
             if (aUnit.Equals("Percent"))
-                return BHE.AbsorptanceUnit.Percent;
+                return AbsorptanceUnit.Percent;
 
-            return BHE.AbsorptanceUnit.Undefined;
+            return AbsorptanceUnit.Undefined;
         }
     }
 }

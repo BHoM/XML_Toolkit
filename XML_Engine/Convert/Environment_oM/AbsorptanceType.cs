@@ -26,63 +26,57 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Properties;
-using BHX = BH.oM.XML;
-using BHG = BH.oM.Geometry;
-
-using BH.Engine.Geometry;
-using BH.Engine.Environment;
+using BH.oM.Environment.Materials;
 
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static string ToGBXML(this BHE.AbsorptanceType aType)
+        public static string ToGBXML(this AbsorptanceType aType)
         {
             switch (aType)
             {
-                case BHE.AbsorptanceType.ExtIR:
+                case AbsorptanceType.InfraredExternal:
                     return "ExtIR";
-                case BHE.AbsorptanceType.ExtSolar:
+                case AbsorptanceType.SolarExternal:
                     return "ExtSolar";
-                case BHE.AbsorptanceType.ExtTotal:
+                case AbsorptanceType.TotalExternal:
                     return "ExtTotal";
-                case BHE.AbsorptanceType.ExtVisible:
+                case AbsorptanceType.VisibleExternal:
                     return "ExtVisible";
-                case BHE.AbsorptanceType.IntIR:
+                case AbsorptanceType.InfraredInternal:
                     return "IntIR";
-                case BHE.AbsorptanceType.IntSolar:
+                case AbsorptanceType.SolarInternal:
                     return "IntSolar";
-                case BHE.AbsorptanceType.IntTotal:
+                case AbsorptanceType.TotalInternal:
                     return "IntTotal";
-                case BHE.AbsorptanceType.IntVisible:
+                case AbsorptanceType.VisibleInternal:
                     return "IntVisible";
                 default:
                     return "ExtIR";
             }
         }
 
-        public static BHE.AbsorptanceType ToBHoMAbsorptanceType(this string aType)
+        public static AbsorptanceType ToBHoMAbsorptanceType(this string aType)
         {
             if (aType.Equals("ExtIR"))
-                return BHE.AbsorptanceType.ExtIR;
+                return AbsorptanceType.InfraredExternal;
             if (aType.Equals("ExtSolar"))
-                return BHE.AbsorptanceType.ExtSolar;
+                return AbsorptanceType.SolarExternal;
             if (aType.Equals("ExtTotal"))
-                return BHE.AbsorptanceType.ExtTotal;
+                return AbsorptanceType.TotalExternal;
             if (aType.Equals("ExtVisible"))
-                return BHE.AbsorptanceType.ExtVisible;
+                return AbsorptanceType.VisibleExternal;
             if (aType.Equals("IntIR"))
-                return BHE.AbsorptanceType.IntIR;
+                return AbsorptanceType.InfraredInternal;
             if (aType.Equals("IntSolar"))
-                return BHE.AbsorptanceType.IntSolar;
+                return AbsorptanceType.SolarInternal;
             if (aType.Equals("IntTotal"))
-                return BHE.AbsorptanceType.IntTotal;
+                return AbsorptanceType.TotalInternal;
             if (aType.Equals("IntVisible"))
-                return BHE.AbsorptanceType.IntVisible;
+                return AbsorptanceType.VisibleInternal;
 
-            return BHE.AbsorptanceType.Undefined;
+            return AbsorptanceType.Undefined;
         }
     }
 }

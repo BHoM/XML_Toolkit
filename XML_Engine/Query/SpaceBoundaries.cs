@@ -39,7 +39,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static SpaceBoundary[] SpaceBoundaries(this BHE.Space bHoMSpace, List<BHE.BuildingElement> be)
+        public static SpaceBoundary[] SpaceBoundaries(this BHE.Space bHoMSpace, List<BHE.Panel> be)
         {
             /*List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
             IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
@@ -76,10 +76,10 @@ namespace BH.Engine.XML
             /***************************************************/
         }
 
-        public static SpaceBoundary[] SpaceBoundaries(this List<BHE.BuildingElement> spaceBoundaries, List<BHE.BuildingElement> uniqueBEs)
+        public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, List<BHE.Panel> uniqueBEs)
         {
             List<Polyloop> pLoops = new List<Polyloop>();
-            List<BHG.Polyline> panels = spaceBoundaries.Select(x => x.PanelCurve.ICollapseToPolyline(BHG.Tolerance.Angle)).ToList();
+            List<BHG.Polyline> panels = spaceBoundaries.Select(x => x.ToPolyline()).ToList();
 
             foreach(BHG.Polyline pLine in panels)
             {
