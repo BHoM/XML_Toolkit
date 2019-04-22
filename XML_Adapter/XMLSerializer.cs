@@ -53,7 +53,7 @@ namespace BH.Adapter.XML
                     SerializeBuildingShell(bhomObjects as dynamic, gbx, exportType);
                     break;
                 case ExportDetail.IndividualSpaces:
-                    Serialize(bhomObjects, exportType, filePath, projectName);
+                    SerializeSpaces(bhomObjects, exportType, filePath, projectName);
                     break;
                 default:
                     throw new NotImplementedException("That option has not been implemented");
@@ -65,7 +65,7 @@ namespace BH.Adapter.XML
             gbx.DocumentHistory = DocumentHistory;
         }
 
-        public static void Serialize<T>(IEnumerable<T> objects, ExportType exportType, string filePath, string projectName) where T : IObject
+        public static void SerializeSpaces<T>(IEnumerable<T> objects, ExportType exportType, string filePath, string projectName) where T : IObject
         {
             SerializeBuildingSpaces(objects as dynamic, exportType, filePath, projectName);
         }
@@ -74,7 +74,7 @@ namespace BH.Adapter.XML
         {
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
-                Serialize(db.Levels, db.ElementsAsSpaces, gbx, exportType);
+                SerializeLevels(db.Levels, db.ElementsAsSpaces, gbx, exportType);
                 SerializeCollection(db.ElementsAsSpaces, db.Levels, db.Openings, gbx, exportType);
                 SerializeCollection(db.ShadingElements, gbx, exportType);
             }
@@ -84,7 +84,7 @@ namespace BH.Adapter.XML
         {
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
-                Serialize(db.Levels, db.ElementsAsSpaces, gbx, exportType);
+                SerializeLevels(db.Levels, db.ElementsAsSpaces, gbx, exportType);
                 SerializeCollection(db.ElementsAsSpaces.ExternalElements(), db.Levels, db.Openings, gbx, exportType);
                 SerializeCollection(db.ShadingElements, gbx, exportType);
             }

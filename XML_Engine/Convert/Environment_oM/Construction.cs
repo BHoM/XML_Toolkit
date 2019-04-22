@@ -52,9 +52,9 @@ namespace BH.Engine.XML
             return ToGBXML(construction as dynamic, panel);
         }
 
-        public static BHX.WindowType ToGBXMLWindow(this BHC.IConstruction construction, BHE.Panel panel = null)
+        public static BHX.WindowType ToGBXMLWindow(this BHC.IConstruction construction, BHE.Opening opening = null)
         {
-            return ToGBXML(construction as dynamic, panel);
+            return ToGBXMLWindow(construction as dynamic, opening);
         }
 
         public static BHX.Construction ToGBXML(this BHC.Construction construction, BHE.Panel element = null)
