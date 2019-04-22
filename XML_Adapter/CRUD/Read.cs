@@ -27,13 +27,13 @@ using System.Collections.Generic;
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BH.oM.Environment.Properties;
-using BH.oM.Environment.Interface;
 using BHG = BH.oM.Geometry;
 using BH.Engine;
 
 using BH.Engine.XML;
 using BHX = BH.oM.XML;
 using BHA = BH.oM.Architecture.Elements;
+using BHC = BH.oM.Physical.Properties.Construction;
 
 namespace BH.Adapter.XML
 {
@@ -53,12 +53,12 @@ namespace BH.Adapter.XML
                 return ReadFullXMLFile(gbx);
             else if (type == typeof(BHE.Building))
                 return ReadBuilding(gbx);
-            else if (type == typeof(BHE.BuildingElement))
-                return ReadBuildingElements(gbx);
-            else if (type == typeof(BHE.Construction))
+            else if (type == typeof(BHE.Panel))
+                return ReadPanels(gbx);
+            /*else if (type == typeof(BHC.Construction))
                 return ReadConstructions(gbx);
-            else if (type == typeof(BH.oM.Environment.Materials.Material))
-                return ReadMaterials(gbx);
+            else if (type == typeof(BH.oM.Physical.Properties.Material))
+                return ReadMaterials(gbx);*/
             else if (type == typeof(BHA.Level))
                 return ReadLevels(gbx);
             else
@@ -74,9 +74,9 @@ namespace BH.Adapter.XML
             List<IBHoMObject> objects = new List<IBHoMObject>();
 
             objects.AddRange(ReadBuilding(gbx));
-            objects.AddRange(ReadBuildingElements(gbx));
-            objects.AddRange(ReadConstructions(gbx));
-            objects.AddRange(ReadMaterials(gbx));
+            objects.AddRange(ReadPanels(gbx));
+            //objects.AddRange(ReadConstructions(gbx));
+            //objects.AddRange(ReadMaterials(gbx));
             objects.AddRange(ReadLevels(gbx));
 
             return objects;
@@ -90,29 +90,29 @@ namespace BH.Adapter.XML
                 return new List<BHE.Building>();
         }
 
-        private List<BHE.BuildingElement> ReadBuildingElements(BHX.GBXML gbx, List<string> ids = null)
+        private List<BHE.Panel> ReadPanels(BHX.GBXML gbx, List<string> ids = null)
         {
             if (gbx.Campus != null && gbx.Campus.Surface != null)
                 return gbx.Campus.Surface.Select(x => x.ToBHoM()).ToList();
             else
-                return new List<BHE.BuildingElement>();
+                return new List<BHE.Panel>();
         }
 
-        private List<BHE.Construction> ReadConstructions(BHX.GBXML gbx, List<string> ids = null)
+        /*private List<BHC.Construction> ReadConstructions(BHX.GBXML gbx, List<string> ids = null)
         {
             if (gbx.Construction != null)
                 return gbx.Construction.Select(x => x.ToBHoM()).ToList();
             else
-                return new List<BHE.Construction>();
+                return new List<BHC.Construction>();
         }
 
-        private List<BH.oM.Environment.Materials.Material> ReadMaterials(BHX.GBXML gbx, List<string> ids = null)
+        private List<BH.oM.Physical.Properties.Material> ReadMaterials(BHX.GBXML gbx, List<string> ids = null)
         {
             if (gbx.Material != null)
                 return gbx.Material.Select(x => x.ToBHoM()).ToList();
             else
                 return new List<BH.oM.Environment.Materials.Material>();
-        }
+        }*/
 
         private List<BHA.Level> ReadLevels(BHX.GBXML gbx, List<string> ids = null)
         {

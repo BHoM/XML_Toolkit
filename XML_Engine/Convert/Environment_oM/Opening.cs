@@ -42,7 +42,7 @@ namespace BH.Engine.XML
         {
             BHX.Opening gbOpening = new BHX.Opening();
 
-            BHG.Polyline pLine = new oM.Geometry.Polyline() { ControlPoints = opening.OpeningCurve.IControlPoints() };
+            BHG.Polyline pLine = opening.ToPolyline();
 
             gbOpening.Name = opening.Name;
             gbOpening.ID = "opening-" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
@@ -61,16 +61,15 @@ namespace BH.Engine.XML
             return gbOpening;
         }
 
-        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.BuildingElement> space, List<BHE.BuildingElement> allElements, List<List<BHE.BuildingElement>> spaces, List<BHE.Space> spaceSpaces, BHX.Enums.ExportType exportType = BHX.Enums.ExportType.gbXMLTAS)
+        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.Panel> space, BHX.Enums.ExportType exportType = BHX.Enums.ExportType.gbXMLTAS)
         {
             BHX.Opening gbOpening = opening.ToGBXML();
 
-            BHG.Polyline pLine = new BHG.Polyline() { ControlPoints = opening.OpeningCurve.IControlPoints() };
+            BHG.Polyline pLine = opening.ToPolyline();
             if (pLine.NormalAwayFromSpace(space))
                 gbOpening.PlanarGeometry.PolyLoop = pLine.Flip().ToGBXML();
 
-            BHP.EnvironmentContextProperties contextProperties = opening.ContextProperties() as BHP.EnvironmentContextProperties;
-            BHP.ElementProperties elementProperties = opening.ElementProperties() as BHP.ElementProperties;
+            BHP.OriginContextFragment contextProperties = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
             if (contextProperties != null)
             {
@@ -78,16 +77,13 @@ namespace BH.Engine.XML
                 string familyName = contextProperties.TypeName;
 
                 gbOpening.CADObjectID = opening.CADObjectID(exportType);
-                gbOpening.OpeningType = opening.ElementProperties().ToGBXMLType();
+                gbOpening.OpeningType = opening.Type.ToGBXML();
 
                 if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
                     gbOpening.OpeningType = "FixedWindow";
 
-                if (elementProperties != null)
-                {
-                    if (gbOpening.OpeningType.Contains("Window") && elementProperties.Construction.Name.Contains("SLD")) //Change windows with SLD construction into doors
-                        gbOpening.OpeningType = "NonSlidingDoor";
-                }
+                if (gbOpening.OpeningType.Contains("Window") && opening.OpeningConstruction.Name.Contains("SLD")) //Change windows with SLD construction into doors
+                    gbOpening.OpeningType = "NonSlidingDoor";
             }
 
             return gbOpening;
@@ -98,7 +94,7 @@ namespace BH.Engine.XML
             BHE.Opening opening = new BHE.Opening();
 
             BHG.Polyline pLine = gbOpening.PlanarGeometry.PolyLoop.ToBHoM();
-            opening.OpeningCurve = pLine;
+            opening.Edges = pLine.ToEdges();
 
             string[] cadSplit = gbOpening.CADObjectID.Split('[');
             if (cadSplit.Length > 0)

@@ -26,10 +26,11 @@ using System.Linq;
 using BH.oM.XML;
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Properties;
 using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
-using BH.Engine.Environment;
+
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
 
 namespace BH.Engine.XML
 {
@@ -39,36 +40,19 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BH.oM.XML.Polyloop> ClosedShellGeometry(this BHE.Space bHoMSpace)
-        {
-            /*List<BH.oM.XML.Polyloop> ploopsShell = new List<Polyloop>();
-
-            List<BHG.Polyline> mergedPolyLines = BH.Engine.Environment.Query.ClosedShellGeometry(bHoMSpace);
-
-            //Ensure that all of the surface coordinates are listed in a counterclockwise order.
-            //This is a requirement of gbXML Polyloop definitions. If this is inconsistent or wrong we end up with a corrupt gbXML file.
-            foreach (BHG.Polyline pline in mergedPolyLines)
-            {
-                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, bHoMSpace))
-                    ploopsShell.Add(BH.Engine.XML.Convert.ToGBXML(pline.Flip()));
-                else
-                    ploopsShell.Add(BH.Engine.XML.Convert.ToGBXML(pline));
-            }
-
-            return ploopsShell;*/
-            return null;
-        }
-
-        public static List<Polyloop> ClosedShellGeometry(this List<BHE.BuildingElement> spaceBoundaries)
+        [Description("BH.Engine.XML.Query.ClosedShellGeometry => Gets the XML Polyloop closed shell geometry for a collection of panels representing a space")]
+        [Input("panelsAsSpace", "A collection of Environment Panels representing a single space")]
+        [Output("A collection of XML Geometry Polyloops which represent the shell of the space")]
+        public static List<Polyloop> ClosedShellGeometry(this List<BHE.Panel> panelsAsSpace)
         {
             List<Polyloop> shell = new List<Polyloop>();
 
-            List<BHG.Polyline> polylines = BH.Engine.Environment.Query.ClosedShellGeometry(spaceBoundaries);
+            List<BHG.Polyline> polylines = BH.Engine.Environment.Query.ClosedShellGeometry(panelsAsSpace);
 
             //Ensure that all of the surface coordinates are listed in a clockwise order
             foreach(BHG.Polyline pLine in polylines)
             {
-                if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, spaceBoundaries))
+                if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, panelsAsSpace))
                     shell.Add(BH.Engine.XML.Convert.ToGBXML(pLine));
                 else
                     shell.Add(BH.Engine.XML.Convert.ToGBXML(pLine.Flip()));

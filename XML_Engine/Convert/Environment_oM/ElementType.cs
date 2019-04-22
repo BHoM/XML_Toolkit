@@ -40,9 +40,9 @@ namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static string ToGBXMLType(this BHE.Panel element, List<BHE.Space> adjacentSpaces = null, ExportType exportType = ExportType.gbXMLTAS)
+        public static string ToGBXMLType(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces = null, ExportType exportType = ExportType.gbXMLTAS)
         {
-            if (adjacentSpaces == null) adjacentSpaces = new List<oM.Environment.Elements.Space>();
+            if (adjacentSpaces == null) adjacentSpaces = new List<List<BHE.Panel>>();
 
             string type = "Air";
             if (element == null)

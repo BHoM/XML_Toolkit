@@ -52,6 +52,11 @@ namespace BH.Engine.XML
             return ToGBXML(construction as dynamic, panel);
         }
 
+        public static BHX.Construction ToGBXMLWindow(this BHC.IConstruction construction, BHE.Panel panel = null)
+        {
+            return ToGBXML(construction as dynamic, panel);
+        }
+
         public static BHX.Construction ToGBXML(this BHC.Construction construction, BHE.Panel element = null)
         {
             BHX.Construction gbConstruction = new BHX.Construction();
@@ -86,11 +91,11 @@ namespace BH.Engine.XML
             window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());
             window.SolarHeatGainCoefficient.Value = (extraProperties == null ? "0" : extraProperties.GValue.ToString());
             if (construction.Layers.Count > 0)
-                window.InternalGlaze = (construction.Layers[0].Material).ToGBXGlazed();
+                window.InternalGlaze = (construction.Layers[0]).ToGBXGlazed();
             if (construction.Layers.Count > 1)
-                window.Gap = (construction.Layers[1].Material).ToGBXGap();
+                window.Gap = (construction.Layers[1]).ToGBXGap();
             if (construction.Layers.Count > 2)
-                window.ExternalGlaze = (construction.Layers[2].Material).ToGBXGlazed();
+                window.ExternalGlaze = (construction.Layers[2]).ToGBXGlazed();
 
             return window;
         }

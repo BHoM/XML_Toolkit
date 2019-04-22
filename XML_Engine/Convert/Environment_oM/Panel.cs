@@ -67,7 +67,7 @@ namespace BH.Engine.XML
             return surface;
         }
 
-        public static BHX.Surface ToGBXML(this BHE.Panel element, List<BHE.Space> adjacentSpaces, List<BHE.Panel> space)
+        public static BHX.Surface ToGBXML(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces, List<BHE.Panel> space)
         {
             BHX.Surface surface = element.ToGBXML();
 

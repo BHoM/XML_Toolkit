@@ -44,11 +44,10 @@ namespace BH.Engine.XML
 
             gbBuilding.Name = building.Name;
 
-            if (building.ContextProperties() != null)
-            {
-                BHP.BuildingContextProperties properties = building.ContextProperties() as BHP.BuildingContextProperties;
-                gbBuilding.StreetAddress = properties.PlaceName;
-            }
+            BHP.BuildingContextFragment context = building.FindFragment<BHP.BuildingContextFragment>(typeof(BHP.BuildingContextFragment));
+
+            if (context != null)
+                gbBuilding.StreetAddress = context.PlaceName;
 
             if (building.CustomData.ContainsKey("Building Name"))
                 gbBuilding.BuildingType = (building.CustomData["Building Name"]).ToString();
@@ -63,11 +62,12 @@ namespace BH.Engine.XML
             location.Latitude = Math.Round(building.Latitude, 5);
             location.Elevation = Math.Round(building.Elevation, 5);
 
-            if (building.ContextProperties() != null)
-            {
-                BHP.BuildingContextProperties properties = building.ContextProperties() as BHP.BuildingContextProperties;
-                location.Name = properties.PlaceName;
-                location.StationID.ID = properties.WeatherStation;
+            BHP.BuildingContextFragment context = building.FindFragment<BHP.BuildingContextFragment>(typeof(BHP.BuildingContextFragment));
+
+            if (context != null)
+            { 
+                location.Name = context.PlaceName;
+                location.StationID.ID = context.WeatherStation;
             }
 
             return location;
@@ -78,9 +78,9 @@ namespace BH.Engine.XML
             BHE.Building building = new BHE.Building();
 
             building.Name = gbBuilding.Name;
-            BHP.BuildingContextProperties props = new BHP.BuildingContextProperties();
+            BHP.BuildingContextFragment props = new BHP.BuildingContextFragment();
             props.PlaceName = gbBuilding.StreetAddress;
-            building.ExtendedProperties.Add(props);
+            building.FragmentProperties.Add(props);
             building.CustomData.Add("Building Name", gbBuilding.BuildingType);
 
             return building;
@@ -94,10 +94,10 @@ namespace BH.Engine.XML
             building.Longitude = location.Longitude;
             building.Latitude = location.Latitude;
 
-            BHP.BuildingContextProperties props = new BHP.BuildingContextProperties();
+            BHP.BuildingContextFragment props = new BHP.BuildingContextFragment();
             props.PlaceName = location.Name;
             props.WeatherStation = location.StationID.ID;
-            building.ExtendedProperties.Add(props);
+            building.FragmentProperties.Add(props);
 
             return building;
         }

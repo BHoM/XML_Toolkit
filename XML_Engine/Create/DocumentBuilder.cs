@@ -40,7 +40,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<BuildingElement>> elementsAsSpaces, List<BuildingElement> shadingElements, List<BH.oM.Architecture.Elements.Level> levels, List<BuildingElement> openings)
+        public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<BH.oM.Architecture.Elements.Level> levels, List<Panel> openings)
         {
             return new DocumentBuilder
             {
@@ -54,23 +54,17 @@ namespace BH.Engine.XML
 
         public static DocumentBuilder DocumentBuilder(List<IBHoMObject> objs)
         {
-            List<BuildingElement> buildingElements = objs.BuildingElements();
+            List<Panel> panels = objs.Panels();
             List<Space> spaces = objs.Spaces();
-            List<Level> levels = objs.ConvertAll(x => (BHoMObject)x).Levels();
+            List<Level> levels = objs.Levels();
             List<Building> buildings = objs.Buildings();
 
-            List<BuildingElement> openings = buildingElements.ElementsByType(BuildingElementType.Door);
-            openings.AddRange(buildingElements.ElementsByType(BuildingElementType.Rooflight));
-            openings.AddRange(buildingElements.ElementsByType(BuildingElementType.RooflightWithFrame));
-            openings.AddRange(buildingElements.ElementsByType(BuildingElementType.Window));
-            openings.AddRange(buildingElements.ElementsByType(BuildingElementType.WindowWithFrame));
+            List<Panel> openings = new List<Panel>();
 
-            List<BuildingElement> shadingElements = buildingElements.ShadingElements();
-            buildingElements = buildingElements.ElementsWithoutType(BuildingElementType.Shade); //Remove shading if it exists
+            List<Panel> shadingElements = panels.PanelsByType(PanelType.Shade);
+            panels = panels.PanelsNotByType(PanelType.Shade); //Remove shading if it exists
 
-            List<string> uniqueSpaceNames = buildingElements.UniqueSpaceNames();
-
-            List<List<BuildingElement>> elementsAsSpaces = buildingElements.BuildSpaces(uniqueSpaceNames);
+            List<List<Panel>> elementsAsSpaces = panels.ToSpaces();
 
             return DocumentBuilder(buildings, elementsAsSpaces, shadingElements, levels, openings);
         }

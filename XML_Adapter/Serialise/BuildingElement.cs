@@ -39,7 +39,7 @@ using BH.oM.XML.Enums;
 
 using BHP = BH.oM.Environment.Properties;
 
-using BH.oM.Environment.Interface;
+using BHC = BH.oM.Physical.Properties.Construction;
 
 namespace BH.Adapter.XML
 {
@@ -49,21 +49,21 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<IEnumerable<BuildingElement>> inputElements, List<Level> levels, List<BuildingElement> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static void SerializeCollection(IEnumerable<IEnumerable<Panel>> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
-            List<List<BuildingElement>> elementsAsSpaces = new List<List<BuildingElement>>();
+            List<List<Panel>> elementsAsSpaces = new List<List<Panel>>();
 
-            foreach (IEnumerable<BuildingElement> input in inputElements)
+            foreach (IEnumerable<Panel> input in inputElements)
                 elementsAsSpaces.Add(input.ToList());
 
-            List<BuildingElement> uniqueBuildingElements = elementsAsSpaces.UniqueBuildingElements();
+            List<Panel> uniqueBuildingElements = elementsAsSpaces.UniquePanels();
 
-            List<BuildingElement> allElements = new List<BuildingElement>(uniqueBuildingElements);
+            List<Panel> allElements = new List<Panel>(uniqueBuildingElements);
             allElements.AddRange(openings);
 
-            List<BH.oM.Environment.Elements.Space> spaces = elementsAsSpaces.Spaces();
+            //List<BH.oM.Environment.Elements.Space> spaces = elementsAsSpaces.Spaces();
 
-            List<BuildingElement> usedBEs = new List<BuildingElement>();
+            List<Panel> usedBEs = new List<Panel>();
 
             List<BH.oM.XML.Construction> usedConstructions = new List<BH.oM.XML.Construction>();
             List<BH.oM.XML.Material> usedMaterials = new List<Material>();
@@ -71,7 +71,7 @@ namespace BH.Adapter.XML
             List<string> usedSpaceNames = new List<string>();
             List<BH.oM.XML.WindowType> usedWindows = new List<WindowType>();
 
-            foreach (List<BuildingElement> space in elementsAsSpaces)
+            foreach (List<Panel> space in elementsAsSpaces)
             {
                 //For each collection of BuildingElements that define a space, convert the panels to XML surfaces and add to the GBXML
                 List<Surface> spaceSurfaces = new List<Surface>();
@@ -80,10 +80,9 @@ namespace BH.Adapter.XML
                 {
                     if (usedBEs.Where(i => i.BHoM_Guid == space[x].BHoM_Guid).FirstOrDefault() != null) continue;
 
-                    BHP.EnvironmentContextProperties envContextProperties = space[x].EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
-                    BHP.ElementProperties elementProperties = space[x].ElementProperties() as BHP.ElementProperties;
+                    BHP.OriginContextFragment envContextProperties = space[x].FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
-                    List<BH.oM.Environment.Elements.Space> adjacentSpaces = BH.Engine.Environment.Query.AdjacentSpaces(space[x], elementsAsSpaces, spaces);
+                    List<List<Panel>> adjacentSpaces = BH.Engine.Environment.Query.AdjacentSpaces(space[x], elementsAsSpaces);
 
                     Surface srf = space[x].ToGBXML(adjacentSpaces, space);
                     srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
@@ -97,76 +96,70 @@ namespace BH.Adapter.XML
                         srf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.CleanName() : space[x].ConstructionID());
 
                         //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID translation add the wall as an opening
-                        if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ") && (space[x].ElementProperties() as BHP.ElementProperties).BuildingElementType != BuildingElementType.CurtainWall)
+                        if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ") && (space[x].Type != PanelType.CurtainWall)
                         {
                             List<BHG.Polyline> newOpeningBounds = new List<oM.Geometry.Polyline>();
                             if (space[x].Openings.Count > 0)
                             {
                                 //This surface already has openings - cut them out of the new opening
-                                List<BHG.Polyline> refRegion = space[x].Openings.Where(y => y.OpeningCurve != null).ToList().Select(z => z.OpeningCurve.ICollapseToPolyline(BHG.Tolerance.Angle)).ToList();
-                                newOpeningBounds.AddRange((new List<BHG.Polyline> { space[x].PanelCurve.ICollapseToPolyline(BHG.Tolerance.Angle) }).BooleanDifference(refRegion, 0.01));
+                                List<BHG.Polyline> refRegion = space[x].Openings.Where(y => y.ToPolyline() != null).ToList().Select(z => z.ToPolyline()).ToList();
+                                newOpeningBounds.AddRange((new List<BHG.Polyline> { space[x].ToPolyline() }).BooleanDifference(refRegion, 0.01));
                             }
                             else
-                                newOpeningBounds.Add(space[x].PanelCurve.ICollapseToPolyline(BHG.Tolerance.Angle));
+                                newOpeningBounds.Add(space[x].ToPolyline());
 
-                            BH.oM.Environment.Elements.Opening curtainWallOpening = BH.Engine.Environment.Create.Opening(newOpeningBounds);
+                            BH.oM.Environment.Elements.Opening curtainWallOpening = BH.Engine.Environment.Create.Opening(externalEdges: newOpeningBounds.ToEdges());
                             curtainWallOpening.Name = space[x].Name;
-                            BHP.EnvironmentContextProperties curtainWallProperties = new BHP.EnvironmentContextProperties();
+                            BHP.OriginContextFragment curtainWallProperties = new BHP.OriginContextFragment();
                             if (envContextProperties != null)
                             {
                                 curtainWallProperties.ElementID = envContextProperties.ElementID;
                                 curtainWallProperties.TypeName = envContextProperties.TypeName;
                             }
 
-                            BHP.ElementProperties curtainElementProperties = new BHP.ElementProperties();
-                            if (elementProperties != null)
-                            {
-                                curtainElementProperties.BuildingElementType = BuildingElementType.CurtainWall;
-                                curtainElementProperties.Construction = elementProperties.Construction;
-                            }
+                            curtainWallOpening.Type = OpeningType.CurtainWall;
+                            curtainWallOpening.OpeningConstruction = space[x].Construction;
 
-                            curtainWallOpening.ExtendedProperties.Add(curtainWallProperties);
-                            curtainWallOpening.ExtendedProperties.Add(curtainElementProperties);
+                            curtainWallOpening.FragmentProperties.Add(curtainWallProperties);
 
                             space[x].Openings.Add(curtainWallOpening);
                         }
-                        else if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("Wall") && srf.CADObjectID.Contains("GLZ") && (space[x].ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.CurtainWall)
+                        else if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("Wall") && srf.CADObjectID.Contains("GLZ") && (space[x].Type == PanelType.CurtainWall))
                         {
                             //Update the host elements element type
-                            srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
-                            srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
+                            srf.SurfaceType = (adjacentSpaces.Count == 1 ? PanelType.WallExternal : PanelType.WallInternal).ToGBXML();
+                            srf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
                         }
                     }
                     else if (exportType == ExportType.gbXMLTAS)
                     {
                         srf.ConstructionIDRef = null;
                         //Fix surface type for curtain walls
-                        if (elementProperties != null && elementProperties.BuildingElementType == BuildingElementType.CurtainWall)
+                        if (space[x].Type == PanelType.CurtainWall)
                         {
-                            srf.SurfaceType = (adjacentSpaces.Count == 1 ? BuildingElementType.WallExternal : BuildingElementType.WallInternal).ToGBXML();
-                            srf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
+                            srf.SurfaceType = (adjacentSpaces.Count == 1 ? PanelType.WallExternal : PanelType.WallInternal).ToGBXML();
+                            srf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
                         }
                     }                   
 
                     //Openings
                     if (space[x].Openings.Count > 0)
                     {
-                        srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, spaces, gbx, exportType).ToArray();
+                        srf.Opening = Serialize(space[x].Openings, space, allElements, elementsAsSpaces, gbx, exportType).ToArray();
                         foreach(BH.oM.Environment.Elements.Opening o in space[x].Openings)
                         {
                             string nameCheck = "";
 
-                            BHP.EnvironmentContextProperties openingEnvContextProperties = o.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
-                            BHP.ElementProperties openingElementProperties = o.ElementProperties() as BHP.ElementProperties;
+                            BHP.OriginContextFragment openingEnvContextProperties = o.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
                             if (openingEnvContextProperties != null)
                                 nameCheck = openingEnvContextProperties.TypeName;
-                            else if (openingElementProperties != null && openingElementProperties.Construction != null)
-                                nameCheck = openingElementProperties.Construction.Name;
+                            else if (o.OpeningConstruction != null)
+                                nameCheck = o.OpeningConstruction.Name;
                             
                             var t = usedWindows.Where(a => a.Name == nameCheck).FirstOrDefault();
                             if (t == null)
-                                usedWindows.Add(openingElementProperties.Construction.ToGBXMLWindow(o));
+                                usedWindows.Add(o.OpeningConstruction.ToGBXMLWindow(o));
                         }
                     }
 
@@ -180,36 +173,32 @@ namespace BH.Adapter.XML
                         BH.oM.XML.Construction test = usedConstructions.Where(y => y.ID == conc.ID).FirstOrDefault();
                         if (test == null)
                         {
-                            if (space[x].ElementProperties() != null)
-                            {
-                                List<BH.oM.XML.Material> materials = new List<Material>();
-                                BH.oM.Environment.Elements.Construction construction = (space[x].ElementProperties() as BHP.ElementProperties).Construction;
+                            List<BH.oM.XML.Material> materials = new List<Material>();
+                            BHC.Construction construction = space[x].Construction as BHC.Construction;
 
-                                foreach (BH.oM.Environment.Materials.Material m in construction.Materials)
-                                    materials.Add(m.ToGBXML());
+                            foreach (BHC.Layer l in construction.Layers)
+                                materials.Add(l.ToGBXML());
 
-                                BH.oM.XML.Layer layer = materials.ToGBXML();
-                                conc.LayerID.LayerIDRef = layer.ID;
+                            BH.oM.XML.Layer layer = materials.ToGBXML();
+                            conc.LayerID.LayerIDRef = layer.ID;
 
-                                usedConstructions.Add(conc);
+                            usedConstructions.Add(conc);
                                 
-                                if(usedLayers.Where(y => y.ID == layer.ID).FirstOrDefault() == null)
-                                    usedLayers.Add(layer);
+                            if(usedLayers.Where(y => y.ID == layer.ID).FirstOrDefault() == null)
+                                usedLayers.Add(layer);
 
-                                foreach(BH.oM.XML.Material mat in materials)
-                                {
-                                    if (usedMaterials.Where(y => y.ID == mat.ID).FirstOrDefault() == null)
-                                        usedMaterials.Add(mat);
-                                }
+                            foreach(BH.oM.XML.Material mat in materials)
+                            {
+                                if (usedMaterials.Where(y => y.ID == mat.ID).FirstOrDefault() == null)
+                                    usedMaterials.Add(mat);
                             }
                         }
                     }
                 }
 
-                BH.oM.Environment.Elements.Space s = space.Space(gbx.Campus.Building[0].Space.Count, gbx.Campus.Building[0].Space.Count.ToString());
                 BH.oM.XML.Space xmlSpace = new oM.XML.Space();
-                xmlSpace.Name = space.CommonSpaceName();
-                xmlSpace.ID = "Space-" + s.Number + "-" + s.Name;
+                xmlSpace.Name = space.ConnectedSpaceName();
+                xmlSpace.ID = "Space-" + xmlSpace.Name;
                 xmlSpace.CADObjectID = BH.Engine.XML.Query.CADObjectID(space);
                 xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
                 xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
@@ -251,63 +240,60 @@ namespace BH.Adapter.XML
                 gbx.WindowType = null;
 
             //Set the building area
-            List<BuildingElement> floorElements = allElements.Where(x => (x.ElementProperties() as BHP.ElementProperties) != null && ((x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.Floor || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.FloorExposed || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.FloorInternal || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.FloorRaised || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.SlabOnGrade || (x.ElementProperties() as BHP.ElementProperties).BuildingElementType == BuildingElementType.UndergroundSlab)).ToList();
+            List<Panel> floorElements = allElements.Where(x => x.Type == PanelType.Floor || x.Type == PanelType.FloorExposed || x.Type == PanelType.FloorInternal || x.Type == PanelType.FloorRaised || x.Type == PanelType.SlabOnGrade || x.Type == PanelType.UndergroundSlab).ToList();
 
             double buildingFloorArea = 0;
-            foreach (BuildingElement be in floorElements)
+            foreach (Panel be in floorElements)
                 buildingFloorArea += be.Area();
 
             gbx.Campus.Building[0].Area = buildingFloorArea;
         }
 
-        public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static void SerializeCollection(IEnumerable<Panel> inputElements, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
             //For serializing shade elements
-            List<BuildingElement> buildingElements = inputElements.ToList();
+            List<Panel> buildingElements = inputElements.ToList();
 
             List<BH.oM.XML.Construction> usedConstructions = new List<oM.XML.Construction>(gbx.Construction);
             List<BH.oM.XML.Material> usedMaterials = new List<Material>(gbx.Material);
             List<BH.oM.XML.Layer> usedLayers = new List<Layer>(gbx.Layer);
 
-            foreach (BuildingElement be in buildingElements)
+            foreach (Panel be in buildingElements)
             {
                 Surface gbSrf = be.ToGBXML();
                 gbSrf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString();
                 gbSrf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
                 gbSrf.SurfaceType = "Shade";
-                gbSrf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(gbSrf.SurfaceType).ToString().ToLower();
+                gbSrf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(gbSrf.SurfaceType).ToString().ToLower();
                 gbSrf.CADObjectID = be.CADObjectID();
 
                 if (exportType == ExportType.gbXMLIES)
                 {
-                    BHP.EnvironmentContextProperties envContextProperties = be.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+                    BHP.OriginContextFragment envContextProperties = be.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
                     gbSrf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.CleanName() : be.ConstructionID());
                     BH.oM.XML.Construction conc = be.ToGBXMLConstruction();
                     BH.oM.XML.Construction test = usedConstructions.Where(y => y.ID == conc.ID).FirstOrDefault();
                     if (test == null)
                     {
-                        if (be.ElementProperties() != null)
+                        List<BH.oM.XML.Material> materials = new List<Material>();
+                        BHC.Construction construction = be.Construction as BHC.Construction;
+
+                        foreach (BHC.Layer l in construction.Layers)
+                            materials.Add(l.ToGBXML());
+
+                        BH.oM.XML.Layer layer = materials.ToGBXML();
+                        conc.LayerID.LayerIDRef = layer.ID;
+
+                        usedConstructions.Add(conc);
+
+                        if (usedLayers.Where(y => y.ID == layer.ID).FirstOrDefault() == null)
+                            usedLayers.Add(layer);
+
+                        foreach (BH.oM.XML.Material mat in materials)
                         {
-                            List<BH.oM.XML.Material> materials = new List<Material>();
-                            BH.oM.Environment.Elements.Construction construction = (be.ElementProperties() as BHP.ElementProperties).Construction;
-
-                            foreach (BH.oM.Environment.Materials.Material m in construction.Materials)
-                                materials.Add(m.ToGBXML());
-
-                            BH.oM.XML.Layer layer = materials.ToGBXML();
-                            conc.LayerID.LayerIDRef = layer.ID;
-
-                            usedConstructions.Add(conc);
-
-                            if (usedLayers.Where(y => y.ID == layer.ID).FirstOrDefault() == null)
-                                usedLayers.Add(layer);
-
-                            foreach (BH.oM.XML.Material mat in materials)
-                            {
-                                if (usedMaterials.Where(y => y.ID == mat.ID).FirstOrDefault() == null)
-                                    usedMaterials.Add(mat);
-                            }
+                            if (usedMaterials.Where(y => y.ID == mat.ID).FirstOrDefault() == null)
+                                usedMaterials.Add(mat);
                         }
                     }
                 }
@@ -322,9 +308,9 @@ namespace BH.Adapter.XML
             gbx.Material = usedMaterials.ToArray();
         }
 
-        public static void SerializeCollection(IEnumerable<BuildingElement> inputElements, List<Level> levels, List<BuildingElement> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static void SerializeCollection(IEnumerable<Panel> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
         {
-            List<List<BuildingElement>> elementsAsSpaces = new List<List<BuildingElement>>();
+            List<List<Panel>> elementsAsSpaces = new List<List<Panel>>();
             elementsAsSpaces.Add(inputElements.ToList());
 
             SerializeCollection(elementsAsSpaces, levels, openings, gbx, exportType);
