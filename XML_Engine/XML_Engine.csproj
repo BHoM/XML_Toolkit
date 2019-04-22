@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Analytical_oM">
+      <HintPath>..\..\BHoM\Build\Analytical_oM.dll</HintPath>
+    </Reference>
     <Reference Include="Architecture_oM">
       <HintPath>..\..\BHoM\Build\Architecture_oM.dll</HintPath>
     </Reference>
@@ -54,6 +57,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Mongo_Toolkit\Build\MongoDB.Bson.dll</HintPath>
     </Reference>
+    <Reference Include="Physical_oM">
+      <HintPath>..\..\BHoM\Build\Physical_oM.dll</HintPath>
+    </Reference>
     <Reference Include="Serialiser_Engine">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\BHoM_Engine\Serialiser_Engine\obj\Debug\Serialiser_Engine.dll</HintPath>
@@ -76,7 +82,7 @@
     <Compile Include="Convert\Environment_oM\AbsorptanceType.cs" />
     <Compile Include="Convert\Environment_oM\AbsorptanceUnit.cs" />
     <Compile Include="Convert\Environment_oM\Building.cs" />
-    <Compile Include="Convert\Environment_oM\BuildingElement.cs" />
+    <Compile Include="Convert\Environment_oM\Panel.cs" />
     <Compile Include="Convert\Environment_oM\Construction.cs" />
     <Compile Include="Convert\Environment_oM\ConstructionRoughness.cs" />
     <Compile Include="Convert\Environment_oM\ElementType.cs" />
