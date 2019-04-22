@@ -96,7 +96,7 @@ namespace BH.Adapter.XML
                         srf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.CleanName() : space[x].ConstructionID());
 
                         //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID translation add the wall as an opening
-                        if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ") && (space[x].Type != PanelType.CurtainWall)
+                        if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ") && (space[x].Type != PanelType.CurtainWall))
                         {
                             List<BHG.Polyline> newOpeningBounds = new List<oM.Geometry.Polyline>();
                             if (space[x].Openings.Count > 0)
