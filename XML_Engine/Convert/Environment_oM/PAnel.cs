@@ -35,15 +35,13 @@ using BH.Engine.Environment;
 
 using BHP = BH.oM.Environment.Properties;
 
-using BH.oM.Environment.Interface;
-
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static BHX.Surface ToGBXML(this BHE.BuildingElement element)
+        public static BHX.Surface ToGBXML(this BHE.Panel element)
         {
-            BHP.EnvironmentContextProperties contextProperties = element.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+            BHP.OriginContextFragment contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
             BHX.Surface surface = new BHX.Surface();
             surface.CADObjectID = element.CADObjectID();
@@ -53,7 +51,7 @@ namespace BH.Engine.XML
             BHX.PlanarGeometry planarGeom = new BHX.PlanarGeometry();
             planarGeom.ID = "PlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
-            BHG.Polyline pLine = new BHG.Polyline() { ControlPoints = element.PanelCurve.IControlPoints() };
+            BHG.Polyline pLine = element.ToPolyline();
             planarGeom.PolyLoop = pLine.ToGBXML();
 
             surface.PlanarGeometry = planarGeom;
@@ -62,21 +60,21 @@ namespace BH.Engine.XML
             surface.Opening = new BHX.Opening[element.Openings.Count];
             for (int x = 0; x < element.Openings.Count; x++)
             {
-                if(element.Openings[x].OpeningCurve.IControlPoints().Count != 0)
+                if(element.Openings[x].ToPolyline().IControlPoints().Count != 0)
                     surface.Opening[x] = element.Openings[x].ToGBXML();
             }
 
             return surface;
         }
 
-        public static BHX.Surface ToGBXML(this BHE.BuildingElement element, List<BHE.Space> adjacentSpaces, List<BHE.BuildingElement> space)
+        public static BHX.Surface ToGBXML(this BHE.Panel element, List<BHE.Space> adjacentSpaces, List<BHE.Panel> space)
         {
             BHX.Surface surface = element.ToGBXML();
 
             surface.SurfaceType = element.ToGBXMLType(adjacentSpaces);
             surface.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
 
-            BHG.Polyline pLine = new BHG.Polyline() { ControlPoints = element.PanelCurve.IControlPoints() };
+            BHG.Polyline pLine = element.ToPolyline();
             if (!pLine.NormalAwayFromSpace(space))
             {
                 pLine = pLine.Flip();
@@ -93,11 +91,11 @@ namespace BH.Engine.XML
             return surface;
         }
 
-        public static BHX.RectangularGeometry ToGBXMLGeometry(this BHE.BuildingElement element)
+        public static BHX.RectangularGeometry ToGBXMLGeometry(this BHE.Panel element)
         {
             BHX.RectangularGeometry geom = new BHX.RectangularGeometry();
 
-            BHG.Polyline pLine = new oM.Geometry.Polyline() { ControlPoints = element.PanelCurve.IControlPoints() };
+            BHG.Polyline pLine = element.ToPolyline();
 
             geom.Tilt = Math.Round(element.Tilt(), 3);
             geom.Azimuth = Math.Round(element.Azimuth(BHG.Vector.YAxis), 3);
@@ -114,28 +112,28 @@ namespace BH.Engine.XML
             return geom;
         }
 
-        public static BHE.BuildingElement ToBHoM(this BHX.Surface surface)
+        public static BHE.Panel ToBHoM(this BHX.Surface surface)
         {
-            BHE.BuildingElement buildingElement = new BHE.BuildingElement();
+            BHE.Panel panel = new BHE.Panel();
 
             surface.Opening = surface.Opening ?? new List<BHX.Opening>().ToArray();
 
-            buildingElement.PanelCurve = surface.PlanarGeometry.PolyLoop.ToBHoM();
+            panel.ExternalEdges = surface.PlanarGeometry.PolyLoop.ToBHoM().ToEdges();
             foreach (BHX.Opening opening in surface.Opening)
-                buildingElement.Openings.Add(opening.ToBHoM());
+                panel.Openings.Add(opening.ToBHoM());
 
             string[] cadSplit = surface.CADObjectID.Split('[');
             if(cadSplit.Length > 0)
-                buildingElement.Name = cadSplit[0].Trim();
+                panel.Name = cadSplit[0].Trim();
             if (cadSplit.Length > 1)
             {
-                BHP.EnvironmentContextProperties envContext = new BHP.EnvironmentContextProperties();
+                BHP.OriginContextFragment envContext = new BHP.OriginContextFragment();
                 envContext.ElementID = cadSplit[1].Split(']')[0].Trim();
-                if (buildingElement.ExtendedProperties == null) buildingElement.ExtendedProperties = new List<IBHoMExtendedProperties>();
-                buildingElement.ExtendedProperties.Add(envContext);
+                if (panel.FragmentProperties == null) panel.FragmentProperties = new List<BHP.IBHoMFragment>();
+                panel.FragmentProperties.Add(envContext);
             }
 
-            return buildingElement;
+            return panel;
         }
     }
 }

@@ -40,12 +40,12 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string CADObjectID(this BHE.BuildingElement element, ExportType exportType = ExportType.gbXMLTAS)
+        public static string CADObjectID(this BHE.Panel element, ExportType exportType = ExportType.gbXMLTAS)
         {
             string CADObjectID = "";
             if (element == null) return CADObjectID;
 
-            BHP.EnvironmentContextProperties contextProperties = element.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+            BHP.OriginContextFragment contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
             if (contextProperties != null)
             {
@@ -59,7 +59,7 @@ namespace BH.Engine.XML
             return CADObjectID;
         }
 
-        public static string CADObjectID(this List<BHE.BuildingElement> space)
+        public static string CADObjectID(this List<BHE.Panel> panelsAsSpace)
         {
             /*string CADObjectID = "";
 
@@ -77,14 +77,14 @@ namespace BH.Engine.XML
 
             return CADObjectID;*/
 
-            return "[" + space.CommonSpaceName() + "]"; //ToDo: Fix this properly when the oM changes are made
+            return "[" + panelsAsSpace.ConnectedSpaceName() + "]"; //ToDo: Fix this properly when the oM changes are made
         }
 
         /***************************************************/
 
         public static string CADObjectID(this BHE.Opening opening, ExportType exportType)
         {
-            BHP.EnvironmentContextProperties contextProp = opening.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+            BHP.OriginContextFragment contextProp = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
             if (contextProp == null) return "";
 
             return contextProp.TypeName + " [" + contextProp.ElementID + "]";
@@ -94,7 +94,7 @@ namespace BH.Engine.XML
 
         public static string CADObjectID(this BHE.Space space)
         {
-            BHP.EnvironmentContextProperties contextProp = space.EnvironmentContextProperties() as BHP.EnvironmentContextProperties;
+            BHP.OriginContextFragment contextProp = space.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
             if (contextProp == null) return "";
 
             return contextProp.TypeName + " [" + contextProp.ElementID + "]";

@@ -41,88 +41,81 @@ namespace BH.Engine.XML
 {
     public static partial class Convert
     {
-        public static string ToGBXMLType(this BHE.BuildingElement element, List<BHE.Space> adjacentSpaces = null, ExportType exportType = ExportType.gbXMLTAS)
+        public static string ToGBXMLType(this BHE.Panel element, List<BHE.Space> adjacentSpaces = null, ExportType exportType = ExportType.gbXMLTAS)
         {
             if (adjacentSpaces == null) adjacentSpaces = new List<oM.Environment.Elements.Space>();
 
             string type = "Air";
-            if (element == null || element.ElementProperties() == null)
+            if (element == null)
                 return type;
 
-            BHP.ElementProperties elementProperties = element.ElementProperties() as BHP.ElementProperties;
-
-            if (adjacentSpaces.Count == 0 && elementProperties.BuildingElementType != BHE.BuildingElementType.Window && elementProperties.BuildingElementType != BHE.BuildingElementType.Door)
+            if (adjacentSpaces.Count == 0)
                 type = "Shade";
             else
-                type = elementProperties.BuildingElementType.ToGBXML();
+                type = element.Type.ToGBXML();
 
             return type;
         }
 
-        public static string ToGBXMLType(this BHI.IBHoMExtendedProperties props)
-        {
-            if (props == null) return "";
-            return ToGBXMLType(props as dynamic);
-        }
-
-        public static string ToGBXMLType(this BHP.ElementProperties elementProperties)
-        {
-            if (elementProperties == null) return "";
-
-            return elementProperties.BuildingElementType.ToGBXML();
-        }
-
-        public static string ToGBXML(this BHE.BuildingElementType type)
+        public static string ToGBXML(this BHE.PanelType type)
         {
             switch(type)
             {
-                case BHE.BuildingElementType.Ceiling:
+                case BHE.PanelType.Ceiling:
                     return "Ceiling";
-                case BHE.BuildingElementType.Door:
-                    return "NonSlidingDoor";
-                case BHE.BuildingElementType.Floor:
-                case BHE.BuildingElementType.FloorExposed:
+                case BHE.PanelType.Floor:
+                case BHE.PanelType.FloorExposed:
                     return "ExposedFloor";
-                case BHE.BuildingElementType.FloorInternal:
+                case BHE.PanelType.FloorInternal:
                     return "InteriorFloor";
-                case BHE.BuildingElementType.FloorRaised:
+                case BHE.PanelType.FloorRaised:
                     return "RaisedFloor";
-                case BHE.BuildingElementType.Frame:
-                    return "Frame";
-                case BHE.BuildingElementType.Glazing:
-                case BHE.BuildingElementType.Window:
-                case BHE.BuildingElementType.WindowWithFrame:
-                case BHE.BuildingElementType.CurtainWall:
-                    return "FixedWindow";
-                case BHE.BuildingElementType.Roof:
+                case BHE.PanelType.Roof:
                     return "Roof";
-                case BHE.BuildingElementType.Rooflight:
-                case BHE.BuildingElementType.RooflightWithFrame:
-                    return "OperableSkylight";
-                case BHE.BuildingElementType.Shade:
+                case BHE.PanelType.Shade:
                     return "Shade";
-                case BHE.BuildingElementType.SlabOnGrade:
+                case BHE.PanelType.SlabOnGrade:
                     return "SlabOnGrade";
-                case BHE.BuildingElementType.SolarPanel:
+                case BHE.PanelType.SolarPanel:
                     return "SolarPanel";
-                case BHE.BuildingElementType.UndergroundCeiling:
+                case BHE.PanelType.UndergroundCeiling:
                     return "UndergroundCeiling";
-                case BHE.BuildingElementType.UndergroundSlab:
+                case BHE.PanelType.UndergroundSlab:
                     return "UndergroundSlab";
-                case BHE.BuildingElementType.UndergroundWall:
+                case BHE.PanelType.UndergroundWall:
                     return "UndergroundWall";
-                case BHE.BuildingElementType.VehicleDoor:
-                    return "VehicleDoor";
-                case BHE.BuildingElementType.Wall:
-                case BHE.BuildingElementType.WallExternal:
+                case BHE.PanelType.Wall:
+                case BHE.PanelType.WallExternal:
                     return "ExteriorWall";
-                case BHE.BuildingElementType.WallInternal:
+                case BHE.PanelType.WallInternal:
                     return "InteriorWall";
                 default:
                     return "Air"; //Adiabatic
             }
         }
 
-        
+        public static string ToGBXML(this BHE.OpeningType type)
+        {
+            switch (type)
+            {
+                case BHE.OpeningType.Door:
+                    return "NonSlidingDoor";
+                case BHE.OpeningType.Frame:
+                    return "Frame";
+                case BHE.OpeningType.Glazing:
+                case BHE.OpeningType.Window:
+                case BHE.OpeningType.WindowWithFrame:
+                case BHE.OpeningType.CurtainWall:
+                    return "FixedWindow";
+                case BHE.OpeningType.Rooflight:
+                case BHE.OpeningType.RooflightWithFrame:
+                    return "OperableSkylight";
+                case BHE.OpeningType.VehicleDoor:
+                    return "VehicleDoor";
+                default:
+                    return "Air"; //Adiabatic
+            }
+        }
+
     }
 }
