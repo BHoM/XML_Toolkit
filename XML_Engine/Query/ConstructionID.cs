@@ -26,11 +26,8 @@ using System.Linq;
 using BH.oM.XML;
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Properties;
-using BHI = BH.oM.Environment.Interface;
-using BHG = BH.oM.Geometry;
-using BH.Engine.Geometry;
-using BH.Engine.Environment;
+
+using BHC = BH.oM.Physical.Properties.Construction;
 
 namespace BH.Engine.XML
 {
@@ -40,27 +37,17 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string ConstructionID(this BHE.BuildingElement element)
+        public static string ConstructionID(this BHE.Panel element)
         {
-            if (element == null || element.ElementProperties() == null) return null;
-            return element.ElementProperties().ConstructionID();
+            return element.Construction.ConstructionID();
         }
 
-        public static string ConstructionID(this BHI.IBHoMExtendedProperties props)
+        public static string ConstructionID(this BHC.IConstruction construction)
         {
-            if (props == null) return null;
-            BHP.ElementProperties properties = props as BHP.ElementProperties;
-            if (properties == null) return null;
-            return ConstructionID(properties);
+            return ConstructionID(construction as dynamic);
         }
 
-        public static string ConstructionID(this BHP.ElementProperties props)
-        {
-            if (props.Construction == null) return null;
-            return props.Construction.ConstructionID();
-        }
-
-        public static string ConstructionID(this BHE.Construction construction)
+        public static string ConstructionID(this BHC.Construction construction)
         {
             //Method for constructing an ID based on the name of the property - this allows the same string ID to be generated for the same property for consistency in finding string IDs
 
