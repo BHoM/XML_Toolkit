@@ -41,7 +41,7 @@ namespace BH.Engine.XML
         public static BHX.AdjacentSpaceId AdjacentSpaceID(this List<BHE.Panel> space)
         {
             BHX.AdjacentSpaceId adjId = new BHX.AdjacentSpaceId();
-            adjId.SpaceIDRef = "Space" + space.ConnectedSpaceName().Replace("-", "");
+            adjId.SpaceIDRef = "Space" + space.ConnectedSpaceName().Replace(" ", "").Replace("-", "");
             return adjId;
         }
     }
