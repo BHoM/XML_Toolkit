@@ -198,7 +198,7 @@ namespace BH.Adapter.XML
 
                 BH.oM.XML.Space xmlSpace = new oM.XML.Space();
                 xmlSpace.Name = space.ConnectedSpaceName();
-                xmlSpace.ID = "Space-" + xmlSpace.Name;
+                xmlSpace.ID = "Space" + xmlSpace.Name.Replace("-", "");
                 xmlSpace.CADObjectID = BH.Engine.XML.Query.CADObjectID(space);
                 xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
                 xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
