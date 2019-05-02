@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using BH.Engine.Environment;
-using BHP = BH.oM.Environment.Properties;
+using BHP = BH.oM.Environment.Fragments;
 using BH.Engine.XML;
 
 namespace BH.Adapter.XML

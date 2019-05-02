@@ -26,7 +26,7 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using System.Linq;
 using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Properties;
+using BHP = BH.oM.Environment.Fragments;
 
 using BH.oM.XML.Enums;
 

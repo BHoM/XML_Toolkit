@@ -27,7 +27,7 @@ using BH.oM.XML;
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 
-using BHC = BH.oM.Physical.Properties.Construction;
+using BHC = BH.oM.Physical.Constructions;
 
 namespace BH.Engine.XML
 {

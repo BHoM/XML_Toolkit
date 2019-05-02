@@ -27,16 +27,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Properties;
+using BHP = BH.oM.Environment.Fragments;
 using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;
-using BHM = BH.oM.Environment.Materials;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
-using BHC = BH.oM.Physical.Properties.Construction;
-using BHEM = BH.oM.Environment.Materials;
+using BHC = BH.oM.Physical.Constructions;
+using BHEM = BH.oM.Environment.MaterialFragments;
 
 namespace BH.Engine.XML
 {
