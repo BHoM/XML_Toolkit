@@ -26,14 +26,14 @@ using System.Collections;
 using System.Collections.Generic;
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
-using BH.oM.Environment.Properties;
+using BH.oM.Environment.Fragments;
 using BHG = BH.oM.Geometry;
 using BH.Engine;
 
 using BH.Engine.XML;
 using BHX = BH.oM.XML;
 using BHA = BH.oM.Architecture.Elements;
-using BHC = BH.oM.Physical.Properties.Construction;
+using BHC = BH.oM.Physical.Constructions;
 
 namespace BH.Adapter.XML
 {

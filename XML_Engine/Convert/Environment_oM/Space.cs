@@ -27,8 +27,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
-using BHM = BH.oM.Environment.Materials;
-using BHP = BH.oM.Environment.Properties;
+using BHM = BH.oM.Environment.MaterialFragments;
+using BHP = BH.oM.Environment.Fragments;
 using BHA = BH.oM.Architecture.Elements;
 using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;

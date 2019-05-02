@@ -37,9 +37,9 @@ using BH.oM.Architecture.Elements;
 
 using BH.oM.XML.Enums;
 
-using BHP = BH.oM.Environment.Properties;
+using BHP = BH.oM.Environment.Fragments;
 
-using BHC = BH.oM.Physical.Properties.Construction;
+using BHC = BH.oM.Physical.Constructions;
 
 namespace BH.Adapter.XML
 {

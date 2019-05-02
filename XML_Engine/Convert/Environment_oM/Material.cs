@@ -26,10 +26,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BH.oM.Environment.Materials;
-using BHM = BH.oM.Physical.Properties;
-using BHC = BH.oM.Physical.Properties.Construction;
-using BHP = BH.oM.Environment.Properties;
+using BH.oM.Environment.MaterialFragments;
+using BHM = BH.oM.Physical.Materials;
+using BHC = BH.oM.Physical.Constructions;
+using BHP = BH.oM.Environment.Fragments;
 using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;
 
