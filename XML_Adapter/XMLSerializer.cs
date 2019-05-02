@@ -74,9 +74,12 @@ namespace BH.Adapter.XML
         {
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
-                SerializeLevels(db.Levels, db.ElementsAsSpaces, gbx, exportType);
-                SerializeCollection(db.ElementsAsSpaces, db.Levels, db.Openings, gbx, exportType);
-                SerializeCollection(db.ShadingElements, gbx, exportType);
+                MongoDB.Bson.BsonDocument bd = BH.Engine.Serialiser.Convert.ToBson(db); //Break the reference clone issue
+
+                BH.oM.XML.Environment.DocumentBuilder dbBroken = (BH.oM.XML.Environment.DocumentBuilder)BH.Engine.Serialiser.Convert.FromBson(bd);
+                SerializeLevels(dbBroken.Levels, dbBroken.ElementsAsSpaces, gbx, exportType);
+                SerializeCollection(dbBroken.ElementsAsSpaces, dbBroken.Levels, dbBroken.Openings, gbx, exportType);
+                SerializeCollection(dbBroken.ShadingElements, gbx, exportType);
             }
         }
 
