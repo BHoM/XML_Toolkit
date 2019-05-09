@@ -107,6 +107,7 @@
     <Compile Include="Query\ConstructionID.cs" />
     <Compile Include="Query\ClosedShellGeometry.cs" />
     <Compile Include="Query\CADObjectID.cs" />
+    <Compile Include="Query\XMLFilePath.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XML_oM\XML_oM.csproj">
