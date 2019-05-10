@@ -39,7 +39,7 @@ namespace BH.oM.XML
         [XmlElement("R-value")]
         public RValue RValue { get; set; } = new RValue();
         [XmlElement("Thickness")]
-        public double Thickness { get; set; } = 0.001;
+        public Thickness Thickness { get; set; } = new Thickness();
         [XmlElement("Conductivity")]
         public Conductivity Conductivity { get; set; } = new Conductivity();
         [XmlElement("Density")]

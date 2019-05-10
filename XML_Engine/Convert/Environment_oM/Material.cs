@@ -50,7 +50,7 @@ namespace BH.Engine.XML
             gbMaterial.ID = "material-" + layer.Material.Name.CleanName();
             gbMaterial.Name = layer.Material.Name;
             gbMaterial.RValue.Value = rValue.ToString();
-            gbMaterial.Thickness = Math.Round(layer.Thickness, 3);
+            gbMaterial.Thickness.Value = Math.Round(layer.Thickness, 3).ToString();
             gbMaterial.Density.Value = Math.Round(layer.Material.Density, 3).ToString();
 
             IEnvironmentMaterial envMaterial = layer.Material.Properties.Where(x => x is IEnvironmentMaterial).FirstOrDefault() as IEnvironmentMaterial;
