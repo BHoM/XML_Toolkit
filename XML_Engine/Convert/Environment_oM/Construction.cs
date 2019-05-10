@@ -72,7 +72,7 @@ namespace BH.Engine.XML
             gbConstruction.Absorptance = construction.ToGBXMLAbsorptance();
             gbConstruction.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
             gbConstruction.Roughness = construction.Roughness().ToGBXML();
-            gbConstruction.UValue.Value = (analysisProperties == null ? construction.UValue() : analysisProperties.UValue).ToString();
+            gbConstruction.UValue.Value = (analysisProperties == null || analysisProperties.UValue == 0 ? construction.UValue() : analysisProperties.UValue).ToString();
 
             return gbConstruction;
         }
