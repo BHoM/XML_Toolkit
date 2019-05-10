@@ -86,7 +86,7 @@ namespace BH.Engine.XML
 
             window.ID = "window-" + (contextProperties == null ? construction.Name.CleanName() : contextProperties.TypeName.CleanName());
             window.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
-            window.UValue.Value = (extraProperties == null ? "0" : extraProperties.UValue.ToString());
+            window.UValue.Value = (extraProperties == null || extraProperties.UValue == 0 ? construction.UValue().ToString() : extraProperties.UValue.ToString());
             window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());
             window.SolarHeatGainCoefficient.Value = (extraProperties == null ? "0" : extraProperties.GValue.ToString());
             if (construction.Layers.Count > 0)
