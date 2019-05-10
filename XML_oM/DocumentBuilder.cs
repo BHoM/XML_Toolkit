@@ -37,7 +37,7 @@ namespace BH.oM.XML.Environment
         public List<List<BHoME.Panel>> ElementsAsSpaces { get; set; } = new List<List<BHoME.Panel>>();
         public List<BHoME.Panel> ShadingElements { get; set; } = new List<BHoME.Panel>();
         public List<BH.oM.Architecture.Elements.Level> Levels { get; set; } = new List<Architecture.Elements.Level>();
-        public List<BHoME.Panel> Openings { get; set; } = new List<BHoME.Panel>();
+        public List<BHoME.Panel> UnassignedPanels { get; set; } = new List<BHoME.Panel>();
 
         /***************************************************/
     }

@@ -40,7 +40,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<BH.oM.Architecture.Elements.Level> levels, List<Panel> openings)
+        public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<BH.oM.Architecture.Elements.Level> levels, List<Panel> unassignedPanels)
         {
             return new DocumentBuilder
             {
@@ -48,7 +48,7 @@ namespace BH.Engine.XML
                 ElementsAsSpaces = elementsAsSpaces,
                 ShadingElements = shadingElements,
                 Levels = levels,
-                Openings = openings,
+                UnassignedPanels = unassignedPanels,
             };         
         }
 
@@ -59,14 +59,15 @@ namespace BH.Engine.XML
             List<Level> levels = objs.Levels();
             List<Building> buildings = objs.Buildings();
 
-            List<Panel> openings = new List<Panel>();
+            List<Panel> unassignedPanels = new List<Panel>();
 
             List<Panel> shadingElements = panels.PanelsByType(PanelType.Shade);
             panels = panels.PanelsNotByType(PanelType.Shade); //Remove shading if it exists
 
             List<List<Panel>> elementsAsSpaces = panels.ToSpaces();
+            unassignedPanels.AddRange(panels.Where(x => !elementsAsSpaces.IsContaining(x)).ToList());
 
-            return DocumentBuilder(buildings, elementsAsSpaces, shadingElements, levels, openings);
+            return DocumentBuilder(buildings, elementsAsSpaces, shadingElements, levels, unassignedPanels);
         }
     }
 }
