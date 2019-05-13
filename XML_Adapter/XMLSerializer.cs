@@ -80,7 +80,7 @@ namespace BH.Adapter.XML
                 SerializeLevels(dbBroken.Levels, dbBroken.ElementsAsSpaces, gbx, exportType);
                 SerializeCollection(dbBroken.ElementsAsSpaces, dbBroken.Levels, dbBroken.UnassignedPanels, gbx, exportType);
                 SerializeCollection(dbBroken.ShadingElements, gbx, exportType);
-                //SerializeCollection(dbBroken.UnassignedPanels, gbx, exportType);
+                SerializeCollection(dbBroken.UnassignedPanels, gbx, exportType); //Serialise unassigned panels as shading as an interim measure
             }
         }
 
