@@ -40,6 +40,8 @@ namespace BH.Engine.XML
         {
             BHX.Polyloop polyloop = new BHX.Polyloop();
 
+            pLine = pLine.CleanPolyline();
+
             List<BHG.Point> pts = pLine.DiscontinuityPoints();
             if (pts.Count == 0) return polyloop;
 

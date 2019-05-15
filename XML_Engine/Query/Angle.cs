@@ -1,6 +1,6 @@
 ﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -25,42 +25,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHE = BH.oM.Environment.Elements;
-using BHX = BH.oM.XML;
-using BHG = BH.oM.Geometry;
 
+using BH.oM.Geometry;
 using BH.Engine.Geometry;
 
 namespace BH.Engine.XML
 {
-    public static partial class Convert
+    public static partial class Query
     {
-        public static BHX.CartesianPoint ToGBXML(this BHG.Point pt)
+        /***************************************************/
+        /**** Public Methods                            ****/
+        /***************************************************/
+
+        public static double Angle(this Point endPt1, Point connectingPt, Point endPt2)
         {
-            BHX.CartesianPoint cartPoint = new BHX.CartesianPoint();
-            List<string> coord = new List<string>();
+            double x1 = endPt1.X - connectingPt.X; //Vector 1 - x
+            double y1 = endPt1.Y - connectingPt.Y; //Vector 1 - y
+            double z1 = endPt1.Z - connectingPt.Z; //Vector 1 - z
+            double sqr1 = (x1 * x1) + (y1 * y1) + (z1 * z1); //Square of vector 1
+            double x2 = endPt2.X - connectingPt.X; //Vector 2 - x
+            double y2 = endPt2.Y - connectingPt.Y; //Vector 2 - y
+            double z2 = endPt2.Z - connectingPt.Z; //Vector 2 - z
+            double sqr2 = (x2 * x2) + (y2 * y2) + (z2 * z2); //Square of vector 2
 
-            coord.Add(Math.Round(pt.X, 4).ToString());
-            coord.Add(Math.Round(pt.Y, 4).ToString());
-            coord.Add(Math.Round(pt.Z, 4).ToString());
+            double xa = x1 * x2;
+            double ya = y1 * y2;
+            double za = z1 * z2;
 
-            cartPoint.Coordinate = coord.ToArray();
-
-            return cartPoint;
-        }
-
-        public static BHG.Point ToBHoM(this BHX.CartesianPoint pt)
-        {
-            BHG.Point bhomPt = new BHG.Point();
-            try
-            {
-                bhomPt.X = (pt.Coordinate.Length >= 1 ? System.Convert.ToDouble(pt.Coordinate[0]) : 0);
-                bhomPt.Y = (pt.Coordinate.Length >= 2 ? System.Convert.ToDouble(pt.Coordinate[1]) : 0);
-                bhomPt.Z = (pt.Coordinate.Length >= 3 ? System.Convert.ToDouble(pt.Coordinate[2]) : 0);
-            }
-            catch { }
-
-            return bhomPt;
+            double costr = (xa + ya + za) / Math.Sqrt(Math.Abs(sqr1 * sqr2));
+            double angle = Math.Abs(Math.Acos(costr)); //This produces a result in radians
+            angle = angle * 180 / Math.PI; //This converts the result into degrees
+            return 180 - angle; //Convert so that a flat line is 0 angle through the points
         }
     }
 }
