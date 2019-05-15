@@ -1,6 +1,6 @@
 ﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -25,42 +25,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BHE = BH.oM.Environment.Elements;
-using BHX = BH.oM.XML;
-using BHG = BH.oM.Geometry;
 
+using BH.oM.Geometry;
 using BH.Engine.Geometry;
 
 namespace BH.Engine.XML
 {
-    public static partial class Convert
+    public static partial class Modify
     {
-        public static BHX.CartesianPoint ToGBXML(this BHG.Point pt)
+        /***************************************************/
+        /**** Public Methods                            ****/
+        /***************************************************/
+
+        public static Polyline CleanPolyline(this Polyline pline)
         {
-            BHX.CartesianPoint cartPoint = new BHX.CartesianPoint();
-            List<string> coord = new List<string>();
+            List<Point> pnts = pline.DiscontinuityPoints();
 
-            coord.Add(Math.Round(pt.X, 4).ToString());
-            coord.Add(Math.Round(pt.Y, 4).ToString());
-            coord.Add(Math.Round(pt.Z, 4).ToString());
+            if (pnts.Count < 3) return pline; //If there's only two points here then this method isn't necessary
 
-            cartPoint.Coordinate = coord.ToArray();
-
-            return cartPoint;
-        }
-
-        public static BHG.Point ToBHoM(this BHX.CartesianPoint pt)
-        {
-            BHG.Point bhomPt = new BHG.Point();
-            try
+            int startIndex = 0;
+            while(startIndex < pnts.Count)
             {
-                bhomPt.X = (pt.Coordinate.Length >= 1 ? System.Convert.ToDouble(pt.Coordinate[0]) : 0);
-                bhomPt.Y = (pt.Coordinate.Length >= 2 ? System.Convert.ToDouble(pt.Coordinate[1]) : 0);
-                bhomPt.Z = (pt.Coordinate.Length >= 3 ? System.Convert.ToDouble(pt.Coordinate[2]) : 0);
-            }
-            catch { }
+                Point first = pnts[startIndex];
+                Point second = pnts[(startIndex + 1) % pnts.Count];
+                Point third = pnts[(startIndex + 2) % pnts.Count];
 
-            return bhomPt;
+                double angle = first.Angle(second, third);
+
+                if (angle <= BH.oM.Geometry.Tolerance.Angle)
+                {
+                    //Delete the second point from the list, it's not necessary
+                    pnts.RemoveAt((startIndex + 1) % pnts.Count);
+                }
+                else
+                    startIndex++; //Move onto the next point
+            }
+
+            Polyline pLine = new Polyline()
+            {
+                ControlPoints = pnts,
+            };
+
+            return pLine;
         }
     }
 }
