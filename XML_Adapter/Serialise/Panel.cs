@@ -81,8 +81,8 @@ namespace BH.Adapter.XML
                     if (usedBEs.Where(i => i.BHoM_Guid == space[x].BHoM_Guid).FirstOrDefault() != null) continue;
 
                     //Fix panel type
-                    if(space[x].Type == PanelType.WallExternal && space[x].ConnectedSpaces.Count == 2)
-                        space[x].Type = PanelType.WallInternal;
+                    //if(space[x].Type == PanelType.WallExternal && space[x].ConnectedSpaces.Count == 2)
+                        //space[x].Type = PanelType.WallInternal;
 
                     BHP.OriginContextFragment envContextProperties = space[x].FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
