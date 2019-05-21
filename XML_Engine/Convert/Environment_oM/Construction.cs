@@ -69,7 +69,7 @@ namespace BH.Engine.XML
             }
 
             gbConstruction.ID = (contextProperties == null ? construction.ConstructionID() : contextProperties.TypeName.CleanName().Replace(" ", "-"));
-            gbConstruction.Absorptance = construction.ToGBXMLAbsorptance();
+            gbConstruction.Absorptance.Value = construction.Absorptance().ToString();
             gbConstruction.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
             gbConstruction.Roughness = construction.Roughness().ToGBXML();
             gbConstruction.UValue.Value = (analysisProperties == null || analysisProperties.UValue == 0 ? construction.UValue() : analysisProperties.UValue).ToString();
@@ -97,17 +97,6 @@ namespace BH.Engine.XML
                 window.ExternalGlaze = (construction.Layers[2]).ToGBXGlazed();
 
             return window;
-        }
-
-        public static BHX.Absorptance ToGBXMLAbsorptance(this BHC.Construction construction)
-        {
-            BHX.Absorptance absorptance = new BHX.Absorptance();
-            BHEM.Absorptance abs = construction.Absorptance();
-
-            absorptance.Unit = abs.AbsorptanceUnit.ToGBXML();
-            absorptance.Type = abs.AbsorptanceType.ToGBXML();
-            absorptance.Value = abs.Value.ToString();
-            return absorptance;
         }
     }
 }

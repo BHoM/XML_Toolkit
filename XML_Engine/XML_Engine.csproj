@@ -83,8 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convert\Architecture_oM\Level.cs" />
-    <Compile Include="Convert\Environment_oM\AbsorptanceType.cs" />
-    <Compile Include="Convert\Environment_oM\AbsorptanceUnit.cs" />
     <Compile Include="Convert\Environment_oM\Building.cs" />
     <Compile Include="Convert\Environment_oM\Panel.cs" />
     <Compile Include="Convert\Environment_oM\Construction.cs" />
