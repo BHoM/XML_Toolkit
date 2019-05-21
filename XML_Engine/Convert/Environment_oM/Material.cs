@@ -51,12 +51,12 @@ namespace BH.Engine.XML
             gbMaterial.Name = layer.Material.Name;
             gbMaterial.RValue.Value = rValue.ToString();
             gbMaterial.Thickness.Value = Math.Round(layer.Thickness, 3).ToString();
-            gbMaterial.Density.Value = Math.Round(layer.Material.Density, 3).ToString();
 
             IEnvironmentMaterial envMaterial = layer.Material.Properties.Where(x => x is IEnvironmentMaterial).FirstOrDefault() as IEnvironmentMaterial;
 
             if (envMaterial != null)
             {
+                gbMaterial.Density.Value = Math.Round(envMaterial.Density, 3).ToString();
                 gbMaterial.Conductivity.Value = Math.Round(envMaterial.Conductivity, 3).ToString();
                 gbMaterial.SpecificHeat.Value = envMaterial.SpecificHeat.ToString();
             }
@@ -92,10 +92,10 @@ namespace BH.Engine.XML
             SolidMaterial materialProperties = new SolidMaterial();
             materialProperties.Conductivity = System.Convert.ToDouble(gbMaterial.Conductivity.Value);
             materialProperties.SpecificHeat = System.Convert.ToDouble(gbMaterial.SpecificHeat.Value);
+            materialProperties.Density = System.Convert.ToDouble(gbMaterial.Density.Value);
 
             BHM.Material material = new BHM.Material();
             material.Name = gbMaterial.Name;
-            material.Density = System.Convert.ToDouble(gbMaterial.Density.Value);
 
             material.Properties.Add(materialProperties);
             layer.Material = material;
