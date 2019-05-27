@@ -44,7 +44,7 @@ namespace BH.Engine.XML
 
             surfaceType = surfaceType.Replace(" ", String.Empty).ToLower();
 
-            return surfaceType == "raisedfloor" || surfaceType == "exteriorwall" || surfaceType == "roof";
+            return surfaceType == "raisedfloor" || surfaceType == "exteriorwall" || surfaceType == "roof" || surfaceType == "exposedfloor" || surfaceType == "shade";
         }
     }
 }
