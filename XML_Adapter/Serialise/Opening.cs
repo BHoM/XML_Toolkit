@@ -80,11 +80,11 @@ namespace BH.Adapter.XML
                 if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
                     gbOpening.OpeningType = "FixedWindow";
 
-                if (exportType == ExportType.gbXMLIES && gbOpening.OpeningType.Contains("Window") && opening.OpeningConstruction.Name.Contains("SLD")) //Change windows with SLD construction into doors for IES
+                if (exportType == ExportType.gbXMLIES && gbOpening.OpeningType.Contains("Window") && (opening.OpeningConstruction != null && opening.OpeningConstruction.Name.Contains("SLD"))) //Change windows with SLD construction into doors for IES
                     gbOpening.OpeningType = "NonSlidingDoor";
 
                 if (exportType == ExportType.gbXMLIES)
-                    gbOpening.WindowTypeIDRef = "window-" + (contextProperties == null? opening.OpeningConstruction.Name.CleanName() : contextProperties.TypeName.CleanName());
+                    gbOpening.WindowTypeIDRef = "window-" + (contextProperties != null? contextProperties.TypeName.CleanName() : (opening.OpeningConstruction != null ? opening.OpeningConstruction.Name.CleanName() : "" ));
                 else
                     gbOpening.WindowTypeIDRef = null;
 
