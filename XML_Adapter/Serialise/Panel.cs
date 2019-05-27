@@ -171,7 +171,7 @@ namespace BH.Adapter.XML
 
                     usedBEs.Add(space[x]);
 
-                    if (exportType == ExportType.gbXMLIES)
+                    if (exportType == ExportType.gbXMLIES && space[x].Construction != null)
                     {
                         BH.oM.XML.Construction conc = space[x].ToGBXMLConstruction();
                         BH.oM.XML.Construction test = usedConstructions.Where(y => y.ID == conc.ID).FirstOrDefault();
