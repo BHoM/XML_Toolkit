@@ -55,6 +55,59 @@ namespace BH.Engine.XML
 
                 CADObjectID = element.Name + " [" + contextProperties.ElementID + "]";
             }
+            else
+            {
+                //Use a default object ID
+                switch(element.Type)
+                {
+                    case BHE.PanelType.Ceiling:
+                        CADObjectID += "Compound Ceiling: SIM_INT_SLD";
+                        break;
+                    case BHE.PanelType.CurtainWall:
+                        if (element.ConnectedSpaces.Count == 2)
+                            CADObjectID += "Curtain Wall: SIM_INT_GLZ";
+                        else
+                            CADObjectID += "Curtain Wall: SIM_EXT_GLZ";
+                        break;
+                    case BHE.PanelType.Floor:
+                    case BHE.PanelType.FloorInternal:
+                        CADObjectID += "Floor: SIM_INT_SLD";
+                        break;
+                    case BHE.PanelType.FloorExposed:
+                    case BHE.PanelType.FloorRaised:
+                        CADObjectID += "Floor: SIM_EXT_SLD";
+                        break;
+                    case BHE.PanelType.Roof:
+                        CADObjectID += "Basic Roof: SIM_EXT_SLD";
+                        break;
+                    case BHE.PanelType.Shade:
+                        CADObjectID += "Basic Roof: SIM_EXT_SHD_Roof";
+                        break;
+                    case BHE.PanelType.SlabOnGrade:
+                        CADObjectID += "Floor: SIM_EXT_GRD";
+                        break;
+                    case BHE.PanelType.UndergroundCeiling:
+                        CADObjectID += "Floor: SIM_INT_SLD_Parking";
+                        break;
+                    case BHE.PanelType.UndergroundSlab:
+                        CADObjectID += "Floor: SIM_EXT_GRD";
+                        break;
+                    case BHE.PanelType.UndergroundWall:
+                        CADObjectID += "Basic Wall: SIM_EXT_GRD";
+                        break;
+                    case BHE.PanelType.Wall:
+                    case BHE.PanelType.WallExternal:
+                        CADObjectID += "Basic Wall: SIM_EXT_SLD";
+                        break;
+                    case BHE.PanelType.WallInternal:
+                        CADObjectID += "Basic Wall: SIM_INT_SLD";
+                        break;
+                    default:
+                        CADObjectID += "Undefined";
+                        break;
+                }
+                CADObjectID += " BHoM [000000]";
+            }
 
             return CADObjectID;
         }
