@@ -47,7 +47,7 @@ namespace BH.Engine.XML
 
             BHP.OriginContextFragment contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
-            if (contextProperties != null)
+            if (contextProperties != null && contextProperties.ElementID != "")
             {
                 // change only Basic Wall and keep Curtain as it is
                 if (exportType == ExportType.gbXMLIES && element.Name.Contains("GLZ") && (element.Name.Contains("Basic Wall") || element.Name.Contains("Floor") || element.Name.Contains("Roof")))
