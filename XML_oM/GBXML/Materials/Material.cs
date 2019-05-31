@@ -36,8 +36,8 @@ namespace BH.oM.XML
         public string ID { get; set; } = "MaterialID";
         [XmlElement("Name")]
         public string Name { get; set; } = "Material";
-        [XmlElement("R-value")]
-        public RValue RValue { get; set; } = new RValue();
+        /*[XmlElement("R-value")]
+        public RValue RValue { get; set; } = new RValue();*/
         [XmlElement("Thickness")]
         public Thickness Thickness { get; set; } = new Thickness();
         [XmlElement("Conductivity")]
