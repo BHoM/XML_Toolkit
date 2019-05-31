@@ -44,12 +44,12 @@ namespace BH.Engine.XML
         {
             BHX.Material gbMaterial = new BHX.Material();
 
-            double rValue = Math.Round(layer.RValue(), 3);
-            if (double.IsInfinity(rValue) || double.IsNaN(rValue)) rValue = -1; //Error
+            //double rValue = Math.Round(layer.RValue(), 3);
+            //if (double.IsInfinity(rValue) || double.IsNaN(rValue)) rValue = -1; //Error
 
             gbMaterial.ID = "material-" + layer.Material.Name.CleanName();
             gbMaterial.Name = layer.Material.Name;
-            gbMaterial.RValue.Value = rValue.ToString();
+            //gbMaterial.RValue.Value = rValue.ToString();
             gbMaterial.Thickness.Value = Math.Round(layer.Thickness, 3).ToString();
 
             IEnvironmentMaterial envMaterial = layer.Material.Properties.Where(x => x is IEnvironmentMaterial).FirstOrDefault() as IEnvironmentMaterial;
