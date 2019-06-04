@@ -151,6 +151,22 @@ namespace BH.Engine.XML
             gap.Thickness.Value = Math.Round(layer.Thickness, 4).ToString();
             gap.Conductivity.Value = Math.Round(gasProperties.Conductivity, 3).ToString();
 
+            switch(gasProperties.Gas)
+            {
+                case Gas.Air:
+                    gap.Gas = "Air";
+                    break;
+                case Gas.Argon:
+                    gap.Gas = "Argon";
+                    break;
+                case Gas.Krypton:
+                    gap.Gas = "Krypton";
+                    break;
+                default:
+                    gap.Gas = "Custom";
+                    break;
+            }
+
             return gap;
         }
     }
