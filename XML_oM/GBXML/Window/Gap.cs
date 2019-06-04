@@ -39,10 +39,10 @@ namespace BH.oM.XML
         public string Gas { get; set; } = "Argon";
 
         [XmlElement("Name")]
-        public string Name { get; set; } = "Glazing";
+        public string Name { get; set; } = null;
 
         [XmlElement("Description")]
-        public string Description { get; set; } = "Standard Dbl Glazed";
+        public string Description { get; set; } = null;
 
         [XmlElement("Thickness")]
         public Thickness Thickness { get; set; } = new Thickness();
