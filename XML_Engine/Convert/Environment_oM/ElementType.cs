@@ -116,5 +116,59 @@ namespace BH.Engine.XML
             }
         }
 
+        public static BHE.PanelType ToBHoMPanelType(this string type)
+        {
+            switch (type)
+            {
+                case "Ceiling":
+                    return BHE.PanelType.Ceiling;
+                case "ExposedFloor":
+                    return BHE.PanelType.FloorExposed;
+                case "InteriorFloor":
+                    return BHE.PanelType.FloorInternal;
+                case "RaisedFloor":
+                    return BHE.PanelType.FloorRaised;
+                case "Roof":
+                    return BHE.PanelType.Roof;
+                case "Shade":
+                    return BHE.PanelType.Shade;
+                case "SlabOnGrade":
+                    return BHE.PanelType.SlabOnGrade;
+                case "SolarPanel":
+                    return BHE.PanelType.SolarPanel;
+                case "UndergroundCeiling":
+                    return BHE.PanelType.UndergroundCeiling;
+                case "UndergroundSlab":
+                    return BHE.PanelType.UndergroundSlab;
+                case "UndergroundWall":
+                    return BHE.PanelType.UndergroundWall;
+                case "ExteriorWall":
+                    return BHE.PanelType.WallExternal;
+                case "InteriorWall":
+                    return BHE.PanelType.WallInternal;
+                default:
+                    return BHE.PanelType.Undefined;
+            }
+        }
+
+        public static BHE.OpeningType ToBHoMOpeningType(this string type)
+        {
+            switch (type)
+            {
+                case "NonSlidingDoor":
+                    return BHE.OpeningType.Door;
+                case "Frame":
+                    return BHE.OpeningType.Frame;
+                case "FixedWindow":
+                    return BHE.OpeningType.Window;
+                case "OperableSkylight":
+                    return BHE.OpeningType.Rooflight;
+                case "VehicleDoor":
+                    return BHE.OpeningType.VehicleDoor;
+                default:
+                    return BHE.OpeningType.Undefined;
+            }
+        }
+
     }
 }
