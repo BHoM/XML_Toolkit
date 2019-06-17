@@ -133,6 +133,14 @@ namespace BH.Engine.XML
                 panel.FragmentProperties.Add(envContext);
             }
 
+            panel.Type = surface.SurfaceType.ToBHoMPanelType();
+            panel.ConnectedSpaces = new List<string>();
+            if (surface.AdjacentSpaceID != null)
+            {
+                foreach (BHX.AdjacentSpaceId adjacent in surface.AdjacentSpaceID)
+                    panel.ConnectedSpaces.Add(adjacent.SpaceIDRef);
+            }
+
             return panel;
         }
     }

@@ -100,6 +100,8 @@ namespace BH.Engine.XML
             if (cadSplit.Length > 0)
                 opening.Name = cadSplit[0].Trim();
 
+            opening.Type = gbOpening.OpeningType.ToBHoMOpeningType();
+
             return opening;
         }
     }
