@@ -99,6 +99,13 @@ namespace BH.Engine.XML
             string[] cadSplit = gbOpening.CADObjectID.Split('[');
             if (cadSplit.Length > 0)
                 opening.Name = cadSplit[0].Trim();
+            if (cadSplit.Length > 1)
+            {
+                BHP.OriginContextFragment envContext = new BHP.OriginContextFragment();
+                envContext.ElementID = cadSplit[1].Split(']')[0].Trim();
+                if (opening.FragmentProperties == null) opening.FragmentProperties = new List<BHP.IBHoMFragment>();
+                opening.FragmentProperties.Add(envContext);
+            }
 
             opening.Type = gbOpening.OpeningType.ToBHoMOpeningType();
 
