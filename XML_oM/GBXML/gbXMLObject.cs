@@ -37,6 +37,8 @@ namespace BH.oM.XML
         [XmlIgnore]
         public string Name { get; set; }
         [XmlIgnore]
+        public List<IBHoMFragment> FragmentProperties { get; set; }
+        [XmlIgnore]
         public HashSet<string> Tags { get; set; }
 
         public IBHoMObject GetShallowClone(bool newGuid = false)
