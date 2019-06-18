@@ -26,6 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BHX = BH.oM.XML;
 using BHG = BH.oM.Geometry;
@@ -130,7 +131,7 @@ namespace BH.Engine.XML
                 BHP.OriginContextFragment envContext = new BHP.OriginContextFragment();
                 envContext.ElementID = cadSplit[1].Split(']')[0].Trim();
                 envContext.TypeName = panel.Name;
-                if (panel.FragmentProperties == null) panel.FragmentProperties = new List<BHP.IBHoMFragment>();
+                if (panel.FragmentProperties == null) panel.FragmentProperties = new List<IBHoMFragment>();
                 panel.FragmentProperties.Add(envContext);
             }
 
