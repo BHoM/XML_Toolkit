@@ -129,6 +129,7 @@ namespace BH.Engine.XML
             {
                 BHP.OriginContextFragment envContext = new BHP.OriginContextFragment();
                 envContext.ElementID = cadSplit[1].Split(']')[0].Trim();
+                envContext.TypeName = panel.Name;
                 if (panel.FragmentProperties == null) panel.FragmentProperties = new List<BHP.IBHoMFragment>();
                 panel.FragmentProperties.Add(envContext);
             }
