@@ -131,8 +131,10 @@ namespace BH.Engine.XML
                 BHP.OriginContextFragment envContext = new BHP.OriginContextFragment();
                 envContext.ElementID = cadSplit[1].Split(']')[0].Trim();
                 envContext.TypeName = panel.Name;
-                if (panel.FragmentProperties == null) panel.FragmentProperties = new List<IBHoMFragment>();
-                panel.FragmentProperties.Add(envContext);
+
+                if (panel.Fragments == null) panel.Fragments = new List<IBHoMFragment>();
+                panel.Fragments.Add(envContext);
+
             }
 
             panel.Type = surface.SurfaceType.ToBHoMPanelType();
