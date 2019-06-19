@@ -26,6 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
 using BHX = BH.oM.XML;
@@ -105,8 +106,8 @@ namespace BH.Engine.XML
                 envContext.ElementID = cadSplit[1].Split(']')[0].Trim();
                 envContext.TypeName = opening.Name;
 
-                if (opening.FragmentProperties == null) opening.FragmentProperties = new List<BHP.IBHoMFragment>();
-                opening.FragmentProperties.Add(envContext);
+                if (opening.Fragments == null) opening.Fragments = new List<IBHoMFragment>();
+                opening.Fragments.Add(envContext);
             }
 
             opening.Type = gbOpening.OpeningType.ToBHoMOpeningType();

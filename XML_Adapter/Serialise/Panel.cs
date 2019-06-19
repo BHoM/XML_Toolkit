@@ -124,7 +124,7 @@ namespace BH.Adapter.XML
                             curtainWallOpening.Type = OpeningType.CurtainWall;
                             curtainWallOpening.OpeningConstruction = space[x].Construction;
 
-                            curtainWallOpening.FragmentProperties.Add(curtainWallProperties);
+                            curtainWallOpening.Fragments.Add(curtainWallProperties);
 
                             space[x].Openings.Add(curtainWallOpening);
                         }

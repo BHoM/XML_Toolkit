@@ -80,7 +80,7 @@ namespace BH.Engine.XML
             building.Name = gbBuilding.Name;
             BHP.BuildingContextFragment props = new BHP.BuildingContextFragment();
             props.PlaceName = gbBuilding.StreetAddress;
-            building.FragmentProperties.Add(props);
+            building.Fragments.Add(props);
             building.CustomData.Add("Building Name", gbBuilding.BuildingType);
 
             return building;
@@ -97,7 +97,7 @@ namespace BH.Engine.XML
             BHP.BuildingContextFragment props = new BHP.BuildingContextFragment();
             props.PlaceName = location.Name;
             props.WeatherStation = location.StationID.ID;
-            building.FragmentProperties.Add(props);
+            building.Fragments.Add(props);
 
             return building;
         }
