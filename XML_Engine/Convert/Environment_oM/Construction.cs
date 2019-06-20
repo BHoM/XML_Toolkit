@@ -36,6 +36,7 @@ using BH.Engine.Environment;
 
 using BHC = BH.oM.Physical.Constructions;
 using BHEM = BH.oM.Environment.MaterialFragments;
+using BHM = BH.oM.Physical.Materials;
 
 namespace BH.Engine.XML
 {
@@ -99,30 +100,23 @@ namespace BH.Engine.XML
             return window;
         }
 
-        public static BHC.Construction ToBHoM(this BHX.Construction gbConstruction)
+        public static BHC.Construction ToBHoM(this BHX.Construction gbConstruction, List<BHC.Layer> layers)
         {
             BHC.Construction construction = new BHC.Construction();
             construction.Name = gbConstruction.Name;
+            construction.Layers = layers;
 
             return construction;
+        }
 
-            /*BHX.Construction gbConstruction = new BHX.Construction();
+        public static BHC.Layer ToBHoM(this BHX.Layer gbLayer, BHM.Material material, double thickness)
+        {
+            BHC.Layer layer = new BHC.Layer();
+            layer.Name = gbLayer.Name;
+            layer.Thickness = thickness;
+            layer.Material = material;
 
-            BHP.OriginContextFragment contextProperties = null;
-            BHP.PanelAnalyticalFragment analysisProperties = null;
-            if (element != null)
-            {
-                contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
-                analysisProperties = element.FindFragment<BHP.PanelAnalyticalFragment>(typeof(BHP.PanelAnalyticalFragment));
-            }
-
-            gbConstruction.ID = (contextProperties == null ? construction.ConstructionID() : contextProperties.TypeName.CleanName().Replace(" ", "-"));
-            gbConstruction.Absorptance.Value = construction.Absorptance().ToString();
-            gbConstruction.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
-            gbConstruction.Roughness = construction.Roughness().ToGBXML();
-            gbConstruction.UValue.Value = (analysisProperties == null || analysisProperties.UValue == 0 ? construction.UValue() : analysisProperties.UValue).ToString();
-
-            return gbConstruction;*/
+            return layer;
         }
     }
 }
