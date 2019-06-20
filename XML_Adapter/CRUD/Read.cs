@@ -34,6 +34,7 @@ using BH.Engine.XML;
 using BHX = BH.oM.XML;
 using BHA = BH.oM.Architecture.Elements;
 using BHC = BH.oM.Physical.Constructions;
+using BHM = BH.oM.Physical.Materials;
 
 namespace BH.Adapter.XML
 {
@@ -92,18 +93,61 @@ namespace BH.Adapter.XML
 
         private List<BHE.Panel> ReadPanels(BHX.GBXML gbx, List<string> ids = null)
         {
-            if (gbx.Campus != null && gbx.Campus.Surface != null)
-                return gbx.Campus.Surface.Select(x => x.ToBHoM()).ToList();
-            else
-                return new List<BHE.Panel>();
+            List<BHE.Panel> panels = new List<BHE.Panel>();
+
+            if(gbx.Campus != null && gbx.Campus.Surface != null)
+            {
+                foreach(BHX.Surface s in gbx.Campus.Surface)
+                {
+                    BHE.Panel p = s.ToBHoM();
+                    BHX.Construction c = gbx.Construction.Where(x => x.ID == s.ConstructionIDRef).FirstOrDefault();
+                    if (c != null)
+                    {
+                        BHX.Layer gbLayer = gbx.Layer.Where(x => x.ID == c.LayerID.LayerIDRef).FirstOrDefault();
+                        if (gbLayer != null)
+                        {
+
+                            List<BHX.Material> gbMaterials = gbx.Material.Where(x => gbLayer.MaterialID.Where(y => y.MaterialIDRef == x.ID).FirstOrDefault() != null).ToList();
+                            if (gbMaterials.Count > 0)
+                            {
+                                List<BHC.Layer> layers = gbMaterials.Select(x => x.ToBHoM()).ToList();
+                                p.Construction = c.ToBHoM(layers);
+                            }
+                        }
+                    }
+                    panels.Add(p);
+                }
+            }
+
+            return panels;
         }
 
         private List<BHC.Construction> ReadConstructions(BHX.GBXML gbx, List<string> ids = null)
         {
+            List<BHC.Construction> constructions = new List<BHC.Construction>();
+
             if (gbx.Construction != null)
-                return gbx.Construction.Select(x => x.ToBHoM()).ToList();
-            else
-                return new List<BHC.Construction>();
+            {
+                if(gbx.Layer != null)
+                {
+                    foreach(BHX.Construction c in gbx.Construction)
+                    {
+                        BHX.Layer gbLayer = gbx.Layer.Where(x => x.ID == c.LayerID.LayerIDRef).FirstOrDefault();
+                        if(gbLayer != null)
+                        {
+
+                            List<BHX.Material> gbMaterials = gbx.Material.Where(x => gbLayer.MaterialID.Where(y => y.MaterialIDRef == x.ID).FirstOrDefault() != null).ToList();
+                            if(gbMaterials.Count > 0)
+                            {
+                                List<BHC.Layer> layers = gbMaterials.Select(x => x.ToBHoM()).ToList();
+                                constructions.Add(c.ToBHoM(layers));
+                            }
+                        }
+                    }
+                }
+            }
+
+            return constructions;
         }
 
         /*private List<BH.oM.Physical.Properties.Material> ReadMaterials(BHX.GBXML gbx, List<string> ids = null)

@@ -84,25 +84,6 @@ namespace BH.Engine.XML
             return l;
         }
 
-        public static BHC.Layer ToBHoM(this BHX.Material gbMaterial)
-        {
-            BHC.Layer layer = new BHC.Layer();
-            layer.Thickness = System.Convert.ToDouble(gbMaterial.Thickness);
-
-            SolidMaterial materialProperties = new SolidMaterial();
-            materialProperties.Conductivity = System.Convert.ToDouble(gbMaterial.Conductivity.Value);
-            materialProperties.SpecificHeat = System.Convert.ToDouble(gbMaterial.SpecificHeat.Value);
-            materialProperties.Density = System.Convert.ToDouble(gbMaterial.Density.Value);
-
-            BHM.Material material = new BHM.Material();
-            material.Name = gbMaterial.Name;
-
-            material.Properties.Add(materialProperties);
-            layer.Material = material;
-
-            return layer;
-        }
-
         public static BHX.Glaze ToGBXGlazed(this BHC.Layer layer)
         {
             if (layer == null || layer.Material == null) return null;
@@ -168,6 +149,29 @@ namespace BH.Engine.XML
             }
 
             return gap;
+        }
+
+        public static BHC.Layer ToBHoM(this BHX.Material gbMaterial)
+        {
+            BHC.Layer layer = new BHC.Layer();
+            SolidMaterial materialProperties = new SolidMaterial();
+
+            try
+            {
+                layer.Thickness = System.Convert.ToDouble(gbMaterial.Thickness);
+                materialProperties.Conductivity = System.Convert.ToDouble(gbMaterial.Conductivity.Value);
+                materialProperties.SpecificHeat = System.Convert.ToDouble(gbMaterial.SpecificHeat.Value);
+                materialProperties.Density = System.Convert.ToDouble(gbMaterial.Density.Value);
+            }
+            catch { }
+
+            BHM.Material material = new BHM.Material();
+            material.Name = gbMaterial.Name;
+
+            material.Properties.Add(materialProperties);
+            layer.Material = material;
+
+            return layer;
         }
     }
 }
