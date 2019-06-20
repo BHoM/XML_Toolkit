@@ -32,7 +32,7 @@ using System.Reflection;
 
 using BH.oM.XML.Enums;
 
-using BH.oM.DataManipulation.Queries;
+using BH.oM.Data.Requests;
 
 namespace BH.Adapter.XML
 {
@@ -73,16 +73,16 @@ namespace BH.Adapter.XML
             return success ? objects.ToList() : new List<IObject>();
         }
 
-        public override IEnumerable<object> Pull(IQuery query, Dictionary<string, object> config = null)
+        public override IEnumerable<object> Pull(IRequest request, Dictionary<string, object> config = null)
         {
             if (!System.IO.File.Exists(System.IO.Path.Combine(FilePath, ProjectName + ".xml")))
                 return new List<IBHoMObject>();
 
-            if (query != null)
+            if (request != null)
             {
-                FilterQuery filterQuery = query as FilterQuery;
+                FilterRequest filterRequest = request as FilterRequest;
 
-                return Read(filterQuery.Type);
+                return Read(filterRequest.Type);
             }
             else
                 return Read(null);
