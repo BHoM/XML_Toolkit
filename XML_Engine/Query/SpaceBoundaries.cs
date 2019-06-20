@@ -79,7 +79,7 @@ namespace BH.Engine.XML
         public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, List<BHE.Panel> uniqueBEs)
         {
             List<Polyloop> pLoops = new List<Polyloop>();
-            List<BHG.Polyline> panels = spaceBoundaries.Select(x => x.ToPolyline()).ToList();
+            List<BHG.Polyline> panels = spaceBoundaries.Select(x => x.Polyline()).ToList();
 
             foreach(BHG.Polyline pLine in panels)
             {

@@ -52,7 +52,7 @@ namespace BH.Engine.XML
             BHX.PlanarGeometry planarGeom = new BHX.PlanarGeometry();
             planarGeom.ID = "PlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
-            BHG.Polyline pLine = element.ToPolyline();
+            BHG.Polyline pLine = element.Polyline();
             planarGeom.PolyLoop = pLine.ToGBXML();
 
             surface.PlanarGeometry = planarGeom;
@@ -61,7 +61,7 @@ namespace BH.Engine.XML
             surface.Opening = new BHX.Opening[element.Openings.Count];
             for (int x = 0; x < element.Openings.Count; x++)
             {
-                if(element.Openings[x].ToPolyline().IControlPoints().Count != 0)
+                if(element.Openings[x].Polyline().IControlPoints().Count != 0)
                     surface.Opening[x] = element.Openings[x].ToGBXML();
             }
 
@@ -75,7 +75,7 @@ namespace BH.Engine.XML
             surface.SurfaceType = element.ToGBXMLType(adjacentSpaces);
             surface.ExposedToSun = Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
 
-            BHG.Polyline pLine = element.ToPolyline();
+            BHG.Polyline pLine = element.Polyline();
             if (!pLine.NormalAwayFromSpace(space))
             {
                 pLine = pLine.Flip();
@@ -96,7 +96,7 @@ namespace BH.Engine.XML
         {
             BHX.RectangularGeometry geom = new BHX.RectangularGeometry();
 
-            BHG.Polyline pLine = element.ToPolyline();
+            BHG.Polyline pLine = element.Polyline();
 
             geom.Tilt = Math.Round(element.Tilt(), 3);
             geom.Azimuth = Math.Round(element.Azimuth(BHG.Vector.YAxis), 3);

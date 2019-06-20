@@ -75,7 +75,7 @@ namespace BH.Adapter.XML
 
             objects.AddRange(ReadBuilding(gbx));
             objects.AddRange(ReadPanels(gbx));
-            //objects.AddRange(ReadConstructions(gbx));
+            objects.AddRange(ReadConstructions(gbx));
             //objects.AddRange(ReadMaterials(gbx));
             objects.AddRange(ReadLevels(gbx));
 
@@ -98,7 +98,7 @@ namespace BH.Adapter.XML
                 return new List<BHE.Panel>();
         }
 
-        /*private List<BHC.Construction> ReadConstructions(BHX.GBXML gbx, List<string> ids = null)
+        private List<BHC.Construction> ReadConstructions(BHX.GBXML gbx, List<string> ids = null)
         {
             if (gbx.Construction != null)
                 return gbx.Construction.Select(x => x.ToBHoM()).ToList();
@@ -106,7 +106,7 @@ namespace BH.Adapter.XML
                 return new List<BHC.Construction>();
         }
 
-        private List<BH.oM.Physical.Properties.Material> ReadMaterials(BHX.GBXML gbx, List<string> ids = null)
+        /*private List<BH.oM.Physical.Properties.Material> ReadMaterials(BHX.GBXML gbx, List<string> ids = null)
         {
             if (gbx.Material != null)
                 return gbx.Material.Select(x => x.ToBHoM()).ToList();
