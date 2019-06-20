@@ -51,13 +51,13 @@ namespace BH.Adapter.XML
 
             foreach (BH.oM.Environment.Elements.Opening opening in openings)
             {
-                if (opening.ToPolyline() == null) continue;
+                if (opening.Polyline() == null) continue;
 
                 BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
 
                 //Normals away from space
-                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(opening.ToPolyline(), space))
-                    gbOpening.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(opening.ToPolyline().Flip());
+                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(opening.Polyline(), space))
+                    gbOpening.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(opening.Polyline().Flip());
 
                 Panel buildingElement = new Panel();
 ;

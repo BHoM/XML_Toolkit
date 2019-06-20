@@ -106,11 +106,11 @@ namespace BH.Adapter.XML
                             if (space[x].Openings.Count > 0)
                             {
                                 //This surface already has openings - cut them out of the new opening
-                                List<BHG.Polyline> refRegion = space[x].Openings.Where(y => y.ToPolyline() != null).ToList().Select(z => z.ToPolyline()).ToList();
-                                newOpeningBounds.AddRange((new List<BHG.Polyline> { space[x].ToPolyline() }).BooleanDifference(refRegion, 0.01));
+                                List<BHG.Polyline> refRegion = space[x].Openings.Where(y => y.Polyline() != null).ToList().Select(z => z.Polyline()).ToList();
+                                newOpeningBounds.AddRange((new List<BHG.Polyline> { space[x].Polyline() }).BooleanDifference(refRegion, 0.01));
                             }
                             else
-                                newOpeningBounds.Add(space[x].ToPolyline());
+                                newOpeningBounds.Add(space[x].Polyline());
 
                             BH.oM.Environment.Elements.Opening curtainWallOpening = BH.Engine.Environment.Create.Opening(externalEdges: newOpeningBounds.ToEdges());
                             curtainWallOpening.Name = space[x].Name;

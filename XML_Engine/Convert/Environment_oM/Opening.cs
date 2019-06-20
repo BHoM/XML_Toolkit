@@ -43,7 +43,7 @@ namespace BH.Engine.XML
         {
             BHX.Opening gbOpening = new BHX.Opening();
 
-            BHG.Polyline pLine = opening.ToPolyline();
+            BHG.Polyline pLine = opening.Polyline();
 
             gbOpening.Name = opening.Name;
             gbOpening.ID = "opening" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
@@ -66,7 +66,7 @@ namespace BH.Engine.XML
         {
             BHX.Opening gbOpening = opening.ToGBXML();
 
-            BHG.Polyline pLine = opening.ToPolyline();
+            BHG.Polyline pLine = opening.Polyline();
             if (pLine.NormalAwayFromSpace(space))
                 gbOpening.PlanarGeometry.PolyLoop = pLine.Flip().ToGBXML();
 

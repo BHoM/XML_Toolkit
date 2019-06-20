@@ -98,5 +98,31 @@ namespace BH.Engine.XML
 
             return window;
         }
+
+        public static BHC.Construction ToBHoM(this BHX.Construction gbConstruction)
+        {
+            BHC.Construction construction = new BHC.Construction();
+            construction.Name = gbConstruction.Name;
+
+            return construction;
+
+            /*BHX.Construction gbConstruction = new BHX.Construction();
+
+            BHP.OriginContextFragment contextProperties = null;
+            BHP.PanelAnalyticalFragment analysisProperties = null;
+            if (element != null)
+            {
+                contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
+                analysisProperties = element.FindFragment<BHP.PanelAnalyticalFragment>(typeof(BHP.PanelAnalyticalFragment));
+            }
+
+            gbConstruction.ID = (contextProperties == null ? construction.ConstructionID() : contextProperties.TypeName.CleanName().Replace(" ", "-"));
+            gbConstruction.Absorptance.Value = construction.Absorptance().ToString();
+            gbConstruction.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
+            gbConstruction.Roughness = construction.Roughness().ToGBXML();
+            gbConstruction.UValue.Value = (analysisProperties == null || analysisProperties.UValue == 0 ? construction.UValue() : analysisProperties.UValue).ToString();
+
+            return gbConstruction;*/
+        }
     }
 }
