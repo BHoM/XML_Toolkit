@@ -79,8 +79,33 @@ namespace BH.Adapter.XML
             objects.AddRange(ReadConstructions(gbx));
             //objects.AddRange(ReadMaterials(gbx));
             objects.AddRange(ReadLevels(gbx));
+            objects.AddRange(ReadSpaces(gbx));
 
             return objects;
+        }
+
+        private List<BHE.Space> ReadSpaces(BHX.GBXML gbx, List<string> ids = null)
+        {
+            //ToDo - Fix this!
+            List<BHE.Space> s = new List<BHE.Space>();
+
+            if (gbx.Campus != null)
+            {
+                foreach (BHX.Building b in gbx.Campus.Building)
+                {
+                    foreach(BHX.Space space in b.Space)
+                    {
+                        BHE.Space bhomS = new oM.Environment.Elements.Space();
+                        bhomS.Name = space.Name;
+                        OriginContextFragment f = new OriginContextFragment();
+                        f.ElementID = space.ID;
+                        bhomS.Fragments.Add(f);
+                        s.Add(bhomS);
+                    }
+                }
+            }
+
+            return s;
         }
 
         private List<BHE.Building> ReadBuilding(BHX.GBXML gbx, List<string> ids = null)
