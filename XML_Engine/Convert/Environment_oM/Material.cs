@@ -158,7 +158,7 @@ namespace BH.Engine.XML
 
             try
             {
-                layer.Thickness = System.Convert.ToDouble(gbMaterial.Thickness);
+                layer.Thickness = System.Convert.ToDouble(gbMaterial.Thickness.Value);
                 materialProperties.Conductivity = System.Convert.ToDouble(gbMaterial.Conductivity.Value);
                 materialProperties.SpecificHeat = System.Convert.ToDouble(gbMaterial.SpecificHeat.Value);
                 materialProperties.Density = System.Convert.ToDouble(gbMaterial.Density.Value);
