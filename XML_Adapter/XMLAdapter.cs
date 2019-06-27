@@ -31,17 +31,25 @@ using BH.oM.Base;
 using System.Reflection;
 
 using BH.oM.XML.Enums;
-
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
 using BH.oM.Data.Requests;
 
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
-        public XMLAdapter(String projectName = "BHoM_gbXML_Export", String SaveDirectoryPath = null, ExportType exportType = ExportType.gbXMLTAS, ExportDetail exportDetail = ExportDetail.Full)
+        [Description("Specify XML file and properties for data transfer")]
+        [Input("xmlFileName", "Name of XML file")]
+        [Input("xmlDirectoryPath", "Path to XML file")]
+        [Input("exportType", "Specify whether the file is TAS or IES specific")]
+        [Input("exportDetail", "Define what you want to include in the export, for example 'Spaces'")]
+        [Output("adapter", "Adapter to XML")]
+
+        public XMLAdapter(String xmlFileName = "BHoM_gbXML_Export", String xmlDirectoryPath = null, ExportType exportType = ExportType.gbXMLTAS, ExportDetail exportDetail = ExportDetail.Full)
         {
-            FilePath = SaveDirectoryPath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            ProjectName = projectName;
+            FilePath = xmlDirectoryPath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            ProjectName = xmlFileName;
             ExportType = exportType;
             ExportDetail = exportDetail;
 
