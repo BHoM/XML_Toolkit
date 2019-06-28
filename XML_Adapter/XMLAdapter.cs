@@ -45,7 +45,6 @@ namespace BH.Adapter.XML
         [Input("exportType", "Specify whether the file is TAS or IES specific")]
         [Input("exportDetail", "Define what you want to include in the export, for example 'Spaces'")]
         [Output("adapter", "Adapter to XML")]
-
         public XMLAdapter(String xmlFileName = "BHoM_gbXML_Export", String xmlDirectoryPath = null, ExportType exportType = ExportType.gbXMLTAS, ExportDetail exportDetail = ExportDetail.Full)
         {
             FilePath = xmlDirectoryPath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
