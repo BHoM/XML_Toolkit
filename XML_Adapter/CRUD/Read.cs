@@ -125,18 +125,21 @@ namespace BH.Adapter.XML
                 foreach(BHX.Surface s in gbx.Campus.Surface)
                 {
                     BHE.Panel p = s.ToBHoM();
-                    BHX.Construction c = gbx.Construction.Where(x => x.ID == s.ConstructionIDRef).FirstOrDefault();
-                    if (c != null)
+                    if (gbx.Construction != null)
                     {
-                        BHX.Layer gbLayer = gbx.Layer.Where(x => x.ID == c.LayerID.LayerIDRef).FirstOrDefault();
-                        if (gbLayer != null)
+                        BHX.Construction c = gbx.Construction.Where(x => x.ID == s.ConstructionIDRef).FirstOrDefault();
+                        if (c != null)
                         {
-
-                            List<BHX.Material> gbMaterials = gbx.Material.Where(x => gbLayer.MaterialID.Where(y => y.MaterialIDRef == x.ID).FirstOrDefault() != null).ToList();
-                            if (gbMaterials.Count > 0)
+                            BHX.Layer gbLayer = gbx.Layer.Where(x => x.ID == c.LayerID.LayerIDRef).FirstOrDefault();
+                            if (gbLayer != null)
                             {
-                                List<BHC.Layer> layers = gbMaterials.Select(x => x.ToBHoM()).ToList();
-                                p.Construction = c.ToBHoM(layers);
+
+                                List<BHX.Material> gbMaterials = gbx.Material.Where(x => gbLayer.MaterialID.Where(y => y.MaterialIDRef == x.ID).FirstOrDefault() != null).ToList();
+                                if (gbMaterials.Count > 0)
+                                {
+                                    List<BHC.Layer> layers = gbMaterials.Select(x => x.ToBHoM()).ToList();
+                                    p.Construction = c.ToBHoM(layers);
+                                }
                             }
                         }
                     }
