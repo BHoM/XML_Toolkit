@@ -37,13 +37,15 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string ConstructionID(this BHE.Panel element)
+        public static string ConstructionID(this BHE.Panel panel)
         {
-            return element.Construction.ConstructionID();
+            if (panel == null || panel.Construction == null) return null;
+            return panel.Construction.ConstructionID();
         }
 
         public static string ConstructionID(this BHC.IConstruction construction)
         {
+            if (construction == null) return null;
             return ConstructionID(construction as dynamic);
         }
 
