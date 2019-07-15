@@ -89,8 +89,8 @@ namespace BH.Adapter.XML
                     List<List<Panel>> adjacentSpaces = BH.Engine.Environment.Query.AdjacentSpaces(space[x], elementsAsSpaces);
 
                     Surface srf = space[x].ToGBXML(adjacentSpaces, space);
-                    srf.ID = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
-                    srf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
+                    srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
+                    srf.Name = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
 
                     if (space[x] != null)
                         srf.CADObjectID = BH.Engine.XML.Query.CADObjectID(space[x], exportType);
@@ -265,8 +265,8 @@ namespace BH.Adapter.XML
             foreach (Panel be in buildingElements)
             {
                 Surface gbSrf = be.ToGBXML();
-                gbSrf.ID = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", ""); ;
-                gbSrf.Name = "Panel-" + gbx.Campus.Surface.Count.ToString();
+                gbSrf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
+                gbSrf.Name = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
                 gbSrf.SurfaceType = "Shade";
                 gbSrf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(gbSrf.SurfaceType).ToString().ToLower();
                 gbSrf.CADObjectID = be.CADObjectID();
