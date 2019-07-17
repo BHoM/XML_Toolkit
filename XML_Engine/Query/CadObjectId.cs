@@ -138,7 +138,7 @@ namespace BH.Engine.XML
         public static string CADObjectID(this BHE.Opening opening, ExportType exportType)
         {
             BHP.OriginContextFragment contextProp = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
-            if (contextProp == null) return "";
+            if (contextProp == null) return "WinInst: SIM_EXT_GLZ [000000]";
 
             string cadID = "";
             if (contextProp.TypeName == "") cadID += "WinInst: SIM_EXT_GLZ";
