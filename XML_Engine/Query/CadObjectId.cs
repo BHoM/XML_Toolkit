@@ -140,7 +140,18 @@ namespace BH.Engine.XML
             BHP.OriginContextFragment contextProp = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
             if (contextProp == null) return "";
 
-            return contextProp.TypeName + " [" + contextProp.ElementID + "]";
+            string cadID = "";
+            if (contextProp.TypeName == "") cadID += "WinInst: SIM_EXT_GLZ";
+            else cadID += contextProp.TypeName;
+
+            cadID += " [";
+
+            if (contextProp.ElementID == "") cadID += "000000";
+            else cadID += contextProp.ElementID;
+
+            cadID += "]";
+
+            return cadID;
         }
 
         /***************************************************/
