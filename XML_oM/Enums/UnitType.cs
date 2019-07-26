@@ -1,6 +1,6 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -20,48 +20,12 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BH.oM.Base;
-using BHE = BH.oM.Environment;
-using BH.oM.XML;
-using BH.oM.XML.Enums;
-
-using BH.Engine.XML;
-
-namespace BH.Adapter.XML
+namespace BH.oM.XML.Enums
 {
-    public partial class XMLAdapter : BHoMAdapter
+    public enum UnitType
     {
-        protected override bool Create<T>(IEnumerable<T> objects, bool replaceAll = false)
-        {
-            string fileName = _fileSettings.FullFileName();
-
-            GBXML gbx = new GBXML();
-
-            if(!_xmlSettings.NewFile)
-                gbx = XMLReader.Load(_fileSettings.FullFileName()); //Load up the previous file to append to
-
-            if(_xmlSettings.UnitType == UnitType.Imperial)
-            {
-                gbx.TemperatureUnit = "F";
-                gbx.LengthUnit = "Feet";
-                gbx.AreaUnit = "SquareFeet";
-                gbx.VolumeUnit = "CubicFeet";
-                gbx.UseSIUnitsForResults = "false";
-            }
-
-            if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
-            {
-                XML.GBXMLSerializer.Serialize(objects, gbx, fileName, _xmlSettings);
-                XMLWriter.Save(fileName, gbx);
-            }
-
-            return true;
-        }
+        Undefined,
+        SI,
+        Imperial,
     }
 }

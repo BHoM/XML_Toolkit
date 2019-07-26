@@ -34,6 +34,7 @@ using BH.oM.Geometry;
 using BH.Engine.Geometry;
 
 using BH.oM.XML.Enums;
+using BH.oM.XML.Settings;
 
 namespace BH.Adapter.XML
 {
@@ -43,7 +44,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void SerializeLevels(List<BH.oM.Architecture.Elements.Level> levels, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static void SerializeLevels(List<BH.oM.Architecture.Elements.Level> levels, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, XMLSettings settings)
         {
             List<BH.oM.XML.BuildingStorey> xmlLevels = new List<BuildingStorey>();
 

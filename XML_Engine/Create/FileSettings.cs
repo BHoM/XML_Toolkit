@@ -1,6 +1,6 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -20,42 +20,45 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Environment.Elements;
 using System;
 using System.Collections.Generic;
-
 using System.Linq;
-
-using BH.Engine.Environment;
-using BHP = BH.oM.Environment.Fragments;
-using BH.Engine.XML;
+using System.Text;
+using System.Threading.Tasks;
 
 using BH.oM.XML.Settings;
 
-namespace BH.Adapter.XML
+using BH.oM.Reflection.Attributes;
+using System.ComponentModel;
+
+namespace BH.Engine.XML
 {
-    public static partial class XMLSerializer
+    public static partial class Create
     {
         /***************************************************/
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<Building> inputBuildings, BH.oM.XML.GBXML gbx, XMLSettings settings)
+        [Description("Create a FileSettings object for use with the XML Adapter")]
+        [Input("fileName", "Name of XML file, not including the file extension. Default 'BHoM_gbXML_Export'")]
+        [Input("directory", "Path to XML file. Defaults to your desktop")]
+        [Output("fileSettings", "The file settings to use with the XML adapter for pull and push")]
+        public static FileSettings FileSettings(string fileName = "BHoM_gbXML_Export", string directory = null)
         {
-            List<Building> buildings = inputBuildings.ToList();
-            gbx.Campus.Building = new oM.XML.Building[buildings.Count];
-            for(int x = 0; x < buildings.Count; x++)
+            if (directory == null)
+                directory = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+
+            if(System.IO.Path.HasExtension(fileName) && System.IO.Path.GetExtension(fileName) == ".xml")
             {
-                gbx.Campus.Building[x] = buildings[x].ToGBXML();
-                gbx.Campus.Location = buildings[x].ToGBXMLLocation();
-
-                BHP.BuildingContextFragment props = buildings[x].FindFragment<BHP.BuildingContextFragment>(typeof(BHP.BuildingContextFragment));
-                if(props != null)
-                    gbx.Campus.Building[x].StreetAddress = props.PlaceName;
-
-                if (buildings[x].CustomData.ContainsKey("Building Name"))
-                    gbx.Campus.Building[x].BuildingType = (buildings[x].CustomData["Building Name"]).ToString();
+                BH.Engine.Reflection.Compute.RecordError("File name cannot contain a file extension");
+                return null;
             }
+
+            return new FileSettings
+            {
+                Directory = directory,
+                FileName = fileName,
+            };
         }
     }
 }

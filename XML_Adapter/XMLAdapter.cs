@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -35,28 +35,26 @@ using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
 using BH.oM.Data.Requests;
 
+using BH.oM.XML.Settings;
+
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
         [Description("Specify XML file and properties for data transfer")]
-        [Input("xmlFileName", "Name of XML file")]
-        [Input("xmlDirectoryPath", "Path to XML file")]
-        [Input("exportType", "Specify whether the file is TAS or IES specific")]
-        [Input("exportDetail", "Define what you want to include in the export, for example 'Spaces'")]
+        [Input("fileSettings", "Input the file settings the XML Adapter should use, default null")]
+        [Input("xmlSettings", "Input the additional XML Settings the adapter should use. Only used when pushing to an XML file. Default null")]
         [Output("adapter", "Adapter to XML")]
-        public XMLAdapter(String xmlFileName = "BHoM_gbXML_Export", String xmlDirectoryPath = null, ExportType exportType = ExportType.gbXMLTAS, ExportDetail exportDetail = ExportDetail.Full)
+        public XMLAdapter(FileSettings fileSettings = null, XMLSettings xmlSettings = null)
         {
-            FilePath = xmlDirectoryPath ?? Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            ProjectName = xmlFileName;
-            ExportType = exportType;
-            ExportDetail = exportDetail;
-
-            if(System.IO.Path.HasExtension(ProjectName) && System.IO.Path.GetExtension(ProjectName) == ".xml")
+            if(fileSettings == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Project Name cannot contain a file extension");
+                BH.Engine.Reflection.Compute.RecordError("Please set the File Settings correctly to enable the XML Adapter to work correctly");
                 return;
             }
+
+            _fileSettings = fileSettings;
+            _xmlSettings = xmlSettings;
 
             AdapterId = "XML_Adapter";
             Config.MergeWithComparer = false;   //Set to true after comparers have been implemented
@@ -67,6 +65,12 @@ namespace BH.Adapter.XML
 
         public override List<IObject> Push(IEnumerable<IObject> objects, String tag = "", Dictionary<String, object> config = null)
         {
+            if(_xmlSettings == null)
+            {
+                BH.Engine.Reflection.Compute.RecordError("Please set some XML Settings on the XML Adapter before pushing to an XML File");
+                return new List<IObject>();
+            }
+
             bool success = true;
 
             MethodInfo methodInfos = typeof(Enumerable).GetMethod("Cast");
@@ -82,8 +86,11 @@ namespace BH.Adapter.XML
 
         public override IEnumerable<object> Pull(IRequest request, Dictionary<string, object> config = null)
         {
-            if (!System.IO.File.Exists(System.IO.Path.Combine(FilePath, ProjectName + ".xml")))
+            if (!System.IO.File.Exists(System.IO.Path.Combine(_fileSettings.Directory, _fileSettings.FileName + ".xml")))
+            {
+                BH.Engine.Reflection.Compute.RecordError("File does not exist to pull from");
                 return new List<IBHoMObject>();
+            }
 
             if (request != null)
             {
@@ -95,9 +102,7 @@ namespace BH.Adapter.XML
                 return Read(null);
         }
 
-        private String FilePath { get; set; }
-        private String ProjectName { get; set; }
-        private ExportType ExportType { get; set; }
-        private ExportDetail ExportDetail { get; set; }
+        private FileSettings _fileSettings { get; set; } = null;
+        private XMLSettings _xmlSettings { get; set; } = null;
     }
 }

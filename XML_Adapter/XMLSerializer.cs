@@ -34,6 +34,8 @@ using BH.Engine.Environment;
 using BH.Engine.XML;
 using BH.oM.XML.Enums;
 
+using BH.oM.XML.Settings;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -42,18 +44,18 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, ExportType exportType, ExportDetail exportDetail, string filePath, string projectName) where T : IObject
+        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, string fileName, XMLSettings settings) where T : IObject
         {
-            switch (exportDetail)
+            switch (settings.ExportDetail)
             {
                 case ExportDetail.Full:
-                    SerializeCollectionFull(bhomObjects as dynamic, gbx, exportType);
+                    SerializeCollectionFull(bhomObjects as dynamic, gbx, settings);
                     break;
                 case ExportDetail.BuildingShell:
-                    SerializeBuildingShell(bhomObjects as dynamic, gbx, exportType);
+                    SerializeBuildingShell(bhomObjects as dynamic, gbx, settings);
                     break;
                 case ExportDetail.IndividualSpaces:
-                    SerializeSpaces(bhomObjects, exportType, filePath, projectName);
+                    SerializeSpaces(bhomObjects, fileName, settings);
                     break;
                 default:
                     throw new NotImplementedException("That option has not been implemented");
@@ -65,40 +67,39 @@ namespace BH.Adapter.XML
             gbx.DocumentHistory = DocumentHistory;
         }
 
-        public static void SerializeSpaces<T>(IEnumerable<T> objects, ExportType exportType, string filePath, string projectName) where T : IObject
+        public static void SerializeSpaces<T>(IEnumerable<T> objects, string fileName, XMLSettings settings) where T : IObject
         {
-            SerializeBuildingSpaces(objects as dynamic, exportType, filePath, projectName);
+            SerializeBuildingSpaces(objects as dynamic, fileName, settings);
         }
 
-        private static void SerializeCollectionFull(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, ExportType exportType)
+        private static void SerializeCollectionFull(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, XMLSettings settings)
         {
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
                 MongoDB.Bson.BsonDocument bd = BH.Engine.Serialiser.Convert.ToBson(db); //Break the reference clone issue
 
                 BH.oM.XML.Environment.DocumentBuilder dbBroken = (BH.oM.XML.Environment.DocumentBuilder)BH.Engine.Serialiser.Convert.FromBson(bd);
-                SerializeLevels(dbBroken.Levels, dbBroken.ElementsAsSpaces, gbx, exportType);
-                SerializeCollection(dbBroken.ElementsAsSpaces, dbBroken.Levels, dbBroken.UnassignedPanels, gbx, exportType);
-                SerializeCollection(dbBroken.ShadingElements, gbx, exportType);
-                SerializeCollection(dbBroken.UnassignedPanels, gbx, exportType); //Serialise unassigned panels as shading as an interim measure
+                SerializeLevels(dbBroken.Levels, dbBroken.ElementsAsSpaces, gbx, settings);
+                SerializeCollection(dbBroken.ElementsAsSpaces, dbBroken.Levels, dbBroken.UnassignedPanels, gbx, settings);
+                SerializeCollection(dbBroken.ShadingElements, gbx, settings);
+                SerializeCollection(dbBroken.UnassignedPanels, gbx, settings); //Serialise unassigned panels as shading as an interim measure
             }
         }
 
-        private static void SerializeBuildingShell(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, ExportType exportType)
+        private static void SerializeBuildingShell(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, XMLSettings settings)
         {
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
-                SerializeLevels(db.Levels, db.ElementsAsSpaces, gbx, exportType);
-                SerializeCollection(db.ElementsAsSpaces.ExternalElements(), db.Levels, db.UnassignedPanels, gbx, exportType);
-                SerializeCollection(db.ShadingElements, gbx, exportType);
+                SerializeLevels(db.Levels, db.ElementsAsSpaces, gbx, settings);
+                SerializeCollection(db.ElementsAsSpaces.ExternalElements(), db.Levels, db.UnassignedPanels, gbx, settings);
+                SerializeCollection(db.ShadingElements, gbx, settings);
             }
         }
 
-        private static void SerializeBuildingSpaces(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, ExportType exportType, string filePath, string projectName)
+        private static void SerializeBuildingSpaces(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, string fileName, XMLSettings settings)
         {
-            filePath = System.IO.Path.Combine(filePath, projectName);
-            if (!System.IO.Directory.Exists(filePath))
-                System.IO.Directory.CreateDirectory(filePath);
+            if (!System.IO.Directory.Exists(fileName))
+                System.IO.Directory.CreateDirectory(fileName);
 
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
@@ -114,14 +115,14 @@ namespace BH.Adapter.XML
                             spaceName = "Space-" + Guid.NewGuid().ToString().Replace("-", "");
 
                         GBXML gbx = new GBXML();
-                        SerializeCollection(space, db.Levels, db.UnassignedPanels, gbx, exportType);
+                        SerializeCollection(space, db.Levels, db.UnassignedPanels, gbx, settings);
 
                         //Document History
                         DocumentHistory DocumentHistory = new DocumentHistory();
                         DocumentHistory.CreatedBy.Date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
                         gbx.DocumentHistory = DocumentHistory;
 
-                        XMLWriter.Save(filePath, spaceName, gbx);
+                        XMLWriter.Save(fileName + spaceName + ".xml", gbx);
                     }
                 }
             }

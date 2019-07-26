@@ -1,6 +1,6 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -20,42 +20,26 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Environment.Elements;
 using System;
 using System.Collections.Generic;
+using BH.oM.Base;
+using BH.oM.XML.Enums;
 
-using System.Linq;
-
-using BH.Engine.Environment;
-using BHP = BH.oM.Environment.Fragments;
-using BH.Engine.XML;
-
-using BH.oM.XML.Settings;
-
-namespace BH.Adapter.XML
+namespace BH.oM.XML.Settings
 {
-    public static partial class XMLSerializer
+    public class XMLSettings : BHoMObject
     {
         /***************************************************/
-        /**** Public Methods                            ****/
+        /**** Properties                                ****/
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<Building> inputBuildings, BH.oM.XML.GBXML gbx, XMLSettings settings)
-        {
-            List<Building> buildings = inputBuildings.ToList();
-            gbx.Campus.Building = new oM.XML.Building[buildings.Count];
-            for(int x = 0; x < buildings.Count; x++)
-            {
-                gbx.Campus.Building[x] = buildings[x].ToGBXML();
-                gbx.Campus.Location = buildings[x].ToGBXMLLocation();
+        public bool ReplaceCurtainWalls { get; set; } = false;
+        public bool ReplaceSolidOpeningsIntoDoors { get; set; } = false;
+        public bool IncludeConstructions { get; set; } = false;
+        public bool NewFile { get; set; } = true;
+        public UnitType UnitType { get; set; } = UnitType.SI;
+        public ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
 
-                BHP.BuildingContextFragment props = buildings[x].FindFragment<BHP.BuildingContextFragment>(typeof(BHP.BuildingContextFragment));
-                if(props != null)
-                    gbx.Campus.Building[x].StreetAddress = props.PlaceName;
-
-                if (buildings[x].CustomData.ContainsKey("Building Name"))
-                    gbx.Campus.Building[x].BuildingType = (buildings[x].CustomData["Building Name"]).ToString();
-            }
-        }
+        /***************************************************/
     }
 }

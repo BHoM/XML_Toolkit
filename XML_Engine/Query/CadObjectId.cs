@@ -40,7 +40,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string CADObjectID(this BHE.Panel element, ExportType exportType = ExportType.gbXMLTAS)
+        public static string CADObjectID(this BHE.Panel element, bool replaceCurtainWalls = false)
         {
             string CADObjectID = "";
             if (element == null) return CADObjectID;
@@ -50,7 +50,7 @@ namespace BH.Engine.XML
             if (contextProperties != null && contextProperties.ElementID != "")
             {
                 // change only Basic Wall and keep Curtain as it is
-                if (exportType == ExportType.gbXMLIES && element.Name.Contains("GLZ") && (element.Name.Contains("Basic Wall") || element.Name.Contains("Floor") || element.Name.Contains("Roof")))
+                if (replaceCurtainWalls && element.Name.Contains("GLZ") && (element.Name.Contains("Basic Wall") || element.Name.Contains("Floor") || element.Name.Contains("Roof")))
                     element.Name = "Curtain " + element.Name;
 
                 CADObjectID = element.Name + " [" + contextProperties.ElementID + "]";
@@ -135,7 +135,7 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
-        public static string CADObjectID(this BHE.Opening opening, ExportType exportType)
+        public static string CADObjectID(this BHE.Opening opening)
         {
             BHP.OriginContextFragment contextProp = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
             if (contextProp == null) return "WinInst: SIM_EXT_GLZ [000000]";
