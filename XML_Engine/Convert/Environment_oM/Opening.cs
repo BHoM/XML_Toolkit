@@ -62,7 +62,7 @@ namespace BH.Engine.XML
             return gbOpening;
         }
 
-        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.Panel> space, BHX.Enums.ExportType exportType = BHX.Enums.ExportType.gbXMLTAS)
+        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.Panel> space)
         {
             BHX.Opening gbOpening = opening.ToGBXML();
 
@@ -77,7 +77,7 @@ namespace BH.Engine.XML
                 string elementID = contextProperties.ElementID;
                 string familyName = contextProperties.TypeName;
 
-                gbOpening.CADObjectID = opening.CADObjectID(exportType);
+                gbOpening.CADObjectID = opening.CADObjectID();
                 gbOpening.OpeningType = opening.Type.ToGBXML();
 
                 if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm

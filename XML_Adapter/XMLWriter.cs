@@ -36,7 +36,7 @@ namespace BH.Adapter.XML
     public class XMLWriter
     {
 
-        public static string Save(string filePath, string Name, BH.oM.XML.GBXML gbx)
+        public static string Save(string fullFileName, BH.oM.XML.GBXML gbx)
         {
             try
             {
@@ -46,10 +46,9 @@ namespace BH.Adapter.XML
                 foreach(System.Reflection.PropertyInfo pi in bhomProperties)
                     overrides.Add(typeof(BHoMObject), pi.Name, new XmlAttributes { XmlIgnore = true });
 
-                Name += ".xml";
                 XmlSerializerNamespaces xns = new XmlSerializerNamespaces();
                 XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.GBXML), overrides);
-                TextWriter ms = new StreamWriter(Path.Combine(filePath, Name));
+                TextWriter ms = new StreamWriter(fullFileName);
                 szer.Serialize(ms, gbx, xns);
                 ms.Close();
                 return "Written Ok";

@@ -37,6 +37,8 @@ using BH.oM.XML.Enums;
 
 using BHP = BH.oM.Environment.Fragments;
 
+using BH.oM.XML.Settings;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -45,7 +47,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BH.oM.XML.Opening> SerializeOpenings(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<Panel> space, List<Panel> allElements, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static List<BH.oM.XML.Opening> SerializeOpenings(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<Panel> space, List<Panel> allElements, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, XMLSettings settings)
         {
             List<BH.oM.XML.Opening> gbOpenings = new List<oM.XML.Opening>();
 
@@ -71,7 +73,7 @@ namespace BH.Adapter.XML
                     familyName = contextProperties.TypeName;
                 }
 
-                gbOpening.CADObjectID = opening.CADObjectID(exportType);
+                gbOpening.CADObjectID = opening.CADObjectID();
                 gbOpening.OpeningType = opening.Type.ToGBXML();
 
                 if (gbOpening.OpeningType.ToLower() == "fixedwindow" && contextProperties != null && contextProperties.TypeName.ToLower().Contains("skylight"))
@@ -80,10 +82,10 @@ namespace BH.Adapter.XML
                 if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
                     gbOpening.OpeningType = "FixedWindow";
 
-                if (exportType == ExportType.gbXMLIES && gbOpening.OpeningType.Contains("Window") && (opening.OpeningConstruction != null && opening.OpeningConstruction.Name.Contains("SLD"))) //Change windows with SLD construction into doors for IES
+                if (settings.ReplaceSolidOpeningsIntoDoors && gbOpening.OpeningType.Contains("Window") && (opening.OpeningConstruction != null && opening.OpeningConstruction.Name.Contains("SLD"))) //Change windows with SLD construction into doors for IES
                     gbOpening.OpeningType = "NonSlidingDoor";
 
-                if (exportType == ExportType.gbXMLIES)
+                if (settings.IncludeConstructions)
                     gbOpening.WindowTypeIDRef = "window-" + (contextProperties != null? contextProperties.TypeName.CleanName() : (opening.OpeningConstruction != null ? opening.OpeningConstruction.Name.CleanName() : "" ));
                 else
                     gbOpening.WindowTypeIDRef = null;

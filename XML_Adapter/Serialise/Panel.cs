@@ -41,6 +41,8 @@ using BHP = BH.oM.Environment.Fragments;
 
 using BHC = BH.oM.Physical.Constructions;
 
+using BH.oM.XML.Settings;
+
 namespace BH.Adapter.XML
 {
     public partial class GBXMLSerializer
@@ -49,7 +51,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<IEnumerable<Panel>> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static void SerializeCollection(IEnumerable<IEnumerable<Panel>> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, XMLSettings settings)
         {
             List<List<Panel>> elementsAsSpaces = new List<List<Panel>>();
 
@@ -93,12 +95,15 @@ namespace BH.Adapter.XML
                     srf.Name = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
 
                     if (space[x] != null)
-                        srf.CADObjectID = BH.Engine.XML.Query.CADObjectID(space[x], exportType);
+                        srf.CADObjectID = BH.Engine.XML.Query.CADObjectID(space[x], settings.ReplaceCurtainWalls);
 
-                    if (exportType == ExportType.gbXMLIES)
-                    {
+                    if (settings.IncludeConstructions)
                         srf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.CleanName() : space[x].ConstructionID());
+                    else
+                        srf.ConstructionIDRef = null;
 
+                    if (settings.ReplaceCurtainWalls)
+                    {
                         //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID translation add the wall as an opening
                         //if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ") && (space[x].Type != PanelType.CurtainWall))
                         if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ"))
@@ -140,9 +145,8 @@ namespace BH.Adapter.XML
                             srf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
                         }*/
                     }
-                    else if (exportType == ExportType.gbXMLTAS)
+                    else
                     {
-                        srf.ConstructionIDRef = null;
                         //Fix surface type for curtain walls
                         if (space[x].Type == PanelType.CurtainWall)
                         {
@@ -154,7 +158,7 @@ namespace BH.Adapter.XML
                     //Openings
                     if (space[x].Openings.Count > 0)
                     {
-                        srf.Opening = SerializeOpenings(space[x].Openings, space, allElements, elementsAsSpaces, gbx, exportType).ToArray();
+                        srf.Opening = SerializeOpenings(space[x].Openings, space, allElements, elementsAsSpaces, gbx, settings).ToArray();
                         foreach(BH.oM.Environment.Elements.Opening o in space[x].Openings)
                         {
                             string nameCheck = "";
@@ -176,7 +180,7 @@ namespace BH.Adapter.XML
 
                     usedBEs.Add(space[x]);
 
-                    if (exportType == ExportType.gbXMLIES && space[x].Construction != null)
+                    if (settings.IncludeConstructions && space[x].Construction != null)
                     {
                         BH.oM.XML.Construction conc = space[x].ToGBXMLConstruction();
                         BH.oM.XML.Construction test = usedConstructions.Where(y => y.ID == conc.ID).FirstOrDefault();
@@ -243,9 +247,9 @@ namespace BH.Adapter.XML
             gbx.Layer = usedLayers.ToArray();
             gbx.Material = usedMaterials.ToArray();
 
-            if (exportType == ExportType.gbXMLIES)
+            if (settings.IncludeConstructions)
                 gbx.WindowType = usedWindows.ToArray();
-            else if (exportType == ExportType.gbXMLTAS)//We have to force null otherwise WindowType will be created
+            else //We have to force null otherwise WindowType will be created
                 gbx.WindowType = null;
 
             //Set the building area
@@ -258,7 +262,7 @@ namespace BH.Adapter.XML
             gbx.Campus.Building[0].Area = buildingFloorArea;
         }
 
-        public static void SerializeCollection(IEnumerable<Panel> inputElements, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static void SerializeCollection(IEnumerable<Panel> inputElements, BH.oM.XML.GBXML gbx, XMLSettings settings)
         {
             //For serializing shade elements
             List<Panel> buildingElements = inputElements.ToList();
@@ -276,7 +280,7 @@ namespace BH.Adapter.XML
                 gbSrf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(gbSrf.SurfaceType).ToString().ToLower();
                 gbSrf.CADObjectID = be.CADObjectID();
 
-                if (exportType == ExportType.gbXMLIES)
+                if (settings.IncludeConstructions)
                 {
                     BHP.OriginContextFragment envContextProperties = be.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
@@ -306,7 +310,7 @@ namespace BH.Adapter.XML
                         }
                     }
                 }
-                else if (exportType == ExportType.gbXMLTAS) //We have to force null otherwise Construction will be created
+                else //We have to force null otherwise Construction will be created
                     gbSrf.ConstructionIDRef = null;
 
                 gbx.Campus.Surface.Add(gbSrf);
@@ -317,12 +321,12 @@ namespace BH.Adapter.XML
             gbx.Material = usedMaterials.ToArray();
         }
 
-        public static void SerializeCollection(IEnumerable<Panel> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, ExportType exportType)
+        public static void SerializeCollection(IEnumerable<Panel> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, XMLSettings settings)
         {
             List<List<Panel>> elementsAsSpaces = new List<List<Panel>>();
             elementsAsSpaces.Add(inputElements.ToList());
 
-            SerializeCollection(elementsAsSpaces, levels, openings, gbx, exportType);
+            SerializeCollection(elementsAsSpaces, levels, openings, gbx, settings);
         }
     }
 }

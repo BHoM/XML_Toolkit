@@ -48,7 +48,7 @@ namespace BH.Adapter.XML
 
         private IEnumerable<IBHoMObject> Read(Type type = null)
         {
-            BH.oM.XML.GBXML gbx = XMLReader.Load(FilePath, ProjectName);
+            BH.oM.XML.GBXML gbx = XMLReader.Load(_fileSettings.FullFileName());
 
             if (type == null)
                 return ReadFullXMLFile(gbx);
