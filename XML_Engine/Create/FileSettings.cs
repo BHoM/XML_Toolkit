@@ -45,6 +45,12 @@ namespace BH.Engine.XML
         [Output("fileSettings", "The file settings to use with the XML adapter for pull and push")]
         public static FileSettings FileSettings(string fileName = "BHoM_gbXML_Export", string directory = null)
         {
+            if(!System.IO.Directory.Exists(directory))
+            {
+                directory = null;
+                BH.Engine.Reflection.Compute.RecordWarning("The specified directory did not exist. Defaulting to your desktop");
+            }
+
             if (directory == null)
                 directory = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
 
