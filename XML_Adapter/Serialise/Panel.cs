@@ -105,7 +105,6 @@ namespace BH.Adapter.XML
                     if (settings.ReplaceCurtainWalls)
                     {
                         //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID translation add the wall as an opening
-                        //if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ") && (space[x].Type != PanelType.CurtainWall))
                         if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("GLZ"))
                         {
                             List<BHG.Polyline> newOpeningBounds = new List<oM.Geometry.Polyline>();
@@ -138,12 +137,6 @@ namespace BH.Adapter.XML
                             srf.SurfaceType = (adjacentSpaces.Count == 1 ? PanelType.WallExternal : PanelType.WallInternal).ToGBXML();
                             srf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
                         }
-                        /*else if (srf.CADObjectID.Contains("Curtain") && srf.CADObjectID.Contains("Wall") && srf.CADObjectID.Contains("GLZ") && (space[x].Type == PanelType.CurtainWall))
-                        {
-                            //Update the host elements element type
-                            srf.SurfaceType = (adjacentSpaces.Count == 1 ? PanelType.WallExternal : PanelType.WallInternal).ToGBXML();
-                            srf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
-                        }*/
                     }
                     else
                     {
@@ -153,7 +146,18 @@ namespace BH.Adapter.XML
                             srf.SurfaceType = (adjacentSpaces.Count == 1 ? PanelType.WallExternal : PanelType.WallInternal).ToGBXML();
                             srf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
                         }
-                    }                   
+                    }
+                    
+                    if(settings.FixIncorrectAirTypes && space[x].Type == PanelType.Undefined && space[x].ConnectedSpaces.Count == 1)
+                    {
+                        //Fix external air types
+                        if (space[x].Tilt() == 0)
+                            srf.SurfaceType = PanelType.Roof.ToGBXML();
+                        else if (space[x].Tilt() == 90)
+                            srf.SurfaceType = PanelType.WallExternal.ToGBXML();
+                        else if (space[x].Tilt() == 180)
+                            srf.SurfaceType = PanelType.SlabOnGrade.ToGBXML();
+                    }           
 
                     //Openings
                     if (space[x].Openings.Count > 0)
