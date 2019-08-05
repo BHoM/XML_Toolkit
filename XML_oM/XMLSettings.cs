@@ -36,6 +36,7 @@ namespace BH.oM.XML.Settings
         public bool ReplaceCurtainWalls { get; set; } = false;
         public bool ReplaceSolidOpeningsIntoDoors { get; set; } = false;
         public bool IncludeConstructions { get; set; } = false;
+        public bool FixIncorrectAirTypes { get; set; } = false;
         public bool NewFile { get; set; } = true;
         public UnitType UnitType { get; set; } = UnitType.SI;
         public ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
