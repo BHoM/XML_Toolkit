@@ -42,18 +42,18 @@ namespace BH.Adapter.XML
     public partial class XMLAdapter : BHoMAdapter
     {
         [Description("Specify XML file and properties for data transfer")]
-        [Input("fileSettings", "Input the file settings the XML Adapter should use, default null")]
+        [Input("xmlFileSettings", "Input the file settings the XML Adapter should use, default null")]
         [Input("xmlSettings", "Input the additional XML Settings the adapter should use. Only used when pushing to an XML file. Default null")]
         [Output("adapter", "Adapter to XML")]
-        public XMLAdapter(XMLFileSettings fileSettings = null, XMLSettings xmlSettings = null)
+        public XMLAdapter(XMLFileSettings xmlFileSettings = null, XMLSettings xmlSettings = null)
         {
-            if(fileSettings == null)
+            if(xmlFileSettings == null)
             {
                 BH.Engine.Reflection.Compute.RecordError("Please set the File Settings correctly to enable the XML Adapter to work correctly");
                 return;
             }
 
-            _fileSettings = fileSettings;
+            _fileSettings = xmlFileSettings;
             _xmlSettings = xmlSettings;
 
             AdapterId = "XML_Adapter";
