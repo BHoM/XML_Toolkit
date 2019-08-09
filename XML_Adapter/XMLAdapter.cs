@@ -45,7 +45,7 @@ namespace BH.Adapter.XML
         [Input("fileSettings", "Input the file settings the XML Adapter should use, default null")]
         [Input("xmlSettings", "Input the additional XML Settings the adapter should use. Only used when pushing to an XML file. Default null")]
         [Output("adapter", "Adapter to XML")]
-        public XMLAdapter(FileSettings fileSettings = null, XMLSettings xmlSettings = null)
+        public XMLAdapter(XMLFileSettings fileSettings = null, XMLSettings xmlSettings = null)
         {
             if(fileSettings == null)
             {
@@ -102,7 +102,7 @@ namespace BH.Adapter.XML
                 return Read(null);
         }
 
-        private FileSettings _fileSettings { get; set; } = null;
+        private XMLFileSettings _fileSettings { get; set; } = null;
         private XMLSettings _xmlSettings { get; set; } = null;
     }
 }

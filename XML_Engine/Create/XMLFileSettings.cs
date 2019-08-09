@@ -43,7 +43,7 @@ namespace BH.Engine.XML
         [Input("fileName", "Name of XML file, not including the file extension. Default 'BHoM_gbXML_Export'")]
         [Input("directory", "Path to XML file. Defaults to your desktop")]
         [Output("fileSettings", "The file settings to use with the XML adapter for pull and push")]
-        public static FileSettings FileSettings(string fileName = "BHoM_gbXML_Export", string directory = null)
+        public static XMLFileSettings XMLFileSettings(string fileName = "BHoM_gbXML_Export", string directory = null)
         {
             if(!System.IO.Directory.Exists(directory))
             {
@@ -60,7 +60,7 @@ namespace BH.Engine.XML
                 return null;
             }
 
-            return new FileSettings
+            return new XMLFileSettings
             {
                 Directory = directory,
                 FileName = fileName,

@@ -27,7 +27,7 @@ using BH.oM.XML.Enums;
 
 namespace BH.oM.XML.Settings
 {
-    public class FileSettings : BHoMObject
+    public class XMLFileSettings : BHoMObject
     {
         /***************************************************/
         /**** Properties                                ****/

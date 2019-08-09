@@ -38,7 +38,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string FullFileName(this FileSettings fileSettings)
+        public static string FullFileName(this XMLFileSettings fileSettings)
         {
             return System.IO.Path.Combine(fileSettings.Directory, fileSettings.FileName + ".xml");
         }
