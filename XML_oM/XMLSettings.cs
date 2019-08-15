@@ -40,6 +40,7 @@ namespace BH.oM.XML.Settings
         public bool NewFile { get; set; } = true;
         public UnitType UnitType { get; set; } = UnitType.SI;
         public ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
+        public Double Tolerance { get; set; } = 0.01;
 
         /***************************************************/
     }
