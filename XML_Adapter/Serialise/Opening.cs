@@ -55,9 +55,9 @@ namespace BH.Adapter.XML
             {
                 Polyline openingPoly = opening.Polyline();
 
-                if (openingPoly == null || openingPoly.CleanPolyline(distanceTolerance: 0.01) == null) continue;
+                if (openingPoly == null || openingPoly.CleanPolyline(distanceTolerance: settings.Tolerance) == null) continue;
 
-                openingPoly = openingPoly.CleanPolyline(distanceTolerance: 0.01);
+                openingPoly = openingPoly.CleanPolyline(distanceTolerance: settings.Tolerance);
 
                 BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
 
