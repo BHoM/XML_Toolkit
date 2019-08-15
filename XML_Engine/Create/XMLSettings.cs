@@ -49,7 +49,7 @@ namespace BH.Engine.XML
         [Input("unitType", "Set the unit type for the export to be either SI or Imperial. Default SI")]
         [Input("exportDetail", "Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
         [Output("xmlSettings", "The XML settings to use with the XML adapter push")]
-        public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double DistanceTolerance = 0.01)
+        public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = 0.01)
         {
             return new XMLSettings
             {
@@ -60,7 +60,7 @@ namespace BH.Engine.XML
                 NewFile = newFile,
                 UnitType = unitType,
                 ExportDetail = exportDetail,
-                distanceTolerance = DistanceTolerance
+                DistanceTolerance = distanceTolerance
             };
         }
     }
