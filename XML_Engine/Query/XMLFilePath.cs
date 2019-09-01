@@ -40,7 +40,7 @@ namespace BH.Engine.XML
 
         public static string XMLFilePath(string xmlFileName, string xmlDirectoryPath)
         {
-                    return System.IO.Path.Combine(xmlDirectoryPath + ".xml");
+                    return System.IO.Path.Combine(xmlDirectoryPath, xmlFileName + ".xml");
         }
     }
 }
