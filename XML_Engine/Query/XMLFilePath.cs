@@ -38,17 +38,9 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static string XMLFilePath(string xmlFileName, string xmlDirectoryPath, BHX.Enums.ExportType exportType = BHX.Enums.ExportType.gbXMLTAS)
+        public static string XMLFilePath(string xmlFileName, string xmlDirectoryPath)
         {
-            switch(exportType)
-            {
-                case oM.XML.Enums.ExportType.gbXMLIES:
-                    return System.IO.Path.Combine(xmlDirectoryPath, xmlFileName + "_IES.xml");
-                case BHX.Enums.ExportType.gbXMLTAS:
-                    return System.IO.Path.Combine(xmlDirectoryPath, xmlFileName + "_TAS.xml");
-                default:
-                    return System.IO.Path.Combine(xmlDirectoryPath, xmlFileName + ".xml");
-            }
+                    return System.IO.Path.Combine(xmlDirectoryPath + ".xml");
         }
     }
 }
