@@ -25,11 +25,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BH.oM.Reflection.Attributes;
 
 using BH.oM.Environment.Elements;
 using BH.oM.XML.Environment;
 using BH.oM.Base;
-using BH.oM.Architecture.Elements;
+using BH.oM.Geometry.SettingOut;
 using BH.Engine.Environment;
 
 namespace BH.Engine.XML
@@ -40,7 +41,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<BH.oM.Architecture.Elements.Level> levels, List<Panel> unassignedPanels)
+        public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<Level> levels, List<Panel> unassignedPanels)
         {
             return new DocumentBuilder
             {
@@ -69,5 +70,51 @@ namespace BH.Engine.XML
 
             return DocumentBuilder(buildings, elementsAsSpaces, shadingElements, levels, unassignedPanels);
         }
+
+
+
+
+        /***************************************************/
+        /**** Deprecated Methods                        ****/
+        /***************************************************/
+
+        [Deprecated("2.4", "BH.oM.Architecture.Elements.Level superseded by BH.oM.Geometry.SettingOut.Level")]
+        public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<BH.oM.Architecture.Elements.Level> levels, List<Panel> unassignedPanels)
+        {
+            return new DocumentBuilder
+            {
+                Buildings = building,
+                ElementsAsSpaces = elementsAsSpaces,
+                ShadingElements = shadingElements,
+                Levels = levels.UpgradeVersion(),
+                UnassignedPanels = unassignedPanels,
+            };
+        }
+
+
+        /******************************************/
+        /****      Level Version Converts      ****/
+        /******************************************/
+
+        [DeprecatedAttribute("2.4", "BH.oM.Architecture.Elements.Level replaced by BH.oM.Geometry.SettingOut.Level")]
+        private static List<Level> UpgradeVersion(this List<BH.oM.Architecture.Elements.Level> levels)
+        {
+            List<Level> upgradedLevels = new List<Level>();
+
+            foreach (BH.oM.Architecture.Elements.Level level in levels)
+                upgradedLevels.Add(level.UpgradeVersion());
+
+            return upgradedLevels;
+        }
+
+        /******************************************/
+
+        [DeprecatedAttribute("2.4", "BH.oM.Architecture.Elements.Level replaced by BH.oM.Geometry.SettingOut.Level")]
+        private static Level UpgradeVersion(this BH.oM.Architecture.Elements.Level level)
+        {
+            return new Level { Name = level.Name, Elevation = level.Elevation, CustomData = level.CustomData, Fragments = level.Fragments };
+        }
+
+        /******************************************/
     }
 }

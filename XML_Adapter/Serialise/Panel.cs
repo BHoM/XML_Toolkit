@@ -31,9 +31,8 @@ using BH.oM.XML;
 using BH.Engine.XML;
 
 using BHG = BH.oM.Geometry;
+using BH.oM.Geometry.SettingOut;
 using BH.Engine.Geometry;
-
-using BH.oM.Architecture.Elements;
 
 using BH.oM.XML.Enums;
 
