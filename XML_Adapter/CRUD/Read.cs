@@ -60,7 +60,7 @@ namespace BH.Adapter.XML
                 return ReadConstructions(gbx);
             else if (type == typeof(BH.oM.Physical.Properties.Material))
                 return ReadMaterials(gbx);*/
-            else if (type == typeof(BHA.Level))
+            else if (type == typeof(BHG.SettingOut.Level))
                 return ReadLevels(gbx);
             else
                 return ReadFullXMLFile(gbx);            
@@ -189,12 +189,12 @@ namespace BH.Adapter.XML
                 return new List<BH.oM.Environment.Materials.Material>();
         }*/
 
-        private List<BHA.Level> ReadLevels(BHX.GBXML gbx, List<string> ids = null)
+        private List<BHG.SettingOut.Level> ReadLevels(BHX.GBXML gbx, List<string> ids = null)
         {
             if (gbx.Campus.Building.Length > 0)
                 return gbx.Campus.Building[0].BuildingStorey.Select(x => x.ToBHoM()).ToList();
             else
-                return new List<BHA.Level>();
+                return new List<BHG.SettingOut.Level>();
         }
     }
 }

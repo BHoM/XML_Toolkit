@@ -44,11 +44,11 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void SerializeLevels(List<BH.oM.Architecture.Elements.Level> levels, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, XMLSettings settings)
+        public static void SerializeLevels(List<BH.oM.Geometry.SettingOut.Level> levels, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, XMLSettings settings)
         {
             List<BH.oM.XML.BuildingStorey> xmlLevels = new List<BuildingStorey>();
 
-            foreach(BH.oM.Architecture.Elements.Level level in levels)
+            foreach(BH.oM.Geometry.SettingOut.Level level in levels)
             {
                 string levelName = "";
                 if (level.Name == "")
