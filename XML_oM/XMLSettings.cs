@@ -41,6 +41,7 @@ namespace BH.oM.XML.Settings
         public UnitType UnitType { get; set; } = UnitType.SI;
         public ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
         public double DistanceTolerance { get; set; } = 0.01;
+        public double PlanarTolerance { get; set; } = 0.01;
 
         /***************************************************/
     }
