@@ -57,7 +57,7 @@ namespace BH.Engine.XML
         [Input("distanceTolerance", "distanceTolerance is used as input for CleanPolyline method used for opening, default is set to BH.oM.Geometry.Tolerance.Distance")]
         [Input("planarTolerance", "Set tolerance for planar surfaces, default is set to ")]
         [Output("xmlSettings", "The XML settings to use with the XML adapter push")]
-            public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
+        public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             return new XMLSettings
             {
