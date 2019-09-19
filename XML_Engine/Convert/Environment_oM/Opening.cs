@@ -34,6 +34,7 @@ using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
+using BH.oM.XML.Settings;
 
 namespace BH.Engine.XML
 {
@@ -62,12 +63,12 @@ namespace BH.Engine.XML
             return gbOpening;
         }
 
-        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.Panel> space)
+        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.Panel> space, XMLSettings settings)
         {
             BHX.Opening gbOpening = opening.ToGBXML();
 
             BHG.Polyline pLine = opening.Polyline();
-            if (pLine.NormalAwayFromSpace(space))
+            if (pLine.NormalAwayFromSpace(space, settings.PlanarTolerance))
                 gbOpening.PlanarGeometry.PolyLoop = pLine.Flip().ToGBXML();
 
             BHP.OriginContextFragment contextProperties = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));

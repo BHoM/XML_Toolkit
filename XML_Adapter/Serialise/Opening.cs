@@ -62,7 +62,7 @@ namespace BH.Adapter.XML
                 BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
 
                 //Normals away from space
-                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(openingPoly, space))
+                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(openingPoly, space, settings.PlanarTolerance))
                     gbOpening.PlanarGeometry.PolyLoop = BH.Engine.XML.Convert.ToGBXML(openingPoly.Flip());
 
                 Panel buildingElement = new Panel();

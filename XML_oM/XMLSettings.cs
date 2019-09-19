@@ -40,8 +40,8 @@ namespace BH.oM.XML.Settings
         public bool NewFile { get; set; } = true;
         public UnitType UnitType { get; set; } = UnitType.SI;
         public ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
-        public double DistanceTolerance { get; set; } = 0.01;
-        public double PlanarTolerance { get; set; } = 0.01;
+        public double DistanceTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
+        public double PlanarTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
 
         /***************************************************/
     }

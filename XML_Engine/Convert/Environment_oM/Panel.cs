@@ -33,6 +33,7 @@ using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
+using BH.oM.XML.Settings;
 
 using BHP = BH.oM.Environment.Fragments;
 
@@ -68,7 +69,7 @@ namespace BH.Engine.XML
             return surface;
         }
 
-        public static BHX.Surface ToGBXML(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces, List<BHE.Panel> space)
+        public static BHX.Surface ToGBXML(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces, List<BHE.Panel> space, XMLSettings settings)
         {
             BHX.Surface surface = element.ToGBXML();
 
@@ -76,7 +77,7 @@ namespace BH.Engine.XML
             surface.ExposedToSun = Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
 
             BHG.Polyline pLine = element.Polyline();
-            if (!pLine.NormalAwayFromSpace(space))
+            if (!pLine.NormalAwayFromSpace(space, settings.PlanarTolerance))
             {
                 pLine = pLine.Flip();
                 surface.PlanarGeometry.PolyLoop = pLine.ToGBXML();

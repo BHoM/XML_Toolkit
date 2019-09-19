@@ -89,7 +89,7 @@ namespace BH.Adapter.XML
 
                     List<List<Panel>> adjacentSpaces = BH.Engine.Environment.Query.AdjacentSpaces(space[x], elementsAsSpaces);
 
-                    Surface srf = space[x].ToGBXML(adjacentSpaces, space);
+                    Surface srf = space[x].ToGBXML(adjacentSpaces, space, settings);
                     srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
                     srf.Name = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
 
