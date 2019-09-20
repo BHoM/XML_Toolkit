@@ -42,8 +42,9 @@ namespace BH.Engine.XML
 
         [Description("BH.Engine.XML.Query.ClosedShellGeometry => Gets the XML Polyloop closed shell geometry for a collection of panels representing a space")]
         [Input("panelsAsSpace", "A collection of Environment Panels representing a single space")]
+        [Input("planarTolerance", "")]
         [Output("A collection of XML Geometry Polyloops which represent the shell of the space")]
-        public static List<Polyloop> ClosedShellGeometry(this List<BHE.Panel> panelsAsSpace)
+        public static List<Polyloop> ClosedShellGeometry(this List<BHE.Panel> panelsAsSpace, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             List<Polyloop> shell = new List<Polyloop>();
 
@@ -52,7 +53,7 @@ namespace BH.Engine.XML
             //Ensure that all of the surface coordinates are listed in a clockwise order
             foreach(BHG.Polyline pLine in polylines)
             {
-                if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, panelsAsSpace))
+                if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, panelsAsSpace, planarTolerance))
                     shell.Add(BH.Engine.XML.Convert.ToGBXML(pLine));
                 else
                     shell.Add(BH.Engine.XML.Convert.ToGBXML(pLine.Flip()));
