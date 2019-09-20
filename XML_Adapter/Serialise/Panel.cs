@@ -216,7 +216,7 @@ namespace BH.Adapter.XML
                 xmlSpace.Name = space.ConnectedSpaceName();
                 xmlSpace.ID = "Space" + xmlSpace.Name.Replace(" ", "").Replace("-", "");
                 xmlSpace.CADObjectID = BH.Engine.XML.Query.CADObjectID(space);
-                xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space).ToArray();
+                xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(space, settings.PlanarTolerance).ToArray();
                 xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
                 xmlSpace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(space, uniqueBuildingElements);
                 xmlSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
