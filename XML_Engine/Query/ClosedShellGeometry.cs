@@ -42,7 +42,7 @@ namespace BH.Engine.XML
 
         [Description("BH.Engine.XML.Query.ClosedShellGeometry => Gets the XML Polyloop closed shell geometry for a collection of panels representing a space")]
         [Input("panelsAsSpace", "A collection of Environment Panels representing a single space")]
-        [Input("planarTolerance", "")]
+        [Input("planarTolerance", "Set tolerance for planar surfaces")]
         [Output("A collection of XML Geometry Polyloops which represent the shell of the space")]
         public static List<Polyloop> ClosedShellGeometry(this List<BHE.Panel> panelsAsSpace, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
