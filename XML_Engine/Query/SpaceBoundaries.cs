@@ -76,14 +76,14 @@ namespace BH.Engine.XML
             /***************************************************/
         }
 
-        public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, List<BHE.Panel> uniqueBEs)
+        public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, List<BHE.Panel> uniqueBEs, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             List<Polyloop> pLoops = new List<Polyloop>();
             List<BHG.Polyline> panels = spaceBoundaries.Select(x => x.Polyline()).ToList();
 
             foreach(BHG.Polyline pLine in panels)
             {
-                if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, spaceBoundaries))
+                if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, spaceBoundaries, planarTolerance))
                     pLoops.Add(BH.Engine.XML.Convert.ToGBXML(pLine));
                 else
                     pLoops.Add(BH.Engine.XML.Convert.ToGBXML(pLine.Flip()));
