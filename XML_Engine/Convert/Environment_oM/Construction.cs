@@ -44,21 +44,25 @@ namespace BH.Engine.XML
     {
         public static BHX.Construction ToGBXMLConstruction(this BHE.Panel element)
         {
+            if (element.Construction == null) return null;
             return element.Construction.ToGBXML(element);
         }
 
         public static BHX.Construction ToGBXML(this BHC.IConstruction construction, BHE.Panel panel = null)
         {
+            if (construction == null) return null;
             return ToGBXML(construction as dynamic, panel);
         }
 
         public static BHX.WindowType ToGBXMLWindow(this BHC.IConstruction construction, BHE.Opening opening = null)
         {
+            if (construction == null) return null;
             return ToGBXMLWindow(construction as dynamic, opening);
         }
 
         public static BHX.Construction ToGBXML(this BHC.Construction construction, BHE.Panel element = null)
         {
+            if (construction == null) return null;
             BHX.Construction gbConstruction = new BHX.Construction();
 
             BHP.OriginContextFragment contextProperties = null;
