@@ -58,7 +58,7 @@ namespace BH.Adapter.XML
                     SerializeSpaces(bhomObjects, fileName, settings);
                     break;
                 default:
-                    throw new NotImplementedException("That option has not been implemented");
+                    throw new NotImplementedException("The ExportDetail has not been set. Please set the ExportDetail to continue");
             }
 
             // Document History                          
