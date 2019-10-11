@@ -133,7 +133,7 @@ namespace BH.Engine.XML
                 envContext.ElementID = cadSplit[1].Split(']')[0].Trim();
                 envContext.TypeName = panel.Name;
 
-                if (panel.Fragments == null) panel.Fragments = new List<IBHoMFragment>();
+                if (panel.Fragments == null) panel.Fragments = new FragmentSet();
                 panel.Fragments.Add(envContext);
 
             }
