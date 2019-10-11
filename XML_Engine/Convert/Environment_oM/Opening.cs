@@ -107,7 +107,7 @@ namespace BH.Engine.XML
                 envContext.ElementID = cadSplit[1].Split(']')[0].Trim();
                 envContext.TypeName = opening.Name;
 
-                if (opening.Fragments == null) opening.Fragments = new List<IBHoMFragment>();
+                if (opening.Fragments == null) opening.Fragments = new FragmentSet();
                 opening.Fragments.Add(envContext);
             }
 

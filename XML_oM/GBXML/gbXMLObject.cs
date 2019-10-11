@@ -37,7 +37,7 @@ namespace BH.oM.XML
         [XmlIgnore]
         public string Name { get; set; }
         [XmlIgnore]
-        public List<IBHoMFragment> Fragments { get; set; }
+        public FragmentSet Fragments { get; set; }
         [XmlIgnore]
         public HashSet<string> Tags { get; set; }
 
