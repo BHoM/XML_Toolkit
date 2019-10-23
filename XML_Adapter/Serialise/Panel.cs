@@ -277,7 +277,7 @@ namespace BH.Adapter.XML
             foreach (Panel be in buildingElements)
             {
                 Surface gbSrf = be.ToGBXML();
-                gbSrf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
+                gbSrf.ID = "Panel_" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
                 gbSrf.Name = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
                 gbSrf.SurfaceType = "Shade";
                 gbSrf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(gbSrf.SurfaceType).ToString().ToLower();
