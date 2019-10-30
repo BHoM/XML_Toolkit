@@ -77,7 +77,10 @@ namespace BH.Engine.XML
             gbConstruction.Absorptance.Value = construction.Absorptance().ToString();
             gbConstruction.Name = (contextProperties == null ? construction.Name : contextProperties.TypeName);
             gbConstruction.Roughness = construction.Roughness().ToGBXML();
-            gbConstruction.UValue.Value = (analysisProperties == null || analysisProperties.UValue == 0 ? construction.UValue() : analysisProperties.UValue).ToString();
+            gbConstruction.UValue.Value = (analysisProperties == null || analysisProperties.UValue == 0 ? (construction.UValue() == double.NaN || double.IsInfinity(construction.UValue()) ? 10 : construction.UValue()) : analysisProperties.UValue).ToString();
+
+            if (gbConstruction.UValue.Value == "10")
+            BH.Engine.Reflection.Compute.RecordWarning(string.Format("U-Value has been recorded as Infinity or NaN, has been set to default 10"));
 
             return gbConstruction;
         }
