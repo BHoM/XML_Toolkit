@@ -57,7 +57,6 @@ namespace BH.Adapter.XML
             _xmlSettings = xmlSettings;
 
             AdapterId = "XML_Adapter";
-            Config.ProcessInMemory = false;
             Config.UseAdapterId = false;        //Set to true when NextId method and id tagging has been implemented
         }
 
