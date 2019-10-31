@@ -57,9 +57,7 @@ namespace BH.Adapter.XML
             _xmlSettings = xmlSettings;
 
             AdapterId = "XML_Adapter";
-            Config.MergeWithComparer = false;   //Set to true after comparers have been implemented
             Config.ProcessInMemory = false;
-            Config.SeparateProperties = false;  //Set to true after Dependency types have been implemented
             Config.UseAdapterId = false;        //Set to true when NextId method and id tagging has been implemented
         }
 
@@ -78,7 +76,7 @@ namespace BH.Adapter.XML
             {
                 MethodInfo mInfo = methodInfos.MakeGenericMethod(new[] { typeGroup.Key });
                 var list = mInfo.Invoke(typeGroup, new object[] { typeGroup });
-                success &= Create(list as dynamic, false);
+                success &= Create(list as dynamic);
             }
 
             return success ? objects.ToList() : new List<IObject>();
