@@ -80,7 +80,7 @@ namespace BH.Engine.XML
             gbConstruction.UValue.Value = (analysisProperties == null || analysisProperties.UValue == 0 ? (construction.UValue() == double.NaN || double.IsInfinity(construction.UValue()) ? 10 : construction.UValue()) : analysisProperties.UValue).ToString();
 
             if (gbConstruction.UValue.Value == "10")
-            BH.Engine.Reflection.Compute.RecordWarning(string.Format("U-Value has been calculated to Infinity or NaN. Has been set to default 10"));
+                BH.Engine.Reflection.Compute.RecordWarning(string.Format("U-Value has been calculated to Infinity or NaN. Has been set to default 10"));
 
             return gbConstruction;
         }
