@@ -111,7 +111,7 @@ namespace BH.Engine.XML
             if (geom.Width == 0)
                 geom.Width = Math.Round(element.Area() / geom.Height, 3);
             if (geom.Tilt == -1)
-                BH.Engine.Reflection.Compute.RecordWarning("Hej");
+                BH.Engine.Reflection.Compute.RecordWarning("Warning, Tilt has been calculated to -1 for one or more panels.");
 
             return geom;
         }
