@@ -110,6 +110,8 @@ namespace BH.Engine.XML
                 geom.Height = Math.Round(element.Area() / geom.Width, 3);
             if (geom.Width == 0)
                 geom.Width = Math.Round(element.Area() / geom.Height, 3);
+            if (geom.Tilt == -1)
+                BH.Engine.Reflection.Compute.RecordWarning("Hej");
 
             return geom;
         }
