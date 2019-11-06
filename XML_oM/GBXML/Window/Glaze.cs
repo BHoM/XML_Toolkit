@@ -37,7 +37,7 @@ namespace BH.oM.XML
         public string ID { get; set; } = "GlazingIdentification" + Guid.NewGuid().ToString().Substring(0, 5);
 
         [XmlElement("Name", Order = 1)]
-        public string Name { get; set; } = null;
+        public new string Name { get; set; } = null;
 
         [XmlElement("Description", Order = 2)]
         public string Description { get; set; } = null;

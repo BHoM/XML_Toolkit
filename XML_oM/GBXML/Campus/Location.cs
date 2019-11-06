@@ -45,6 +45,6 @@ namespace BH.oM.XML
         [XmlElement("CADModelAzimuth")]
         public double CADModelAzimuth { get; set; } = 0;
         [XmlElement("Name")]
-        public string Name { get; set; } = "Location";
+        public new string Name { get; set; } = "Location";
     }
 }

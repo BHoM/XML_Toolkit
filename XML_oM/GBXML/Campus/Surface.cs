@@ -49,6 +49,6 @@ namespace BH.oM.XML
         [XmlElement("CADObjectId")]
         public string CADObjectID { get; set; } = "";
         [XmlElement("Name")]
-        public string Name { get; set; } = "Surface";
+        public new string Name { get; set; } = "Surface";
     }
 }

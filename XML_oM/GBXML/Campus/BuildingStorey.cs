@@ -39,6 +39,6 @@ namespace BH.oM.XML
         [XmlElement("PlanarGeometry")]
         public PlanarGeometry PlanarGeometry { get; set; } = new PlanarGeometry();
         [XmlElement("Name")]
-        public string Name { get; set; } = "Storey";
+        public new string Name { get; set; } = "Storey";
     }
 }

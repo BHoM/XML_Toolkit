@@ -47,7 +47,7 @@ namespace BH.oM.XML
         [XmlElement("TypeCode")]
         public double TypeCode { get; set; } = 0;
         [XmlElement("Name")]
-        public string Name { get; set; } = "Zone";
+        public new string Name { get; set; } = "Zone";
         [XmlElement("CADObjectId")]
         public string CADObjectID { get; set; } = "Unknown";
     }
