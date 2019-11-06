@@ -45,7 +45,7 @@ namespace BH.oM.XML
         [XmlElement("BuildingStorey")]
         public BuildingStorey[] BuildingStorey { get; set; } = new List<BuildingStorey> { new BuildingStorey() }.ToArray();
         [XmlElement("Name")]
-        public string Name { get; set; } = "Building";
+        public new string Name { get; set; } = "Building";
         [XmlElement("Description")]
         public string Description { get; set; } = "None";
     }

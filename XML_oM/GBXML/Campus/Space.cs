@@ -51,7 +51,7 @@ namespace BH.oM.XML
         [XmlElement("SpaceBoundary")]
         public SpaceBoundary[] SpaceBoundary { get; set; } = new List<SpaceBoundary> { new SpaceBoundary() }.ToArray();
         [XmlElement("Name")]
-        public string Name { get; set; } = "Space";
+        public new string Name { get; set; } = "Space";
         [XmlElement("Description")]
         public string Description { get; set; } = "None";
         [XmlElement("CADObjectId")]

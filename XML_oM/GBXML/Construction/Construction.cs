@@ -43,6 +43,6 @@ namespace BH.oM.XML
         [XmlElement("LayerId")]
         public LayerId LayerID { get; set; } = new LayerId();
         [XmlElement("Name")]
-        public string Name { get; set; } = "Construction";
+        public new string Name { get; set; } = "Construction";
     }
 }
