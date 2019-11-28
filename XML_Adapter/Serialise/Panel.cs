@@ -161,7 +161,7 @@ namespace BH.Adapter.XML
                     //Openings
                     if (space[x].Openings.Count > 0)
                     {
-                        srf.Opening = SerializeOpenings(space[x].Openings, space, allElements, elementsAsSpaces, gbx, settings).ToArray();
+                        srf.Opening = SerializeOpenings(space[x].Openings, space, allElements, elementsAsSpaces, gbx, settings, space[x]).ToArray();
                         foreach(BH.oM.Environment.Elements.Opening o in space[x].Openings)
                         {
                             string nameCheck = "";
