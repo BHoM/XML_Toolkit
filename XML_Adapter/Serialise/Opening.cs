@@ -47,7 +47,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BH.oM.XML.Opening> SerializeOpenings(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<Panel> space, List<Panel> allElements, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, XMLSettings settings)
+        public static List<BH.oM.XML.Opening> SerializeOpenings(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<Panel> space, List<Panel> allElements, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, XMLSettings settings, Panel hostPanel)
         {
             List<BH.oM.XML.Opening> gbOpenings = new List<oM.XML.Opening>();
 
@@ -58,6 +58,19 @@ namespace BH.Adapter.XML
                 if (openingPoly == null || openingPoly.CleanPolyline(minimumSegmentLength: settings.DistanceTolerance) == null) continue;
 
                 openingPoly = openingPoly.CleanPolyline(minimumSegmentLength: settings.DistanceTolerance);
+                double openingArea = openingPoly.Area();
+                double panelArea = hostPanel.Area();
+
+                if (openingArea != panelArea)
+                {
+                    return openingPoly;
+                }
+                else
+                {
+                    BH.Engine.Geometry.Modify.Offset(openingPoly, 0.001);
+                }
+                //check if area off poly > area hostpanel
+                // offset here if yes
 
                 BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
 
