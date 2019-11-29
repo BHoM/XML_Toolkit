@@ -42,6 +42,7 @@ namespace BH.oM.XML.Settings
         public ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
         public double DistanceTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
         public double PlanarTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
+        public double OffsetDistance { get; set; } = -0.001;
 
         /***************************************************/
     }
