@@ -31,6 +31,7 @@ using BH.oM.XML.Enums;
 
 using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace BH.Engine.XML
 {
@@ -46,6 +47,12 @@ namespace BH.Engine.XML
             return XMLSettings(replaceCurtainWalls, replaceSolidOpeningsIntoDoors, includeConstructions, fixIncorrectAirTypes, newFile, unitType, exportDetail, distanceTolerance, BH.oM.Geometry.Tolerance.Distance);
         }
 
+        [Deprecated("3.0", "Deprecated to expose Offset Distance setting", null, "XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance, double offsetDistance = -0.001)")]
+        public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
+        {
+            return XMLSettings(replaceCurtainWalls, replaceSolidOpeningsIntoDoors, includeConstructions, fixIncorrectAirTypes, newFile, unitType, exportDetail, distanceTolerance, planarTolerance, -0.001);
+        }
+
         [Description("Create a XMLSettings object for use with the XML Adapter")]
         [Input("replaceCurtainWalls", "Set to true if you want to replace curtain walls to have openings the same size as the wall. This is useful for IES exports. Default false")]
         [Input("replaceSolidOpeningsIntoDoors", "Set to true if you want to replace an opening which is marked as solid into a door. Useful for IES exports. Default false")]
@@ -56,9 +63,14 @@ namespace BH.Engine.XML
         [Input("exportDetail", "Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
         [Input("distanceTolerance", "distanceTolerance is used as input for CleanPolyline method used for opening, default is set to BH.oM.Geometry.Tolerance.Distance")]
         [Input("planarTolerance", "Set tolerance for planar surfaces, default is set to ")]
+        [Input("offsetDistance", "Set a distance to offset openings that have a area >= the area of the host panel. Value should be negative. Defaults to -0.001")]
         [Output("xmlSettings", "The XML settings to use with the XML adapter push")]
-        public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
+        public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance, double offsetDistance = -0.001)
         {
+            if (offsetDistance >= 0)
+            {
+                BH.Engine.Reflection.Compute.RecordWarning("Offset distance should be a negative number");
+            }
             return new XMLSettings
             {
                 ReplaceCurtainWalls = replaceCurtainWalls,
@@ -70,6 +82,7 @@ namespace BH.Engine.XML
                 ExportDetail = exportDetail,
                 DistanceTolerance = distanceTolerance,
                 PlanarTolerance = planarTolerance,
+                OffsetDistance = offsetDistance,
             };
         }
     }
