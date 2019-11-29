@@ -63,11 +63,11 @@ namespace BH.Adapter.XML
 
                 if (openingArea != panelArea)
                 {
-                    return openingPoly;
+                    return gbOpenings;
                 }
                 else
                 {
-                    BH.Engine.Geometry.Modify.Offset(openingPoly, 0.001);
+                    BH.Engine.Geometry.Modify.Offset(openingPoly, -0.001);
                 }
                 //check if area off poly > area hostpanel
                 // offset here if yes
