@@ -61,16 +61,10 @@ namespace BH.Adapter.XML
                 double openingArea = openingPoly.Area();
                 double panelArea = hostPanel.Area();
 
-                if (openingArea != panelArea)
+                if (openingArea >= panelArea)
                 {
-                    return gbOpenings;
+                    openingPoly = BH.Engine.Geometry.Modify.Offset(openingPoly, -0.001);
                 }
-                else
-                {
-                    BH.Engine.Geometry.Modify.Offset(openingPoly, -0.001);
-                }
-                //check if area off poly > area hostpanel
-                // offset here if yes
 
                 BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
 
