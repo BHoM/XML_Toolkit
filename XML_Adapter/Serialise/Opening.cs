@@ -61,12 +61,13 @@ namespace BH.Adapter.XML
                 double openingArea = openingPoly.Area();
                 double panelArea = hostPanel.Area();
 
+                BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
+
                 if (openingArea >= panelArea)
                 {
                     openingPoly = BH.Engine.Geometry.Modify.Offset(openingPoly, settings.OffsetDistance);
+                    gbOpening.PlanarGeometry.PolyLoop = openingPoly.ToGBXML();
                 }
-
-                BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
 
                 //Normals away from space
                 if (!BH.Engine.Environment.Query.NormalAwayFromSpace(openingPoly, space, settings.PlanarTolerance))
