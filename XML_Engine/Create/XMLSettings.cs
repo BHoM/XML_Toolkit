@@ -62,14 +62,14 @@ namespace BH.Engine.XML
         [Input("unitType", "Set the unit type for the export to be either SI or Imperial. Default SI")]
         [Input("exportDetail", "Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
         [Input("distanceTolerance", "distanceTolerance is used as input for CleanPolyline method used for opening, default is set to BH.oM.Geometry.Tolerance.Distance")]
-        [Input("planarTolerance", "Set tolerance for planar surfaces, default is set to ")]
+        [Input("planarTolerance", "Set tolerance for planar surfaces, default is set to BH.oM.Geometry.Tolerance.Distance")]
         [Input("offsetDistance", "Set a distance to offset openings that have a area >= the area of the host panel. Value should be negative. Defaults to -0.001")]
         [Output("xmlSettings", "The XML settings to use with the XML adapter push")]
         public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance, double offsetDistance = -0.001)
         {
             if (offsetDistance >= 0)
             {
-                BH.Engine.Reflection.Compute.RecordWarning("Offset distance should be a negative number");
+                BH.Engine.Reflection.Compute.RecordWarning("Please set offset distance to be a negative number");
             }
             return new XMLSettings
             {
