@@ -69,7 +69,7 @@ namespace BH.Engine.XML
         {
             if (offsetDistance >= 0)
             {
-                BH.Engine.Reflection.Compute.RecordWarning("Please set offset distance to be a negative number");
+                BH.Engine.Reflection.Compute.RecordWarning("Offset distance should be negative to offset the openings inwards, away from the edges of the host panel and ensuring opening area is less than the host panel area. A positive offset will result in openings being larger than the host panel");
             }
             return new XMLSettings
             {
