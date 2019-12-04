@@ -20,6 +20,8 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+extern alias Triangle;
+
 using BH.oM.Environment.Elements;
 using System;
 using System.Collections.Generic;
@@ -111,27 +113,29 @@ namespace BH.Adapter.XML
                             {
                                 //This surface already has openings - cut them out of the new opening
                                 List<BHG.Polyline> refRegion = space[x].Openings.Where(y => y.Polyline() != null).ToList().Select(z => z.Polyline()).ToList();
-                                newOpeningBounds.AddRange((new List<BHG.Polyline> { space[x].Polyline() }).BooleanDifference(refRegion, 0.01));
+                                newOpeningBounds.AddRange(Triangle::BH.Engine.Geometry.Compute.DelaunayTriangulation(space[x].Polyline(), refRegion));
                             }
                             else
                                 newOpeningBounds.Add(space[x].Polyline());
 
-                            BH.oM.Environment.Elements.Opening curtainWallOpening = BH.Engine.Environment.Create.Opening(externalEdges: newOpeningBounds.ToEdges());
-                            curtainWallOpening.Name = space[x].Name;
-                            BHP.OriginContextFragment curtainWallProperties = new BHP.OriginContextFragment();
-                            if (envContextProperties != null)
+                            foreach (BHG.Polyline b in newOpeningBounds)
                             {
-                                curtainWallProperties.ElementID = envContextProperties.ElementID;
-                                curtainWallProperties.TypeName = envContextProperties.TypeName;
+                                BH.oM.Environment.Elements.Opening curtainWallOpening = BH.Engine.Environment.Create.Opening(externalEdges: b.ToEdges());
+                                curtainWallOpening.Name = space[x].Name;
+                                BHP.OriginContextFragment curtainWallProperties = new BHP.OriginContextFragment();
+                                if (envContextProperties != null)
+                                {
+                                    curtainWallProperties.ElementID = envContextProperties.ElementID;
+                                    curtainWallProperties.TypeName = envContextProperties.TypeName;
+                                }
+
+                                curtainWallOpening.Type = OpeningType.CurtainWall;
+                                curtainWallOpening.OpeningConstruction = space[x].Construction;
+
+                                curtainWallOpening.Fragments.Add(curtainWallProperties);
+
+                                space[x].Openings.Add(curtainWallOpening);
                             }
-
-                            curtainWallOpening.Type = OpeningType.CurtainWall;
-                            curtainWallOpening.OpeningConstruction = space[x].Construction;
-
-                            curtainWallOpening.Fragments.Add(curtainWallProperties);
-
-                            space[x].Openings.Add(curtainWallOpening);
-
                             //Update the host elements element type
                             srf.SurfaceType = (adjacentSpaces.Count == 1 ? PanelType.WallExternal : PanelType.WallInternal).ToGBXML();
                             srf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
