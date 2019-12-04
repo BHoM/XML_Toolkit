@@ -104,6 +104,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="TriangleNet_Engine">
+      <HintPath>..\..\TriangleNet_Toolkit\Build\TriangleNet_Engine.dll</HintPath>
+      <Private>False</Private>
+      <Aliases>Triangle</Aliases>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CRUD\Create.cs" />
