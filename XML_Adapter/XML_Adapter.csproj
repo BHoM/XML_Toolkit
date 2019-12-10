@@ -107,7 +107,7 @@
     <Reference Include="TriangleNet_Engine">
       <HintPath>..\..\TriangleNet_Toolkit\Build\TriangleNet_Engine.dll</HintPath>
       <Private>False</Private>
-      <Aliases>Triangle</Aliases>
+      <Aliases>global</Aliases>
     </Reference>
   </ItemGroup>
   <ItemGroup>
