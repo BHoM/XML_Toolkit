@@ -20,8 +20,6 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-extern alias Triangle;
-
 using BH.oM.Environment.Elements;
 using System;
 using System.Collections.Generic;
@@ -113,7 +111,16 @@ namespace BH.Adapter.XML
                             {
                                 //This surface already has openings - cut them out of the new opening
                                 List<BHG.Polyline> refRegion = space[x].Openings.Where(y => y.Polyline() != null).ToList().Select(z => z.Polyline()).ToList();
-                                newOpeningBounds.AddRange(Triangle::BH.Engine.Geometry.Compute.DelaunayTriangulation(space[x].Polyline(), refRegion));
+
+                                newOpeningBounds.AddRange(BH.Engine.Geometry.Triangulation.Compute.DelaunayTriangulation(space[x].Polyline(), refRegion, conformingDelaunay: false));
+                                List<BHG.Polyline> outer = new List<BHG.Polyline> { space[x].Polyline()};
+                                double outerArea = space[x].Area();
+                                for (int z = 0; z > space[x].Openings.Count; z++)
+                                {
+                                    BHG.Polyline pLine = outer.BooleanDifference(new List<BHG.Polyline> { space[x].Openings[z].Polyline() })[0];
+                                    if (pLine.Area() != outerArea)
+                                        space[x].Openings[z].Edges = space[x].Openings[z].Polyline().Offset(settings.OffsetDistance).ToEdges();   
+                                }
                             }
                             else
                                 newOpeningBounds.Add(space[x].Polyline());

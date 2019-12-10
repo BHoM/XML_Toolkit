@@ -59,7 +59,7 @@ namespace BH.Adapter.XML
 
                 openingPoly = openingPoly.CleanPolyline(minimumSegmentLength: settings.DistanceTolerance);
                 double openingArea = openingPoly.Area();
-                double panelArea = hostPanel.Area();
+                double panelArea = hostPanel.Polyline().Area();
 
                 BH.oM.XML.Opening gbOpening = BH.Engine.XML.Convert.ToGBXML(opening);
 
