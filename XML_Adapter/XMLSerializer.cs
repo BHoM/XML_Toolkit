@@ -112,7 +112,7 @@ namespace BH.Adapter.XML
                         if (spaceData.ContainsKey("SAM_SpaceName") && spaceData["SAM_SpaceName"] != null)
                             spaceName = spaceData["SAM_SpaceName"].ToString();
                         else
-                            spaceName = "Space-" + Guid.NewGuid().ToString().Replace("-", "");
+                            spaceName = "Space-" + space.ConnectedSpaceName();
 
                         GBXML gbx = new GBXML();
                         SerializeCollection(space, db.Levels, db.UnassignedPanels, gbx, settings);
