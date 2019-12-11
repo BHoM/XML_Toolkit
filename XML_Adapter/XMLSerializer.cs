@@ -20,21 +20,17 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.Engine.Environment;
+using BH.Engine.XML;
+using BH.oM.Base;
+using BH.oM.Environment.Elements;
+using BH.oM.XML;
+using BH.oM.XML.Enums;
+using BH.oM.XML.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.XML;
-using BH.oM.Base;
-using BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Fragments;
-using BHG = BH.oM.Geometry;
-using BH.Engine.Geometry;
-using BH.Engine.Environment;
-
-using BH.Engine.XML;
-using BH.oM.XML.Enums;
-
-using BH.oM.XML.Settings;
+using BH.oM.Geometry.SettingOut;
 
 namespace BH.Adapter.XML
 {
@@ -103,7 +99,7 @@ namespace BH.Adapter.XML
 
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
-                foreach(List<Panel> space in db.ElementsAsSpaces)
+                foreach (List<Panel> space in db.ElementsAsSpaces)
                 {
                     if (space.IsExternal(db.ElementsAsSpaces))
                     {
@@ -116,6 +112,9 @@ namespace BH.Adapter.XML
 
                         GBXML gbx = new GBXML();
                         SerializeCollection(space, db.Levels, db.UnassignedPanels, gbx, settings);
+                        Level level = space.Level(db.Levels);
+                        if (level != null)
+                            SerializeLevels(new List<Level> { level }, new List<List<Panel>>{ space }, gbx, settings);
 
                         //Document History
                         DocumentHistory DocumentHistory = new DocumentHistory();
