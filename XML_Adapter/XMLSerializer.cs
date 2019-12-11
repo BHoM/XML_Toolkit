@@ -117,9 +117,9 @@ namespace BH.Adapter.XML
                             SerializeLevels(new List<Level> { level }, new List<List<Panel>>{ space }, gbx, settings);
 
                         //Document History
-                        DocumentHistory DocumentHistory = new DocumentHistory();
-                        DocumentHistory.CreatedBy.Date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                        gbx.DocumentHistory = DocumentHistory;
+                        DocumentHistory documentHistory = new DocumentHistory();
+                        documentHistory.CreatedBy.Date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+                        gbx.DocumentHistory = documentHistory;
 
                         XMLWriter.Save(fileName + spaceName + ".xml", gbx);
                     }
