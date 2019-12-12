@@ -103,12 +103,7 @@ namespace BH.Adapter.XML
                 {
                     if (space.IsExternal(db.ElementsAsSpaces))
                     {
-                        Dictionary<String, object> spaceData = (space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault() != null ? space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault().CustomData["Space_Custom_Data"] as Dictionary<String, object> : new Dictionary<string, object>());
-                        string spaceName = "";
-                        if (spaceData.ContainsKey("SAM_SpaceName") && spaceData["SAM_SpaceName"] != null)
-                            spaceName = spaceData["SAM_SpaceName"].ToString();
-                        else
-                            spaceName = "Space-" + space.ConnectedSpaceName();
+                        string spaceName = "Space-" + space.ConnectedSpaceName();
 
                         GBXML gbx = new GBXML();
                         SerializeCollection(space, db.Levels, db.UnassignedPanels, gbx, settings);

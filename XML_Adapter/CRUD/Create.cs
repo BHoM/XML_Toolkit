@@ -58,7 +58,8 @@ namespace BH.Adapter.XML
             if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
             {
                 XML.GBXMLSerializer.Serialize(objects, gbx, _fileSettings, _xmlSettings);
-                XMLWriter.Save(fileName, gbx);
+                if(_xmlSettings.ExportDetail != ExportDetail.IndividualSpaces)
+                    XMLWriter.Save(fileName, gbx);
             }
 
             return true;
