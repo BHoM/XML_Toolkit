@@ -341,6 +341,7 @@ namespace BH.Adapter.XML
             elementsAsSpaces.Add(inputElements.ToList());
 
             SerializeCollection(elementsAsSpaces, levels, openings, gbx, settings);
+            gbx.Campus.Building[0].Space[0].Name = "00_000 BuildingShell";
         }
     }
 }
