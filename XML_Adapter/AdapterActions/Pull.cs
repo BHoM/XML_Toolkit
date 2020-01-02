@@ -1,6 +1,6 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -20,18 +20,36 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.Adapter;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using BH.oM.Data.Requests;
+using BH.oM.Adapter;
+using BH.oM.Base;
 
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
-        /***************************************************/
-        /**** Public Methods                            ****/
-        /***************************************************/
+        public override IEnumerable<object> Pull(IRequest request, PullType pullType = PullType.AdapterDefault, ActionConfig actionConfig = null)
+        {
+            if (!System.IO.File.Exists(System.IO.Path.Combine(_fileSettings.Directory, _fileSettings.FileName + ".xml")))
+            {
+                BH.Engine.Reflection.Compute.RecordError("File does not exist to pull from");
+                return new List<IBHoMObject>();
+            }
 
+            if (request != null)
+            {
+                FilterRequest filterRequest = request as FilterRequest;
 
-
-        /***************************************************/
+                return Read(filterRequest.Type);
+            }
+            else
+                return Read(null);
+        }
     }
 }
