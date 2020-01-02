@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -26,40 +26,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BH.Engine;
+using BH.oM.Data.Requests;
+using BH.oM.Adapter;
 using BH.oM.Base;
 using System.Reflection;
-
-using BH.oM.XML.Enums;
-using BH.oM.Reflection.Attributes;
-using System.ComponentModel;
-using BH.oM.Data.Requests;
-
-using BH.oM.XML.Settings;
 
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
-        [Description("Specify XML file and properties for data transfer")]
-        [Input("xmlFileSettings", "Input the file settings the XML Adapter should use, default null")]
-        [Input("xmlSettings", "Input the additional XML Settings the adapter should use. Only used when pushing to an XML file. Default null")]
-        [Output("adapter", "Adapter to XML")]
-        public XMLAdapter(XMLFileSettings xmlFileSettings = null, XMLSettings xmlSettings = null)
+        public override List<object> Push(IEnumerable<object> objects, String tag = "", PushType pushType = PushType.AdapterDefault, ActionConfig actionConfig = null)
         {
-            if(xmlFileSettings == null)
+            // If unset, set the pushType to AdapterSettings' value (base AdapterSettings default is FullCRUD).
+            if (pushType == PushType.AdapterDefault)
+                pushType = m_AdapterSettings.DefaultPushType;
+
+            if (_xmlSettings == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Please set the File Settings correctly to enable the XML Adapter to work correctly");
-                return;
+                BH.Engine.Reflection.Compute.RecordError("Please set some XML Settings on the XML Adapter before pushing to an XML File");
+                return new List<object>();
             }
 
-            _fileSettings = xmlFileSettings;
-            _xmlSettings = xmlSettings;
+            IEnumerable<IBHoMObject> objectsToPush = ProcessObjectsForPush(objects, actionConfig); // Note: default Push only supports IBHoMObjects.
 
-            AdapterIdName = "XML_Adapter";
+            bool success = true;
+
+            MethodInfo methodInfos = typeof(Enumerable).GetMethod("Cast");
+            foreach (var typeGroup in objectsToPush.GroupBy(x => x.GetType()))
+            {
+                MethodInfo mInfo = methodInfos.MakeGenericMethod(new[] { typeGroup.Key });
+                var list = mInfo.Invoke(typeGroup, new object[] { typeGroup });
+                success &= ICreate(list as dynamic);
+            }
+
+            return success ? objects.ToList() : new List<object>();
         }
-
-        private XMLFileSettings _fileSettings { get; set; } = null;
-        private XMLSettings _xmlSettings { get; set; } = null;
     }
 }

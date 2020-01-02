@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2018, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -36,12 +36,14 @@ using BHA = BH.oM.Architecture.Elements;
 using BHC = BH.oM.Physical.Constructions;
 using BHM = BH.oM.Physical.Materials;
 
+using BH.oM.Adapter;
+
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
         
-        protected override IEnumerable<IBHoMObject> Read(Type type, IList indices = null)
+        protected override IEnumerable<IBHoMObject> IRead(Type type, IList indices = null, ActionConfig actionConfig = null)
         {
             return Read(type);
         }
