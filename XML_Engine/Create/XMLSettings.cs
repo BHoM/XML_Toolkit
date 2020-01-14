@@ -42,18 +42,35 @@ namespace BH.Engine.XML
         /***************************************************/
 
         [Deprecated("2.4", "Deprecated to expose Planar Tolerance setting", null, "XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)")]
+        [Input("replaceCurtainWalls", "Set to true if you want to replace curtain walls to have openings the same size as the wall. This is useful for IES exports. Default false")]
+        [Input("replaceSolidOpeningsIntoDoors", "Set to true if you want to replace an opening which is marked as solid into a door. Useful for IES exports. Default false")]
+        [Input("includeConstructions", "Set to true if you want to include construction and material data in the export. Default false")]
+        [Input("fixIncorrectAirTypes", "Set to true if you want air types with one adjacent space (i.e. external air walls) to have their type fixed based on their tilt. Default false")]
+        [Input("newFile", "Set to false if you want to append to a file when pushing XML. If set to true then a file will be created. If a file exists, it will be overwritten. Default true")]
+        [Input("unitType", "Set the unit type for the export to be either SI or Imperial. Default SI")]
+        [Input("exportDetail", "Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
+        [Input("distanceTolerance", "distanceTolerance is used as input for CleanPolyline method used for opening, default is set to BH.oM.Geometry.Tolerance.Distance")]
         public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = 0.01)
         {
             return XMLSettings(replaceCurtainWalls, replaceSolidOpeningsIntoDoors, includeConstructions, fixIncorrectAirTypes, newFile, unitType, exportDetail, distanceTolerance, BH.oM.Geometry.Tolerance.Distance);
         }
 
         [Deprecated("3.0", "Deprecated to expose Offset Distance setting", null, "XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance, double offsetDistance = -0.001)")]
+        [Input("replaceCurtainWalls", "Set to true if you want to replace curtain walls to have openings the same size as the wall. This is useful for IES exports. Default false")]
+        [Input("replaceSolidOpeningsIntoDoors", "Set to true if you want to replace an opening which is marked as solid into a door. Useful for IES exports. Default false")]
+        [Input("includeConstructions", "Set to true if you want to include construction and material data in the export. Default false")]
+        [Input("fixIncorrectAirTypes", "Set to true if you want air types with one adjacent space (i.e. external air walls) to have their type fixed based on their tilt. Default false")]
+        [Input("newFile", "Set to false if you want to append to a file when pushing XML. If set to true then a file will be created. If a file exists, it will be overwritten. Default true")]
+        [Input("unitType", "Set the unit type for the export to be either SI or Imperial. Default SI")]
+        [Input("exportDetail", "Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
+        [Input("distanceTolerance", "distanceTolerance is used as input for CleanPolyline method used for opening, default is set to BH.oM.Geometry.Tolerance.Distance")]
+        [Input("planarTolerance", "Set tolerance for planar surfaces, default is set to BH.oM.Geometry.Tolerance.Distance")]
         public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             return XMLSettings(replaceCurtainWalls, replaceSolidOpeningsIntoDoors, includeConstructions, fixIncorrectAirTypes, newFile, unitType, exportDetail, distanceTolerance, planarTolerance, -0.001);
         }
 
-        [Description("Create a XMLSettings object for use with the XML Adapter")]
+        [Deprecated("3.1", "Deprecated in favour of default Create components available within the BHoM")]
         [Input("replaceCurtainWalls", "Set to true if you want to replace curtain walls to have openings the same size as the wall. This is useful for IES exports. Default false")]
         [Input("replaceSolidOpeningsIntoDoors", "Set to true if you want to replace an opening which is marked as solid into a door. Useful for IES exports. Default false")]
         [Input("includeConstructions", "Set to true if you want to include construction and material data in the export. Default false")]
