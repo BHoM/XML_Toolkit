@@ -97,7 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Convert\Architecture_oM\Level.cs" />
+    <Compile Include="Convert\Architecture\Level.cs" />
     <Compile Include="Convert\Environment_oM\Building.cs" />
     <Compile Include="Convert\Environment_oM\Panel.cs" />
     <Compile Include="Convert\Environment_oM\Construction.cs" />

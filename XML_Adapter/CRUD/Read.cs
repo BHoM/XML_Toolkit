@@ -192,7 +192,7 @@ namespace BH.Adapter.XML
         private List<BHG.SettingOut.Level> ReadLevels(BHX.GBXML gbx, List<string> ids = null)
         {
             if (gbx.Campus.Building.Length > 0)
-                return gbx.Campus.Building[0].BuildingStorey.Select(x => x.ToBHoM()).ToList();
+                return gbx.Campus.Building[0].BuildingStorey.Select(x => x.FromGBXML()).ToList();
             else
                 return new List<BHG.SettingOut.Level>();
         }
