@@ -31,10 +31,16 @@ using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
+        [Description("Get the GBXML representation of a BHoM Point")]
+        [Input("pt", "The BHoM Geometry Point to convert into a GBXML Cartesian Point")]
+        [Output("cartesianPoint", "The GBXML representation of a BHoM Point")]
         public static BHX.CartesianPoint ToGBXML(this BHG.Point pt)
         {
             BHX.CartesianPoint cartPoint = new BHX.CartesianPoint();
@@ -49,7 +55,10 @@ namespace BH.Engine.XML
             return cartPoint;
         }
 
-        public static BHG.Point ToBHoM(this BHX.CartesianPoint pt)
+        [Description("Get the BHoM representation of a GBXML Point")]
+        [Input("pt", "The GBXML Cartesian Point to convert into a BHoM Geometry Point")]
+        [Output("bhomPoint", "The BHoM representation of a GBXML Point")]
+        public static BHG.Point FromGBXML(this BHX.CartesianPoint pt)
         {
             BHG.Point bhomPt = new BHG.Point();
             try

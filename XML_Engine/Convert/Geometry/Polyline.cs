@@ -65,7 +65,7 @@ namespace BH.Engine.XML
 
             List<BHG.Point> bhomPts = new List<BHG.Point>();
             for (int x = 0; x < pts.Count; x++)
-                bhomPts.Add(pts[x].ToBHoM());
+                bhomPts.Add(pts[x].FromGBXML());
 
             if (bhomPts.First().SquareDistance(bhomPts.Last()) > (tolerance * tolerance))
                 bhomPts.Add(bhomPts.First());
