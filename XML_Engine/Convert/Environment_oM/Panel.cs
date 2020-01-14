@@ -122,7 +122,7 @@ namespace BH.Engine.XML
 
             surface.Opening = surface.Opening ?? new List<BHX.Opening>().ToArray();
 
-            panel.ExternalEdges = surface.PlanarGeometry.PolyLoop.ToBHoM().ToEdges();
+            panel.ExternalEdges = surface.PlanarGeometry.PolyLoop.FromGBXML().ToEdges();
             foreach (BHX.Opening opening in surface.Opening)
                 panel.Openings.Add(opening.ToBHoM());
 
