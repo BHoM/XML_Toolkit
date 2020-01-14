@@ -36,10 +36,16 @@ using BH.Engine.Geometry;
 using BH.Engine.Environment;
 using BH.oM.XML.Settings;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
+        [Description("Get the GBXML representation of a BHoM Environments Opening")]
+        [Input("opening", "The BHoM Environments Opening to convert into a GBXML Opening")]
+        [Output("openingGBXML", "The GBXML representation of a BHoM Environment Opening")]
         public static BHX.Opening ToGBXML(this BHE.Opening opening)
         {
             BHX.Opening gbOpening = new BHX.Opening();
@@ -63,35 +69,10 @@ namespace BH.Engine.XML
             return gbOpening;
         }
 
-        public static BHX.Opening ToGBXML(this BHE.Opening opening, List<BHE.Panel> space, XMLSettings settings)
-        {
-            BHX.Opening gbOpening = opening.ToGBXML();
-
-            BHG.Polyline pLine = opening.Polyline();
-            if (pLine.NormalAwayFromSpace(space, settings.PlanarTolerance))
-                gbOpening.PlanarGeometry.PolyLoop = pLine.Flip().ToGBXML();
-
-            BHP.OriginContextFragment contextProperties = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
-
-            if (contextProperties != null)
-            {
-                string elementID = contextProperties.ElementID;
-                string familyName = contextProperties.TypeName;
-
-                gbOpening.CADObjectID = opening.CADObjectID();
-                gbOpening.OpeningType = opening.Type.ToGBXML();
-
-                if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
-                    gbOpening.OpeningType = "FixedWindow";
-
-                if (gbOpening.OpeningType.Contains("Window") && opening.OpeningConstruction.Name.Contains("SLD")) //Change windows with SLD construction into doors
-                    gbOpening.OpeningType = "NonSlidingDoor";
-            }
-
-            return gbOpening;
-        }
-
-        public static BHE.Opening ToBHoM(this BHX.Opening gbOpening)
+        [Description("Get the BHoM Environments representation of a GBXML Opening")]
+        [Input("opening", "The GBXML Opening to convert into a BHoM Environments Opening")]
+        [Output("openingBHoM", "The BHoM representation of a GBXML Opening")]
+        public static BHE.Opening FromGBXML(this BHX.Opening gbOpening)
         {
             BHE.Opening opening = new BHE.Opening();
 

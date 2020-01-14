@@ -145,7 +145,7 @@ namespace BH.Adapter.XML
                     }
 
                     foreach (BHX.Opening gbxOpening in s.Opening)
-                        p.Openings.Add(gbxOpening.ToBHoM());
+                        p.Openings.Add(gbxOpening.FromGBXML());
                     panels.Add(p);
                 }
             }

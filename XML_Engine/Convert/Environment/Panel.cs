@@ -124,7 +124,7 @@ namespace BH.Engine.XML
 
             panel.ExternalEdges = surface.PlanarGeometry.PolyLoop.FromGBXML().ToEdges();
             foreach (BHX.Opening opening in surface.Opening)
-                panel.Openings.Add(opening.ToBHoM());
+                panel.Openings.Add(opening.FromGBXML());
 
             string[] cadSplit = surface.CADObjectID.Split('[');
             if(cadSplit.Length > 0)
