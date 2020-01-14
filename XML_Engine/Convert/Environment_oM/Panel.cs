@@ -85,7 +85,7 @@ namespace BH.Engine.XML
                 surface.RectangularGeometry.Azimuth = Math.Round(pLine.Azimuth(BHG.Vector.YAxis), 3);
             }
 
-            List<BHX.AdjacentSpaceId> adjIDs = new List<BHX.AdjacentSpaceId>();
+            List<BHX.AdjacentSpaceID> adjIDs = new List<BHX.AdjacentSpaceID>();
             foreach (List<BHE.Panel> sp in adjacentSpaces)
                 adjIDs.Add(sp.AdjacentSpaceID());
             surface.AdjacentSpaceID = adjIDs.ToArray();
@@ -144,7 +144,7 @@ namespace BH.Engine.XML
             panel.ConnectedSpaces = new List<string>();
             if (surface.AdjacentSpaceID != null)
             {
-                foreach (BHX.AdjacentSpaceId adjacent in surface.AdjacentSpaceID)
+                foreach (BHX.AdjacentSpaceID adjacent in surface.AdjacentSpaceID)
                     panel.ConnectedSpaces.Add(adjacent.SpaceIDRef);
             }
 

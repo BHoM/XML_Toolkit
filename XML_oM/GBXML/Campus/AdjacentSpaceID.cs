@@ -30,7 +30,7 @@ namespace BH.oM.XML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class AdjacentSpaceId : GBXMLObject
+    public class AdjacentSpaceID : GBXMLObject
     {
         [XmlAttribute(AttributeName = "spaceIdRef")]
         public string SpaceIDRef { get; set; } = "AdjacentSpaceID";
