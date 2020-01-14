@@ -76,7 +76,7 @@ namespace BH.Engine.XML
 
         [Description("Get the GBXML representation of a BHoM Construction")]
         [Input("construction", "The BHoM Construction to convert to a GBXML Construction")]
-        [Input("panel", "The BHoM Environment Panel which hosts the construction")]
+        [Input("element", "The BHoM Environment Panel which hosts the construction")]
         [Output("construction", "The GBXML Construction")]
         public static BHX.Construction ToGBXML(this BHC.Construction construction, BHE.Panel element = null)
         {

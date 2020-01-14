@@ -70,7 +70,7 @@ namespace BH.Engine.XML
         }
 
         [Description("Get the BHoM Environments representation of a GBXML Opening")]
-        [Input("opening", "The GBXML Opening to convert into a BHoM Environments Opening")]
+        [Input("gbOpening", "The GBXML Opening to convert into a BHoM Environments Opening")]
         [Output("openingBHoM", "The BHoM representation of a GBXML Opening")]
         public static BHE.Opening FromGBXML(this BHX.Opening gbOpening)
         {
