@@ -42,17 +42,14 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Filters a collection of Environment Panels grouped to represent closed spaces to only those which have only one adjacenet space")]
-        [Input("elementsAsSpaces", "A nested collection of Environment Panels that represent closed spaced")]
-        [Output("externalElements", "The collection of Environment Panels which are externally facing")]
-        public static List<Panel> ExternalElements(this List<List<Panel>> elementsAsSpaces)
+        [Description("Determines whether a collection of Environment Panels representing a single space contains any panels which are externally facing")]
+        [Input("elementsAsSpace", "A collection of Environment Panels that represent closed spaced")]
+        [Input("elementsAsSpaces", "A nested collection of Environment Panels which represent all spaces in the model")]
+        [Output("isExternal", "True if the space has at least one externally facing Panel")]
+        public static bool IsExternal(this List<Panel> elementsAsSpace, List<List<Panel>> elementsAsSpaces)
         {
-            List<Panel> externalElements = new List<Panel>();
-
-            foreach (List<Panel> space in elementsAsSpaces)
-                externalElements.AddRange(space.Where(x => x.AdjacentSpaces(elementsAsSpaces).Count == 1).ToList());
-
-            return externalElements;
+            //Check whether the space contains at least one external element
+            return (elementsAsSpace.Where(x => x.AdjacentSpaces(elementsAsSpaces).Count == 1).ToList().Count > 0);
         }
     }
 }
