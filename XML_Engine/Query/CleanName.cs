@@ -29,6 +29,9 @@ using BHE = BH.oM.Environment.Elements;
 
 using BH.oM.XML.Enums;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Query
@@ -37,7 +40,10 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        static public string CleanName(this string name)
+        [Description("Get a clean string name representation of a name suitable for GBXML. Removes colons (replaced with underscores _ ), removes spaces, commas, forward slashes, open and closed round brackets")]
+        [Input("name", "The string name to clean up")]
+        [Output("cleanName", "The clean name suitable for GBXML")]
+        public static string CleanName(this string name)
         {
             if (name == null)
                 return null;
