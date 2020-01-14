@@ -118,7 +118,6 @@
     <Compile Include="Query\ExposedToSun.cs" />
     <Compile Include="Query\ExternalElements.cs" />
     <Compile Include="Query\FullFileName.cs" />
-    <Compile Include="Query\PolygonCentre.cs" />
     <Compile Include="Query\SpaceBoundaries.cs" />
     <Compile Include="Query\ConstructionID.cs" />
     <Compile Include="Query\ClosedShellGeometry.cs" />
