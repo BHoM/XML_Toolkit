@@ -35,6 +35,6 @@ namespace BH.oM.XML
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "LayerID";
         [XmlElement("MaterialId")]
-        public MaterialId[] MaterialID { get; set; } = new List<MaterialId> { new MaterialId() }.ToArray();
+        public MaterialID[] MaterialID { get; set; } = new List<MaterialID> { new MaterialID() }.ToArray();
     }
 }

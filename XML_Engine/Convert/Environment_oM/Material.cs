@@ -70,11 +70,11 @@ namespace BH.Engine.XML
 
             l.ID = "layer";// + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
-            List<BHX.MaterialId> materialIDs = new List<BHX.MaterialId>();
+            List<BHX.MaterialID> materialIDs = new List<BHX.MaterialID>();
             foreach (BHX.Material m in materials)
             {
                 l.ID += "-" + m.Name.CleanName();
-                BHX.MaterialId id = new BHX.MaterialId();
+                BHX.MaterialID id = new BHX.MaterialID();
                 id.MaterialIDRef = m.ID;
                 materialIDs.Add(id);
             }
