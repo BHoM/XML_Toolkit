@@ -33,7 +33,7 @@ namespace BH.oM.XML
     public class Location : GBXMLObject
     {
         [XmlElement("StationId")]
-        public StationId StationID { get; set; } = new StationId();
+        public StationID StationID { get; set; } = new StationID();
         [XmlElement("ZipcodeOrPostalCode")]
         public string ZipcodeOrPostalCode { get; set; } = "00000";
         [XmlElement("Longitude")]
