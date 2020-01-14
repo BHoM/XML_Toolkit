@@ -41,7 +41,7 @@ namespace BH.oM.XML
         [XmlElement("Roughness")]
         public Roughness Roughness { get; set; } = new Roughness();
         [XmlElement("LayerId")]
-        public LayerId LayerID { get; set; } = new LayerId();
+        public LayerID LayerID { get; set; } = new LayerID();
         [XmlElement("Name")]
         public new string Name { get; set; } = "Construction";
     }
