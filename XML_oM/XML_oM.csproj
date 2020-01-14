@@ -60,6 +60,7 @@
     <Compile Include="Enums\ExportDetail.cs" />
     <Compile Include="Enums\ExportType.cs" />
     <Compile Include="Enums\UnitType.cs" />
+    <Compile Include="GBXML\GBXML.cs" />
     <Compile Include="XMLFileSettings.cs" />
     <Compile Include="GBXML\Campus\Absorptance.cs" />
     <Compile Include="GBXML\Campus\AdjacentSpaceID.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="GBXML\DocumentHistory\CreatedBy.cs" />
     <Compile Include="GBXML\DocumentHistory\DocumentHistory.cs" />
     <Compile Include="GBXML\DocumentHistory\GUID.cs" />
-    <Compile Include="GBXML\GbXML.cs" />
     <Compile Include="GBXML\GBXMLObject.cs" />
     <Compile Include="GBXML\DocumentHistory\PersonInfo.cs" />
     <Compile Include="GBXML\DocumentHistory\ProgramInfo.cs" />
