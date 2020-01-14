@@ -36,10 +36,18 @@ using BH.Engine.Environment;
 
 using BH.oM.XML.Enums;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
+        [Description("Get the GBXML type for a BHoM Environments Panel")]
+        [Input("element", "The BHoM Environments Panel to get the GBXML Type from")]
+        [Input("adjacentSpaces", "A collection of Environment Panels that are adjacent to the element the type is being obtained from")]
+        [Input("exportType", "The type of GBXML export being produced can impact the GBXML type, use this to select the GBXML type most relevant for the software you want to import the GBXML file into, default is TAS")]
+        [Output("type", "The GBXML type for the BHoM Environment Panel")]
         public static string ToGBXMLType(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces = null, ExportType exportType = ExportType.gbXMLTAS)
         {
             if (adjacentSpaces == null) adjacentSpaces = new List<List<BHE.Panel>>();
@@ -56,6 +64,9 @@ namespace BH.Engine.XML
             return type;
         }
 
+        [Description("Get the GBXML representation of a BHoM Environments Panel Type")]
+        [Input("type", "The BHoM Environments Panel Type to convert into a GBXML Type")]
+        [Output("type", "The GBXML representation of a BHoM Environment Panel Type")]
         public static string ToGBXML(this BHE.PanelType type)
         {
             switch(type)
@@ -93,6 +104,9 @@ namespace BH.Engine.XML
             }
         }
 
+        [Description("Get the GBXML representation of a BHoM Environments Opening Type")]
+        [Input("type", "The BHoM Environments Opening Type to convert into a GBXML Type")]
+        [Output("type", "The GBXML representation of a BHoM Environment Opening Type")]
         public static string ToGBXML(this BHE.OpeningType type)
         {
             switch (type)
@@ -116,7 +130,10 @@ namespace BH.Engine.XML
             }
         }
 
-        public static BHE.PanelType ToBHoMPanelType(this string type)
+        [Description("Get the BHoM Environments Panel Type representation of a GBXML Type")]
+        [Input("type", "The GBXML Type to convert into a BHoM Environments Panel Type")]
+        [Output("type", "The BHoM representation of a GBXML Type")]
+        public static BHE.PanelType FromGBXMLPanelType(this string type)
         {
             switch (type)
             {
@@ -151,7 +168,10 @@ namespace BH.Engine.XML
             }
         }
 
-        public static BHE.OpeningType ToBHoMOpeningType(this string type)
+        [Description("Get the BHoM Environments Opening Type representation of a GBXML Type")]
+        [Input("type", "The GBXML Type to convert into a BHoM Environments Opening Type")]
+        [Output("type", "The BHoM representation of a GBXML Type")]
+        public static BHE.OpeningType FromGBXMLOpeningType(this string type)
         {
             switch (type)
             {

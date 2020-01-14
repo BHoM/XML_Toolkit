@@ -158,7 +158,7 @@ namespace BH.Engine.XML
 
             }
 
-            panel.Type = surface.SurfaceType.ToBHoMPanelType();
+            panel.Type = surface.SurfaceType.FromGBXMLPanelType();
             panel.ConnectedSpaces = new List<string>();
             if (surface.AdjacentSpaceID != null)
             {
