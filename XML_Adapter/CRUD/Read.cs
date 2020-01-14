@@ -137,7 +137,7 @@ namespace BH.Adapter.XML
                                 List<BHX.Material> gbMaterials = gbx.Material.Where(x => gbLayer.MaterialID.Where(y => y.MaterialIDRef == x.ID).FirstOrDefault() != null).ToList();
                                 if (gbMaterials.Count > 0)
                                 {
-                                    List<BHC.Layer> layers = gbMaterials.Select(x => x.ToBHoM()).ToList();
+                                    List<BHC.Layer> layers = gbMaterials.Select(x => x.FromGBXML()).ToList();
                                     p.Construction = c.ToBHoM(layers);
                                 }
                             }
@@ -170,7 +170,7 @@ namespace BH.Adapter.XML
                             List<BHX.Material> gbMaterials = gbx.Material.Where(x => gbLayer.MaterialID.Where(y => y.MaterialIDRef == x.ID).FirstOrDefault() != null).ToList();
                             if(gbMaterials.Count > 0)
                             {
-                                List<BHC.Layer> layers = gbMaterials.Select(x => x.ToBHoM()).ToList();
+                                List<BHC.Layer> layers = gbMaterials.Select(x => x.FromGBXML()).ToList();
                                 constructions.Add(c.ToBHoM(layers));
                             }
                         }

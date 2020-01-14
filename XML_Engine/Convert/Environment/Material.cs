@@ -36,10 +36,16 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
+        [Description("Get the GBXML representation of a BHoM Construction Layer")]
+        [Input("layer", "The BHoM Construction Layer to convert into a GBXML Material")]
+        [Output("material", "The GBXML representation of a BHoM Construction Layer")]
         public static BHX.Material ToGBXML(this BHC.Layer layer)
         {
             BHX.Material gbMaterial = new BHX.Material();
@@ -64,6 +70,9 @@ namespace BH.Engine.XML
             return gbMaterial;
         }
 
+        [Description("Get the GBXML Layer for a collection of GBXML materials")]
+        [Input("materials", "The GBXML Materials to get the layer for")]
+        [Output("layer", "The GBXML layer for the given GBXML Materials")]
         public static BHX.Layer ToGBXML(this List<BHX.Material> materials)
         {
             BHX.Layer l = new BHX.Layer();
@@ -84,6 +93,9 @@ namespace BH.Engine.XML
             return l;
         }
 
+        [Description("Get the GBXML glazed representation of a BHoM Construction Layer")]
+        [Input("layer", "The BHoM Construction Layer to convert into a GBXML Glaze Material")]
+        [Output("glaze", "The GBXML glazed representation of a BHoM Construction Layer")]
         public static BHX.Glaze ToGBXGlazed(this BHC.Layer layer)
         {
             if (layer == null || layer.Material == null) return null;
@@ -119,6 +131,9 @@ namespace BH.Engine.XML
             return glaze;
         }
 
+        [Description("Get the GBXML gap (air gap, etc.) representation of a BHoM Construction Layer")]
+        [Input("layer", "The BHoM Construction Layer to convert into a GBXML Gap Material")]
+        [Output("gap", "The GBXML gap representation of a BHoM Construction Layer")]
         public static BHX.Gap ToGBXGap(this BHC.Layer layer)
         {
             if (layer == null || layer.Material == null) return null;
@@ -151,7 +166,10 @@ namespace BH.Engine.XML
             return gap;
         }
 
-        public static BHC.Layer ToBHoM(this BHX.Material gbMaterial)
+        [Description("Get the BHoM representation of a GBXML Material")]
+        [Input("gbMaterial", "The GBXML Material to convert into a BHoM Construction Layer")]
+        [Output("layer", "The BHoM representation of a GBXML Material")]
+        public static BHC.Layer FromGBXML(this BHX.Material gbMaterial)
         {
             BHC.Layer layer = new BHC.Layer();
             SolidMaterial materialProperties = new SolidMaterial();
