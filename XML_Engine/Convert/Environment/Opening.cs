@@ -92,7 +92,7 @@ namespace BH.Engine.XML
                 opening.Fragments.Add(envContext);
             }
 
-            opening.Type = gbOpening.OpeningType.ToBHoMOpeningType();
+            opening.Type = gbOpening.OpeningType.FromGBXMLOpeningType();
 
             return opening;
         }
