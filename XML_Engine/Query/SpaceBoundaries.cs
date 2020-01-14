@@ -31,6 +31,9 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Query
@@ -39,43 +42,11 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static SpaceBoundary[] SpaceBoundaries(this BHE.Space bHoMSpace, List<BHE.Panel> be)
-        {
-            /*List<BH.oM.XML.Polyloop> ploops = new List<Polyloop>();
-            IEnumerable<BHG.PolyCurve> bePanel = bHoMSpace.BuildingElements.Select(x => x.BuildingElementGeometry.ICurve() as BHG.PolyCurve);
-
-            foreach (BHG.PolyCurve pCrv in bePanel)
-            {
-                // Ensure that all of the surface coordinates are listed in a counterclockwise order
-                //* This is a requirement of GBXML Polyloop definitions
-                BHG.Polyline pline = new BHG.Polyline() { ControlPoints = pCrv.ControlPoints() };
-
-                if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pline, bHoMSpace))
-                    ploops.Add(BH.Engine.XML.Convert.ToGBXML(pline.Flip()));
-                else
-                    ploops.Add(BH.Engine.XML.Convert.ToGBXML(pline));
-            }
-
-            SpaceBoundary[] spaceBound = new SpaceBoundary[ploops.Count()];
-
-            for (int i = 0; i < ploops.Count(); i++)
-            {
-                PlanarGeometry planarGeom = new PlanarGeometry();
-                planarGeom.PolyLoop = ploops[i];
-                SpaceBoundary bound = new SpaceBoundary { PlanarGeometry = planarGeom };
-                spaceBound[i] = bound;
-
-                //Get the id from the referenced panel
-                string refPanel = "Panel-" + be.FindIndex(x => x.BHoM_Guid.ToString() == bHoMSpace.BuildingElements[i].BHoM_Guid.ToString()).ToString();
-                spaceBound[i].SurfaceConstructionID = refPanel;
-            }
-
-            return spaceBound;*/
-            return null;
-
-            /***************************************************/
-        }
-
+        [Description("Gets the GBXML SpaceBoundary representatoin of a collection of Environment panels which comprise a closed volumetric space")]
+        [Input("spaceBoundaries", "A collection of Environment Panels which comprise a closed volumetric space")]
+        [Input("uniqueBEs", "A collection of unique Environment Panels used in the model as a whole")]
+        [Input("planarTolerance", "The tolerance to define planarity - default to BH.oM.Geometry.Tolerance.Distance")]
+        [Output("spaceBoundaries", "GBXML representation of space boundaries")]
         public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, List<BHE.Panel> uniqueBEs, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             List<Polyloop> pLoops = new List<Polyloop>();
