@@ -33,6 +33,8 @@ using BH.oM.Base;
 using BH.oM.Geometry.SettingOut;
 using BH.Engine.Environment;
 
+using System.ComponentModel;
+
 namespace BH.Engine.XML
 {
     public static partial class Create
@@ -41,6 +43,13 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
+        [Description("Create a Document Builder object to collate data required for GBXML schema documents")]
+        [Input("building", "The building object for the elements in the schema")]
+        [Input("elementsAsSpaces", "The nested collection of Environment Panels which form closed spaces within the building")]
+        [Input("shadingElements", "A collection of Environment Panels which provide shading to the building")]
+        [Input("levels", "A collection of levels which group spaces by floor")]
+        [Input("unassignedPanels", "Any additional panels needed to be included within the GBXML file")]
+        [Output("documentBuilder", "A Document Builder object suitable for GBXML schema document creation")]
         public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<Level> levels, List<Panel> unassignedPanels)
         {
             return new DocumentBuilder
@@ -53,6 +62,9 @@ namespace BH.Engine.XML
             };         
         }
 
+        [Description("Create a Document Builder object to collate data required for GBXML schema documents automatically from a given list of BHoM Objects")]
+        [Input("objs", "A collection of BHoM Objects to sort into a suitable format for inclusion within a GBXML file")]
+        [Output("documentBuilder", "A Document Builder object suitable for GBXML schema document creation")]
         public static DocumentBuilder DocumentBuilder(List<IBHoMObject> objs)
         {
             List<Panel> panels = objs.Panels();
@@ -70,51 +82,5 @@ namespace BH.Engine.XML
 
             return DocumentBuilder(buildings, elementsAsSpaces, shadingElements, levels, unassignedPanels);
         }
-
-
-
-
-        /***************************************************/
-        /**** Deprecated Methods                        ****/
-        /***************************************************/
-
-        [Deprecated("2.4", "BH.oM.Architecture.Elements.Level superseded by BH.oM.Geometry.SettingOut.Level")]
-        public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<BH.oM.Architecture.Elements.Level> levels, List<Panel> unassignedPanels)
-        {
-            return new DocumentBuilder
-            {
-                Buildings = building,
-                ElementsAsSpaces = elementsAsSpaces,
-                ShadingElements = shadingElements,
-                Levels = levels.UpgradeVersion(),
-                UnassignedPanels = unassignedPanels,
-            };
-        }
-
-
-        /******************************************/
-        /****      Level Version Converts      ****/
-        /******************************************/
-
-        [DeprecatedAttribute("2.4", "BH.oM.Architecture.Elements.Level replaced by BH.oM.Geometry.SettingOut.Level")]
-        private static List<Level> UpgradeVersion(this List<BH.oM.Architecture.Elements.Level> levels)
-        {
-            List<Level> upgradedLevels = new List<Level>();
-
-            foreach (BH.oM.Architecture.Elements.Level level in levels)
-                upgradedLevels.Add(level.UpgradeVersion());
-
-            return upgradedLevels;
-        }
-
-        /******************************************/
-
-        [DeprecatedAttribute("2.4", "BH.oM.Architecture.Elements.Level replaced by BH.oM.Geometry.SettingOut.Level")]
-        private static Level UpgradeVersion(this BH.oM.Architecture.Elements.Level level)
-        {
-            return new Level { Name = level.Name, Elevation = level.Elevation, CustomData = level.CustomData, Fragments = level.Fragments };
-        }
-
-        /******************************************/
     }
 }
