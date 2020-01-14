@@ -138,7 +138,7 @@ namespace BH.Adapter.XML
                                 if (gbMaterials.Count > 0)
                                 {
                                     List<BHC.Layer> layers = gbMaterials.Select(x => x.FromGBXML()).ToList();
-                                    p.Construction = c.ToBHoM(layers);
+                                    p.Construction = c.FromGBXML(layers);
                                 }
                             }
                         }
@@ -171,7 +171,7 @@ namespace BH.Adapter.XML
                             if(gbMaterials.Count > 0)
                             {
                                 List<BHC.Layer> layers = gbMaterials.Select(x => x.FromGBXML()).ToList();
-                                constructions.Add(c.ToBHoM(layers));
+                                constructions.Add(c.FromGBXML(layers));
                             }
                         }
                     }
