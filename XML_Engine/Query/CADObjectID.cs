@@ -32,6 +32,9 @@ using BH.oM.XML.Enums;
 
 using BH.Engine.Environment;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Query
@@ -40,6 +43,10 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
+        [Description("Gets the CAD Object ID for an Environment Panel suitable for GBXML")]
+        [Input("element", "An Environment Panel to obtain the CAD Object ID of")]
+        [Input("replaceCurtainWalls", "Determine whether to change the CAD Object ID based on whether we are replacing curtain walls or not, default false")]
+        [Output("cadObjectID", "The CAD Object ID for the software where this Panel came from")]
         public static string CADObjectID(this BHE.Panel element, bool replaceCurtainWalls = false)
         {
             string CADObjectID = "";
@@ -112,6 +119,9 @@ namespace BH.Engine.XML
             return CADObjectID;
         }
 
+        [Description("Gets the CAD Object ID for a Space suitable for GBXML")]
+        [Input("panelsAsSpace", "A collection of Environment Panels that represent a closed space to obtain the CAD Object ID of")]
+        [Output("cadObjectID", "The CAD Object ID for the software where this collection of Panels came from")]
         public static string CADObjectID(this List<BHE.Panel> panelsAsSpace)
         {
             /*string CADObjectID = "";
@@ -135,6 +145,9 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
+        [Description("Gets the CAD Object ID for an Environment Opening suitable for GBXML")]
+        [Input("opening", "An Environment Opening to obtain the CAD Object ID of")]
+        [Output("cadObjectID", "The CAD Object ID for the software where this Opening came from")]
         public static string CADObjectID(this BHE.Opening opening)
         {
             BHP.OriginContextFragment contextProp = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
@@ -156,6 +169,9 @@ namespace BH.Engine.XML
 
         /***************************************************/
 
+        [Description("Gets the CAD Object ID for a Space suitable for GBXML")]
+        [Input("space", "An Environment Space to obtain the CAD Object ID of")]
+        [Output("cadObjectID", "The CAD Object ID for the software where this space came from")]
         public static string CADObjectID(this BHE.Space space)
         {
             BHP.OriginContextFragment contextProp = space.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
