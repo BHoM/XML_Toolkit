@@ -37,10 +37,16 @@ using BH.oM.XML.Settings;
 
 using BHP = BH.oM.Environment.Fragments;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
+        [Description("Get the GBXML representation of a BHoM Environments Panel")]
+        [Input("element", "The BHoM Environments Panel to convert into a GBXML Surface")]
+        [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
         public static BHX.Surface ToGBXML(this BHE.Panel element)
         {
             BHP.OriginContextFragment contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
@@ -69,6 +75,12 @@ namespace BH.Engine.XML
             return surface;
         }
 
+        [Description("Get the GBXML representation of a BHoM Environments Panel")]
+        [Input("element", "The BHoM Environments Panel to convert into a GBXML Surface")]
+        [Input("adjacentSpaces", "The collection of Environment Panels which form closed spaces that are adjacent to the element being converted")]
+        [Input("space", "The collection of Environment Panels which form the space the given element is in")]
+        [Input("settings", "XML Settings to determine tolerances and other parts of the conversion")]
+        [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
         public static BHX.Surface ToGBXML(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces, List<BHE.Panel> space, XMLSettings settings)
         {
             BHX.Surface surface = element.ToGBXML();
@@ -93,6 +105,9 @@ namespace BH.Engine.XML
             return surface;
         }
 
+        [Description("Get the GBXML geometrical representation of a BHoM Environments Panel")]
+        [Input("element", "The BHoM Environments Panel to convert into a GBXML Rectangular Geometry element")]
+        [Output("rectangularGeometry", "The GBXML geometrical representation of a BHoM Environment Panel")]
         public static BHX.RectangularGeometry ToGBXMLGeometry(this BHE.Panel element)
         {
             BHX.RectangularGeometry geom = new BHX.RectangularGeometry();
@@ -116,7 +131,10 @@ namespace BH.Engine.XML
             return geom;
         }
 
-        public static BHE.Panel ToBHoM(this BHX.Surface surface)
+        [Description("Get the BHoM representation of a GBXML Surface")]
+        [Input("surface", "The GBXML Surface to convert into a BHoM Environments Panel")]
+        [Output("panel", "The BHoM Environments representation of a GBXML Surface")]
+        public static BHE.Panel FromGBXML(this BHX.Surface surface)
         {
             BHE.Panel panel = new BHE.Panel();
 
