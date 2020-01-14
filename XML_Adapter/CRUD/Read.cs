@@ -124,7 +124,7 @@ namespace BH.Adapter.XML
             {
                 foreach(BHX.Surface s in gbx.Campus.Surface)
                 {
-                    BHE.Panel p = s.ToBHoM();
+                    BHE.Panel p = s.FromGBXML();
                     if (gbx.Construction != null)
                     {
                         BHX.Construction c = gbx.Construction.Where(x => x.ID == s.ConstructionIDRef).FirstOrDefault();
