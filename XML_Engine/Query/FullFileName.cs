@@ -30,6 +30,9 @@ using BHE = BH.oM.Environment.Elements;
 using BH.oM.XML.Settings;
 using BH.Engine.Environment;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Query
@@ -38,6 +41,9 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
+        [Description("Return the full system path for the XML file settings")]
+        [Input("fileSettings", "The XML File Settings object which contains the file path data")]
+        [Output("fullFilePath", "The full file path, including file extension, for the file settings")]
         public static string FullFileName(this XMLFileSettings fileSettings)
         {
             return System.IO.Path.Combine(fileSettings.Directory, fileSettings.FileName + ".xml");
