@@ -95,7 +95,7 @@ namespace BH.Engine.XML
         {
             BHE.Opening opening = new BHE.Opening();
 
-            BHG.Polyline pLine = gbOpening.PlanarGeometry.PolyLoop.ToBHoM();
+            BHG.Polyline pLine = gbOpening.PlanarGeometry.PolyLoop.FromGBXML();
             opening.Edges = pLine.ToEdges();
 
             string[] cadSplit = gbOpening.CADObjectID.Split('[');
