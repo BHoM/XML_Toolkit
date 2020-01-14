@@ -39,7 +39,7 @@ namespace BH.oM.XML
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "SurfaceID";
         [XmlElement("AdjacentSpaceId")]
-        public AdjacentSpaceId[] AdjacentSpaceID { get; set; }
+        public AdjacentSpaceID[] AdjacentSpaceID { get; set; }
         [XmlElement("RectangularGeometry")]
         public RectangularGeometry RectangularGeometry { get; set; } = new RectangularGeometry();
         [XmlElement("PlanarGeometry")]
