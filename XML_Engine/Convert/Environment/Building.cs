@@ -34,10 +34,16 @@ using BHG = BH.oM.Geometry;
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Convert
     {
+        [Description("Get the GBXML representation of a BHoM Environments Building")]
+        [Input("building", "The BHoM Environments Building to convert into a GBXML Building")]
+        [Output("building", "The GBXML representation of a BHoM Environment Building")]
         public static BHX.Building ToGBXML(this BHE.Building building)
         {
             BHX.Building gbBuilding = new BHX.Building();
@@ -55,6 +61,9 @@ namespace BH.Engine.XML
             return gbBuilding;
         }
 
+        [Description("Get the GBXML representation of a BHoM Environments Building")]
+        [Input("building", "The BHoM Environments Building to convert into a GBXML Location")]
+        [Output("location", "The GBXML representation of a BHoM Environment Building")]
         public static BHX.Location ToGBXMLLocation(this BHE.Building building)
         {
             BHX.Location location = new BHX.Location();
@@ -73,7 +82,10 @@ namespace BH.Engine.XML
             return location;
         }
 
-        public static BHE.Building ToBHoM(this BHX.Building gbBuilding)
+        [Description("Get the BHoM representation of a GBXML Building")]
+        [Input("gbBuilding", "The GBXML Building to convert into a BHoM Building")]
+        [Output("building", "The BHoM representation of a GBXML Building")]
+        public static BHE.Building FromGBXML(this BHX.Building gbBuilding)
         {
             BHE.Building building = new BHE.Building();
 
@@ -86,7 +98,10 @@ namespace BH.Engine.XML
             return building;
         }
 
-        public static BHE.Building ToBHoM(this BHX.Location location)
+        [Description("Get the BHoM representation of a GBXML Location")]
+        [Input("location", "The GBXML Location to convert into a BHoM Building")]
+        [Output("building", "The BHoM representation of a GBXML Location")]
+        public static BHE.Building FromGBXML(this BHX.Location location)
         {
             BHE.Building building = new oM.Environment.Elements.Building();
 

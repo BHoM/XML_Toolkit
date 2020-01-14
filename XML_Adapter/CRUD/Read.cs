@@ -111,7 +111,7 @@ namespace BH.Adapter.XML
         private List<BHE.Building> ReadBuilding(BHX.GBXML gbx, List<string> ids = null)
         {
             if (gbx.Campus != null)
-                return new List<BHE.Building>() { gbx.Campus.Location.ToBHoM() };
+                return new List<BHE.Building>() { gbx.Campus.Location.FromGBXML() };
             else
                 return new List<BHE.Building>();
         }
