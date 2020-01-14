@@ -108,7 +108,6 @@
     <Compile Include="Convert\Environment_oM\Space.cs" />
     <Compile Include="Convert\Geometry_oM\Point.cs" />
     <Compile Include="Convert\Geometry_oM\Polyline.cs" />
-    <Compile Include="Create\CartesianPoint.cs" />
     <Compile Include="Create\DocumentBuilder.cs" />
     <Compile Include="Create\XMLFileSettings.cs" />
     <Compile Include="Create\XMLSettings.cs" />
