@@ -30,6 +30,9 @@ using BHE = BH.oM.Environment.Elements;
 using BHX = BH.oM.XML;
 using BH.Engine.Environment;
 
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
+
 namespace BH.Engine.XML
 {
     public static partial class Query
@@ -38,6 +41,9 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
+        [Description("Get the GBXML adjacent space ID for a given collection of Environment Panels representing a space")]
+        [Input("space", "The collection of Environment Panels to obtain the Adjacent Space ID attribute for")]
+        [Output("adjacentSpaceID", "The AdjacentSpaceID attribute for the Environment Panels")]
         public static BHX.AdjacentSpaceID AdjacentSpaceID(this List<BHE.Panel> space)
         {
             BHX.AdjacentSpaceID adjId = new BHX.AdjacentSpaceID();
