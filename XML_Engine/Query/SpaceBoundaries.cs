@@ -42,7 +42,7 @@ namespace BH.Engine.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Gets the GBXML SpaceBoundary representatoin of a collection of Environment panels which comprise a closed volumetric space")]
+        [Description("Gets the GBXML SpaceBoundary representation of a collection of Environment panels which comprise a closed volumetric space")]
         [Input("spaceBoundaries", "A collection of Environment Panels which comprise a closed volumetric space")]
         [Input("uniqueBEs", "A collection of unique Environment Panels used in the model as a whole")]
         [Input("planarTolerance", "The tolerance to define planarity - default to BH.oM.Geometry.Tolerance.Distance")]
