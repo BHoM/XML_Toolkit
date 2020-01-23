@@ -133,9 +133,8 @@ namespace BH.Adapter.XML
                         if (c != null)
                         {
                             BHX.Layer gbLayer = gbx.Layer.Where(x => x.ID == c.LayerID.LayerIDRef).FirstOrDefault();
-                            if (gbLayer != null)
+                            if (gbLayer != null && gbLayer.MaterialID != null)
                             {
-
                                 List<BHX.Material> gbMaterials = gbx.Material.Where(x => gbLayer.MaterialID.Where(y => y.MaterialIDRef == x.ID).FirstOrDefault() != null).ToList();
                                 if (gbMaterials.Count > 0)
                                 {
@@ -166,9 +165,8 @@ namespace BH.Adapter.XML
                     foreach(BHX.Construction c in gbx.Construction)
                     {
                         BHX.Layer gbLayer = gbx.Layer.Where(x => x.ID == c.LayerID.LayerIDRef).FirstOrDefault();
-                        if(gbLayer != null)
+                        if(gbLayer != null && gbLayer.MaterialID != null)
                         {
-
                             List<BHX.Material> gbMaterials = gbx.Material.Where(x => gbLayer.MaterialID.Where(y => y.MaterialIDRef == x.ID).FirstOrDefault() != null).ToList();
                             if(gbMaterials.Count > 0)
                             {
