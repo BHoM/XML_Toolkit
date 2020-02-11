@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Adapter_Engine">
+      <HintPath>..\..\BHoM_Adapter\Build\Adapter_Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Adapter_oM">
       <HintPath>..\..\BHoM_Adapter\Build\Adapter_oM.dll</HintPath>
       <Private>False</Private>
