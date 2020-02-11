@@ -61,7 +61,6 @@
     <Compile Include="Enums\ExportType.cs" />
     <Compile Include="Enums\UnitType.cs" />
     <Compile Include="GBXML\GBXML.cs" />
-    <Compile Include="XMLFileSettings.cs" />
     <Compile Include="GBXML\Campus\Absorptance.cs" />
     <Compile Include="GBXML\Campus\AdjacentSpaceID.cs" />
     <Compile Include="GBXML\Campus\Building.cs" />
