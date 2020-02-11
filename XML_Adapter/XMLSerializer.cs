@@ -40,7 +40,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, XMLFileSettings filesettings, XMLSettings settings) where T : IObject
+        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, BH.oM.Adapter.FileSettings filesettings, XMLSettings settings) where T : IObject
         {
             switch (settings.ExportDetail)
             {
@@ -63,7 +63,7 @@ namespace BH.Adapter.XML
             gbx.DocumentHistory = DocumentHistory;
         }
 
-        public static void SerializeSpaces<T>(IEnumerable<T> objects, XMLFileSettings fileSettings, XMLSettings settings) where T : IObject
+        public static void SerializeSpaces<T>(IEnumerable<T> objects, BH.oM.Adapter.FileSettings fileSettings, XMLSettings settings) where T : IObject
         {
             SerializeBuildingSpaces(objects as dynamic, fileSettings, settings);
         }
@@ -92,7 +92,7 @@ namespace BH.Adapter.XML
             }
         }
 
-        private static void SerializeBuildingSpaces(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, XMLFileSettings fileSettings, XMLSettings settings)
+        private static void SerializeBuildingSpaces(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, BH.oM.Adapter.FileSettings fileSettings, XMLSettings settings)
         {
             if (!System.IO.Directory.Exists(fileSettings.Directory))
                 System.IO.Directory.CreateDirectory(fileSettings.Directory);

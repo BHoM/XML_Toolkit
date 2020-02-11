@@ -37,6 +37,7 @@ using BHC = BH.oM.Physical.Constructions;
 using BHM = BH.oM.Physical.Materials;
 
 using BH.oM.Adapter;
+using BH.Engine.Adapter;
 
 namespace BH.Adapter.XML
 {
@@ -50,7 +51,7 @@ namespace BH.Adapter.XML
 
         private IEnumerable<IBHoMObject> Read(Type type = null)
         {
-            BH.oM.XML.GBXML gbx = XMLReader.Load(_fileSettings.FullFileName());
+            BH.oM.XML.GBXML gbx = XMLReader.Load(_fileSettings.GetFullFileName());
 
             if (type == null)
                 return ReadFullXMLFile(gbx);

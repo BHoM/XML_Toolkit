@@ -34,6 +34,7 @@ using BH.oM.XML.Enums;
 using BH.Engine.XML;
 
 using BH.oM.Adapter;
+using BH.Engine.Adapter;
 
 namespace BH.Adapter.XML
 {
@@ -41,12 +42,12 @@ namespace BH.Adapter.XML
     {
         protected override bool ICreate<T>(IEnumerable<T> objects, ActionConfig actionConfig = null)
         {
-            string fileName = _fileSettings.FullFileName();
+            string fileName = _fileSettings.GetFullFileName();
 
             GBXML gbx = new GBXML();
 
             if(!_xmlSettings.NewFile)
-                gbx = XMLReader.Load(_fileSettings.FullFileName()); //Load up the previous file to append to
+                gbx = XMLReader.Load(_fileSettings.GetFullFileName()); //Load up the previous file to append to
 
             if(_xmlSettings.UnitType == UnitType.Imperial)
             {

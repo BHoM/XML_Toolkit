@@ -34,6 +34,7 @@ using BH.oM.XML.Enums;
 using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
 using BH.oM.Data.Requests;
+using System.IO;
 
 using BH.oM.XML.Settings;
 
@@ -42,24 +43,30 @@ namespace BH.Adapter.XML
     public partial class XMLAdapter : BHoMAdapter
     {
         [Description("Specify XML file and properties for data transfer")]
-        [Input("xmlFileSettings", "Input the file settings the XML Adapter should use, default null")]
+        [Input("fileSettings", "Input the file settings to get the file name and directory the XML Adapter should use")]
         [Input("xmlSettings", "Input the additional XML Settings the adapter should use. Only used when pushing to an XML file. Default null")]
         [Output("adapter", "Adapter to XML")]
-        public XMLAdapter(XMLFileSettings xmlFileSettings = null, XMLSettings xmlSettings = null)
+        public XMLAdapter(BH.oM.Adapter.FileSettings fileSettings = null, XMLSettings xmlSettings = null)
         {
-            if(xmlFileSettings == null)
+            if(fileSettings == null)
             {
                 BH.Engine.Reflection.Compute.RecordError("Please set the File Settings correctly to enable the XML Adapter to work correctly");
                 return;
             }
 
-            _fileSettings = xmlFileSettings;
+            if(!Path.HasExtension(fileSettings.FileName) || Path.GetExtension(fileSettings.FileName) != ".xml")
+            {
+                BH.Engine.Reflection.Compute.RecordError("File name must contain a file extension");
+                return;
+            }
+
+            _fileSettings = fileSettings;
             _xmlSettings = xmlSettings;
 
             AdapterIdName = "XML_Adapter";
         }
 
-        private XMLFileSettings _fileSettings { get; set; } = null;
+        private BH.oM.Adapter.FileSettings _fileSettings { get; set; } = null;
         private XMLSettings _xmlSettings { get; set; } = null;
     }
 }
