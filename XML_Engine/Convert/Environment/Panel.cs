@@ -46,8 +46,9 @@ namespace BH.Engine.XML
     {
         [Description("Get the GBXML representation of a BHoM Environments Panel")]
         [Input("element", "The BHoM Environments Panel to convert into a GBXML Surface")]
+        [Input("settings", "The XML Settings to use for converting the panel to the surface")]
         [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
-        public static BHX.Surface ToGBXML(this BHE.Panel element)
+        public static BHX.Surface ToGBXML(this BHE.Panel element, XMLSettings settings)
         {
             BHP.OriginContextFragment contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
@@ -55,7 +56,7 @@ namespace BH.Engine.XML
             surface.CADObjectID = element.CADObjectID();
             surface.ConstructionIDRef = (contextProperties == null ? element.ConstructionID() : contextProperties.TypeName.CleanName());
 
-            BHX.RectangularGeometry geom = element.ToGBXMLGeometry();
+            BHX.RectangularGeometry geom = element.ToGBXMLGeometry(settings);
             BHX.PlanarGeometry planarGeom = new BHX.PlanarGeometry();
             planarGeom.ID = "PlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
@@ -83,7 +84,7 @@ namespace BH.Engine.XML
         [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
         public static BHX.Surface ToGBXML(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces, List<BHE.Panel> space, XMLSettings settings)
         {
-            BHX.Surface surface = element.ToGBXML();
+            BHX.Surface surface = element.ToGBXML(settings);
 
             surface.SurfaceType = element.ToGBXMLType(adjacentSpaces);
             surface.ExposedToSun = Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
@@ -93,7 +94,7 @@ namespace BH.Engine.XML
             {
                 pLine = pLine.Flip();
                 surface.PlanarGeometry.PolyLoop = pLine.ToGBXML();
-                surface.RectangularGeometry.Tilt = Math.Round(pLine.Tilt(), 3);
+                surface.RectangularGeometry.Tilt = Math.Round(pLine.Tilt(settings.AngleTolerance), 3);
                 surface.RectangularGeometry.Azimuth = Math.Round(pLine.Azimuth(BHG.Vector.YAxis), 3);
             }
 
@@ -107,14 +108,15 @@ namespace BH.Engine.XML
 
         [Description("Get the GBXML geometrical representation of a BHoM Environments Panel")]
         [Input("element", "The BHoM Environments Panel to convert into a GBXML Rectangular Geometry element")]
+        [Input("settings", "The XML Settings to use to produce the converted surface")]
         [Output("rectangularGeometry", "The GBXML geometrical representation of a BHoM Environment Panel")]
-        public static BHX.RectangularGeometry ToGBXMLGeometry(this BHE.Panel element)
+        public static BHX.RectangularGeometry ToGBXMLGeometry(this BHE.Panel element, XMLSettings settings)
         {
             BHX.RectangularGeometry geom = new BHX.RectangularGeometry();
 
             BHG.Polyline pLine = element.Polyline();
 
-            geom.Tilt = Math.Round(element.Tilt(), 3);
+            geom.Tilt = Math.Round(element.Tilt(settings.AngleTolerance), 3);
             geom.Azimuth = Math.Round(element.Azimuth(BHG.Vector.YAxis), 3);
             geom.Height = Math.Round(element.Height(), 3);
             geom.Width = Math.Round(element.Width(), 3);

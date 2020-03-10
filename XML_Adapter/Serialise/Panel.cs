@@ -161,11 +161,11 @@ namespace BH.Adapter.XML
                     if(settings.FixIncorrectAirTypes && space[x].Type == PanelType.Undefined && space[x].ConnectedSpaces.Count == 1)
                     {
                         //Fix external air types
-                        if (space[x].Tilt() == 0)
+                        if (space[x].Tilt(settings.AngleTolerance) == 0)
                             srf.SurfaceType = PanelType.Roof.ToGBXML();
-                        else if (space[x].Tilt() == 90)
+                        else if (space[x].Tilt(settings.AngleTolerance) == 90)
                             srf.SurfaceType = PanelType.WallExternal.ToGBXML();
-                        else if (space[x].Tilt() == 180)
+                        else if (space[x].Tilt(settings.AngleTolerance) == 180)
                             srf.SurfaceType = PanelType.SlabOnGrade.ToGBXML();
                     }           
 
@@ -287,7 +287,7 @@ namespace BH.Adapter.XML
 
             foreach (Panel be in buildingElements)
             {
-                Surface gbSrf = be.ToGBXML();
+                Surface gbSrf = be.ToGBXML(settings);
                 gbSrf.ID = "Panel_" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
                 gbSrf.Name = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
                 gbSrf.SurfaceType = "Shade";
