@@ -56,7 +56,7 @@ namespace BH.oM.XML.Settings
         [Description("Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
         public ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
 
-        [Description("distanceTolerance is used as Description for CleanPolyline method used for opening, default is set to BH.oM.Geometry.Tolerance.Distance")]
+        [Description("Set the tolerance for distance between points to define a 'short' segment which should be removed from export, default is set to BH.oM.Geometry.Tolerance.Distance")]
         public double DistanceTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
 
         [Description("Set tolerance for planar surfaces, default is set to BH.oM.Geometry.Tolerance.Distance")]
@@ -64,6 +64,9 @@ namespace BH.oM.XML.Settings
 
         [Description("Set a distance to offset openings that have a area >= the area of the host panel. Value should be negative. Defaults to -0.001")]
         public double OffsetDistance { get; set; } = -0.001;
+
+        [Description("Set the tolerance for angle calculations when exporting to XML. Default is set to BH.oM.Geometry.Tolerance.Angle")]
+        public double AngleTolerance { get; set; } = BH.oM.Geometry.Tolerance.Angle;
 
         /***************************************************/
     }
