@@ -65,9 +65,9 @@ namespace BH.Adapter.XML
 
                 if (openingArea >= panelArea)
                 {
-                    if (openingPoly == null) continue;
-
                     openingPoly = BH.Engine.Geometry.Modify.Offset(openingPoly, settings.OffsetDistance);
+
+                    if (openingPoly == null) continue;
                     gbOpening.PlanarGeometry.PolyLoop = openingPoly.ToGBXML();
                 }
 
