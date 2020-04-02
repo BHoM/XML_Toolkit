@@ -35,7 +35,7 @@ namespace BH.oM.XML
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "StoreyID";
         [XmlElement("Level")]
-        public float Level { get; set; } = 0;
+        public double Level { get; set; } = 0;
         [XmlElement("PlanarGeometry")]
         public PlanarGeometry PlanarGeometry { get; set; } = new PlanarGeometry();
         [XmlElement("Name")]
