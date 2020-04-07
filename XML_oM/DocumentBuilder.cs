@@ -33,11 +33,11 @@ namespace BH.oM.XML.Environment
         /**** Properties                                ****/
         /***************************************************/
 
-        public List<BHoME.Building> Buildings { get; set; } = new List<BHoME.Building>();
-        public List<List<BHoME.Panel>> ElementsAsSpaces { get; set; } = new List<List<BHoME.Panel>>();
-        public List<BHoME.Panel> ShadingElements { get; set; } = new List<BHoME.Panel>();
-        public List<BH.oM.Geometry.SettingOut.Level> Levels { get; set; } = new List<BH.oM.Geometry.SettingOut.Level>();
-        public List<BHoME.Panel> UnassignedPanels { get; set; } = new List<BHoME.Panel>();
+        public virtual List<BHoME.Building> Buildings { get; set; } = new List<BHoME.Building>();
+        public virtual List<List<BHoME.Panel>> ElementsAsSpaces { get; set; } = new List<List<BHoME.Panel>>();
+        public virtual List<BHoME.Panel> ShadingElements { get; set; } = new List<BHoME.Panel>();
+        public virtual List<BH.oM.Geometry.SettingOut.Level> Levels { get; set; } = new List<BH.oM.Geometry.SettingOut.Level>();
+        public virtual List<BHoME.Panel> UnassignedPanels { get; set; } = new List<BHoME.Panel>();
 
         /***************************************************/
     }

@@ -36,37 +36,37 @@ namespace BH.oM.XML.Settings
         /***************************************************/
 
         [Description("Set to true if you want to replace curtain walls to have openings the same size as the wall. This is useful for IES exports. Default false")]
-        public bool ReplaceCurtainWalls { get; set; } = false;
+        public virtual bool ReplaceCurtainWalls { get; set; } = false;
 
         [Description("Set to true if you want to replace an opening which is marked as solid into a door. Useful for IES exports. Default false")]
-        public bool ReplaceSolidOpeningsIntoDoors { get; set; } = false;
+        public virtual bool ReplaceSolidOpeningsIntoDoors { get; set; } = false;
 
         [Description("Set to true if you want to include construction and material data in the export. Default false")]
-        public bool IncludeConstructions { get; set; } = false;
+        public virtual bool IncludeConstructions { get; set; } = false;
 
         [Description("Set to true if you want air types with one adjacent space (i.e. external air walls) to have their type fixed based on their tilt. Default false")]
-        public bool FixIncorrectAirTypes { get; set; } = false;
+        public virtual bool FixIncorrectAirTypes { get; set; } = false;
 
         [Description("Set to false if you want to append to a file when pushing XML. If set to true then a file will be created. If a file exists, it will be overwritten. Default true")]
-        public bool NewFile { get; set; } = true;
+        public virtual bool NewFile { get; set; } = true;
 
         [Description("Set the unit type for the export to be either SI or Imperial. Default SI")]
-        public UnitType UnitType { get; set; } = UnitType.SI;
+        public virtual UnitType UnitType { get; set; } = UnitType.SI;
 
         [Description("Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
-        public ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
+        public virtual ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
 
         [Description("Set the tolerance for distance between points to define a 'short' segment which should be removed from export, default is set to BH.oM.Geometry.Tolerance.Distance")]
-        public double DistanceTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
+        public virtual double DistanceTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
 
         [Description("Set tolerance for planar surfaces, default is set to BH.oM.Geometry.Tolerance.Distance")]
-        public double PlanarTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
+        public virtual double PlanarTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
 
         [Description("Set a distance to offset openings that have a area >= the area of the host panel. Value should be negative. Defaults to -0.001")]
-        public double OffsetDistance { get; set; } = -0.001;
+        public virtual double OffsetDistance { get; set; } = -0.001;
 
         [Description("Set the tolerance for angle calculations when exporting to XML. Default is set to BH.oM.Geometry.Tolerance.Angle")]
-        public double AngleTolerance { get; set; } = BH.oM.Geometry.Tolerance.Angle;
+        public virtual double AngleTolerance { get; set; } = BH.oM.Geometry.Tolerance.Angle;
 
         /***************************************************/
     }
