@@ -35,6 +35,7 @@ using BH.oM.Environment.Elements;
 using BH.oM.Base;
 
 using BH.Engine.Adapter;
+using BH.Engine.XML;
 
 namespace BH.Adapter.XML
 {
@@ -61,11 +62,24 @@ namespace BH.Adapter.XML
 
             List<IBHoMObject> bhomObjects = new List<IBHoMObject>();
             bhomObjects.AddRange(doc.Buildings);
-            foreach (List<Panel> p in doc.ElementsAsSpaces)
-                bhomObjects.AddRange(p);
             bhomObjects.AddRange(doc.Levels);
             bhomObjects.AddRange(doc.ShadingElements);
             bhomObjects.AddRange(doc.UnassignedPanels);
+
+            if (settings.ExportDetail == oM.External.XML.Enums.ExportDetail.Full)
+            {
+                foreach (List<Panel> p in doc.ElementsAsSpaces)
+                    bhomObjects.AddRange(p);
+            }
+            else if(settings.ExportDetail == oM.External.XML.Enums.ExportDetail.BuildingShell)
+            {
+                bhomObjects.AddRange(doc.ElementsAsSpaces.ExternalElements());
+            }
+            else
+            {
+                BH.Engine.Reflection.Compute.RecordError("The ExportDetail has not been appropriately set. Please set the ExportDetail to continue");
+                return false;
+            }
 
             GBXML.GBXML gbx = bhomObjects.ToGBXML(settings);
 

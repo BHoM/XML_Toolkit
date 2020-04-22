@@ -27,7 +27,6 @@ namespace BH.oM.External.XML.Enums
         Undefined,
         BuildingShell,
         Full,
-        IndividualSpaces,
     }
 }
 
