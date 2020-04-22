@@ -31,10 +31,8 @@ using BHG = BH.oM.Geometry;
 using BH.Engine;
 
 using BH.Engine.XML;
-using BHX = BH.oM.XML;
-using BHA = BH.oM.Architecture.Elements;
+using BHX = BH.oM.External.XML.GBXML;
 using BHC = BH.oM.Physical.Constructions;
-using BHM = BH.oM.Physical.Materials;
 
 using BH.oM.Adapter;
 using BH.Engine.Adapter;
@@ -51,7 +49,7 @@ namespace BH.Adapter.XML
 
         private IEnumerable<IBHoMObject> Read(Type type = null)
         {
-            BH.oM.XML.GBXML gbx = XMLReader.Load(_fileSettings.GetFullFileName());
+            BH.oM.External.XML.GBXML.GBXML gbx = XMLReader.Load(_fileSettings.GetFullFileName());
 
             if (type == null)
                 return ReadFullXMLFile(gbx);
@@ -73,7 +71,7 @@ namespace BH.Adapter.XML
         /**** Private Methods                           ****/
         /***************************************************/
 
-        private List<IBHoMObject> ReadFullXMLFile(BH.oM.XML.GBXML gbx, List<string> ids = null)
+        private List<IBHoMObject> ReadFullXMLFile(BH.oM.External.XML.GBXML.GBXML gbx, List<string> ids = null)
         {
             List<IBHoMObject> objects = new List<IBHoMObject>();
 

@@ -23,8 +23,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.XML;
-using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 
 using BHC = BH.oM.Physical.Constructions;

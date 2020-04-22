@@ -23,12 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.XML;
-using BH.oM.Base;
 using BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Fragments;
-using BHG = BH.oM.Geometry;
-using BH.Engine.Geometry;
 using BH.Engine.Environment;
 
 using System.ComponentModel;

@@ -28,7 +28,7 @@ using System.Linq;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
 
-using BH.oM.XML.Enums;
+using BH.oM.External.XML.Enums;
 
 using BH.Engine.Environment;
 

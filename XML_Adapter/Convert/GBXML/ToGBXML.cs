@@ -8,6 +8,7 @@ using GBXML = BH.oM.External.XML.GBXML;
 using BH.oM.External.XML.Settings;
 using BH.oM.Base;
 using BH.oM.Environment.Elements;
+using BH.oM.Environment.Fragments;
 using BH.oM.Geometry.SettingOut;
 using BH.oM.Physical.Constructions;
 
@@ -40,15 +41,17 @@ namespace BH.Adapter.XML
             List<Panel> unassignedPanels = new List<Panel>();
             unassignedPanels.AddRange(panels.Where(x => !panelsAsSpaces.IsContaining(x)).ToList());
 
-            List<Construction> constructions = panels.UniqueConstructions();
+            List<Construction> constructions = panels.Select(x => x.Construction as Construction).ToList();
+            List<Construction> windowConstructions = panels.OpeningsFromElements().UniqueConstructions();
 
             List<GBXML.Building> xmlBuildings = buildings.Select(x => x.ToGBXML()).ToList();
-            List<GBXML.BuildingStorey> xmlLevels = levels.Select(x => x.ToGBXML(x.StoreyGeometry(panelsAsSpaces))).ToList();
+            List<GBXML.BuildingStorey> xmlLevels = levels.Where(x => x.StoreyGeometry(panelsAsSpaces) != null).Select(x => x.ToGBXML(x.StoreyGeometry(panelsAsSpaces))).ToList();
             List<GBXML.Space> xmlSpaces = panelsAsSpaces.Select(x => x.ToGBXML(x.Level(levels), settings)).OrderBy(x => x.Name).ToList();
             List<GBXML.Surface> xmlSurfaces = panels.Select(x => x.ToGBXML(settings)).ToList();
             List<GBXML.Construction> xmlConstructions = constructions.Select(x => x.ToGBXML()).ToList();
             List<GBXML.Layer> xmlLayers = new List<GBXML.Layer>();
             List<GBXML.Material> xmlMaterials = new List<GBXML.Material>();
+            List<GBXML.WindowType> xmlWindows = new List<GBXML.WindowType>();
 
             foreach(Construction c in constructions)
             {
@@ -60,12 +63,52 @@ namespace BH.Adapter.XML
                 xmlLayers.Add(layerMaterials.ToGBXML());
             }
 
+            foreach(Opening o in panels.OpeningsFromElements())
+            {
+                OriginContextFragment openingEnvContextProperties = o.FindFragment<OriginContextFragment>(typeof(OriginContextFragment));
+                
+                string nameCheck = "";
+                if (openingEnvContextProperties != null)
+                    nameCheck = openingEnvContextProperties.TypeName;
+                else if (o.OpeningConstruction != null)
+                    nameCheck = o.OpeningConstruction.Name;
+
+                var t = xmlWindows.Where(a => a.Name == nameCheck).FirstOrDefault();
+                if (t == null && o.OpeningConstruction != null)
+                    xmlWindows.Add(o.OpeningConstruction.ToGBXMLWindow(o));
+            }
+
             GBXML.GBXML gbx = new GBXML.GBXML();
 
             gbx.Campus.Building = xmlBuildings.ToArray();
             gbx.Campus.Location = buildings[0].ToGBXMLLocation();
             gbx.Campus.Building[0].BuildingStorey = xmlLevels.ToArray();
+            gbx.Campus.Building[0].Space = xmlSpaces;
+            gbx.Campus.Surface = xmlSurfaces;
 
+            if (settings.IncludeConstructions)
+            {
+                gbx.Construction = xmlConstructions.ToArray();
+                gbx.Layer = xmlLayers.ToArray();
+                gbx.Material = xmlMaterials.ToArray();
+                gbx.WindowType = xmlWindows.ToArray();
+            }
+            else
+                gbx.WindowType = null;
+
+            //Set the building area
+            List<Panel> floorElements = panels.Where(x => x.Type == PanelType.Floor || x.Type == PanelType.FloorExposed || x.Type == PanelType.FloorInternal || x.Type == PanelType.FloorRaised || x.Type == PanelType.SlabOnGrade || x.Type == PanelType.UndergroundSlab).ToList();
+
+            double buildingFloorArea = 0;
+            foreach (Panel p in floorElements)
+                buildingFloorArea += p.Area();
+
+            gbx.Campus.Building[0].Area = buildingFloorArea;
+
+            // Document History                          
+            GBXML.DocumentHistory DocumentHistory = new GBXML.DocumentHistory();
+            DocumentHistory.CreatedBy.Date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
+            gbx.DocumentHistory = DocumentHistory;
 
             return gbx;
         }

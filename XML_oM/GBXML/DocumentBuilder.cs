@@ -22,49 +22,24 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using BH.oM.External.XML.GBXML;
 using BH.oM.Base;
-using BHE = BH.oM.Environment.Elements;
-using BHG = BH.oM.Geometry;
-using BH.Engine.Geometry;
+using BHoME = BH.oM.Environment.Elements;
 
-using BH.oM.Reflection.Attributes;
-using System.ComponentModel;
-
-namespace BH.Engine.XML
+namespace BH.oM.External.XML.GBXML
 {
-    public static partial class Query
+    public class DocumentBuilder : BHoMObject
     {
         /***************************************************/
-        /**** Public Methods                            ****/
+        /**** Properties                                ****/
         /***************************************************/
 
-        [Description("BH.Engine.XML.Query.ClosedShellGeometry => Gets the XML Polyloop closed shell geometry for a collection of panels representing a space")]
-        [Input("panelsAsSpace", "A collection of Environment Panels representing a single space")]
-        [Input("planarTolerance", "Set tolerance for planar surfaces")]
-        [Output("A collection of XML Geometry Polyloops which represent the shell of the space")]
-        public static List<Polyloop> ClosedShellGeometry(this List<BHE.Panel> panelsAsSpace, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
-        {
-            List<Polyloop> shell = new List<Polyloop>();
+        public virtual List<BHoME.Building> Buildings { get; set; } = new List<BHoME.Building>();
+        public virtual List<List<BHoME.Panel>> ElementsAsSpaces { get; set; } = new List<List<BHoME.Panel>>();
+        public virtual List<BHoME.Panel> ShadingElements { get; set; } = new List<BHoME.Panel>();
+        public virtual List<BH.oM.Geometry.SettingOut.Level> Levels { get; set; } = new List<BH.oM.Geometry.SettingOut.Level>();
+        public virtual List<BHoME.Panel> UnassignedPanels { get; set; } = new List<BHoME.Panel>();
 
-            List<BHG.Polyline> polylines = BH.Engine.Environment.Query.ClosedShellGeometry(panelsAsSpace);
-
-            //Ensure that all of the surface coordinates are listed in a clockwise order
-            foreach(BHG.Polyline pLine in polylines)
-            {
-                if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, panelsAsSpace, planarTolerance))
-                    shell.Add(BH.Engine.XML.Convert.ToGBXML(pLine));
-                else
-                    shell.Add(BH.Engine.XML.Convert.ToGBXML(pLine.Flip()));
-            }
-
-            return shell;
-        }
+        /***************************************************/
     }
 }
-
-
-
-
 

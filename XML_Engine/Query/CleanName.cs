@@ -27,7 +27,7 @@ using BH.Engine.Geometry;
 using System.Linq;
 using BHE = BH.oM.Environment.Elements;
 
-using BH.oM.XML.Enums;
+using BH.oM.External.XML.Enums;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;

@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 using BH.oM.Reflection.Attributes;
 
 using BH.oM.Environment.Elements;
-using BH.oM.XML.Environment;
+using GBXML = BH.oM.External.XML.GBXML;
 using BH.oM.Base;
 using BH.oM.Geometry.SettingOut;
 using BH.Engine.Environment;
@@ -50,9 +50,9 @@ namespace BH.Engine.XML
         [Input("levels", "A collection of levels which group spaces by floor")]
         [Input("unassignedPanels", "Any additional panels needed to be included within the GBXML file")]
         [Output("documentBuilder", "A Document Builder object suitable for GBXML schema document creation")]
-        public static DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<Level> levels, List<Panel> unassignedPanels)
+        public static GBXML.DocumentBuilder DocumentBuilder(List<Building> building, List<List<Panel>> elementsAsSpaces, List<Panel> shadingElements, List<Level> levels, List<Panel> unassignedPanels)
         {
-            return new DocumentBuilder
+            return new GBXML.DocumentBuilder
             {
                 Buildings = building,
                 ElementsAsSpaces = elementsAsSpaces,
@@ -65,7 +65,7 @@ namespace BH.Engine.XML
         [Description("Create a Document Builder object to collate data required for GBXML schema documents automatically from a given list of BHoM Objects")]
         [Input("objs", "A collection of BHoM Objects to sort into a suitable format for inclusion within a GBXML file")]
         [Output("documentBuilder", "A Document Builder object suitable for GBXML schema document creation")]
-        public static DocumentBuilder DocumentBuilder(List<IBHoMObject> objs)
+        public static GBXML.DocumentBuilder DocumentBuilder(List<IBHoMObject> objs)
         {
             List<Panel> panels = objs.Panels();
             List<Space> spaces = objs.Spaces();

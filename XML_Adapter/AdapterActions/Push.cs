@@ -41,11 +41,11 @@ namespace BH.Adapter.XML
             if (pushType == PushType.AdapterDefault)
                 pushType = m_AdapterSettings.DefaultPushType;
 
-            if (_xmlSettings == null)
+           /*if (_xmlSettings == null)
             {
                 BH.Engine.Reflection.Compute.RecordError("Please set some XML Settings on the XML Adapter before pushing to an XML File");
                 return new List<object>();
-            }
+            }*/
 
             IEnumerable<IBHoMObject> objectsToPush = ProcessObjectsForPush(objects, actionConfig); // Note: default Push only supports IBHoMObjects.
 
@@ -56,7 +56,7 @@ namespace BH.Adapter.XML
             {
                 MethodInfo mInfo = methodInfos.MakeGenericMethod(new[] { typeGroup.Key });
                 var list = mInfo.Invoke(typeGroup, new object[] { typeGroup });
-                success &= ICreate(list as dynamic);
+                success &= ICreate(list as dynamic, actionConfig);
             }
 
             return success ? objects.ToList() : new List<object>();

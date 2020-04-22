@@ -41,6 +41,8 @@ using BHM = BH.oM.Physical.Materials;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
+using BH.Engine.XML;
+
 namespace BH.Adapter.XML
 {
     public static partial class Convert

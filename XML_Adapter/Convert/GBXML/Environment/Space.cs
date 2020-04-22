@@ -45,9 +45,9 @@ namespace BH.Adapter.XML
             xmlSpace.Name = panelsAsSpace.ConnectedSpaceName();
             xmlSpace.ID = "Space" + xmlSpace.Name.Replace(" ", "").Replace("-", "");
             xmlSpace.CADObjectID = BH.Engine.XML.Query.CADObjectID(panelsAsSpace);
-            xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(panelsAsSpace, settings.PlanarTolerance).ToArray();
+            xmlSpace.ShellGeometry.ClosedShell.PolyLoop = panelsAsSpace.ClosedShellGeometry().Select(x => x.ToGBXML()).ToArray();
             xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
-            xmlSpace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(panelsAsSpace, uniqueBuildingElements, settings.PlanarTolerance);
+            xmlSpace.SpaceBoundary = SpaceBoundaries(panelsAsSpace, settings.PlanarTolerance);
             xmlSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             if (BH.Engine.Environment.Query.FloorGeometry(panelsAsSpace) != null)
             {

@@ -26,15 +26,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BH.oM.Base;
-using BHE = BH.oM.Environment;
-using BH.oM.XML;
-using BH.oM.XML.Enums;
-
-using BH.Engine.XML;
+using BH.oM.External.XML;
+using BH.oM.External.XML.Enums;
 
 using BH.oM.Adapter;
-using BH.Engine.Adapter;
 
 namespace BH.Adapter.XML
 {

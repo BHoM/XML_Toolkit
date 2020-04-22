@@ -27,14 +27,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
-using BHP = BH.oM.Environment.Fragments;
-using BHX = BH.oM.XML;
-using BHG = BH.oM.Geometry;
-
-using BH.Engine.Geometry;
-using BH.Engine.Environment;
-
-using BH.oM.XML.Enums;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
