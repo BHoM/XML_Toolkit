@@ -46,6 +46,7 @@ namespace BH.Adapter.XML
         [Input("fileSettings", "Input the file settings to get the file name and directory the XML Adapter should use")]
         [Input("xmlSettings", "Input the additional XML Settings the adapter should use. Only used when pushing to an XML file. Default null")]
         [Output("adapter", "Adapter to XML")]
+        //[OldVersion("3.2", "XMLAdapter(BH.oM.Adapter.FileSettings fileSettings = null, XMLSettings xmlSettings = null)")]
         public XMLAdapter(BH.oM.Adapter.FileSettings fileSettings = null)
         {
             //ADD AN OLDVERSION ATTRIBUTE TO THIS METHOD WHEN AVAILABLE

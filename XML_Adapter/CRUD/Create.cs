@@ -42,7 +42,29 @@ namespace BH.Adapter.XML
     {
         protected override bool ICreate<T>(IEnumerable<T> objects, ActionConfig actionConfig = null)
         {
-            string fileName = _fileSettings.GetFullFileName();
+            if(actionConfig == null)
+            {
+                BH.Engine.Reflection.Compute.RecordError("Please provide configuration settings to push to an XML file");
+                return false;
+            }
+
+            XMLConfig config = actionConfig as XMLConfig;
+            if(config == null)
+            {
+                BH.Engine.Reflection.Compute.RecordError("Please provide valid a XMLConfig object for pushing to an XML file");
+                return false;
+            }
+
+            switch(config.Schema)
+            {
+                case Schema.GBXML:
+                    return CreateGBXML(objects, config);
+                default:
+                    BH.Engine.Reflection.Compute.RecordError("The XML Schema you have supplied is not currently supported by the XML Toolkit");
+                    return false;
+            }
+
+            /*string fileName = _fileSettings.GetFullFileName();
 
             GBXML gbx = new GBXML();
 
@@ -65,7 +87,12 @@ namespace BH.Adapter.XML
                     XMLWriter.Save(fileName, gbx);
             }
 
-            return true;
+            return true;*/
+        }
+
+        private bool CreateGBXML<T>(IEnumerable<T> objects, XMLConfig config)
+        {
+            return false;
         }
     }
 }
