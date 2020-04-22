@@ -47,10 +47,10 @@ namespace BH.Adapter.XML
             {
                 FilterRequest filterRequest = request as FilterRequest;
 
-                return Read(filterRequest.Type);
+                return Read(filterRequest.Type, actionConfig: actionConfig);
             }
             else
-                return Read(null);
+                return Read(null, actionConfig);
         }
     }
 }

@@ -139,6 +139,7 @@
     <Compile Include="Convert\GBXML\ToGBXML.cs" />
     <Compile Include="CRUD\Create.cs" />
     <Compile Include="CRUD\GBXML\CreateGBXML.cs" />
+    <Compile Include="CRUD\GBXML\ReadGBXML.cs" />
     <Compile Include="CRUD\Read.cs" />
     <Compile Include="XMLAdapter.cs" />
     <Compile Include="XMLReader.cs" />
