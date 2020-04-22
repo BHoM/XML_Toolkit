@@ -7,7 +7,7 @@
     <ProjectGuid>{43C9DC2F-18C1-48A9-B06F-B89CF188616E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XML_oM</RootNamespace>
+    <RootNamespace>BH.oM.XML</RootNamespace>
     <AssemblyName>XML_oM</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -58,7 +58,7 @@
   <ItemGroup>
     <Compile Include="DocumentBuilder.cs" />
     <Compile Include="Enums\ExportDetail.cs" />
-    <Compile Include="Enums\ExportType.cs" />
+    <Compile Include="Enums\Schema.cs" />
     <Compile Include="Enums\UnitType.cs" />
     <Compile Include="GBXML\GBXML.cs" />
     <Compile Include="GBXML\Campus\Absorptance.cs" />

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -20,13 +20,21 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using System.ComponentModel;
+
 namespace BH.oM.XML.Enums
 {
-    public enum ExportType
+    [Description("Defines the XML Schema that is being used within the context of the XML Toolkit")]
+    public enum Schema
     {
         Undefined,
-        gbXMLTAS,
-        gbXMLIES,
+        [Description("gbXML Schema is the Green Building XML Schema, used by environment modelling software for the transfer of building geometry and data to tools such as IES, TAS, and more")]
+        GBXML,
     }
 }
-

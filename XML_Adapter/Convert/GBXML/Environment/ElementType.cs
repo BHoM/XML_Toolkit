@@ -46,9 +46,8 @@ namespace BH.Adapter.XML
         [Description("Get the GBXML type for a BHoM Environments Panel")]
         [Input("element", "The BHoM Environments Panel to get the GBXML Type from")]
         [Input("adjacentSpaces", "A collection of Environment Panels that are adjacent to the element the type is being obtained from")]
-        [Input("exportType", "The type of GBXML export being produced can impact the GBXML type, use this to select the GBXML type most relevant for the software you want to import the GBXML file into, default is TAS")]
         [Output("type", "The GBXML type for the BHoM Environment Panel")]
-        public static string ToGBXMLType(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces = null, ExportType exportType = ExportType.gbXMLTAS)
+        public static string ToGBXMLType(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces = null)
         {
             if (adjacentSpaces == null) adjacentSpaces = new List<List<BHE.Panel>>();
 
