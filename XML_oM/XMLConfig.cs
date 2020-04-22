@@ -27,12 +27,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BH.oM.Adapter;
-using BH.oM.XML.Enums;
-using BH.oM.XML.Settings;
+using BH.oM.External.XML.Enums;
+using BH.oM.External.XML.Settings;
 
 using System.ComponentModel;
 
-namespace BH.oM.XML
+namespace BH.oM.External.XML
 {
     [Description("Define configuration settings for pushing and pulling XML files using the XML Adapter")]
     public class XMLConfig : ActionConfig

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using BH.oM.Base;
 using BHoME = BH.oM.Environment.Elements;
 
-namespace BH.oM.XML.Environment
+namespace BH.oM.External.XML.Environment
 {
     public class DocumentBuilder : BHoMObject
     {

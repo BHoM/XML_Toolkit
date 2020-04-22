@@ -136,6 +136,7 @@
     <Compile Include="Convert\GBXML\Geometry\Point.cs" />
     <Compile Include="Convert\GBXML\Geometry\Polyline.cs" />
     <Compile Include="CRUD\Create.cs" />
+    <Compile Include="CRUD\CreateGBXML.cs" />
     <Compile Include="CRUD\Read.cs" />
     <Compile Include="Serialise\Building.cs" />
     <Compile Include="Serialise\Panel.cs" />

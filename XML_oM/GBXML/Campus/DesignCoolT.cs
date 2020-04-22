@@ -26,7 +26,7 @@ using System.Xml.Serialization;
 
 using BH.oM.Base;
 
-namespace BH.oM.XML
+namespace BH.oM.External.XML.GBXML
 {
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     public class DesignCoolT : GBXMLObject

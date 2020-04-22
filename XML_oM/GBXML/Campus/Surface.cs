@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace BH.oM.XML
+namespace BH.oM.External.XML.GBXML
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]

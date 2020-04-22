@@ -89,10 +89,5 @@ namespace BH.Adapter.XML
 
             return true;*/
         }
-
-        private bool CreateGBXML<T>(IEnumerable<T> objects, XMLConfig config)
-        {
-            return false;
-        }
     }
 }
