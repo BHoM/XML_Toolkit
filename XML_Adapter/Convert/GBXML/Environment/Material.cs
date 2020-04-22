@@ -39,7 +39,7 @@ using BH.Engine.Environment;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-using BH.Engine.XML;
+using BH.Engine.External.XML;
 
 namespace BH.Adapter.XML
 {

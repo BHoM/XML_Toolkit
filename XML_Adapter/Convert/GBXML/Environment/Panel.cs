@@ -40,7 +40,7 @@ using BHP = BH.oM.Environment.Fragments;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-using BH.Engine.XML;
+using BH.Engine.External.XML;
 
 using BH.Engine.Base;
 
@@ -128,7 +128,7 @@ namespace BH.Adapter.XML
                     }
                     //Update the host elements element type
                     surface.SurfaceType = (panel.ConnectedSpaces.Count == 1 ? BHE.PanelType.WallExternal : BHE.PanelType.WallInternal).ToGBXML();
-                    surface.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
+                    surface.ExposedToSun = BH.Engine.External.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
                 }
             }
             else
@@ -137,7 +137,7 @@ namespace BH.Adapter.XML
                 if (panel.Type == BHE.PanelType.CurtainWall)
                 {
                     surface.SurfaceType = (panel.ConnectedSpaces.Count == 1 ? BHE.PanelType.WallExternal : BHE.PanelType.WallInternal).ToGBXML();
-                    surface.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
+                    surface.ExposedToSun = BH.Engine.External.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
                 }
             }
 
@@ -166,36 +166,6 @@ namespace BH.Adapter.XML
                 adjId.SpaceIDRef = "Space" + s.Replace(" ", "").Replace("-", "");
                 adjIDs.Add(adjId);
             }
-            surface.AdjacentSpaceID = adjIDs.ToArray();
-
-            return surface;
-        }
-
-        [Description("Get the GBXML representation of a BHoM Environments Panel")]
-        [Input("element", "The BHoM Environments Panel to convert into a GBXML Surface")]
-        [Input("adjacentSpaces", "The collection of Environment Panels which form closed spaces that are adjacent to the element being converted")]
-        [Input("space", "The collection of Environment Panels which form the space the given element is in")]
-        [Input("settings", "XML Settings to determine tolerances and other parts of the conversion")]
-        [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
-        public static BHX.Surface ToGBXML(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces, List<BHE.Panel> space, GBXMLSettings settings)
-        {
-            BHX.Surface surface = element.ToGBXML(settings);
-
-            surface.SurfaceType = element.ToGBXMLType(adjacentSpaces);
-            surface.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(element).ToString().ToLower();
-
-            BHG.Polyline pLine = element.Polyline();
-            if (!pLine.NormalAwayFromSpace(space, settings.PlanarTolerance))
-            {
-                pLine = pLine.Flip();
-                surface.PlanarGeometry.PolyLoop = pLine.ToGBXML();
-                surface.RectangularGeometry.Tilt = Math.Round(pLine.Tilt(settings.AngleTolerance), 3);
-                surface.RectangularGeometry.Azimuth = Math.Round(pLine.Azimuth(BHG.Vector.YAxis), 3);
-            }
-
-            List<BHX.AdjacentSpaceID> adjIDs = new List<BHX.AdjacentSpaceID>();
-            foreach (List<BHE.Panel> sp in adjacentSpaces)
-                adjIDs.Add(sp.AdjacentSpaceID());
             surface.AdjacentSpaceID = adjIDs.ToArray();
 
             return surface;

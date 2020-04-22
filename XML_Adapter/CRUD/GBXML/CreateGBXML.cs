@@ -35,7 +35,7 @@ using BH.oM.Environment.Elements;
 using BH.oM.Base;
 
 using BH.Engine.Adapter;
-using BH.Engine.XML;
+using BH.Engine.External.XML;
 
 namespace BH.Adapter.XML
 {

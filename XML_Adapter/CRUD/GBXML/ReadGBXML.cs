@@ -24,6 +24,9 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.IO;
+
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BH.oM.Environment.Fragments;
@@ -44,7 +47,11 @@ namespace BH.Adapter.XML
 
         private IEnumerable<IBHoMObject> ReadGBXML(Type type = null, XMLConfig config = null)
         {
-            BH.oM.External.XML.GBXML.GBXML gbx = XMLReader.Load(_fileSettings.GetFullFileName());
+            BH.oM.External.XML.GBXML.GBXML gbx = null;
+            TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
+            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.External.XML.GBXML.GBXML));
+            gbx = (BH.oM.External.XML.GBXML.GBXML)szer.Deserialize(reader);
+            reader.Close();
 
             if (type == null)
                 return ReadFullXMLFile(gbx);
