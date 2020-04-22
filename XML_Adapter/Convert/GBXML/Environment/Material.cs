@@ -30,7 +30,7 @@ using BH.oM.Environment.MaterialFragments;
 using BHM = BH.oM.Physical.Materials;
 using BHC = BH.oM.Physical.Constructions;
 using BHP = BH.oM.Environment.Fragments;
-using BHX = BH.oM.XML;
+using BHX = BH.oM.External.XML.GBXML;
 using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;

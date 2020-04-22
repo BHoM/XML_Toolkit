@@ -26,47 +26,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BHE = BH.oM.Environment.Elements;
-using BHM = BH.oM.Environment.MaterialFragments;
-using BHP = BH.oM.Environment.Fragments;
-using BHA = BH.oM.Architecture.Elements;
-using BHX = BH.oM.XML;
-using BHG = BH.oM.Geometry;
+using BH.oM.Environment.Elements;
+using BH.oM.External.XML.Settings;
+using GBXML = BH.oM.External.XML.GBXML;
+using BH.oM.Geometry.SettingOut;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
-
-using BH.oM.XML.Enums;
 
 namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        /*public static BHX.Space ToGBXML(this BHE.Space space, List<BHE.BuildingElement> elementsAsSpace, List<BHE.BuildingElement> uniqueBuildingElements, List<BHA.Level> levels)
+        public static GBXML.Space ToGBXML(this List<Panel> panelsAsSpace, Level spaceLevel, GBXMLSettings settings)
         {
-            Dictionary<string, object> spaceData = (elementsAsSpace.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault() != null ? elementsAsSpace.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault().CustomData["Space_Custom_Data"] as Dictionary<string, object> : new Dictionary<string, object>());
+            GBXML.Space xmlSpace = new GBXML.Space();
 
-            BHX.Space gbSpace = new BHX.Space();
-            gbSpace.Name = (spaceData.ContainsKey("SAM_SpaceName") && spaceData["SAM_SpaceName"] != null ? spaceData["SAM_SpaceName"].ToString() : space.Name); //CUSTOMDATA SAM_SpaceName
-            gbSpace.ID = "Space-" + space.Number + "-" + space.Name;
-            gbSpace.CADObjectID = elementsAsSpace.CADObjectID();
-            gbSpace.ShellGeometry.ClosedShell.PolyLoop = elementsAsSpace.ClosedShellGeometry().ToArray();
-            gbSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
-            gbSpace.SpaceBoundary = elementsAsSpace.SpaceBoundaries(uniqueBuildingElements);
-            gbSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
-            if (elementsAsSpace.FloorGeometry() != null)
+            xmlSpace.Name = panelsAsSpace.ConnectedSpaceName();
+            xmlSpace.ID = "Space" + xmlSpace.Name.Replace(" ", "").Replace("-", "");
+            xmlSpace.CADObjectID = BH.Engine.XML.Query.CADObjectID(panelsAsSpace);
+            xmlSpace.ShellGeometry.ClosedShell.PolyLoop = BH.Engine.XML.Query.ClosedShellGeometry(panelsAsSpace, settings.PlanarTolerance).ToArray();
+            xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
+            xmlSpace.SpaceBoundary = BH.Engine.XML.Query.SpaceBoundaries(panelsAsSpace, uniqueBuildingElements, settings.PlanarTolerance);
+            xmlSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
+            if (BH.Engine.Environment.Query.FloorGeometry(panelsAsSpace) != null)
             {
-                gbSpace.PlanarGeoemtry.PolyLoop = elementsAsSpace.FloorGeometry().ToGBXML();
-                gbSpace.Area = elementsAsSpace.FloorGeometry().Area();
-                gbSpace.Volume = elementsAsSpace.Volume();
+                xmlSpace.PlanarGeoemtry.PolyLoop = ToGBXML(BH.Engine.Environment.Query.FloorGeometry(panelsAsSpace));
+                xmlSpace.Area = BH.Engine.Environment.Query.FloorGeometry(panelsAsSpace).Area();
+                xmlSpace.Volume = panelsAsSpace.Volume();
             }
 
-            BHA.Level spaceLevel = space.Level(levels);
             if (spaceLevel != null)
-                gbSpace.BuildingStoreyIDRef = "Level-" + spaceLevel.Name.Replace(" ", "").ToLower();
+            {
+                string levelName = "";
+                if (spaceLevel.Name == "")
+                    levelName = spaceLevel.Elevation.ToString();
+                else
+                    levelName = spaceLevel.Name;
 
-            return gbSpace;
-        }*/
+                xmlSpace.BuildingStoreyIDRef = "Level-" + levelName.Replace(" ", "").ToLower();
+            }
+
+            return xmlSpace;
+        }
     }
 }
 

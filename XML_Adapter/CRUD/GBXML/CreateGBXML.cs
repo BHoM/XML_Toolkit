@@ -26,7 +26,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BH.oM.XML;
+using BH.oM.External.XML;
+using GBXML = BH.oM.External.XML.GBXML;
+using BH.oM.External.XML.Settings;
 using BH.oM.Base;
 using BH.oM.Environment.Elements;
 using BH.oM.Geometry.SettingOut;
@@ -41,16 +43,41 @@ namespace BH.Adapter.XML
         {
             bool success = true;
 
+            if(config.Settings == null)
+            {
+                BH.Engine.Reflection.Compute.RecordError("Please provide a suitable set of GBXMLSettings with the XMLConfig to determine how the GBXML file should be created");
+                return false;
+            }
+
+            GBXMLSettings settings = config.Settings as GBXMLSettings;
+            if(settings == null)
+            {
+                BH.Engine.Reflection.Compute.RecordError("Please provide a suitable set of GBXMLSettings with the XMLConfig to determine how the GBXML file should be created");
+                return false;
+            }
+
             List<IBHoMObject> bhomObjects = objects.Where(x => (x as IBHoMObject) != null).Select(x => x as IBHoMObject).ToList();
 
             List<Panel> panels = bhomObjects.Panels();
-            List<Space> spaces = bhomObjects.Spaces();
             List<Level> levels = bhomObjects.Levels();
             List<Building> buildings = bhomObjects.Buildings();
+            List<List<Panel>> panelsAsSpaces = panels.ToSpaces();
+
+            //Run some checks to make sure the user is aware if we are missing any suitable data elements
+            if(panelsAsSpaces.Count == 0)
+                BH.Engine.Reflection.Compute.RecordWarning("There are no spaces represented by panels included within the objects being pushed");
+            if (panels.Count == 0)
+                BH.Engine.Reflection.Compute.RecordWarning("There are no panels included within the objects being pushed");
+            if (levels.Count == 0)
+                BH.Engine.Reflection.Compute.RecordWarning("There are no levels included within the objects being pushed");
+            if (buildings.Count == 0)
+                BH.Engine.Reflection.Compute.RecordWarning("There are no buildings included within the objects being pushed");
+
+            List<GBXML.Space> xmlSpaces = panelsAsSpaces.Select(x => x.ToGBXML(x.Level(levels), settings)).ToList();
 
             return success;
         }
 
-        private 
+
     }
 }

@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
 using BHA = BH.oM.Architecture.Elements;
-using BHX = BH.oM.XML;
+using BHX = BH.oM.External.XML.GBXML;
 using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
@@ -44,18 +44,14 @@ namespace BH.Adapter.XML
         [Input("level", "A BHoM level to find the storey for")]
         [Input("spaces", "A list of BHoM spaces that sits on the given level")]
         [Output("buildingStorey", "The gbXML building storey")]
-        public static BHX.BuildingStorey ToGBXML(this BHG.SettingOut.Level level, List<List<BHE.Panel>> spaces = null)
+        public static BHX.BuildingStorey ToGBXML(this BHG.SettingOut.Level level, BHG.Polyline storeyGeometry)
         {
             BHX.BuildingStorey storey = new BHX.BuildingStorey();
 
-            if (spaces != null)
-            {
-                BHG.Polyline storeyGeometry = level.StoreyGeometry(spaces);
-                if (storeyGeometry != null)
-                    storey.PlanarGeometry.PolyLoop = storeyGeometry.ToGBXML();
-            }
+            if (storeyGeometry != null)
+                storey.PlanarGeometry.PolyLoop = storeyGeometry.ToGBXML();
 
-            storey.PlanarGeometry.ID = "level-planar-geometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
+            storey.PlanarGeometry.ID = "LevelPlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             storey.Name = level.Name;
             storey.ID = "Level-" + level.Name.Replace(" ", "").ToLower();
             storey.Level = (float)level.Elevation;

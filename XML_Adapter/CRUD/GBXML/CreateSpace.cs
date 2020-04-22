@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -20,76 +20,57 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Environment.Elements;
 using System;
 using System.Collections.Generic;
-
 using System.Linq;
-using BH.Engine.Environment;
+using System.Text;
+using System.Threading.Tasks;
 
-using BH.oM.XML;
-using BH.Engine.XML;
-
-using BHG = BH.oM.Geometry;
+using BH.oM.External.XML.Settings;
+using GBXML = BH.oM.External.XML.GBXML;
+using BH.oM.Environment.Elements;
+using BH.oM.Environment.Fragments;
 using BH.oM.Geometry.SettingOut;
-using BH.Engine.Geometry;
 
-using BH.oM.XML.Enums;
-
-using BHP = BH.oM.Environment.Fragments;
-
-using BHC = BH.oM.Physical.Constructions;
-
-using BH.oM.XML.Settings;
+using BH.Engine.Environment;
 
 namespace BH.Adapter.XML
 {
-    public partial class GBXMLSerializer
+    public partial class XMLAdapter : BHoMAdapter
     {
-        /***************************************************/
-        /**** Public Methods                            ****/
-        /***************************************************/
-
-        public static void SerializeCollection(IEnumerable<IEnumerable<Panel>> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, GBXMLSettings settings)
+        private List<GBXML.Space> CreateSpace(List<List<Panel>> panelsAsSpaces, List<Level> levels, GBXMLSettings settings)
         {
+            List<GBXML.Space> xmlSpaces = new List<GBXML.Space>();
+
             List<List<Panel>> elementsAsSpaces = new List<List<Panel>>();
 
-            foreach (IEnumerable<Panel> input in inputElements)
+            foreach (IEnumerable<Panel> input in panelsAsSpaces)
                 elementsAsSpaces.Add(input.ToList());
 
             List<Panel> uniqueBuildingElements = elementsAsSpaces.UniquePanels();
 
-            List<Panel> allElements = new List<Panel>(uniqueBuildingElements);
-            allElements.AddRange(openings);
+            List<Panel> usedPanels = new List<Panel>();
 
-            //List<BH.oM.Environment.Elements.Space> spaces = elementsAsSpaces.Spaces();
-
-            List<Panel> usedBEs = new List<Panel>();
-
-            List<BH.oM.XML.Construction> usedConstructions = new List<BH.oM.XML.Construction>();
-            List<BH.oM.XML.Material> usedMaterials = new List<Material>();
-            List<BH.oM.XML.Layer> usedLayers = new List<Layer>();
+            //List<BH.oM.XML.Construction> usedConstructions = new List<BH.oM.XML.Construction>();
+            //List<BH.oM.XML.Material> usedMaterials = new List<Material>();
+            //List<BH.oM.XML.Layer> usedLayers = new List<Layer>();
             List<string> usedSpaceNames = new List<string>();
-            List<BH.oM.XML.WindowType> usedWindows = new List<WindowType>();
+            //List<BH.oM.XML.WindowType> usedWindows = new List<WindowType>();
 
             foreach (List<Panel> space in elementsAsSpaces)
             {
                 //For each collection of BuildingElements that define a space, convert the panels to XML surfaces and add to the GBXML
-                List<Surface> spaceSurfaces = new List<Surface>();
+                List<GBXML.Surface> spaceSurfaces = new List<GBXML.Surface>();
 
                 for (int x = 0; x < space.Count; x++)
                 {
-                    if (usedBEs.Where(i => i.BHoM_Guid == space[x].BHoM_Guid).FirstOrDefault() != null) continue;
+                    if (usedPanels.Where(i => i.BHoM_Guid == space[x].BHoM_Guid).FirstOrDefault() != null) continue;
 
-                    //Fix panel type
-                    //if(space[x].Type == PanelType.WallExternal && space[x].ConnectedSpaces.Count == 2)
-                        //space[x].Type = PanelType.WallInternal;
-
-                    BHP.OriginContextFragment envContextProperties = space[x].FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
+                    OriginContextFragment envContextProperties = space[x].FindFragment<OriginContextFragment>(typeof(OriginContextFragment));
 
                     List<List<Panel>> adjacentSpaces = BH.Engine.Environment.Query.AdjacentSpaces(space[x], elementsAsSpaces);
 
-                    Surface srf = space[x].ToGBXML(adjacentSpaces, space, settings);
+                    GBXML.Surface srf = space[x].ToGBXML(adjacentSpaces, space, settings);
                     srf.ID = "Panel-" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
                     srf.Name = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
 
@@ -113,13 +94,13 @@ namespace BH.Adapter.XML
                                 List<BHG.Polyline> refRegion = space[x].Openings.Where(y => y.Polyline() != null).ToList().Select(z => z.Polyline()).ToList();
 
                                 newOpeningBounds.AddRange(BH.Engine.Geometry.Triangulation.Compute.DelaunayTriangulation(space[x].Polyline(), refRegion, conformingDelaunay: false));
-                                List<BHG.Polyline> outer = new List<BHG.Polyline> { space[x].Polyline()};
+                                List<BHG.Polyline> outer = new List<BHG.Polyline> { space[x].Polyline() };
                                 double outerArea = space[x].Area();
                                 for (int z = 0; z > space[x].Openings.Count; z++)
                                 {
                                     BHG.Polyline pLine = outer.BooleanDifference(new List<BHG.Polyline> { space[x].Openings[z].Polyline() })[0];
                                     if (pLine.Area() != outerArea)
-                                        space[x].Openings[z].Edges = space[x].Openings[z].Polyline().Offset(settings.OffsetDistance).ToEdges();   
+                                        space[x].Openings[z].Edges = space[x].Openings[z].Polyline().Offset(settings.OffsetDistance).ToEdges();
                                 }
                             }
                             else
@@ -157,8 +138,8 @@ namespace BH.Adapter.XML
                             srf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(srf.SurfaceType).ToString().ToLower();
                         }
                     }
-                    
-                    if(settings.FixIncorrectAirTypes && space[x].Type == PanelType.Undefined && space[x].ConnectedSpaces.Count == 1)
+
+                    if (settings.FixIncorrectAirTypes && space[x].Type == PanelType.Undefined && space[x].ConnectedSpaces.Count == 1)
                     {
                         //Fix external air types
                         if (space[x].Tilt(settings.AngleTolerance) == 0)
@@ -167,13 +148,13 @@ namespace BH.Adapter.XML
                             srf.SurfaceType = PanelType.WallExternal.ToGBXML();
                         else if (space[x].Tilt(settings.AngleTolerance) == 180)
                             srf.SurfaceType = PanelType.SlabOnGrade.ToGBXML();
-                    }           
+                    }
 
                     //Openings
                     if (space[x].Openings.Count > 0)
                     {
                         srf.Opening = SerializeOpenings(space[x].Openings, space, allElements, elementsAsSpaces, gbx, settings, space[x]).ToArray();
-                        foreach(BH.oM.Environment.Elements.Opening o in space[x].Openings)
+                        foreach (BH.oM.Environment.Elements.Opening o in space[x].Openings)
                         {
                             string nameCheck = "";
 
@@ -183,7 +164,7 @@ namespace BH.Adapter.XML
                                 nameCheck = openingEnvContextProperties.TypeName;
                             else if (o.OpeningConstruction != null)
                                 nameCheck = o.OpeningConstruction.Name;
-                            
+
                             var t = usedWindows.Where(a => a.Name == nameCheck).FirstOrDefault();
                             if (t == null && o.OpeningConstruction != null)
                                 usedWindows.Add(o.OpeningConstruction.ToGBXMLWindow(o));
@@ -192,7 +173,7 @@ namespace BH.Adapter.XML
 
                     gbx.Campus.Surface.Add(srf);
 
-                    usedBEs.Add(space[x]);
+                    usedPanels.Add(space[x]);
 
                     if (settings.IncludeConstructions && space[x].Construction != null)
                     {
@@ -210,11 +191,11 @@ namespace BH.Adapter.XML
                             conc.LayerID.LayerIDRef = layer.ID;
 
                             usedConstructions.Add(conc);
-                                
-                            if(usedLayers.Where(y => y.ID == layer.ID).FirstOrDefault() == null)
+
+                            if (usedLayers.Where(y => y.ID == layer.ID).FirstOrDefault() == null)
                                 usedLayers.Add(layer);
 
-                            foreach(BH.oM.XML.Material mat in materials)
+                            foreach (BH.oM.XML.Material mat in materials)
                             {
                                 if (usedMaterials.Where(y => y.ID == mat.ID).FirstOrDefault() == null)
                                     usedMaterials.Add(mat);
@@ -274,74 +255,8 @@ namespace BH.Adapter.XML
                 buildingFloorArea += be.Area();
 
             gbx.Campus.Building[0].Area = buildingFloorArea;
-        }
 
-        public static void SerializeCollection(IEnumerable<Panel> inputElements, BH.oM.XML.GBXML gbx, GBXMLSettings settings)
-        {
-            //For serializing shade elements
-            List<Panel> buildingElements = inputElements.ToList();
-
-            List<BH.oM.XML.Construction> usedConstructions = new List<oM.XML.Construction>(gbx.Construction);
-            List<BH.oM.XML.Material> usedMaterials = new List<Material>(gbx.Material);
-            List<BH.oM.XML.Layer> usedLayers = new List<Layer>(gbx.Layer);
-
-            foreach (Panel be in buildingElements)
-            {
-                Surface gbSrf = be.ToGBXML(settings);
-                gbSrf.ID = "Panel_" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
-                gbSrf.Name = "Panel" + gbx.Campus.Surface.Count.ToString().Replace(" ", "").Replace("-", "");
-                gbSrf.SurfaceType = "Shade";
-                gbSrf.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(gbSrf.SurfaceType).ToString().ToLower();
-                gbSrf.CADObjectID = be.CADObjectID();
-
-                if (settings.IncludeConstructions)
-                {
-                    BHP.OriginContextFragment envContextProperties = be.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
-
-                    gbSrf.ConstructionIDRef = (envContextProperties != null ? envContextProperties.TypeName.CleanName() : be.ConstructionID());
-                    BH.oM.XML.Construction conc = be.ToGBXMLConstruction();
-                    BH.oM.XML.Construction test = usedConstructions.Where(y => y.ID == conc.ID).FirstOrDefault();
-                    if (test == null)
-                    {
-                        List<BH.oM.XML.Material> materials = new List<Material>();
-                        BHC.Construction construction = be.Construction as BHC.Construction;
-
-                        foreach (BHC.Layer l in construction.Layers)
-                            materials.Add(l.ToGBXML());
-
-                        BH.oM.XML.Layer layer = materials.ToGBXML();
-                        conc.LayerID.LayerIDRef = layer.ID;
-
-                        usedConstructions.Add(conc);
-
-                        if (usedLayers.Where(y => y.ID == layer.ID).FirstOrDefault() == null)
-                            usedLayers.Add(layer);
-
-                        foreach (BH.oM.XML.Material mat in materials)
-                        {
-                            if (usedMaterials.Where(y => y.ID == mat.ID).FirstOrDefault() == null)
-                                usedMaterials.Add(mat);
-                        }
-                    }
-                }
-                else //We have to force null otherwise Construction will be created
-                    gbSrf.ConstructionIDRef = null;
-
-                gbx.Campus.Surface.Add(gbSrf);
-            }
-
-            gbx.Construction = usedConstructions.ToArray();
-            gbx.Layer = usedLayers.ToArray();
-            gbx.Material = usedMaterials.ToArray();
-        }
-
-        public static void SerializeCollection(IEnumerable<Panel> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, GBXMLSettings settings)
-        {
-            List<List<Panel>> elementsAsSpaces = new List<List<Panel>>();
-            elementsAsSpaces.Add(inputElements.ToList());
-
-            SerializeCollection(elementsAsSpaces, levels, openings, gbx, settings);
-            gbx.Campus.Building[0].Space[0].Name = "00_000 BuildingShell";
+            return xmlSpaces;
         }
     }
 }
