@@ -1,0 +1,18 @@
+{
+  "Namespace": {
+    "ToNew": {
+      "BH.Engine.XML":  "BH.Engine.External.XML"
+    },
+    "ToOld": {
+      "BH.Engine.External.XML": "BH.Engine.XML"
+    }
+  },
+  "Type": {
+    "ToNew": {
+      
+    },
+    "ToOld": {
+      
+    }
+  }
+}
