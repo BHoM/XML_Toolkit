@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -22,23 +22,35 @@
 
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+using BH.oM.XML;
 using BH.oM.Base;
+using BH.oM.Environment.Elements;
+using BH.oM.Geometry.SettingOut;
 
-namespace BH.oM.External.XML.GBXML
+using BH.Engine.Environment;
+
+namespace BH.Adapter.XML
 {
-    [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class BuildingStorey : GBXMLObject
+    public partial class XMLAdapter : BHoMAdapter
     {
-        [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "StoreyID";
-        [XmlElement("Level")]
-        public double Level { get; set; } = 0;
-        [XmlElement("PlanarGeometry")]
-        public PlanarGeometry PlanarGeometry { get; set; } = new PlanarGeometry();
-        [XmlElement("Name")]
-        public new string Name { get; set; } = "Storey";
+        private bool CreateGBXML<T>(IEnumerable<T> objects, XMLConfig config)
+        {
+            bool success = true;
+
+            List<IBHoMObject> bhomObjects = objects.Where(x => (x as IBHoMObject) != null).Select(x => x as IBHoMObject).ToList();
+
+            List<Panel> panels = bhomObjects.Panels();
+            List<Space> spaces = bhomObjects.Spaces();
+            List<Level> levels = bhomObjects.Levels();
+            List<Building> buildings = bhomObjects.Buildings();
+
+            return success;
+        }
+
+        private 
     }
 }

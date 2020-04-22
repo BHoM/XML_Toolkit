@@ -26,7 +26,7 @@ using System.Xml.Serialization;
 
 using BH.oM.Base;
 
-namespace BH.oM.XML
+namespace BH.oM.External.XML.GBXML
 {
     public abstract class GBXMLObject : IBHoMObject
     {

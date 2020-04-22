@@ -26,7 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BH.oM.XML.Settings
+namespace BH.oM.External.XML.Settings
 {
     public interface IXMLSettings
     {
