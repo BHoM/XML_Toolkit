@@ -30,7 +30,7 @@ using BHC = BH.oM.Physical.Constructions;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.XML
+namespace BH.Engine.External.XML
 {
     public static partial class Query
     {

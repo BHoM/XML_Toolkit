@@ -27,7 +27,7 @@ using System.Linq;
 using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
 
-namespace BH.Engine.XML
+namespace BH.Engine.External.XML
 {
     public static partial class Query
     {
