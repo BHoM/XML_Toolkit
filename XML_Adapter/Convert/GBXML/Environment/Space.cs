@@ -38,7 +38,7 @@ using BH.Engine.Environment;
 
 using BH.oM.XML.Enums;
 
-namespace BH.Engine.XML
+namespace BH.Adapter.XML
 {
     public static partial class Convert
     {

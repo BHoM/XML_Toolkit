@@ -101,17 +101,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Convert\Architecture\Level.cs" />
-    <Compile Include="Convert\Environment\Building.cs" />
-    <Compile Include="Convert\Environment\Panel.cs" />
-    <Compile Include="Convert\Environment\Construction.cs" />
-    <Compile Include="Convert\Environment\Roughness.cs" />
-    <Compile Include="Convert\Environment\ElementType.cs" />
-    <Compile Include="Convert\Environment\Material.cs" />
-    <Compile Include="Convert\Environment\Opening.cs" />
-    <Compile Include="Convert\Environment\Space.cs" />
-    <Compile Include="Convert\Geometry\Point.cs" />
-    <Compile Include="Convert\Geometry\Polyline.cs" />
     <Compile Include="Create\DocumentBuilder.cs" />
     <Compile Include="Create\XMLSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,6 +122,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Convert\" />
     <Folder Include="Modify\" />
   </ItemGroup>
   <ItemGroup>

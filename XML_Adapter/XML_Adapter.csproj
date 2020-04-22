@@ -124,6 +124,17 @@
   <ItemGroup>
     <Compile Include="AdapterActions\Pull.cs" />
     <Compile Include="AdapterActions\Push.cs" />
+    <Compile Include="Convert\GBXML\Architecture\Level.cs" />
+    <Compile Include="Convert\GBXML\Environment\Building.cs" />
+    <Compile Include="Convert\GBXML\Environment\Construction.cs" />
+    <Compile Include="Convert\GBXML\Environment\ElementType.cs" />
+    <Compile Include="Convert\GBXML\Environment\Material.cs" />
+    <Compile Include="Convert\GBXML\Environment\Opening.cs" />
+    <Compile Include="Convert\GBXML\Environment\Panel.cs" />
+    <Compile Include="Convert\GBXML\Environment\Roughness.cs" />
+    <Compile Include="Convert\GBXML\Environment\Space.cs" />
+    <Compile Include="Convert\GBXML\Geometry\Point.cs" />
+    <Compile Include="Convert\GBXML\Geometry\Polyline.cs" />
     <Compile Include="CRUD\Create.cs" />
     <Compile Include="CRUD\Read.cs" />
     <Compile Include="Serialise\Building.cs" />
@@ -151,6 +162,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
