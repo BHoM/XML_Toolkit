@@ -40,7 +40,7 @@ using BHP = BH.oM.Environment.Fragments;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.XML
+namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
