@@ -1,0 +1,18 @@
+{
+  "Namespace": {
+    "ToNew": {
+      "BH.Test.Test":  "BH.Test.New"
+    },
+    "ToOld": {
+      "BH.Test.Test": "BH.Test.New"
+    }
+  },
+  "Type": {
+    "ToNew": {
+      "BH.oM.XML.Settings.XMLSettings": "BH.oM.XML.Settings.GBXMLSettings"
+    },
+    "ToOld": {
+      "BH.oM.XML.Settings.GBXMLSettings": "BH.oM.XML.Settings.XMLSettings"
+    }
+  }
+}

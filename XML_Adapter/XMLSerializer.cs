@@ -40,7 +40,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, BH.oM.Adapter.FileSettings filesettings, XMLSettings settings) where T : IObject
+        public static void Serialize<T>(IEnumerable<T> bhomObjects, BH.oM.XML.GBXML gbx, BH.oM.Adapter.FileSettings filesettings, GBXMLSettings settings) where T : IObject
         {
             switch (settings.ExportDetail)
             {
@@ -63,12 +63,12 @@ namespace BH.Adapter.XML
             gbx.DocumentHistory = DocumentHistory;
         }
 
-        public static void SerializeSpaces<T>(IEnumerable<T> objects, BH.oM.Adapter.FileSettings fileSettings, XMLSettings settings) where T : IObject
+        public static void SerializeSpaces<T>(IEnumerable<T> objects, BH.oM.Adapter.FileSettings fileSettings, GBXMLSettings settings) where T : IObject
         {
             SerializeBuildingSpaces(objects as dynamic, fileSettings, settings);
         }
 
-        private static void SerializeCollectionFull(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, XMLSettings settings)
+        private static void SerializeCollectionFull(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, GBXMLSettings settings)
         {
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
@@ -82,7 +82,7 @@ namespace BH.Adapter.XML
             }
         }
 
-        private static void SerializeBuildingShell(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, XMLSettings settings)
+        private static void SerializeBuildingShell(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, GBXML gbx, GBXMLSettings settings)
         {
             foreach (BH.oM.XML.Environment.DocumentBuilder db in documents)
             {
@@ -92,7 +92,7 @@ namespace BH.Adapter.XML
             }
         }
 
-        private static void SerializeBuildingSpaces(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, BH.oM.Adapter.FileSettings fileSettings, XMLSettings settings)
+        private static void SerializeBuildingSpaces(IEnumerable<BH.oM.XML.Environment.DocumentBuilder> documents, BH.oM.Adapter.FileSettings fileSettings, GBXMLSettings settings)
         {
             if (!System.IO.Directory.Exists(fileSettings.Directory))
                 System.IO.Directory.CreateDirectory(fileSettings.Directory);

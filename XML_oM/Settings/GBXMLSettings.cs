@@ -29,7 +29,7 @@ using System.ComponentModel;
 
 namespace BH.oM.XML.Settings
 {
-    public class XMLSettings : BHoMObject
+    public class GBXMLSettings : BHoMObject, IXMLSettings
     {
         /***************************************************/
         /**** Properties                                ****/
