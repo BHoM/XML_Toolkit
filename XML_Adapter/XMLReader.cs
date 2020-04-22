@@ -33,12 +33,12 @@ namespace BH.Adapter.XML
 {
     public class XMLReader
     {
-        public static BH.oM.XML.GBXML Load(string fileName)
+        public static BH.oM.External.XML.GBXML.GBXML Load(string fileName)
         {
-            BH.oM.XML.GBXML gbx = null;
+            BH.oM.External.XML.GBXML.GBXML gbx = null;
             TextReader reader = new StreamReader(fileName);
-            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.GBXML));
-            gbx = (BH.oM.XML.GBXML)szer.Deserialize(reader);
+            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.External.XML.GBXML.GBXML));
+            gbx = (BH.oM.External.XML.GBXML.GBXML)szer.Deserialize(reader);
             reader.Close();
             return gbx;
         }

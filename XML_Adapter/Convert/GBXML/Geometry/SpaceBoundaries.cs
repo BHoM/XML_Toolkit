@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -34,9 +34,9 @@ using BH.Engine.Environment;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.XML
+namespace BH.Adapter.XML
 {
-    public static partial class Query
+    public static partial class Convert
     {
         /***************************************************/
         /**** Public Methods                            ****/
@@ -47,22 +47,22 @@ namespace BH.Engine.XML
         [Input("uniqueBEs", "A collection of unique Environment Panels used in the model as a whole")]
         [Input("planarTolerance", "The tolerance to define planarity - default to BH.oM.Geometry.Tolerance.Distance")]
         [Output("spaceBoundaries", "GBXML representation of space boundaries")]
-        public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, List<BHE.Panel> uniqueBEs, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
+        public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             List<Polyloop> pLoops = new List<Polyloop>();
             List<BHG.Polyline> panels = spaceBoundaries.Select(x => x.Polyline()).ToList();
 
-            foreach(BHG.Polyline pLine in panels)
+            foreach (BHG.Polyline pLine in panels)
             {
                 if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, spaceBoundaries, planarTolerance))
-                    pLoops.Add(BH.Engine.XML.Convert.ToGBXML(pLine));
+                    pLoops.Add(ToGBXML(pLine));
                 else
-                    pLoops.Add(BH.Engine.XML.Convert.ToGBXML(pLine.Flip()));
+                    pLoops.Add(ToGBXML(pLine.Flip()));
             }
 
             SpaceBoundary[] boundaries = new SpaceBoundary[pLoops.Count];
 
-            for(int x = 0; x < pLoops.Count; x++)
+            for (int x = 0; x < pLoops.Count; x++)
             {
                 PlanarGeometry planarGeom = new PlanarGeometry();
                 planarGeom.PolyLoop = pLoops[x];
@@ -70,7 +70,7 @@ namespace BH.Engine.XML
                 boundaries[x] = new SpaceBoundary { PlanarGeometry = planarGeom };
 
                 //Get the ID from the referenced element
-                boundaries[x].SurfaceIDRef = "Panel-" + uniqueBEs.FindIndex(i => i.BHoM_Guid == spaceBoundaries[x].BHoM_Guid).ToString();
+                boundaries[x].SurfaceIDRef = "Panel-" + spaceBoundaries[x].BHoM_Guid.ToString().Replace(" ", "").Replace("-", "").Substring(0, 10);
             }
 
             return boundaries;

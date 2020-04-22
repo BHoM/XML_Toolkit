@@ -26,8 +26,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BH.oM.XML.Settings;
-using BH.oM.XML.Enums;
+using BH.oM.External.XML.Settings;
+using BH.oM.External.XML.Enums;
 
 using BH.oM.Reflection.Attributes;
 using System.ComponentModel;

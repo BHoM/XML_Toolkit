@@ -30,13 +30,11 @@ using BH.Engine;
 using BH.oM.Base;
 using System.Reflection;
 
-using BH.oM.XML.Enums;
 using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
-using BH.oM.Data.Requests;
 using System.IO;
 
-using BH.oM.XML.Settings;
+using BH.oM.External.XML.Settings;
 
 namespace BH.Adapter.XML
 {
@@ -69,6 +67,5 @@ namespace BH.Adapter.XML
         }
 
         private BH.oM.Adapter.FileSettings _fileSettings { get; set; } = null;
-        private IXMLSettings _xmlSettings { get; set; } = null;
     }
 }

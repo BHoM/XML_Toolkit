@@ -64,6 +64,9 @@ namespace BH.Adapter.XML
             surface.ID = idName;
             surface.Name = idName;
 
+            surface.SurfaceType = panel.Type.ToGBXML();
+            surface.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(panel).ToString().ToLower();
+
             surface.CADObjectID = panel.CADObjectID(settings.ReplaceCurtainWalls);
 
             if (settings.IncludeConstructions)
@@ -179,7 +182,7 @@ namespace BH.Adapter.XML
             BHX.Surface surface = element.ToGBXML(settings);
 
             surface.SurfaceType = element.ToGBXMLType(adjacentSpaces);
-            surface.ExposedToSun = Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
+            surface.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(element).ToString().ToLower();
 
             BHG.Polyline pLine = element.Polyline();
             if (!pLine.NormalAwayFromSpace(space, settings.PlanarTolerance))

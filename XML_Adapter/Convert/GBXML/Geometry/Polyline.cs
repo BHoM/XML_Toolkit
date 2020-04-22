@@ -27,7 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
-using BHX = BH.oM.XML;
+using BHX = BH.oM.External.XML.GBXML;
 using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;

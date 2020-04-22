@@ -58,6 +58,9 @@ namespace BH.Adapter.XML
             if (building.CustomData.ContainsKey("Building Name"))
                 gbBuilding.BuildingType = (building.CustomData["Building Name"]).ToString();
 
+            if (gbBuilding.BuildingType == "")
+                gbBuilding.BuildingType = "Unknown";
+
             return gbBuilding;
         }
 
