@@ -29,6 +29,7 @@ using System.Threading.Tasks;
 using BH.oM.Data.Requests;
 using BH.oM.Adapter;
 using BH.oM.Base;
+using BH.Engine.Adapter;
 
 namespace BH.Adapter.XML
 {
@@ -36,7 +37,7 @@ namespace BH.Adapter.XML
     {
         public override IEnumerable<object> Pull(IRequest request, PullType pullType = PullType.AdapterDefault, ActionConfig actionConfig = null)
         {
-            if (!System.IO.File.Exists(System.IO.Path.Combine(_fileSettings.Directory, _fileSettings.FileName + ".xml")))
+            if (!System.IO.File.Exists(_fileSettings.GetFullFileName()))
             {
                 BH.Engine.Reflection.Compute.RecordError("File does not exist to pull from");
                 return new List<IBHoMObject>();

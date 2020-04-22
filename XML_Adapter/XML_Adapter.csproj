@@ -142,7 +142,6 @@
     <Compile Include="CRUD\Read.cs" />
     <Compile Include="XMLAdapter.cs" />
     <Compile Include="XMLReader.cs" />
-    <Compile Include="XMLSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
