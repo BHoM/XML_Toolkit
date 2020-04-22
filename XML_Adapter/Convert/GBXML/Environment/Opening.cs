@@ -29,15 +29,17 @@ using System.Threading.Tasks;
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
-using BHX = BH.oM.XML;
+using BHX = BH.oM.External.XML.GBXML;
 using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
-using BH.oM.XML.Settings;
+using BH.oM.External.XML.Settings;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+
+using BH.Engine.XML;
 
 namespace BH.Adapter.XML
 {
@@ -46,7 +48,7 @@ namespace BH.Adapter.XML
         [Description("Get the GBXML representation of a BHoM Environments Opening")]
         [Input("opening", "The BHoM Environments Opening to convert into a GBXML Opening")]
         [Output("openingGBXML", "The GBXML representation of a BHoM Environment Opening")]
-        public static BHX.Opening ToGBXML(this BHE.Opening opening)
+        public static BHX.Opening ToGBXML(this BHE.Opening opening, BHE.Panel hostPanel, GBXMLSettings settings)
         {
             BHX.Opening gbOpening = new BHX.Opening();
 
@@ -56,15 +58,59 @@ namespace BH.Adapter.XML
             gbOpening.ID = "opening" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
             gbOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML();
             gbOpening.PlanarGeometry.ID = "openingPGeom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
-            gbOpening.RectangularGeometry.CartesianPoint = Geometry.Query.Centre(pLine).ToGBXML();
+            gbOpening.RectangularGeometry.CartesianPoint = BH.Engine.Geometry.Query.Centre(pLine).ToGBXML();
             gbOpening.RectangularGeometry.Height = Math.Round(opening.Height(), 3);
             //TODO: temporary solution to get valid file to be replaced with correct height
             if (opening.Height() == 0)
                gbOpening.RectangularGeometry.Height = 0.1;
             gbOpening.RectangularGeometry.Width = Math.Round(opening.Width(), 3);
-            //if (opening.Width() == 0)
-            //    gbOpening.RectangularGeometry.Width = 0.1;
             gbOpening.RectangularGeometry.ID = "rGeomOpening-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
+
+            pLine = pLine.CleanPolyline(minimumSegmentLength: settings.DistanceTolerance);
+            double openingArea = pLine.Area();
+            double panelArea = hostPanel.Polyline().Area();
+
+            if (openingArea >= panelArea)
+            {
+                pLine = BH.Engine.Geometry.Modify.Offset(pLine, settings.OffsetDistance);
+
+                if (pLine == null)
+                    pLine = opening.Polyline(); //Reset the polyline if something went wrong with the offset
+                
+                gbOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML();
+            }
+
+            //Normals away from space
+            //if (!BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, hostSpace, settings.PlanarTolerance))
+                //gbOpening.PlanarGeometry.PolyLoop = pLine.Flip().ToGBXML();
+
+            gbOpening.CADObjectID = opening.CADObjectID();
+            gbOpening.OpeningType = opening.Type.ToGBXML();
+
+            BHP.OriginContextFragment contextProperties = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
+            string elementID = "";
+            string familyName = "";
+            if (contextProperties != null)
+            {
+                elementID = contextProperties.ElementID;
+                familyName = contextProperties.TypeName;
+            }
+
+            if (gbOpening.OpeningType.ToLower() == "fixedwindow" && contextProperties != null && contextProperties.TypeName.ToLower().Contains("skylight"))
+                gbOpening.OpeningType = "FixedSkylight";
+
+            if (familyName == "System Panel") //No SAM_BuildingElementType for this one atm
+                gbOpening.OpeningType = "FixedWindow";
+
+            if (settings.ReplaceSolidOpeningsIntoDoors && gbOpening.OpeningType.Contains("Window") && (opening.OpeningConstruction != null && opening.OpeningConstruction.Name.Contains("SLD"))) //Change windows with SLD construction into doors for IES
+                gbOpening.OpeningType = "NonSlidingDoor";
+
+            if (settings.IncludeConstructions)
+                gbOpening.WindowTypeIDRef = "window-" + (contextProperties != null ? contextProperties.TypeName.CleanName() : (opening.OpeningConstruction != null ? opening.OpeningConstruction.Name.CleanName() : ""));
+            else
+                gbOpening.WindowTypeIDRef = null;
+
+            gbOpening.ConstructionIDRef = null; //ToDo review having this property on an opening?
 
             return gbOpening;
         }

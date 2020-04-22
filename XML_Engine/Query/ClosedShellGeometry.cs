@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.XML;
+using BH.oM.External.XML.GBXML;
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BHG = BH.oM.Geometry;

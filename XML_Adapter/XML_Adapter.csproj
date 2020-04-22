@@ -135,13 +135,11 @@
     <Compile Include="Convert\GBXML\Environment\Space.cs" />
     <Compile Include="Convert\GBXML\Geometry\Point.cs" />
     <Compile Include="Convert\GBXML\Geometry\Polyline.cs" />
+    <Compile Include="Convert\GBXML\ToGBXML.cs" />
     <Compile Include="CRUD\Create.cs" />
-    <Compile Include="CRUD\CreateGBXML.cs" />
+    <Compile Include="CRUD\GBXML\CreateGBXML.cs" />
+    <Compile Include="CRUD\GBXML\CreateSpace.cs" />
     <Compile Include="CRUD\Read.cs" />
-    <Compile Include="Serialise\Building.cs" />
-    <Compile Include="Serialise\Panel.cs" />
-    <Compile Include="Serialise\Level.cs" />
-    <Compile Include="Serialise\Opening.cs" />
     <Compile Include="XMLAdapter.cs" />
     <Compile Include="XMLReader.cs" />
     <Compile Include="XMLWriter.cs" />

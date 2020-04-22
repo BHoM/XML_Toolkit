@@ -28,50 +28,142 @@ using System.Threading.Tasks;
 
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
-using BHX = BH.oM.XML;
+using BHX = BH.oM.External.XML.GBXML;
 using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
-using BH.oM.XML.Settings;
+using BH.oM.External.XML.Settings;
 
 using BHP = BH.oM.Environment.Fragments;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
+using BH.Engine.XML;
+
+using BH.Engine.Base;
+
 namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
         [Description("Get the GBXML representation of a BHoM Environments Panel")]
-        [Input("element", "The BHoM Environments Panel to convert into a GBXML Surface")]
+        [Input("panel", "The BHoM Environments Panel to convert into a GBXML Surface")]
         [Input("settings", "The XML Settings to use for converting the panel to the surface")]
         [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
         public static BHX.Surface ToGBXML(this BHE.Panel element, GBXMLSettings settings)
         {
-            BHP.OriginContextFragment contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
+            BHE.Panel panel = element.DeepClone<BHE.Panel>();
+
+            BHP.OriginContextFragment contextProperties = panel.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
             BHX.Surface surface = new BHX.Surface();
-            surface.CADObjectID = element.CADObjectID();
-            surface.ConstructionIDRef = (contextProperties == null ? element.ConstructionID() : contextProperties.TypeName.CleanName());
 
-            BHX.RectangularGeometry geom = element.ToGBXMLGeometry(settings);
+            string idName = "Panel-" + panel.BHoM_Guid.ToString().Replace(" ", "").Replace("-", "").Substring(0, 10);
+            surface.ID = idName;
+            surface.Name = idName;
+
+            surface.CADObjectID = panel.CADObjectID(settings.ReplaceCurtainWalls);
+
+            if (settings.IncludeConstructions)
+                surface.ConstructionIDRef = panel.ConstructionID();
+            else
+                surface.ConstructionIDRef = null;
+
+            BHX.RectangularGeometry geom = panel.ToGBXMLGeometry(settings);
             BHX.PlanarGeometry planarGeom = new BHX.PlanarGeometry();
             planarGeom.ID = "PlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
-            BHG.Polyline pLine = element.Polyline();
+            BHG.Polyline pLine = panel.Polyline();
             planarGeom.PolyLoop = pLine.ToGBXML();
 
             surface.PlanarGeometry = planarGeom;
             surface.RectangularGeometry = geom;
 
-            surface.Opening = new BHX.Opening[element.Openings.Count];
-            for (int x = 0; x < element.Openings.Count; x++)
+            if (settings.ReplaceCurtainWalls)
             {
-                if(element.Openings[x].Polyline().IControlPoints().Count != 0)
-                    surface.Opening[x] = element.Openings[x].ToGBXML();
+                //If the surface is a basic Wall: SIM_EXT_GLZ so Curtain Wall after CADObjectID translation add the wall as an opening
+                if (surface.CADObjectID.Contains("Curtain") && surface.CADObjectID.Contains("GLZ"))
+                {
+                    List<BHG.Polyline> newOpeningBounds = new List<oM.Geometry.Polyline>();
+                    if (panel.Openings.Count > 0)
+                    {
+                        //This surface already has openings - cut them out of the new opening
+                        List<BHG.Polyline> refRegion = panel.Openings.Where(y => y.Polyline() != null).ToList().Select(z => z.Polyline()).ToList();
+
+                        newOpeningBounds.AddRange(BH.Engine.Geometry.Triangulation.Compute.DelaunayTriangulation(panel.Polyline(), refRegion, conformingDelaunay: false));
+                        List<BHG.Polyline> outer = new List<BHG.Polyline> { panel.Polyline() };
+                        double outerArea = panel.Area();
+                        for (int z = 0; z > panel.Openings.Count; z++)
+                        {
+                            BHG.Polyline poly = outer.BooleanDifference(new List<BHG.Polyline> { panel.Openings[z].Polyline() })[0];
+                            if (poly.Area() != outerArea)
+                                panel.Openings[z].Edges = panel.Openings[z].Polyline().Offset(settings.OffsetDistance).ToEdges();
+                        }
+                    }
+                    else
+                        newOpeningBounds.Add(panel.Polyline());
+
+                    foreach (BHG.Polyline b in newOpeningBounds)
+                    {
+                        BH.oM.Environment.Elements.Opening curtainWallOpening = BH.Engine.Environment.Create.Opening(externalEdges: b.ToEdges());
+                        curtainWallOpening.Name = panel.Name;
+                        BHP.OriginContextFragment curtainWallProperties = new BHP.OriginContextFragment();
+                        if (contextProperties != null)
+                        {
+                            curtainWallProperties.ElementID = contextProperties.ElementID;
+                            curtainWallProperties.TypeName = contextProperties.TypeName;
+                        }
+
+                        curtainWallOpening.Type = BHE.OpeningType.CurtainWall;
+                        curtainWallOpening.OpeningConstruction = panel.Construction;
+
+                        curtainWallOpening.Fragments.Add(curtainWallProperties);
+
+                        panel.Openings.Add(curtainWallOpening);
+                    }
+                    //Update the host elements element type
+                    surface.SurfaceType = (panel.ConnectedSpaces.Count == 1 ? BHE.PanelType.WallExternal : BHE.PanelType.WallInternal).ToGBXML();
+                    surface.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
+                }
             }
+            else
+            {
+                //Fix surface type for curtain walls
+                if (panel.Type == BHE.PanelType.CurtainWall)
+                {
+                    surface.SurfaceType = (panel.ConnectedSpaces.Count == 1 ? BHE.PanelType.WallExternal : BHE.PanelType.WallInternal).ToGBXML();
+                    surface.ExposedToSun = BH.Engine.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
+                }
+            }
+
+            if (settings.FixIncorrectAirTypes && panel.Type == BHE.PanelType.Undefined && panel.ConnectedSpaces.Count == 1)
+            {
+                //Fix external air types
+                if (panel.Tilt(settings.AngleTolerance) == 0)
+                    surface.SurfaceType = BHE.PanelType.Roof.ToGBXML();
+                else if (panel.Tilt(settings.AngleTolerance) == 90)
+                    surface.SurfaceType = BHE.PanelType.WallExternal.ToGBXML();
+                else if (panel.Tilt(settings.AngleTolerance) == 180)
+                    surface.SurfaceType = BHE.PanelType.SlabOnGrade.ToGBXML();
+            }
+
+            surface.Opening = new BHX.Opening[panel.Openings.Count];
+            for (int x = 0; x < panel.Openings.Count; x++)
+            {
+                if (panel.Openings[x].Polyline().IControlPoints().Count != 0)
+                    surface.Opening[x] = panel.Openings[x].ToGBXML(panel, settings);
+            }
+
+            List<BHX.AdjacentSpaceID> adjIDs = new List<BHX.AdjacentSpaceID>();
+            foreach (string s in panel.ConnectedSpaces)
+            {
+                BHX.AdjacentSpaceID adjId = new BHX.AdjacentSpaceID();
+                adjId.SpaceIDRef = "Space" + s.Replace(" ", "").Replace("-", "");
+                adjIDs.Add(adjId);
+            }
+            surface.AdjacentSpaceID = adjIDs.ToArray();
 
             return surface;
         }

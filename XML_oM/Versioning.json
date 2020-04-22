@@ -1,10 +1,10 @@
 {
   "Namespace": {
     "ToNew": {
-      "BH.Test.Test":  "BH.Test.New"
+      "BH.oM.XML":  "BH.oM.External.XML"
     },
     "ToOld": {
-      "BH.Test.Test": "BH.Test.New"
+      "BH.oM.External.XML": "BH.oM.XML"
     }
   },
   "Type": {
