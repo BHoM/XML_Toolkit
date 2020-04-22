@@ -46,22 +46,23 @@ namespace BH.Adapter.XML
         [Input("fileSettings", "Input the file settings to get the file name and directory the XML Adapter should use")]
         [Input("xmlSettings", "Input the additional XML Settings the adapter should use. Only used when pushing to an XML file. Default null")]
         [Output("adapter", "Adapter to XML")]
-        public XMLAdapter(BH.oM.Adapter.FileSettings fileSettings = null, IXMLSettings xmlSettings = null)
+        public XMLAdapter(BH.oM.Adapter.FileSettings fileSettings = null)
         {
-            if(fileSettings == null)
+            //ADD AN OLDVERSION ATTRIBUTE TO THIS METHOD WHEN AVAILABLE
+
+            if (fileSettings == null)
             {
                 BH.Engine.Reflection.Compute.RecordError("Please set the File Settings correctly to enable the XML Adapter to work correctly");
                 return;
             }
 
-            if(!Path.HasExtension(fileSettings.FileName) || Path.GetExtension(fileSettings.FileName) != ".xml")
+            if (!Path.HasExtension(fileSettings.FileName) || Path.GetExtension(fileSettings.FileName) != ".xml")
             {
                 BH.Engine.Reflection.Compute.RecordError("File name must contain a file extension");
                 return;
             }
 
             _fileSettings = fileSettings;
-            _xmlSettings = xmlSettings;
 
             AdapterIdName = "XML_Adapter";
         }
