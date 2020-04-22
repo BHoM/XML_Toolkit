@@ -67,6 +67,6 @@ namespace BH.Adapter.XML
         }
 
         private BH.oM.Adapter.FileSettings _fileSettings { get; set; } = null;
-        private GBXMLSettings _xmlSettings { get; set; } = null;
+        private IXMLSettings _xmlSettings { get; set; } = null;
     }
 }
