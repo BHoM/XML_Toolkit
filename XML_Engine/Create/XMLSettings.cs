@@ -50,7 +50,7 @@ namespace BH.Engine.XML
         [Input("unitType", "Set the unit type for the export to be either SI or Imperial. Default SI")]
         [Input("exportDetail", "Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
         [Input("distanceTolerance", "distanceTolerance is used as input for CleanPolyline method used for opening, default is set to BH.oM.Geometry.Tolerance.Distance")]
-        public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = 0.01)
+        public static GBXMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = 0.01)
         {
             return XMLSettings(replaceCurtainWalls, replaceSolidOpeningsIntoDoors, includeConstructions, fixIncorrectAirTypes, newFile, unitType, exportDetail, distanceTolerance, BH.oM.Geometry.Tolerance.Distance);
         }
@@ -65,7 +65,7 @@ namespace BH.Engine.XML
         [Input("exportDetail", "Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
         [Input("distanceTolerance", "distanceTolerance is used as input for CleanPolyline method used for opening, default is set to BH.oM.Geometry.Tolerance.Distance")]
         [Input("planarTolerance", "Set tolerance for planar surfaces, default is set to BH.oM.Geometry.Tolerance.Distance")]
-        public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
+        public static GBXMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             return XMLSettings(replaceCurtainWalls, replaceSolidOpeningsIntoDoors, includeConstructions, fixIncorrectAirTypes, newFile, unitType, exportDetail, distanceTolerance, planarTolerance, -0.001);
         }
@@ -82,13 +82,13 @@ namespace BH.Engine.XML
         [Input("planarTolerance", "Set tolerance for planar surfaces, default is set to BH.oM.Geometry.Tolerance.Distance")]
         [Input("offsetDistance", "Set a distance to offset openings that have a area >= the area of the host panel. Value should be negative. Defaults to -0.001")]
         [Output("xmlSettings", "The XML settings to use with the XML adapter push")]
-        public static XMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance, double offsetDistance = -0.001)
+        public static GBXMLSettings XMLSettings(bool replaceCurtainWalls = false, bool replaceSolidOpeningsIntoDoors = false, bool includeConstructions = false, bool fixIncorrectAirTypes = false, bool newFile = true, UnitType unitType = UnitType.SI, ExportDetail exportDetail = ExportDetail.Full, double distanceTolerance = BH.oM.Geometry.Tolerance.Distance, double planarTolerance = BH.oM.Geometry.Tolerance.Distance, double offsetDistance = -0.001)
         {
             if (offsetDistance >= 0)
             {
                 BH.Engine.Reflection.Compute.RecordWarning("Offset distance should be negative to offset the openings inwards, away from the edges of the host panel and ensuring opening area is less than the host panel area. A positive offset will result in openings being larger than the host panel");
             }
-            return new XMLSettings
+            return new GBXMLSettings
             {
                 ReplaceCurtainWalls = replaceCurtainWalls,
                 ReplaceSolidOpeningsIntoDoors = replaceSolidOpeningsIntoDoors,

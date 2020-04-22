@@ -48,7 +48,7 @@ namespace BH.Adapter.XML
         [Input("element", "The BHoM Environments Panel to convert into a GBXML Surface")]
         [Input("settings", "The XML Settings to use for converting the panel to the surface")]
         [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
-        public static BHX.Surface ToGBXML(this BHE.Panel element, XMLSettings settings)
+        public static BHX.Surface ToGBXML(this BHE.Panel element, GBXMLSettings settings)
         {
             BHP.OriginContextFragment contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
@@ -82,7 +82,7 @@ namespace BH.Adapter.XML
         [Input("space", "The collection of Environment Panels which form the space the given element is in")]
         [Input("settings", "XML Settings to determine tolerances and other parts of the conversion")]
         [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
-        public static BHX.Surface ToGBXML(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces, List<BHE.Panel> space, XMLSettings settings)
+        public static BHX.Surface ToGBXML(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces, List<BHE.Panel> space, GBXMLSettings settings)
         {
             BHX.Surface surface = element.ToGBXML(settings);
 
@@ -110,7 +110,7 @@ namespace BH.Adapter.XML
         [Input("element", "The BHoM Environments Panel to convert into a GBXML Rectangular Geometry element")]
         [Input("settings", "The XML Settings to use to produce the converted surface")]
         [Output("rectangularGeometry", "The GBXML geometrical representation of a BHoM Environment Panel")]
-        public static BHX.RectangularGeometry ToGBXMLGeometry(this BHE.Panel element, XMLSettings settings)
+        public static BHX.RectangularGeometry ToGBXMLGeometry(this BHE.Panel element, GBXMLSettings settings)
         {
             BHX.RectangularGeometry geom = new BHX.RectangularGeometry();
 

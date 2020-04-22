@@ -50,7 +50,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static void SerializeCollection(IEnumerable<IEnumerable<Panel>> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, XMLSettings settings)
+        public static void SerializeCollection(IEnumerable<IEnumerable<Panel>> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, GBXMLSettings settings)
         {
             List<List<Panel>> elementsAsSpaces = new List<List<Panel>>();
 
@@ -276,7 +276,7 @@ namespace BH.Adapter.XML
             gbx.Campus.Building[0].Area = buildingFloorArea;
         }
 
-        public static void SerializeCollection(IEnumerable<Panel> inputElements, BH.oM.XML.GBXML gbx, XMLSettings settings)
+        public static void SerializeCollection(IEnumerable<Panel> inputElements, BH.oM.XML.GBXML gbx, GBXMLSettings settings)
         {
             //For serializing shade elements
             List<Panel> buildingElements = inputElements.ToList();
@@ -335,7 +335,7 @@ namespace BH.Adapter.XML
             gbx.Material = usedMaterials.ToArray();
         }
 
-        public static void SerializeCollection(IEnumerable<Panel> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, XMLSettings settings)
+        public static void SerializeCollection(IEnumerable<Panel> inputElements, List<Level> levels, List<Panel> openings, BH.oM.XML.GBXML gbx, GBXMLSettings settings)
         {
             List<List<Panel>> elementsAsSpaces = new List<List<Panel>>();
             elementsAsSpaces.Add(inputElements.ToList());

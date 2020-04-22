@@ -47,7 +47,7 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        public static List<BH.oM.XML.Opening> SerializeOpenings(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<Panel> space, List<Panel> allElements, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, XMLSettings settings, Panel hostPanel)
+        public static List<BH.oM.XML.Opening> SerializeOpenings(IEnumerable<BH.oM.Environment.Elements.Opening> openings, List<Panel> space, List<Panel> allElements, List<List<Panel>> spaces, BH.oM.XML.GBXML gbx, GBXMLSettings settings, Panel hostPanel)
         {
             List<BH.oM.XML.Opening> gbOpenings = new List<oM.XML.Opening>();
 

@@ -46,7 +46,7 @@ namespace BH.Adapter.XML
         [Input("fileSettings", "Input the file settings to get the file name and directory the XML Adapter should use")]
         [Input("xmlSettings", "Input the additional XML Settings the adapter should use. Only used when pushing to an XML file. Default null")]
         [Output("adapter", "Adapter to XML")]
-        public XMLAdapter(BH.oM.Adapter.FileSettings fileSettings = null, XMLSettings xmlSettings = null)
+        public XMLAdapter(BH.oM.Adapter.FileSettings fileSettings = null, IXMLSettings xmlSettings = null)
         {
             if(fileSettings == null)
             {
@@ -67,6 +67,6 @@ namespace BH.Adapter.XML
         }
 
         private BH.oM.Adapter.FileSettings _fileSettings { get; set; } = null;
-        private XMLSettings _xmlSettings { get; set; } = null;
+        private GBXMLSettings _xmlSettings { get; set; } = null;
     }
 }
