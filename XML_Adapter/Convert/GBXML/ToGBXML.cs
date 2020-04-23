@@ -55,14 +55,7 @@ namespace BH.Adapter.XML
                 buildings.Add(new Building());
             }
 
-            List<Panel> shadingElements = panels.PanelsByType(PanelType.Shade);
-            panels = panels.PanelsNotByType(PanelType.Shade); //Remove shading if it exists
-
             List<List<Panel>> panelsAsSpaces = panels.ToSpaces();
-
-            List<Panel> unassignedPanels = new List<Panel>();
-            unassignedPanels.AddRange(panels.Where(x => !panelsAsSpaces.IsContaining(x)).ToList());
-
             List<Construction> constructions = panels.Select(x => x.Construction as Construction).ToList();
             List<Construction> windowConstructions = panels.OpeningsFromElements().UniqueConstructions();
 
