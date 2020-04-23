@@ -60,6 +60,12 @@ namespace BH.Adapter.XML
 
             GBXML.DocumentBuilder doc = objects.ToList()[0] as GBXML.DocumentBuilder;
 
+            if(doc == null)
+            {
+                BH.Engine.Reflection.Compute.RecordError("The GBXML schema requires a full model to be provided as a single push operation. For pushing to the GBXML version, you need to plug your objects into a GBXMLDocumentBuilder which collates the objects for pushing and push that to GBXML via this adapter.");
+                return false;
+            }
+
             List<IBHoMObject> bhomObjects = new List<IBHoMObject>();
             bhomObjects.AddRange(doc.Buildings);
             bhomObjects.AddRange(doc.Levels);
