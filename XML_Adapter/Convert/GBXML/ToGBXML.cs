@@ -63,19 +63,28 @@ namespace BH.Adapter.XML
             List<GBXML.BuildingStorey> xmlLevels = levels.Where(x => x.StoreyGeometry(panelsAsSpaces) != null).Select(x => x.ToGBXML(x.StoreyGeometry(panelsAsSpaces))).ToList();
             List<GBXML.Space> xmlSpaces = panelsAsSpaces.Select(x => x.ToGBXML(x.Level(levels), settings)).OrderBy(x => x.Name).ToList();
             List<GBXML.Surface> xmlSurfaces = panels.Select(x => x.ToGBXML(settings)).ToList();
-            List<GBXML.Construction> xmlConstructions = constructions.Select(x => x.ToGBXML()).ToList();
+            List<GBXML.Construction> xmlConstructions = new List<GBXML.Construction>();
             List<GBXML.Layer> xmlLayers = new List<GBXML.Layer>();
             List<GBXML.Material> xmlMaterials = new List<GBXML.Material>();
             List<GBXML.WindowType> xmlWindows = new List<GBXML.WindowType>();
 
             foreach(Construction c in constructions)
             {
+                GBXML.Construction xmlConc = c.ToGBXML();
+                if (xmlConstructions.Where(x => x.ID == xmlConc.ID).FirstOrDefault() != null)
+                    continue; //Don't add the same construction twice
+
                 List<GBXML.Material> layerMaterials = new List<GBXML.Material>();
                 foreach (Layer l in c.Layers)
                     layerMaterials.Add(l.ToGBXML());
 
                 xmlMaterials.AddRange(layerMaterials);
-                xmlLayers.Add(layerMaterials.ToGBXML());
+
+                GBXML.Layer layer = layerMaterials.ToGBXML();
+                xmlLayers.Add(layer);
+
+                xmlConc.LayerID.LayerIDRef = layer.ID;
+                xmlConstructions.Add(xmlConc);
             }
 
             foreach(Opening o in panels.OpeningsFromElements())
