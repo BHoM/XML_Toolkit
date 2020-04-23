@@ -27,7 +27,7 @@ using BHoME = BH.oM.Environment.Elements;
 
 namespace BH.oM.External.XML.GBXML
 {
-    public class DocumentBuilder : BHoMObject
+    public class GBXMLDocumentBuilder : BHoMObject
     {
         /***************************************************/
         /**** Properties                                ****/

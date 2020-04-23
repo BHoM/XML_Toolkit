@@ -58,7 +58,7 @@ namespace BH.Adapter.XML
                 return false;
             }
 
-            GBXML.DocumentBuilder doc = objects.ToList()[0] as GBXML.DocumentBuilder;
+            GBXML.GBXMLDocumentBuilder doc = objects.ToList()[0] as GBXML.GBXMLDocumentBuilder;
 
             if(doc == null)
             {
