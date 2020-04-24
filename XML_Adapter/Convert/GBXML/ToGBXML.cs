@@ -62,11 +62,20 @@ namespace BH.Adapter.XML
             List<GBXML.Building> xmlBuildings = buildings.Select(x => x.ToGBXML()).ToList();
             List<GBXML.BuildingStorey> xmlLevels = levels.Where(x => x.StoreyGeometry(panelsAsSpaces) != null).Select(x => x.ToGBXML(x.StoreyGeometry(panelsAsSpaces))).ToList();
             List<GBXML.Space> xmlSpaces = panelsAsSpaces.Select(x => x.ToGBXML(x.Level(levels), settings)).OrderBy(x => x.Name).ToList();
-            List<GBXML.Surface> xmlSurfaces = panels.Select(x => x.ToGBXML(settings)).ToList();
+            List<GBXML.Surface> xmlSurfaces = new List<GBXML.Surface>();
             List<GBXML.Construction> xmlConstructions = new List<GBXML.Construction>();
             List<GBXML.Layer> xmlLayers = new List<GBXML.Layer>();
             List<GBXML.Material> xmlMaterials = new List<GBXML.Material>();
             List<GBXML.WindowType> xmlWindows = new List<GBXML.WindowType>();
+
+            List<Panel> usedPanels = new List<Panel>();
+            foreach (Panel p in panels)
+            {
+                if (usedPanels.Where(x => x.BHoM_Guid == p.BHoM_Guid).FirstOrDefault() != null) continue;
+
+                xmlSurfaces.Add(p.ToGBXML(settings));
+                usedPanels.Add(p);
+            }
 
             foreach(Construction c in constructions)
             {
