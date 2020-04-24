@@ -52,7 +52,7 @@ namespace BH.Adapter.XML
         [Input("panel", "The BHoM Environments Panel to convert into a GBXML Surface")]
         [Input("settings", "The XML Settings to use for converting the panel to the surface")]
         [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
-        public static BHX.Surface ToGBXML(this BHE.Panel element, GBXMLSettings settings)
+        public static BHX.Surface ToGBXML(this BHE.Panel element, GBXMLSettings settings, List<BHE.Panel> space = null)
         {
             BHE.Panel panel = element.DeepClone<BHE.Panel>();
 
@@ -78,11 +78,19 @@ namespace BH.Adapter.XML
             BHX.PlanarGeometry planarGeom = new BHX.PlanarGeometry();
             planarGeom.ID = "PlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
+            surface.RectangularGeometry = geom;
+
             BHG.Polyline pLine = panel.Polyline();
+            if(space != null && !pLine.NormalAwayFromSpace(space, settings.PlanarTolerance))
+            {
+                pLine = pLine.Flip();
+                surface.PlanarGeometry.PolyLoop = pLine.ToGBXML();
+                surface.RectangularGeometry.Tilt = Math.Round(pLine.Tilt(settings.AngleTolerance), 3);
+                surface.RectangularGeometry.Azimuth = Math.Round(pLine.Azimuth(BHG.Vector.YAxis), 3);
+            }
             planarGeom.PolyLoop = pLine.ToGBXML();
 
             surface.PlanarGeometry = planarGeom;
-            surface.RectangularGeometry = geom;
 
             if (settings.ReplaceCurtainWalls)
             {
