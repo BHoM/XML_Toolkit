@@ -69,6 +69,18 @@ namespace BH.Adapter.XML
             List<GBXML.WindowType> xmlWindows = new List<GBXML.WindowType>();
 
             List<Panel> usedPanels = new List<Panel>();
+            foreach(List<Panel> space in panelsAsSpaces)
+            {
+                foreach(Panel p in space)
+                {
+                    if (usedPanels.Where(x => x.BHoM_Guid == p.BHoM_Guid).FirstOrDefault() != null) continue;
+
+                    xmlSurfaces.Add(p.ToGBXML(settings, space));
+                    usedPanels.Add(p);
+                }
+            }
+
+            //Check we haven't missed any panels (such as shading) and include them
             foreach (Panel p in panels)
             {
                 if (usedPanels.Where(x => x.BHoM_Guid == p.BHoM_Guid).FirstOrDefault() != null) continue;
