@@ -204,7 +204,7 @@ namespace BH.Adapter.XML
                     gbSrf.Opening[x] = element.Openings[x].ToGBXML(element, settings);
             }
 
-            string idName = "Panel-" + element.BHoM_Guid.ToString().Replace(" ", "").Replace("-", "").Substring(0, 10);
+            string idName = "Panel_" + element.BHoM_Guid.ToString().Replace(" ", "").Replace("-", "").Substring(0, 10);
             gbSrf.ID = idName;
             gbSrf.Name = idName;
 
