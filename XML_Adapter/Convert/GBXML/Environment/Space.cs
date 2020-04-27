@@ -30,6 +30,7 @@ using BH.oM.Environment.Elements;
 using BH.oM.External.XML.Settings;
 using GBXML = BH.oM.External.XML.GBXML;
 using BH.oM.Geometry.SettingOut;
+using BH.oM.Geometry;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
@@ -45,7 +46,18 @@ namespace BH.Adapter.XML
             xmlSpace.Name = panelsAsSpace.ConnectedSpaceName();
             xmlSpace.ID = "Space" + xmlSpace.Name.Replace(" ", "").Replace("-", "");
             xmlSpace.CADObjectID = BH.Engine.External.XML.Query.CADObjectID(panelsAsSpace);
-            xmlSpace.ShellGeometry.ClosedShell.PolyLoop = panelsAsSpace.ClosedShellGeometry().Select(x => x.ToGBXML()).ToArray();
+
+            List<Polyline> shellGeometry = panelsAsSpace.ClosedShellGeometry();
+            List<GBXML.Polyloop> loopShell = new List<GBXML.Polyloop>();
+            foreach(Polyline p in shellGeometry)
+            {
+                if (p.NormalAwayFromSpace(panelsAsSpace, settings.PlanarTolerance))
+                    loopShell.Add(p.ToGBXML());
+                else
+                    loopShell.Add(p.Flip().ToGBXML());
+            }
+
+            xmlSpace.ShellGeometry.ClosedShell.PolyLoop = loopShell.ToArray();
             xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             xmlSpace.SpaceBoundary = SpaceBoundaries(panelsAsSpace, settings.PlanarTolerance);
             xmlSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
