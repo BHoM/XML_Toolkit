@@ -55,6 +55,9 @@ namespace BH.Adapter.XML
                 buildings.Add(new Building());
             }
 
+            List<Panel> shadingElements = panels.PanelsByType(PanelType.Shade);
+            panels = panels.PanelsNotByType(PanelType.Shade); //Remove shading if it exists
+
             List<List<Panel>> panelsAsSpaces = panels.ToSpaces();
             List<Construction> constructions = panels.Select(x => x.Construction as Construction).ToList();
             List<Construction> windowConstructions = panels.OpeningsFromElements().UniqueConstructions();
@@ -89,7 +92,16 @@ namespace BH.Adapter.XML
                 usedPanels.Add(p);
             }
 
-            foreach(Construction c in constructions)
+            //Include shading
+            foreach (Panel p in shadingElements)
+            {
+                if (usedPanels.Where(x => x.BHoM_Guid == p.BHoM_Guid).FirstOrDefault() != null) continue;
+
+                xmlSurfaces.Add(p.ToGBXMLShade(settings));
+                usedPanels.Add(p);
+            }
+
+            foreach (Construction c in constructions)
             {
                 GBXML.Construction xmlConc = c.ToGBXML();
                 if (xmlConstructions.Where(x => x.ID == xmlConc.ID).FirstOrDefault() != null)
