@@ -179,6 +179,46 @@ namespace BH.Adapter.XML
             return surface;
         }
 
+        public static BHX.Surface ToGBXMLShade(this BHE.Panel element, GBXMLSettings settings)
+        { 
+            BHP.OriginContextFragment envContextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
+
+            BHX.Surface gbSrf = new BHX.Surface();
+            gbSrf.CADObjectID = element.CADObjectID();
+            gbSrf.ConstructionIDRef = (envContextProperties == null ? element.ConstructionID() : envContextProperties.TypeName.CleanName());
+
+            BHX.RectangularGeometry geom = element.ToGBXMLGeometry(settings);
+            BHX.PlanarGeometry planarGeom = new BHX.PlanarGeometry();
+            planarGeom.ID = "PlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
+
+            BHG.Polyline pLine = element.Polyline();
+            planarGeom.PolyLoop = pLine.ToGBXML();
+
+            gbSrf.PlanarGeometry = planarGeom;
+            gbSrf.RectangularGeometry = geom;
+
+            gbSrf.Opening = new BHX.Opening[element.Openings.Count];
+            for (int x = 0; x < element.Openings.Count; x++)
+            {
+                if (element.Openings[x].Polyline().IControlPoints().Count != 0)
+                    gbSrf.Opening[x] = element.Openings[x].ToGBXML(element, settings);
+            }
+
+            string idName = "Panel-" + element.BHoM_Guid.ToString().Replace(" ", "").Replace("-", "").Substring(0, 10);
+            gbSrf.ID = idName;
+            gbSrf.Name = idName;
+
+            gbSrf.SurfaceType = "Shade";
+            gbSrf.ExposedToSun = BH.Engine.Environment.Query.ExposedToSun(element).ToString().ToLower();
+
+            if (settings.IncludeConstructions)
+                gbSrf.ConstructionIDRef = element.ConstructionID();
+            else //We have to force null otherwise Construction will be created
+                gbSrf.ConstructionIDRef = null;
+
+            return gbSrf;
+        }
+
         [Description("Get the GBXML geometrical representation of a BHoM Environments Panel")]
         [Input("element", "The BHoM Environments Panel to convert into a GBXML Rectangular Geometry element")]
         [Input("settings", "The XML Settings to use to produce the converted surface")]
