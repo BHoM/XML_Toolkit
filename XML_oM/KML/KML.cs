@@ -26,8 +26,8 @@ using System.Xml.Serialization;
 namespace BH.oM.External.XML.KML
 {
     [Serializable]
-    [XmlRoot(ElementName = "KML", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class KML 
+    [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
+    public class KML : KMLObject
     {
         
     }

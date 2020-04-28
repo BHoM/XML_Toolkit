@@ -20,6 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.XML.KML;
 using System;
 using System.Xml.Serialization;
 
@@ -27,7 +28,14 @@ namespace BH.oM.External.XML.KML
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Style : KMLObject
+    public class Placemark : KMLObject
     {
+        [XmlElement("name")]
+        public new string Name { get; set; } = "";
+
+        [XmlElement("description")]
+        public string Description { get; set; } = "";
+        //colud be a Point, Polygon or LineString
+        public IKMLGeometry KMLGeometry { get; set; }
     }
 }

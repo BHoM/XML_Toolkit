@@ -21,13 +21,16 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace BH.oM.External.XML.KML
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Style : KMLObject
+    public class LinearRing : KMLObject
     {
+        [XmlElement("coordinates")]
+        public double[] Coordinates { get; set; } = new List<double> { }.ToArray();
     }
 }

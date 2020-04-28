@@ -21,13 +21,30 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+
+using BH.oM.Base;
 
 namespace BH.oM.External.XML.KML
 {
-    [Serializable]
-    [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Style : KMLObject
+    public abstract class KMLObject : IBHoMObject
     {
+        [XmlIgnore]
+        public Guid BHoM_Guid { get; set; }
+        [XmlIgnore]
+        public Dictionary<string, object> CustomData { get; set; }
+        [XmlIgnore]
+        public string Name { get; set; }
+        [XmlIgnore]
+        public FragmentSet Fragments { get; set; }
+        [XmlIgnore]
+        public HashSet<string> Tags { get; set; }
+
+        public IBHoMObject GetShallowClone(bool newGuid = false)
+        {
+            return this;
+        }
     }
 }
+

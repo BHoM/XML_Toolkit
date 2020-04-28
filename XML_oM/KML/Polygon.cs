@@ -20,14 +20,26 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.XML.KML;
 using System;
 using System.Xml.Serialization;
 
 namespace BH.oM.External.XML.KML
 {
     [Serializable]
-    [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Style
-    { 
+    [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
+    public class Polygon : KMLObject
+    {
+        [XmlElement("extrude")]
+        public bool Extrude { get; set; } = false;
+
+        [XmlElement("altitudeMode")]
+        public AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
+
+        [XmlElement("outerBoundaryIs")]
+        public AltitudeMode OuterBoundaryIs { get; set; } = AltitudeMode.ClampToGround;
+
+        [XmlElement("innerBoundaryIs")]
+        public AltitudeMode InnerBoundaryIs { get; set; } = AltitudeMode.ClampToGround;
     }
 }

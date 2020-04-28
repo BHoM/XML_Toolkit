@@ -21,13 +21,19 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace BH.oM.External.XML.KML
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Style : KMLObject
+    public class Folder : KMLObject
     {
+        [XmlElement("name")]
+        public new string Name { get; set; } = "";
+
+        [XmlElement("Placemark")]
+        public Placemark[] Placemarks { get; set; } = new List<Placemark> { }.ToArray();
     }
 }
