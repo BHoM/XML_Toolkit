@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace BH.oM.XML.KML
 {
-    public enum AltitudeMode
+    public enum ColourMode
     {
-        ClampToGround,
-        RelativeToGround,
-        Absolute
+        [XmlEnum(Name = "normal")]
+        Normal,
+        [XmlEnum(Name = "random")]
+        Random
     }
 }

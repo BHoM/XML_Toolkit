@@ -29,5 +29,13 @@ namespace BH.oM.External.XML.KML
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
     public class Style : KMLObject
     {
+        [XmlAttribute(AttributeName = "id")]
+        public string ID { get; set; } = "";
+
+        [XmlElement("LineStyle")]
+        public LineStyle LineStyle { get; set; } = new LineStyle();
+
+        [XmlElement("PolyStyle")]
+        public PolyStyle PolyStyle { get; set; } = new PolyStyle();
     }
 }
