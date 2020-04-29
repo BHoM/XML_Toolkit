@@ -29,10 +29,11 @@ using System.Xml.Serialization;
 using System.IO;
 
 using BH.oM.External.XML;
-using GBXML = BH.oM.External.XML.GBXML;
+using BH.oM.External.XML;
 using BH.oM.External.XML.Settings;
 using BH.oM.Environment.Elements;
 using BH.oM.Base;
+using BH.Adapter.XML.GBXMLSchema;
 
 using BH.Engine.Adapter;
 using BH.Engine.External.XML;
@@ -58,7 +59,7 @@ namespace BH.Adapter.XML
                 return false;
             }
 
-            GBXML.GBXMLDocumentBuilder doc = objects.ToList()[0] as GBXML.GBXMLDocumentBuilder;
+            GBXMLDocumentBuilder doc = objects.ToList()[0] as GBXMLDocumentBuilder;
 
             if(doc == null)
             {
@@ -87,7 +88,7 @@ namespace BH.Adapter.XML
                 return false;
             }
 
-            GBXML.GBXML gbx = bhomObjects.ToGBXML(settings);
+            GBXML gbx = bhomObjects.ToGBXML(settings);
 
             try
             {
@@ -98,7 +99,7 @@ namespace BH.Adapter.XML
                     overrides.Add(typeof(BHoMObject), pi.Name, new XmlAttributes { XmlIgnore = true });
 
                 XmlSerializerNamespaces xns = new XmlSerializerNamespaces();
-                XmlSerializer szer = new XmlSerializer(typeof(BH.oM.External.XML.GBXML.GBXML), overrides);
+                XmlSerializer szer = new XmlSerializer(typeof(BH.Adapter.XML.GBXMLSchema.GBXML), overrides);
                 TextWriter ms = new StreamWriter(_fileSettings.GetFullFileName());
                 szer.Serialize(ms, gbx, xns);
                 ms.Close();
