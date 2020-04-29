@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class LayerID : GBXMLObject
+    public class LayerID
     {
         [XmlAttribute(AttributeName = "layerIdRef")]
         public string LayerIDRef { get; set; } = "LayerID";

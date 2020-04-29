@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Space : GBXMLObject
+    public class Space
     {
         [XmlAttribute(AttributeName = "zoneIdRef")]
         public string ZoneIDRef { get; set; } = "ZoneID";
@@ -51,7 +51,7 @@ namespace BH.Adapter.XML.GBXMLSchema
         [XmlElement("SpaceBoundary")]
         public SpaceBoundary[] SpaceBoundary { get; set; } = new List<SpaceBoundary> { new SpaceBoundary() }.ToArray();
         [XmlElement("Name")]
-        public override string Name { get; set; } = "Space";
+        public string Name { get; set; } = "Space";
         [XmlElement("Description")]
         public string Description { get; set; } = "None";
         [XmlElement("CADObjectId")]

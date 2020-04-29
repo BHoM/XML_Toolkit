@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Location : GBXMLObject
+    public class Location
     {
         [XmlElement("StationId")]
         public StationID StationID { get; set; } = new StationID();
@@ -45,6 +45,6 @@ namespace BH.Adapter.XML.GBXMLSchema
         [XmlElement("CADModelAzimuth")]
         public double CADModelAzimuth { get; set; } = 0;
         [XmlElement("Name")]
-        public override string Name { get; set; } = "Location";
+        public string Name { get; set; } = "Location";
     }
 }

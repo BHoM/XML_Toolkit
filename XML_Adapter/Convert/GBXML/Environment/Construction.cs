@@ -152,7 +152,7 @@ namespace BH.Adapter.XML
         public static BHC.Layer FromGBXML(this BHX.Layer gbLayer, BHM.Material material, double thickness)
         {
             BHC.Layer layer = new BHC.Layer();
-            layer.Name = gbLayer.Name;
+            //layer.Name = gbLayer.Name;
             layer.Thickness = thickness;
             layer.Material = material;
 

@@ -28,7 +28,7 @@ using BH.oM.Base;
 
 namespace BH.Adapter.XML.GBXMLSchema
 {
-    public class Roughness : GBXMLObject
+    public class Roughness
     {
         [XmlAttribute("value")]
         public string Value { get; set; } = "Rough";

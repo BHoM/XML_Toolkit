@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Conductivity : GBXMLObject
+    public class Conductivity
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "WPerMeterK";

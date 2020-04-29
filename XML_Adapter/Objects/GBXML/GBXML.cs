@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class GBXML : GBXMLObject
+    public class GBXML
     {
         [XmlAttribute(AttributeName = "temperatureUnit")]
         public string TemperatureUnit { get; set; } = "C";

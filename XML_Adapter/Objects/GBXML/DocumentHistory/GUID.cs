@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class GUID: GBXMLObject
+    public class GUID
     {
         [XmlAttribute("entity")]
         public string Entity { get; set; } = "Model";

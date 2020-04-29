@@ -29,7 +29,7 @@ using BH.oM.Base;
 namespace BH.Adapter.XML.GBXMLSchema
 {
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class UValue : GBXMLObject
+    public class UValue
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "WPerSquareMeterK";

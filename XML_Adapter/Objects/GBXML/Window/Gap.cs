@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Gap : GBXMLObject
+    public class Gap
     {
         [XmlAttribute("id")]
         public string ID { get; set; } = "GapIdentification" + Guid.NewGuid().ToString().Substring(0, 5);
@@ -39,7 +39,7 @@ namespace BH.Adapter.XML.GBXMLSchema
         public string Gas { get; set; } = "Argon";
 
         [XmlElement("Name")]
-        public override string Name { get; set; } = null;
+        public string Name { get; set; } = null;
 
         [XmlElement("Description")]
         public string Description { get; set; } = null;

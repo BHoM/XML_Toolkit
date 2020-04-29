@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Opening : GBXMLObject
+    public class Opening
     {
         [XmlAttribute(AttributeName = "constructionIdRef")]
         public string ConstructionIDRef { get; set; } = "";
@@ -47,6 +47,6 @@ namespace BH.Adapter.XML.GBXMLSchema
         [XmlElement("CADObjectId")]
         public string CADObjectID { get; set; } = "WinInst: SIM_EXT_GLZ [xxxxxx]";
         [XmlElement("Name")]
-        public override string Name { get; set; } = "Opening";
+        public string Name { get; set; } = "Opening";
     }
 }

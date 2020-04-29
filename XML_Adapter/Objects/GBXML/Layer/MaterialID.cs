@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class MaterialID : GBXMLObject
+    public class MaterialID
     {
         [XmlAttribute(AttributeName = "materialIdRef")]
         public string MaterialIDRef { get; set; } = "MaterialID";

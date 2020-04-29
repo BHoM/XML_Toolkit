@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class ClosedShell : GBXMLObject
+    public class ClosedShell
     {
         [XmlElement("PolyLoop")]
         public Polyloop[] PolyLoop { get; set; } = new List<Polyloop> { new Polyloop() }.ToArray();

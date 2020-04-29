@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Campus : GBXMLObject
+    public class Campus
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "C-" + Guid.NewGuid().ToString().Replace("-", "");
@@ -43,6 +43,6 @@ namespace BH.Adapter.XML.GBXMLSchema
         [XmlElement("DaylightSavings")]
         public string DaylightSavings { get; set; } = "false";
         [XmlElement("Name")]
-        public override string Name { get; set; } = "Campus";
+        public string Name { get; set; } = "Campus";
     }
 }

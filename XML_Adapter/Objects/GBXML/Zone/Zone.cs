@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Zone : GBXMLObject
+    public class Zone
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "ZoneID";
@@ -47,7 +47,7 @@ namespace BH.Adapter.XML.GBXMLSchema
         [XmlElement("TypeCode")]
         public double TypeCode { get; set; } = 0;
         [XmlElement("Name")]
-        public override string Name { get; set; } = "Zone";
+        public string Name { get; set; } = "Zone";
         [XmlElement("CADObjectId")]
         public string CADObjectID { get; set; } = "Unknown";
     }
