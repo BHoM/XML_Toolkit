@@ -20,17 +20,31 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.XML.KML;
 using System;
-using System.Xml.Serialization;
+using System.Collections.Generic;
+using BH.oM.Base;
+using BH.oM.External.XML.Enums;
+
+using System.ComponentModel;
+using BH.oM.Geometry;
+using BH.oM.XML.KML;
 
 namespace BH.oM.External.XML.KML
 {
-    [Serializable]
-    [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class InnerBoundaryIs : KMLObject, IGeometry
+    public class GeoReference : BHoMObject
     {
-        [XmlElement("LinearRing")]
-        public LinearRing LinearRing { get; set; } = new LinearRing();
+        /***************************************************/
+        /**** Properties                                ****/
+        /***************************************************/
+        public virtual Vector NorthVector { get; set; } = Vector.YAxis;
+
+        public virtual Geometry.Point Reference { get; set; } = Geometry.Point.Origin;
+
+        public virtual double ReferenceLatitude { get; set; } = 0.0;
+
+        public virtual double ReferenceLongitude { get; set; } = 0.0;
+
+        public virtual AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
+        /***************************************************/
     }
 }

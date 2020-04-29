@@ -20,17 +20,32 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.XML.KML;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace BH.oM.External.XML.KML
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class InnerBoundaryIs : KMLObject, IGeometry
+    public class Container : KMLObject, IFeature
     {
-        [XmlElement("LinearRing")]
-        public LinearRing LinearRing { get; set; } = new LinearRing();
+        [XmlAttribute(AttributeName = "id")]
+        public string ID { get; set; } = "";
+
+        [XmlElement("name")]
+        public new string Name { get; set; } = "";
+
+        [XmlElement("description")]
+        public string Description { get; set; }
+
+        [XmlElement("visibility")]
+        public bool Visibility { get; set; } = true;
+
+        [XmlElement("open")]
+        public bool Open { get; set; } = true;
+
+        [XmlElement("styleUrl")]
+        public string StyleURL { get; set; }
     }
 }

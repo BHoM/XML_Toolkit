@@ -20,6 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.XML.KML;
 using System;
 using System.Xml.Serialization;
 
@@ -33,9 +34,9 @@ namespace BH.oM.External.XML.KML
         public string ID { get; set; } = "";
 
         [XmlElement("color")]
-        public string Colour { get; set; } = "";
+        public string Colour { get; set; } = "46000000";
 
         [XmlElement("colorMode")]
-        public string ColourMode { get; set; } = "";
+        public ColourMode ColourMode { get; set; } = ColourMode.Normal;
     }
 }

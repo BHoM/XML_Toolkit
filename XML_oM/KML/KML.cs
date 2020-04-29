@@ -29,6 +29,7 @@ namespace BH.oM.External.XML.KML
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
     public class KML : KMLObject
     {
-        
+        [XmlElement("Document")]
+        public Document Document { get; set; } = new Document();
     }
 }

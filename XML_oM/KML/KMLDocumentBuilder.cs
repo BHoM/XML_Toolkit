@@ -21,6 +21,7 @@
  */
 
 using BH.oM.Base;
+using System.Collections.Generic;
 
 namespace BH.oM.External.XML.KML
 {
@@ -30,7 +31,7 @@ namespace BH.oM.External.XML.KML
         /**** Properties                                ****/
         /***************************************************/
 
-
+        public List<KMLGeometry> KMLGeometries { get; set; } = new List<KMLGeometry>();
         /***************************************************/
     }
 }

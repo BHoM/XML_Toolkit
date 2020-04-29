@@ -54,6 +54,8 @@ namespace BH.Adapter.XML
             {
                 case Schema.GBXML:
                     return CreateGBXML(objects, config);
+                case Schema.KML:
+                    return CreateKML(objects, config);
                 default:
                     BH.Engine.Reflection.Compute.RecordError("The XML Schema you have supplied is not currently supported by the XML Toolkit");
                     return false;

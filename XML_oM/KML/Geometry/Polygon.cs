@@ -28,8 +28,11 @@ namespace BH.oM.External.XML.KML
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Polygon : KMLObject
+    public class Polygon : KMLObject, IGeometry
     {
+        [XmlAttribute(AttributeName = "id")]
+        public string ID { get; set; } = "";
+
         [XmlElement("extrude")]
         public bool Extrude { get; set; } = false;
 
@@ -37,9 +40,9 @@ namespace BH.oM.External.XML.KML
         public AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
 
         [XmlElement("outerBoundaryIs")]
-        public AltitudeMode OuterBoundaryIs { get; set; } = AltitudeMode.ClampToGround;
+        public OuterBoundaryIs OuterBoundaryIs { get; set; } = new OuterBoundaryIs();
 
         [XmlElement("innerBoundaryIs")]
-        public AltitudeMode InnerBoundaryIs { get; set; } = AltitudeMode.ClampToGround;
+        public InnerBoundaryIs InnerBoundaryIs { get; set; } = new InnerBoundaryIs();
     }
 }

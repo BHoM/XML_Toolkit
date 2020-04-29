@@ -36,6 +36,7 @@ using BH.Engine.Environment;
 
 using System.ComponentModel;
 using BH.oM.Geometry;
+using BH.oM.External.XML.KML;
 
 namespace BH.Engine.External.XML
 {
@@ -83,10 +84,6 @@ namespace BH.Engine.External.XML
             unassignedPanels.AddRange(panels.Where(x => !elementsAsSpaces.IsContaining(x)).ToList());
 
             return DocumentBuilder(buildings, elementsAsSpaces, shadingElements, levels, unassignedPanels);
-        }
-        public static KML.KMLDocumentBuilder DocumentBuilder(List<Mesh> meshes)
-        {
-            return new KML.KMLDocumentBuilder();
         }
     }
 }

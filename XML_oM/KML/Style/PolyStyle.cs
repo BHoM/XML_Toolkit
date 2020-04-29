@@ -30,12 +30,12 @@ namespace BH.oM.External.XML.KML
     public class PolyStyle : ColourStyle
     {
         [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "";
+        public new string ID { get; set; } = "";
 
         [XmlElement("fill")]
-        public bool Fill { get; set; } = false;
+        public bool Fill { get; set; } = true;
 
         [XmlElement("outline")]
-        public bool Outline { get; set; } = false;
+        public bool Outline { get; set; } = true;
     }
 }

@@ -20,9 +20,30 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-namespace BH.oM.XML.KML
+using System;
+using System.Collections.Generic;
+using BH.oM.Base;
+using BH.oM.External.XML.Enums;
+
+using System.ComponentModel;
+using BH.oM.Geometry;
+using BH.oM.XML.KML;
+using BH.oM.External.XML.KML;
+
+namespace BH.oM.External.XML.KML
 {
-    public interface IKMLGeometry
+    public class KMLGeometry : BHoMObject
     {
+        /***************************************************/
+        /**** Properties                                ****/
+        /***************************************************/
+
+        public virtual Style Style { get; set; } = new Style();
+
+        public virtual GeoReference GeoReference { get; set; } = new GeoReference();
+
+        public List<Geometry.IGeometry> Geometries { get; set; } = new List<Geometry.IGeometry>();
+
+        public string Description { get; set; } = "";
     }
 }

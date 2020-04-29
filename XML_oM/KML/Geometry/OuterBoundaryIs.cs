@@ -20,6 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.XML.KML;
 using System;
 using System.Xml.Serialization;
 
@@ -27,7 +28,7 @@ namespace BH.oM.External.XML.KML
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class OuterBoundaryIs : KMLObject
+    public class OuterBoundaryIs : KMLObject, IGeometry
     {
         [XmlElement("LinearRing")]
         public LinearRing LinearRing { get; set; } = new LinearRing();

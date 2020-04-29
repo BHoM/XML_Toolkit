@@ -22,15 +22,25 @@
 
 using BH.oM.XML.KML;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace BH.oM.External.XML.KML
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class InnerBoundaryIs : KMLObject, IGeometry
+    public class Point : KMLObject
     {
-        [XmlElement("LinearRing")]
-        public LinearRing LinearRing { get; set; } = new LinearRing();
+        [XmlAttribute(AttributeName = "id")]
+        public string ID { get; set; } = "";
+
+        [XmlElement("extrude")]
+        public bool Extrude { get; set; } = false;
+
+        [XmlElement("altitudeMode")]
+        public AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
+
+        [XmlElement("coordinates")]
+        public double[] Coordinates { get; set; } = new List<double> { }.ToArray();
     }
 }

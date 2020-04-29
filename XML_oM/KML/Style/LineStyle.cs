@@ -30,7 +30,7 @@ namespace BH.oM.External.XML.KML
     public class LineStyle : ColourStyle
     {
         [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "";
+        public new string ID { get; set; } = "";
 
         [XmlElement("width")]
         public double Width { get; set; } = 1.0;

@@ -30,7 +30,7 @@ namespace BH.oM.External.XML.KML
     public class Style : KMLObject
     {
         [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "";
+        public string ID { get; set; } = "default";
 
         [XmlElement("LineStyle")]
         public LineStyle LineStyle { get; set; } = new LineStyle();

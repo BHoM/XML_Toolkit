@@ -28,14 +28,26 @@ namespace BH.oM.External.XML.KML
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Placemark : KMLObject
+    public class Placemark : KMLObject, IFeature
     {
+        [XmlAttribute(AttributeName = "id")]
+        public string ID { get; set; } = "";
+
         [XmlElement("name")]
         public new string Name { get; set; } = "";
 
         [XmlElement("description")]
-        public string Description { get; set; } = "";
-        //colud be a Point, Polygon or LineString
-        public IKMLGeometry KMLGeometry { get; set; }
+        public string Description { get; set; }
+
+        [XmlElement("visibility")]
+        public bool Visibility { get; set; }
+
+        [XmlElement("open")]
+        public bool Open { get; set; }
+
+        [XmlElement("styleUrl")]
+        public string StyleURL { get; set; }
+        //could be a Point, Polygon or LineString
+        public IGeometry KMLGeometry { get; set; }
     }
 }

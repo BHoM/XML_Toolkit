@@ -28,18 +28,13 @@ namespace BH.oM.External.XML.KML
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Document : KMLObject
+    public class Document : Container
     {
-        [XmlElement("name")]
-        public new string Name { get; set; } = "";
+        [XmlAttribute(AttributeName = "id")]
+        public new string ID { get; set; } = "";
 
         [XmlElement("Style")]
         public Style[] Styles { get; set; } = new List<Style> { }.ToArray();
-
-        [XmlElement("Folder")]
-        public Folder[] Folders { get; set; } = new List<Folder> { }.ToArray();
-
-        [XmlElement("Placemark")]
-        public Placemark[] Placemarks { get; set; } = new List<Placemark> { }.ToArray();
+        public IFeature[] Features { get; set; }
     }
 }
