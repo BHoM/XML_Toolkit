@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class DocumentHistory : GBXMLObject
+    public class DocumentHistory
     {
         [XmlElement("ProgramInfo")]
         public ProgramInfo ProgramInfo { get; set; } = new ProgramInfo();

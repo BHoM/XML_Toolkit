@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class StationID : GBXMLObject
+    public class StationID
     {
         [XmlAttribute("IDType")]
         public string IDType { get; set; } = "WMO";

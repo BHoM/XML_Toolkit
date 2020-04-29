@@ -28,7 +28,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Surface : GBXMLObject
+    public class Surface
     {
         [XmlAttribute(AttributeName = "surfaceType")]
         public string SurfaceType { get; set; } = "Unknown";
@@ -49,6 +49,6 @@ namespace BH.Adapter.XML.GBXMLSchema
         [XmlElement("CADObjectId")]
         public string CADObjectID { get; set; } = "";
         [XmlElement("Name")]
-        public override string Name { get; set; } = "Surface";
+        public string Name { get; set; } = "Surface";
     }
 }

@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Construction : GBXMLObject
+    public class Construction
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "ConstructionID";
@@ -43,6 +43,6 @@ namespace BH.Adapter.XML.GBXMLSchema
         [XmlElement("LayerId")]
         public LayerID LayerID { get; set; } = new LayerID();
         [XmlElement("Name")]
-        public override string Name { get; set; } = "Construction";
+        public string Name { get; set; } = "Construction";
     }
 }

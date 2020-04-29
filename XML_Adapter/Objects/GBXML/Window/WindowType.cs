@@ -30,13 +30,13 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class WindowType : GBXMLObject
+    public class WindowType
     {
         [XmlAttribute("id")]
         public string ID { get; set; } = null;
 
         [XmlElement("Name", Order = 1)]
-        public override string Name { get; set; } = null;
+        public string Name { get; set; } = null;
 
         [XmlElement("Description", Order = 2)]
         public string Description { get; set; } = null;

@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Thickness : GBXMLObject
+    public class Thickness
     {
         [XmlAttribute("unit")]
         public string Unit { get; set; } = "Meters";

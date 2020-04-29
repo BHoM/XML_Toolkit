@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class CartesianPoint : GBXMLObject
+    public class CartesianPoint
     {
         [XmlElement("Coordinate")]
         public string[] Coordinate { get; set; } = new List<string> { "0", "0", "0" }.ToArray();

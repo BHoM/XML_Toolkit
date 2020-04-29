@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class ProjectEntity : GBXMLObject
+    public class ProjectEntity
     {
         [XmlElement("URI")]
         public string URI { get; set; } = "Unknown";

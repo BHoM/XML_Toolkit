@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Reflectance : GBXMLObject
+    public class Reflectance
     {
         [XmlAttribute("type")]
         public string Type { get; set; } = "ExtIR";

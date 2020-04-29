@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class RectangularGeometryOpenings : GBXMLObject
+    public class RectangularGeometryOpenings
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "RectangularGeometryID";

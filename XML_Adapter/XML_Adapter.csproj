@@ -174,7 +174,6 @@
     <Compile Include="Objects\GBXML\DocumentHistory\PersonInfo.cs" />
     <Compile Include="Objects\GBXML\DocumentHistory\ProgramInfo.cs" />
     <Compile Include="Objects\GBXML\GBXML.cs" />
-    <Compile Include="Objects\GBXML\GBXMLObject.cs" />
     <Compile Include="Objects\GBXML\Layer\Layer.cs" />
     <Compile Include="Objects\GBXML\Layer\MaterialID.cs" />
     <Compile Include="Objects\GBXML\Materials\Conductivity.cs" />

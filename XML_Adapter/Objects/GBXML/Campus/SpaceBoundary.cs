@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class SpaceBoundary : GBXMLObject
+    public class SpaceBoundary
     {
         [XmlAttribute(AttributeName = "isSecondLevelBoundary")]
         public string IsSecondLevelBoundary { get; set; } = "false";

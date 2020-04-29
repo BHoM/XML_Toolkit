@@ -30,7 +30,7 @@ namespace BH.Adapter.XML.GBXMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
-    public class Building : GBXMLObject
+    public class Building
     {
         [XmlAttribute(AttributeName = "buildingType")]
         public string BuildingType { get; set; } = "Unknown";
@@ -45,7 +45,7 @@ namespace BH.Adapter.XML.GBXMLSchema
         [XmlElement("BuildingStorey")]
         public BuildingStorey[] BuildingStorey { get; set; } = new List<BuildingStorey> { new BuildingStorey() }.ToArray();
         [XmlElement("Name")]
-        public override string Name { get; set; } = "Building";
+        public string Name { get; set; } = "Building";
         [XmlElement("Description")]
         public string Description { get; set; } = "None";
     }

@@ -31,13 +31,13 @@ namespace BH.Adapter.XML.GBXMLSchema
     [Serializable]
     [XmlRoot(ElementName = "gbXML", IsNullable = false, Namespace = "http://www.gbxml.org/schema")]
     [XmlType("Glaze")]
-    public class Glaze : GBXMLObject
+    public class Glaze
     {
         [XmlAttribute("id")]
         public string ID { get; set; } = "GlazingIdentification" + Guid.NewGuid().ToString().Substring(0, 5);
 
         [XmlElement("Name", Order = 1)]
-        public override string Name { get; set; } = null;
+        public string Name { get; set; } = null;
 
         [XmlElement("Description", Order = 2)]
         public string Description { get; set; } = null;
