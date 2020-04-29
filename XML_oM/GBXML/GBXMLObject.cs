@@ -28,23 +28,18 @@ using BH.oM.Base;
 
 namespace BH.oM.External.XML.GBXML
 {
-    public abstract class GBXMLObject : IBHoMObject
+    public abstract class GBXMLObject : BHoMObject
     {
         [XmlIgnore]
-        public Guid BHoM_Guid { get; set; }
+        public override Guid BHoM_Guid { get; set; }
         [XmlIgnore]
-        public Dictionary<string, object> CustomData { get; set; }
+        public override Dictionary<string, object> CustomData { get; set; }
         [XmlIgnore]
-        public string Name { get; set; }
+        public override string Name { get; set; }
         [XmlIgnore]
-        public FragmentSet Fragments { get; set; }
+        public override FragmentSet Fragments { get; set; }
         [XmlIgnore]
-        public HashSet<string> Tags { get; set; }
-
-        public IBHoMObject GetShallowClone(bool newGuid = false)
-        {
-            return this;
-        }
+        public override HashSet<string> Tags { get; set; }
     }
 }
 
