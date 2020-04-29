@@ -45,6 +45,6 @@ namespace BH.oM.External.XML.GBXML
         [XmlElement("CADModelAzimuth")]
         public double CADModelAzimuth { get; set; } = 0;
         [XmlElement("Name")]
-        public new string Name { get; set; } = "Location";
+        public override string Name { get; set; } = "Location";
     }
 }

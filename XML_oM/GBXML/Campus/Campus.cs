@@ -43,6 +43,6 @@ namespace BH.oM.External.XML.GBXML
         [XmlElement("DaylightSavings")]
         public string DaylightSavings { get; set; } = "false";
         [XmlElement("Name")]
-        public new string Name { get; set; } = "Campus";
+        public override string Name { get; set; } = "Campus";
     }
 }

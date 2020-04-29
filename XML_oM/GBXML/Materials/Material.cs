@@ -35,7 +35,7 @@ namespace BH.oM.External.XML.GBXML
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "MaterialID";
         [XmlElement("Name")]
-        public new string Name { get; set; } = "Material";
+        public override string Name { get; set; } = "Material";
         /*[XmlElement("R-value")]
         public RValue RValue { get; set; } = new RValue();*/
         [XmlElement("Thickness")]

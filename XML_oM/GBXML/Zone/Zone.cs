@@ -47,7 +47,7 @@ namespace BH.oM.External.XML.GBXML
         [XmlElement("TypeCode")]
         public double TypeCode { get; set; } = 0;
         [XmlElement("Name")]
-        public new string Name { get; set; } = "Zone";
+        public override string Name { get; set; } = "Zone";
         [XmlElement("CADObjectId")]
         public string CADObjectID { get; set; } = "Unknown";
     }

@@ -49,6 +49,6 @@ namespace BH.oM.External.XML.GBXML
         [XmlElement("CADObjectId")]
         public string CADObjectID { get; set; } = "";
         [XmlElement("Name")]
-        public new string Name { get; set; } = "Surface";
+        public override string Name { get; set; } = "Surface";
     }
 }
