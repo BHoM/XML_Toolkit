@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 using BH.oM.Environment.MaterialFragments;
 
-using BHX = BH.oM.External.XML.GBXML;
+using BHX = BH.Adapter.XML.GBXMLSchema;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;

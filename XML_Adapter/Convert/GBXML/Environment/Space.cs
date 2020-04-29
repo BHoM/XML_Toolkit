@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 using BH.oM.Environment.Elements;
 using BH.oM.External.XML.Settings;
-using GBXML = BH.oM.External.XML.GBXML;
+using GBXML = BH.Adapter.XML.GBXMLSchema;
 using BH.oM.Geometry.SettingOut;
 using BH.oM.Geometry;
 

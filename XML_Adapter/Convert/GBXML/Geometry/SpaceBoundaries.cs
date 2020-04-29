@@ -23,7 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BH.oM.External.XML.GBXML;
+using BH.Adapter.XML.GBXMLSchema;
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
