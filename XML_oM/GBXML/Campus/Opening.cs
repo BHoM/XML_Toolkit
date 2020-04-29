@@ -47,6 +47,6 @@ namespace BH.oM.External.XML.GBXML
         [XmlElement("CADObjectId")]
         public string CADObjectID { get; set; } = "WinInst: SIM_EXT_GLZ [xxxxxx]";
         [XmlElement("Name")]
-        public new string Name { get; set; } = "Opening";
+        public override string Name { get; set; } = "Opening";
     }
 }

@@ -39,7 +39,7 @@ namespace BH.oM.External.XML.GBXML
         public string Gas { get; set; } = "Argon";
 
         [XmlElement("Name")]
-        public new string Name { get; set; } = null;
+        public override string Name { get; set; } = null;
 
         [XmlElement("Description")]
         public string Description { get; set; } = null;

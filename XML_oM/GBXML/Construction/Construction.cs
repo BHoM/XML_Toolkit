@@ -43,6 +43,6 @@ namespace BH.oM.External.XML.GBXML
         [XmlElement("LayerId")]
         public LayerID LayerID { get; set; } = new LayerID();
         [XmlElement("Name")]
-        public new string Name { get; set; } = "Construction";
+        public override string Name { get; set; } = "Construction";
     }
 }
