@@ -32,6 +32,7 @@ namespace BH.oM.External.XML.KML
     {
         [XmlIgnore]
         public Guid BHoM_Guid { get; set; }
+
         [XmlIgnore]
         public Dictionary<string, object> CustomData { get; set; }
         [XmlIgnore]

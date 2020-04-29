@@ -44,6 +44,8 @@ namespace BH.oM.External.XML.KML
 
         public virtual double ReferenceLongitude { get; set; } = 0.0;
 
+        public virtual double ReferenceAltitude { get; set; } = 0.0;
+
         public virtual AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
         /***************************************************/
     }
