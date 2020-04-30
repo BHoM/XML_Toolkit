@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AltitudeMode.cs" />
     <Compile Include="GBXML\GBXMLDocumentBuilder.cs" />
     <Compile Include="Enums\ExportDetail.cs" />
     <Compile Include="Enums\Schema.cs" />

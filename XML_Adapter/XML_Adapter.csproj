@@ -137,7 +137,10 @@
     <Compile Include="Convert\GBXML\Geometry\Polyline.cs" />
     <Compile Include="Convert\GBXML\Geometry\SpaceBoundaries.cs" />
     <Compile Include="Convert\GBXML\ToGBXML.cs" />
+    <Compile Include="Convert\KML\Mesh.cs" />
+    <Compile Include="Convert\KML\Point.cs" />
     <Compile Include="Convert\KML\ToKML.cs" />
+    <Compile Include="Convert\KML\ToLatLon.cs" />
     <Compile Include="CRUD\Create.cs" />
     <Compile Include="CRUD\GBXML\CreateGBXML.cs" />
     <Compile Include="CRUD\GBXML\ReadGBXML.cs" />
@@ -195,8 +198,8 @@
     <Compile Include="Objects\KML\Container\Container.cs" />
     <Compile Include="Objects\KML\Container\Document.cs" />
     <Compile Include="Objects\KML\Container\Folder.cs" />
-    <Compile Include="Objects\KML\Enum\AltitudeMode.cs" />
-    <Compile Include="Objects\KML\Enum\ColourMode.cs" />
+    <Compile Include="Objects\KML\Enums\AltitudeMode.cs" />
+    <Compile Include="Objects\KML\Enums\ColourMode.cs" />
     <Compile Include="Objects\KML\Geometry\InnerBoundaryIs.cs" />
     <Compile Include="Objects\KML\Geometry\LinearRing.cs" />
     <Compile Include="Objects\KML\Geometry\MultiGeometry.cs" />

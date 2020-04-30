@@ -20,32 +20,35 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.Engine.Geometry;
+using BH.oM.External.XML;
 using System;
-using System.Collections.Generic;
-using BH.oM.Base;
-using BH.oM.External.XML.Enums;
+using BHG = BH.oM.Geometry;
+using KML = BH.oM.External.XML.KMLSchema;
 
-using System.ComponentModel;
-using BH.oM.Geometry;
-
-namespace BH.oM.External.XML
+namespace BH.Adapter.XML
 {
-    public class GeoReference : BHoMObject
+    public static partial class Convert
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
-        public virtual Vector NorthVector { get; set; } = Vector.YAxis;
+        public static BHG.Point ToLatLon(this BHG.Point point, GeoReference geoReference)
+        {
+            BHG.Vector vector = point - geoReference.Reference;
+            //vector in plane
+            vector.Z = 0;
+            double degLatInM = 10000000.0 / 90;
+            double bearing = vector.SignedAngle(BHG.Vector.YAxis, BHG.Vector.ZAxis);
+            double DeltaNorth = vector.Length() * Math.Cos(bearing) / degLatInM;
+            double DeltaEast = vector.Length() * Math.Sin(bearing) / Math.Cos(geoReference.ReferenceLatitude * Math.PI / 180) / degLatInM;
 
-        public virtual Geometry.Point Reference { get; set; } = Geometry.Point.Origin;
-
-        public virtual double ReferenceLatitude { get; set; } = 0.0;
-
-        public virtual double ReferenceLongitude { get; set; } = 0.0;
-
-        public virtual double ReferenceAltitude { get; set; } = 0.0;
-
-        public virtual AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
-        /***************************************************/
+            return new BHG.Point()
+            {
+                X = geoReference.ReferenceLongitude + DeltaEast,
+                Y = geoReference.ReferenceLatitude + DeltaNorth,
+                Z = vector.Z
+            };
+            //https://gis.stackexchange.com/questions/5821/calculating-latitude-longitude-x-miles-from-point
+        }
     }
+    /***************************************************/
+    
 }
