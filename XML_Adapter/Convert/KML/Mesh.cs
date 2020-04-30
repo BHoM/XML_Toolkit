@@ -24,6 +24,8 @@ using BHG = BH.oM.Geometry;
 using KML = BH.oM.External.XML.KMLSchema;
 using BH.oM.External.XML;
 using System.Collections.Generic;
+using BH.Engine.Geometry;
+using BH.Engine.Base;
 
 namespace BH.Adapter.XML
 {
@@ -31,21 +33,26 @@ namespace BH.Adapter.XML
     {
         public static List<KML.Polygon> ToKML(this BHG.Mesh mesh, GeoReference geoReference)
         {
+            mesh = mesh.Rotate(geoReference.Reference, BHG.Vector.ZAxis, geoReference.NorthVector.SignedAngle(BHG.Vector.YAxis, BHG.Vector.ZAxis));
             List<KML.Polygon> polygons = new List<KML.Polygon>();
             foreach (BHG.Face face in mesh.Faces)
             {
                 List<double> coords = new List<double>();
                 List<BHG.Point> points = new List<BHG.Point> {
-                    mesh.Vertices[face.A],
-                    mesh.Vertices[face.B],
-                    mesh.Vertices[face.C],
-                    mesh.Vertices[face.D] 
+                    mesh.Vertices[face.A].DeepClone(),
+                    mesh.Vertices[face.B].DeepClone(),
+                    mesh.Vertices[face.C].DeepClone(),
+                    mesh.Vertices[face.D].DeepClone(),
+                    mesh.Vertices[face.A].DeepClone()
                 };
                 foreach (BHG.Point p in points)
                 {
-                    KML.Point kmlpoint = p.ToKML(geoReference);
-                    coords.AddRange(kmlpoint.Coordinates);
+                    BHG.Point kmlpoint = p.ToLatLon(geoReference);
+                    coords.Add(kmlpoint.X);
+                    coords.Add(kmlpoint.Y);
+                    coords.Add(kmlpoint.Z);
                 }
+
                 KML.Polygon polygon = new KML.Polygon();
                 polygon.AltitudeMode = geoReference.AltitudeMode.ToKML();
                 polygon.OuterBoundaryIs.LinearRing.Coordinates = coords.ToArray();
