@@ -35,6 +35,8 @@ namespace BH.oM.External.XML.KMLSchema
 
         [XmlElement("Style")]
         public Style[] Styles { get; set; } = new List<Style> { }.ToArray();
-        public IFeature[] Features { get; set; }
+
+        [XmlElement("Folder")]
+        public Folder[] Folders { get; set; } = new List<Folder> { }.ToArray();
     }
 }

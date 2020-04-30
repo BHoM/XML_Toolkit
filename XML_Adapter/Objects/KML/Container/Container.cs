@@ -37,7 +37,7 @@ namespace BH.oM.External.XML.KMLSchema
         public string Name { get; set; } = "";
 
         [XmlElement("description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = "";
 
         [XmlElement("visibility")]
         public bool Visibility { get; set; } = true;
@@ -46,6 +46,6 @@ namespace BH.oM.External.XML.KMLSchema
         public bool Open { get; set; } = true;
 
         [XmlElement("styleUrl")]
-        public string StyleURL { get; set; }
+        public string StyleURL { get; set; } = "#default";
     }
 }

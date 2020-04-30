@@ -27,7 +27,7 @@ namespace BH.oM.External.XML.KMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Polygon : IGeometry
+    public class Polygon 
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "";

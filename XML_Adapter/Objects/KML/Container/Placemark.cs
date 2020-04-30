@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace BH.oM.External.XML.KMLSchema
@@ -36,17 +37,18 @@ namespace BH.oM.External.XML.KMLSchema
         public string Name { get; set; } = "";
 
         [XmlElement("description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = "";
 
         [XmlElement("visibility")]
-        public bool Visibility { get; set; }
+        public bool Visibility { get; set; } = true;
 
         [XmlElement("open")]
-        public bool Open { get; set; }
+        public bool Open { get; set; } = false;
 
         [XmlElement("styleUrl")]
-        public string StyleURL { get; set; }
-        //could be a Point, Polygon or LineString
-        public IGeometry KMLGeometry { get; set; }
+        public string StyleURL { get; set; } = "#default";
+
+        [XmlElement("MultiGeometry")]
+        public MultiGeometry MultiGeometry { get; set; } = new MultiGeometry();
     }
 }

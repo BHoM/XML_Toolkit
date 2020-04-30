@@ -197,15 +197,15 @@
     <Compile Include="Objects\KML\Container\Folder.cs" />
     <Compile Include="Objects\KML\Enum\AltitudeMode.cs" />
     <Compile Include="Objects\KML\Enum\ColourMode.cs" />
-    <Compile Include="Objects\KML\Geometry\IGeometry.cs" />
     <Compile Include="Objects\KML\Geometry\InnerBoundaryIs.cs" />
     <Compile Include="Objects\KML\Geometry\LinearRing.cs" />
+    <Compile Include="Objects\KML\Geometry\MultiGeometry.cs" />
     <Compile Include="Objects\KML\Geometry\OuterBoundaryIs.cs" />
     <Compile Include="Objects\KML\Geometry\Point.cs" />
     <Compile Include="Objects\KML\Geometry\Polygon.cs" />
     <Compile Include="Objects\KML\IFeature.cs" />
     <Compile Include="Objects\KML\KML.cs" />
-    <Compile Include="Objects\KML\Placemark.cs" />
+    <Compile Include="Objects\KML\Container\Placemark.cs" />
     <Compile Include="Objects\KML\Style\ColourStyle.cs" />
     <Compile Include="Objects\KML\Style\LineStyle.cs" />
     <Compile Include="Objects\KML\Style\PolyStyle.cs" />
