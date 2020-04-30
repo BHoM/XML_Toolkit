@@ -138,9 +138,11 @@
     <Compile Include="Convert\GBXML\Geometry\Polyline.cs" />
     <Compile Include="Convert\GBXML\Geometry\SpaceBoundaries.cs" />
     <Compile Include="Convert\GBXML\ToGBXML.cs" />
+    <Compile Include="Convert\KML\ToKML.cs" />
     <Compile Include="CRUD\Create.cs" />
     <Compile Include="CRUD\GBXML\CreateGBXML.cs" />
     <Compile Include="CRUD\GBXML\ReadGBXML.cs" />
+    <Compile Include="CRUD\KML\CreateKML.cs" />
     <Compile Include="CRUD\Read.cs" />
     <Compile Include="Objects\GBXML\Campus\Absorptance.cs" />
     <Compile Include="Objects\GBXML\Campus\AdjacentSpaceID.cs" />
@@ -191,6 +193,24 @@
     <Compile Include="Objects\GBXML\Window\Transmittance.cs" />
     <Compile Include="Objects\GBXML\Window\WindowType.cs" />
     <Compile Include="Objects\GBXML\Zone\Zone.cs" />
+    <Compile Include="Objects\KML\Container\Container.cs" />
+    <Compile Include="Objects\KML\Container\Document.cs" />
+    <Compile Include="Objects\KML\Container\Folder.cs" />
+    <Compile Include="Objects\KML\Enum\AltitudeMode.cs" />
+    <Compile Include="Objects\KML\Enum\ColourMode.cs" />
+    <Compile Include="Objects\KML\Geometry\IGeometry.cs" />
+    <Compile Include="Objects\KML\Geometry\InnerBoundaryIs.cs" />
+    <Compile Include="Objects\KML\Geometry\LinearRing.cs" />
+    <Compile Include="Objects\KML\Geometry\OuterBoundaryIs.cs" />
+    <Compile Include="Objects\KML\Geometry\Point.cs" />
+    <Compile Include="Objects\KML\Geometry\Polygon.cs" />
+    <Compile Include="Objects\KML\IFeature.cs" />
+    <Compile Include="Objects\KML\KML.cs" />
+    <Compile Include="Objects\KML\Placemark.cs" />
+    <Compile Include="Objects\KML\Style\ColourStyle.cs" />
+    <Compile Include="Objects\KML\Style\LineStyle.cs" />
+    <Compile Include="Objects\KML\Style\PolyStyle.cs" />
+    <Compile Include="Objects\KML\Style\Style.cs" />
     <Compile Include="XMLAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
