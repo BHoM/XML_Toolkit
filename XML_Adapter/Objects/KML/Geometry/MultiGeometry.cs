@@ -20,9 +20,24 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
+
 namespace BH.oM.External.XML.KMLSchema
 {
-    public interface IGeometry
+    [Serializable]
+    [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
+    public class MultiGeometry
     {
+        [XmlAttribute(AttributeName = "id")]
+        public string ID { get; set; } = "";
+
+        [XmlElement("Point")]
+        public Point[] Points { get; set; } = new List<Point> { }.ToArray();
+
+        [XmlElement("Polygon")]
+        public Polygon[] Polygons { get; set; } = new List<Polygon> { }.ToArray();
+
     }
 }

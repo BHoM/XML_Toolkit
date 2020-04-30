@@ -33,6 +33,7 @@ namespace BH.oM.External.XML.KMLSchema
         [XmlAttribute(AttributeName = "id")]
         public new string ID { get; set; } = "";
 
-        public IFeature[] Features { get; set; }
+        [XmlElement("Placemark")]
+        public Placemark[] Placemarks { get; set; } = new List<Placemark> { }.ToArray();
     }
 }
