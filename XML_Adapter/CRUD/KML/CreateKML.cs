@@ -59,17 +59,15 @@ namespace BH.Adapter.XML
                 return false;
             }
 
-            KML.KMLDocumentBuilder doc = objects.ToList()[0] as KML.KMLDocumentBuilder;
+            KMLDocumentBuilder docBuilder = objects.ToList()[0] as KML.KMLDocumentBuilder;
 
-            if (doc == null)
+            if (docBuilder == null)
             {
                 BH.Engine.Reflection.Compute.RecordError("The KML schema requires a full model to be provided as a single push operation. For pushing to the KML version, you need to plug your objects into a KMLDocumentBuilder which collates the objects for pushing and push that to KML via this adapter.");
                 return false;
             }
 
-            List<IBHoMObject> bhomObjects = new List<IBHoMObject>();
-
-            KMLSchema.KML kml = bhomObjects.ToKML(settings);
+            KMLSchema.KML kml = docBuilder.ToKML(settings);
 
             try
             {

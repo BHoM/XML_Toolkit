@@ -20,32 +20,28 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
+using BH.oM.External.XML;
 using System.Collections.Generic;
-using BH.oM.Base;
-using BH.oM.External.XML.Enums;
+using BHG = BH.oM.Geometry;
+using KML = BH.oM.External.XML.KMLSchema;
 
-using System.ComponentModel;
-using BH.oM.Geometry;
-
-namespace BH.oM.External.XML
+namespace BH.Adapter.XML
 {
-    public class GeoReference : BHoMObject
+    public static partial class Convert
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
-        public virtual Vector NorthVector { get; set; } = Vector.YAxis;
-
-        public virtual Geometry.Point Reference { get; set; } = Geometry.Point.Origin;
-
-        public virtual double ReferenceLatitude { get; set; } = 0.0;
-
-        public virtual double ReferenceLongitude { get; set; } = 0.0;
-
-        public virtual double ReferenceAltitude { get; set; } = 0.0;
-
-        public virtual AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
-        /***************************************************/
+        public static KML.Point ToKML(this BHG.Point point, GeoReference geoReference)
+        {
+            BHG.Point latlon = point.ToLatLon(geoReference);
+            List<double> coords = new List<double>() 
+            { 
+                latlon.X,
+                latlon.Y,
+                latlon.Z
+            };
+            KML.Point kmlPoint = new KML.Point();
+            kmlPoint.AltitudeMode = KML.AltitudeMode.ClampToGround;
+            kmlPoint.Coordinates = coords.ToArray();
+            return kmlPoint;
+        }
     }
 }

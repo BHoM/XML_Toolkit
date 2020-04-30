@@ -20,32 +20,19 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using BH.oM.Base;
-using BH.oM.External.XML.Enums;
-
-using System.ComponentModel;
 using BH.oM.Geometry;
+using BH.oM.External.XML.KMLSchema;
+using BH.oM.External.XML;
+using System.Collections.Generic;
 
-namespace BH.oM.External.XML
+namespace BH.Adapter.XML
 {
-    public class GeoReference : BHoMObject
+    public static partial class Convert
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
-        public virtual Vector NorthVector { get; set; } = Vector.YAxis;
+        public static List<Polygon> ToKML(this Mesh mesh, GeoReference geoReference)
+        {
 
-        public virtual Geometry.Point Reference { get; set; } = Geometry.Point.Origin;
-
-        public virtual double ReferenceLatitude { get; set; } = 0.0;
-
-        public virtual double ReferenceLongitude { get; set; } = 0.0;
-
-        public virtual double ReferenceAltitude { get; set; } = 0.0;
-
-        public virtual AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
-        /***************************************************/
+            return new List<Polygon>();
+        }
     }
 }
