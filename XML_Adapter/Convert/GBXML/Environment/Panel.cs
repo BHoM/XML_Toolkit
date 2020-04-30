@@ -104,7 +104,7 @@ namespace BH.Adapter.XML
                         List<BHG.Polyline> refRegion = panel.Openings.Where(y => y.Polyline() != null).ToList().Select(z => z.Polyline()).ToList();
 
                         newOpeningBounds.AddRange(BH.Engine.Geometry.Triangulation.Compute.DelaunayTriangulation(panel.Polyline(), refRegion, conformingDelaunay: false));
-                        List<BHG.Polyline> outer = new List<BHG.Polyline> { panel.Polyline() };
+                        BHG.Polyline outer = panel.Polyline();
                         double outerArea = panel.Area();
                         for (int z = 0; z > panel.Openings.Count; z++)
                         {
