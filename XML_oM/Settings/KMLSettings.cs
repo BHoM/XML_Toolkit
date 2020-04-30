@@ -22,21 +22,23 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BH.oM.Base;
+using BH.oM.External.XML.Enums;
 
 using System.ComponentModel;
 
-namespace BH.oM.External.XML.Enums
+namespace BH.oM.External.XML.Settings
 {
-    [Description("Defines the XML Schema that is being used within the context of the XML Toolkit")]
-    public enum Schema
+    public class KMLSettings : BHoMObject, IXMLSettings
     {
-        Undefined,
-        [Description("gbXML Schema is the Green Building XML Schema, used by environment modelling software for the transfer of building geometry and data to tools such as IES, TAS, and more")]
-        GBXML,
-        [Description("KML is a file format used to display geographic data in an Earth browser such as Google Earth")]
-        KML,
+        /***************************************************/
+        /**** Properties                                ****/
+        /***************************************************/
+
+        [Description("Set to false if you want to append to a file when pushing XML. If set to true then a file will be created. If a file exists, it will be overwritten. Default true")]
+        public virtual bool NewFile { get; set; } = true;
+
+        /***************************************************/
     }
 }
+

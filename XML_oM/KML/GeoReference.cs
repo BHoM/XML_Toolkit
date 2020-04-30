@@ -22,21 +22,30 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BH.oM.Base;
+using BH.oM.External.XML.Enums;
 
 using System.ComponentModel;
+using BH.oM.Geometry;
 
-namespace BH.oM.External.XML.Enums
+namespace BH.oM.External.XML
 {
-    [Description("Defines the XML Schema that is being used within the context of the XML Toolkit")]
-    public enum Schema
+    public class GeoReference : BHoMObject
     {
-        Undefined,
-        [Description("gbXML Schema is the Green Building XML Schema, used by environment modelling software for the transfer of building geometry and data to tools such as IES, TAS, and more")]
-        GBXML,
-        [Description("KML is a file format used to display geographic data in an Earth browser such as Google Earth")]
-        KML,
+        /***************************************************/
+        /**** Properties                                ****/
+        /***************************************************/
+        public virtual Vector NorthVector { get; set; } = Vector.YAxis;
+
+        public virtual Geometry.Point Reference { get; set; } = Geometry.Point.Origin;
+
+        public virtual double ReferenceLatitude { get; set; } = 0.0;
+
+        public virtual double ReferenceLongitude { get; set; } = 0.0;
+
+        public virtual double ReferenceAltitude { get; set; } = 0.0;
+
+        //public virtual AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
+        /***************************************************/
     }
 }
