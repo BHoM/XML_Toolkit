@@ -20,32 +20,22 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using System;
-using System.Collections.Generic;
-using BH.oM.Base;
+using BH.oM.External.XML;
 using BH.oM.External.XML.Enums;
+using System.Collections.Generic;
+using BHG = BH.oM.Geometry;
+using KML = BH.oM.External.XML.KMLSchema;
 
-using System.ComponentModel;
-using BH.oM.Geometry;
-
-namespace BH.oM.External.XML
+namespace BH.Adapter.XML
 {
-    public class GeoReference : BHoMObject
+    public static partial class Convert
     {
-        /***************************************************/
-        /**** Properties                                ****/
-        /***************************************************/
-        public virtual Vector NorthVector { get; set; } = Vector.YAxis;
-
-        public virtual Geometry.Point Reference { get; set; } = Geometry.Point.Origin;
-
-        public virtual double ReferenceLatitude { get; set; } = 0.0;
-
-        public virtual double ReferenceLongitude { get; set; } = 0.0;
-
-        public virtual double ReferenceAltitude { get; set; } = 0.0;
-
-        public virtual AltitudeMode AltitudeMode { get; set; } = AltitudeMode.RelativeToGround;
-        /***************************************************/
+        public static KML.AltitudeMode ToKML(this AltitudeMode altitudeMode)
+        {
+            if (altitudeMode == AltitudeMode.Absolute) return KML.AltitudeMode.Absolute;
+            if (altitudeMode == AltitudeMode.ClampToGround) return KML.AltitudeMode.ClampToGround;
+            if (altitudeMode == AltitudeMode.RelativeToGround) return KML.AltitudeMode.RelativeToGround;
+            return KML.AltitudeMode.RelativeToGround;
+        }
     }
 }
