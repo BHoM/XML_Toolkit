@@ -63,9 +63,13 @@
     <Compile Include="Enums\ExportDetail.cs" />
     <Compile Include="Enums\Schema.cs" />
     <Compile Include="Enums\UnitType.cs" />
+    <Compile Include="KML\GeoReference.cs" />
+    <Compile Include="KML\KMLDocumentBuilder.cs" />
+    <Compile Include="KML\KMLGeometry.cs" />
     <Compile Include="Settings\IXMLSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\GBXMLSettings.cs" />
+    <Compile Include="Settings\KMLSettings.cs" />
     <Compile Include="XMLConfig.cs" />
   </ItemGroup>
   <ItemGroup>
