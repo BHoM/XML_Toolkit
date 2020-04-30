@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
-using BHX = BH.oM.External.XML.GBXML;
+using BHX = BH.Adapter.XML.GBXMLSchema;
 using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
@@ -152,7 +152,7 @@ namespace BH.Adapter.XML
         public static BHC.Layer FromGBXML(this BHX.Layer gbLayer, BHM.Material material, double thickness)
         {
             BHC.Layer layer = new BHC.Layer();
-            layer.Name = gbLayer.Name;
+            //layer.Name = gbLayer.Name;
             layer.Thickness = thickness;
             layer.Material = material;
 

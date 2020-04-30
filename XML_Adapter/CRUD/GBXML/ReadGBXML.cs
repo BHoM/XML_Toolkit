@@ -34,7 +34,7 @@ using BHG = BH.oM.Geometry;
 
 using BH.oM.External.XML;
 using BH.oM.External.XML.Enums;
-using BHX = BH.oM.External.XML.GBXML;
+using BHX = BH.Adapter.XML.GBXMLSchema;
 using BHC = BH.oM.Physical.Constructions;
 
 using BH.oM.Adapter;
@@ -47,10 +47,10 @@ namespace BH.Adapter.XML
 
         private IEnumerable<IBHoMObject> ReadGBXML(Type type = null, XMLConfig config = null)
         {
-            BH.oM.External.XML.GBXML.GBXML gbx = null;
+            BH.Adapter.XML.GBXMLSchema.GBXML gbx = null;
             TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
-            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.External.XML.GBXML.GBXML));
-            gbx = (BH.oM.External.XML.GBXML.GBXML)szer.Deserialize(reader);
+            XmlSerializer szer = new XmlSerializer(typeof(BH.Adapter.XML.GBXMLSchema.GBXML));
+            gbx = (BH.Adapter.XML.GBXMLSchema.GBXML)szer.Deserialize(reader);
             reader.Close();
 
             if (type == null)
@@ -73,7 +73,7 @@ namespace BH.Adapter.XML
         /**** Private Methods                           ****/
         /***************************************************/
 
-        private List<IBHoMObject> ReadFullXMLFile(BH.oM.External.XML.GBXML.GBXML gbx, List<string> ids = null)
+        private List<IBHoMObject> ReadFullXMLFile(BH.Adapter.XML.GBXMLSchema.GBXML gbx, List<string> ids = null)
         {
             List<IBHoMObject> objects = new List<IBHoMObject>();
 

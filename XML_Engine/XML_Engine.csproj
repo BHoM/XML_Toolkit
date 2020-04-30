@@ -104,7 +104,6 @@
     <Compile Include="Create\DocumentBuilder.cs" />
     <Compile Include="Create\XMLSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\AdjacentSpaceID.cs" />
     <Compile Include="Query\CleanName.cs" />
     <Compile Include="Query\ExposedToSun.cs" />
     <Compile Include="Query\ExternalElements.cs" />

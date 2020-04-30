@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
-using BHX = BH.oM.External.XML.GBXML;
+using BHX = BH.Adapter.XML.GBXMLSchema;
 using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;

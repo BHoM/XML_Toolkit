@@ -31,7 +31,7 @@ using BHG = BH.oM.Geometry;
 
 using BH.oM.External.XML;
 using BH.oM.External.XML.Enums;
-using BHX = BH.oM.External.XML.GBXML;
+using BHX = BH.Adapter.XML.GBXMLSchema;
 using BHC = BH.oM.Physical.Constructions;
 
 using BH.oM.Adapter;

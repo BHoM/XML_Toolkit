@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
-using BHX = BH.oM.External.XML.GBXML;
+using BHX = BH.Adapter.XML.GBXMLSchema;
 using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
@@ -81,7 +81,7 @@ namespace BH.Adapter.XML
             surface.RectangularGeometry = geom;
 
             BHG.Polyline pLine = panel.Polyline();
-            if(space != null && !pLine.NormalAwayFromSpace(space, settings.PlanarTolerance))
+            if(space != null && panel.ConnectedSpaces[0] == space.ConnectedSpaceName() && !pLine.NormalAwayFromSpace(space, settings.PlanarTolerance))
             {
                 pLine = pLine.Flip();
                 surface.PlanarGeometry.PolyLoop = pLine.ToGBXML();
