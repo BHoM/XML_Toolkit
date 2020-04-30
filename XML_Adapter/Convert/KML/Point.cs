@@ -39,7 +39,7 @@ namespace BH.Adapter.XML
                 latlon.Z
             };
             KML.Point kmlPoint = new KML.Point();
-            kmlPoint.AltitudeMode = KML.AltitudeMode.ClampToGround;
+            kmlPoint.AltitudeMode = geoReference.AltitudeMode.ToKML(); 
             kmlPoint.Coordinates = coords.ToArray();
             return kmlPoint;
         }

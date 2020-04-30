@@ -39,7 +39,14 @@ namespace BH.oM.External.XML.KMLSchema
         [XmlElement("altitudeMode")]
         public AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
 
-        [XmlElement("coordinates")]
+        [XmlIgnore]
         public double[] Coordinates { get; set; } = new List<double> { }.ToArray();
+
+        [XmlElement("coordinates")]
+        public string CoordinatesText 
+        {
+            get { return String.Join(",", Coordinates); }
+            set { Coordinates = Array.ConvertAll(value.Split(','), double.Parse);}
+        }
     }
 }

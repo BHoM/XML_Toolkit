@@ -73,10 +73,11 @@ namespace BH.Adapter.XML
                     multiGeometry = new MultiGeometry();
                     polygons = new List<Polygon>();
                     polygons = m.ToKML(kMLGeometry.GeoReference);
-                    multiGeometry.Polygons = polygons.ToArray();
+                     
+                    placemark.MultiGeometry.Polygons = polygons.ToArray();
                     placemarks.Add(placemark);
                 }
-
+                folder.Placemarks = placemarks.ToArray();
 
                 folders.Add(folder);
             }

@@ -22,6 +22,7 @@
 
 using BH.Engine.Geometry;
 using BH.oM.External.XML;
+using BH.oM.External.XML.Enums;
 using System;
 using BHG = BH.oM.Geometry;
 using KML = BH.oM.External.XML.KMLSchema;
@@ -40,11 +41,14 @@ namespace BH.Adapter.XML
             double DeltaNorth = vector.Length() * Math.Cos(bearing) / degLatInM;
             double DeltaEast = vector.Length() * Math.Sin(bearing) / Math.Cos(geoReference.ReferenceLatitude * Math.PI / 180) / degLatInM;
 
+            if (geoReference.AltitudeMode == AltitudeMode.Absolute)
+                point.Z += geoReference.ReferenceAltitude;
+
             return new BHG.Point()
             {
                 X = geoReference.ReferenceLongitude + DeltaEast,
                 Y = geoReference.ReferenceLatitude + DeltaNorth,
-                Z = vector.Z
+                Z = point.Z
             };
             //https://gis.stackexchange.com/questions/5821/calculating-latitude-longitude-x-miles-from-point
         }

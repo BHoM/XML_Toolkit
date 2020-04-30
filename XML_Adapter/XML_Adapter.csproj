@@ -137,6 +137,7 @@
     <Compile Include="Convert\GBXML\Geometry\Polyline.cs" />
     <Compile Include="Convert\GBXML\Geometry\SpaceBoundaries.cs" />
     <Compile Include="Convert\GBXML\ToGBXML.cs" />
+    <Compile Include="Convert\KML\AltitudeMode.cs" />
     <Compile Include="Convert\KML\Mesh.cs" />
     <Compile Include="Convert\KML\Point.cs" />
     <Compile Include="Convert\KML\ToKML.cs" />

@@ -30,7 +30,14 @@ namespace BH.oM.External.XML.KMLSchema
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
     public class LinearRing 
     {
-        [XmlElement("coordinates")]
+        [XmlIgnore]
         public double[] Coordinates { get; set; } = new List<double> { }.ToArray();
+
+        [XmlElement("coordinates")]
+        public string CoordinatesText
+        {
+            get { return String.Join(",", Coordinates); }
+            set { Coordinates = Array.ConvertAll(value.Split(','), double.Parse); }
+        }
     }
 }
