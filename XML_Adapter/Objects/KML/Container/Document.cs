@@ -20,27 +20,21 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.XML.KML;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace BH.oM.External.XML.KML
+namespace BH.oM.External.XML.KMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Point : KMLObject
+    public class Document : Container
     {
         [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "";
+        public new string ID { get; set; } = "";
 
-        [XmlElement("extrude")]
-        public bool Extrude { get; set; } = false;
-
-        [XmlElement("altitudeMode")]
-        public AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
-
-        [XmlElement("coordinates")]
-        public double[] Coordinates { get; set; } = new List<double> { }.ToArray();
+        [XmlElement("Style")]
+        public Style[] Styles { get; set; } = new List<Style> { }.ToArray();
+        public IFeature[] Features { get; set; }
     }
 }

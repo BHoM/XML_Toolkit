@@ -23,19 +23,13 @@
 using System;
 using System.Xml.Serialization;
 
-namespace BH.oM.External.XML.KML
+namespace BH.oM.External.XML.KMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Style : KMLObject
+    public class InnerBoundaryIs : IGeometry
     {
-        [XmlAttribute(AttributeName = "id")]
-        public string ID { get; set; } = "default";
-
-        [XmlElement("LineStyle")]
-        public LineStyle LineStyle { get; set; } = new LineStyle();
-
-        [XmlElement("PolyStyle")]
-        public PolyStyle PolyStyle { get; set; } = new PolyStyle();
+        [XmlElement("LinearRing")]
+        public LinearRing LinearRing { get; set; } = new LinearRing();
     }
 }

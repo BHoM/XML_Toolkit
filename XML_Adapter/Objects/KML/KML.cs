@@ -23,19 +23,13 @@
 using System;
 using System.Xml.Serialization;
 
-namespace BH.oM.External.XML.KML
+namespace BH.oM.External.XML.KMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class PolyStyle : ColourStyle
+    public class KML
     {
-        [XmlAttribute(AttributeName = "id")]
-        public new string ID { get; set; } = "";
-
-        [XmlElement("fill")]
-        public bool Fill { get; set; } = true;
-
-        [XmlElement("outline")]
-        public bool Outline { get; set; } = true;
+        [XmlElement("Document")]
+        public Document Document { get; set; } = new Document();
     }
 }

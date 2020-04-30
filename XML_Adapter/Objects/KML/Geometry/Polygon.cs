@@ -21,31 +21,27 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace BH.oM.External.XML.KML
+namespace BH.oM.External.XML.KMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Container : KMLObject, IFeature
+    public class Polygon : IGeometry
     {
         [XmlAttribute(AttributeName = "id")]
         public string ID { get; set; } = "";
 
-        [XmlElement("name")]
-        public new string Name { get; set; } = "";
+        [XmlElement("extrude")]
+        public bool Extrude { get; set; } = false;
 
-        [XmlElement("description")]
-        public string Description { get; set; }
+        [XmlElement("altitudeMode")]
+        public AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
 
-        [XmlElement("visibility")]
-        public bool Visibility { get; set; } = true;
+        [XmlElement("outerBoundaryIs")]
+        public OuterBoundaryIs OuterBoundaryIs { get; set; } = new OuterBoundaryIs();
 
-        [XmlElement("open")]
-        public bool Open { get; set; } = true;
-
-        [XmlElement("styleUrl")]
-        public string StyleURL { get; set; }
+        [XmlElement("innerBoundaryIs")]
+        public InnerBoundaryIs InnerBoundaryIs { get; set; } = new InnerBoundaryIs();
     }
 }

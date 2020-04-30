@@ -21,18 +21,32 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace BH.oM.External.XML.KML
+namespace BH.oM.External.XML.KMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
-    public class Folder : Container
+    public class Placemark : IFeature
     {
         [XmlAttribute(AttributeName = "id")]
-        public new string ID { get; set; } = "";
+        public string ID { get; set; } = "";
 
-        public IFeature[] Features { get; set; }
+        [XmlElement("name")]
+        public string Name { get; set; } = "";
+
+        [XmlElement("description")]
+        public string Description { get; set; }
+
+        [XmlElement("visibility")]
+        public bool Visibility { get; set; }
+
+        [XmlElement("open")]
+        public bool Open { get; set; }
+
+        [XmlElement("styleUrl")]
+        public string StyleURL { get; set; }
+        //could be a Point, Polygon or LineString
+        public IGeometry KMLGeometry { get; set; }
     }
 }

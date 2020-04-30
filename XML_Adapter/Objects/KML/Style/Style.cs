@@ -21,31 +21,21 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
-using BH.oM.Base;
-
-namespace BH.oM.External.XML.KML
+namespace BH.oM.External.XML.KMLSchema
 {
-    public abstract class KMLObject : IBHoMObject
+    [Serializable]
+    [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
+    public class Style
     {
-        [XmlIgnore]
-        public Guid BHoM_Guid { get; set; }
+        [XmlAttribute(AttributeName = "id")]
+        public string ID { get; set; } = "default";
 
-        [XmlIgnore]
-        public Dictionary<string, object> CustomData { get; set; }
-        [XmlIgnore]
-        public string Name { get; set; }
-        [XmlIgnore]
-        public FragmentSet Fragments { get; set; }
-        [XmlIgnore]
-        public HashSet<string> Tags { get; set; }
+        [XmlElement("LineStyle")]
+        public LineStyle LineStyle { get; set; } = new LineStyle();
 
-        public IBHoMObject GetShallowClone(bool newGuid = false)
-        {
-            return this;
-        }
+        [XmlElement("PolyStyle")]
+        public PolyStyle PolyStyle { get; set; } = new PolyStyle();
     }
 }
-

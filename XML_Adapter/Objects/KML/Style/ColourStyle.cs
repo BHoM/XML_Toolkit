@@ -21,17 +21,21 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace BH.oM.External.XML.KML
+namespace BH.oM.External.XML.KMLSchema
 {
-    public interface IFeature
+    [Serializable]
+    [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
+    public class ColourStyle 
     {
-        string Name { get; set; }
-        bool Visibility { get; set; }
-        bool Open { get; set; }
-        string StyleURL { get; set; }
-        string Description { get; set; }
+        [XmlAttribute(AttributeName = "id")]
+        public string ID { get; set; } = "";
+
+        [XmlElement("color")]
+        public string Colour { get; set; } = "46000000";
+
+        [XmlElement("colorMode")]
+        public ColourMode ColourMode { get; set; } = ColourMode.Normal;
     }
 }

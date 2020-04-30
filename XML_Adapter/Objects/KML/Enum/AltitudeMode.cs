@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace BH.oM.XML.KML
+namespace BH.oM.External.XML.KMLSchema
 {
     public enum AltitudeMode
     {

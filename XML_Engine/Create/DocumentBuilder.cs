@@ -29,14 +29,11 @@ using BH.oM.Reflection.Attributes;
 
 using BH.oM.Environment.Elements;
 using GBXML = BH.oM.External.XML.GBXML;
-using KML = BH.oM.External.XML.KML;
 using BH.oM.Base;
 using BH.oM.Geometry.SettingOut;
 using BH.Engine.Environment;
 
 using System.ComponentModel;
-using BH.oM.Geometry;
-using BH.oM.External.XML.KML;
 
 namespace BH.Engine.External.XML
 {

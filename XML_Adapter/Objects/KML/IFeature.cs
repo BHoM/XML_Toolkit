@@ -20,9 +20,18 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-namespace BH.oM.XML.KML
+using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
+
+namespace BH.oM.External.XML.KMLSchema
 {
-    public interface IGeometry
+    public interface IFeature
     {
+        string Name { get; set; }
+        bool Visibility { get; set; }
+        bool Open { get; set; }
+        string StyleURL { get; set; }
+        string Description { get; set; }
     }
 }

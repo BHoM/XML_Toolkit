@@ -31,7 +31,7 @@ namespace BH.oM.External.XML.KML
         /**** Properties                                ****/
         /***************************************************/
 
-        public List<KMLGeometry> KMLGeometries { get; set; } = new List<KMLGeometry>();
+        public virtual List<KMLGeometry> KMLGeometries { get; set; } = new List<KMLGeometry>();
         /***************************************************/
     }
 }

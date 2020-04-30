@@ -21,7 +21,7 @@
  */
 
 using System.Collections.Generic;
-using KML = BH.oM.External.XML.KML;
+using KML = BH.oM.External.XML.KMLSchema;
 using BH.oM.Base;
 using BH.oM.External.XML.Settings;
 

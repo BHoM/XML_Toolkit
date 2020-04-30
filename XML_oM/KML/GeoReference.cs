@@ -27,9 +27,8 @@ using BH.oM.External.XML.Enums;
 
 using System.ComponentModel;
 using BH.oM.Geometry;
-using BH.oM.XML.KML;
 
-namespace BH.oM.External.XML.KML
+namespace BH.oM.External.XML
 {
     public class GeoReference : BHoMObject
     {
@@ -46,7 +45,7 @@ namespace BH.oM.External.XML.KML
 
         public virtual double ReferenceAltitude { get; set; } = 0.0;
 
-        public virtual AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
+        //public virtual AltitudeMode AltitudeMode { get; set; } = AltitudeMode.ClampToGround;
         /***************************************************/
     }
 }
