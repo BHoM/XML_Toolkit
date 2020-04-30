@@ -28,6 +28,7 @@ using BH.oM.External.XML;
 using BH.oM.External.XML.KMLSchema;
 using BHG = BH.oM.Geometry;
 using System.Linq;
+using BH.Engine.Geometry;
 
 namespace BH.Adapter.XML
 {
@@ -52,6 +53,7 @@ namespace BH.Adapter.XML
 
                 foreach(BHG.IGeometry igeo in kMLGeometry.Geometries)
                 {
+                    
                     if (igeo is BHG.Point)
                         points.Add(igeo as BHG.Point);
 
@@ -68,8 +70,9 @@ namespace BH.Adapter.XML
                 MultiGeometry multiGeometry = new MultiGeometry();
                 foreach (BHG.Mesh m in meshes)
                 {
+
                     placemark = new Placemark();
-                    
+                    placemark.StyleURL = "#default";
                     multiGeometry = new MultiGeometry();
                     polygons = new List<Polygon>();
                     polygons = m.ToKML(kMLGeometry.GeoReference);
