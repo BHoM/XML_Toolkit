@@ -31,13 +31,10 @@ namespace BH.oM.External.XML
         /***************************************************/
         /**** Properties                                ****/
         /***************************************************/
-
-        //public virtual Style Style { get; set; } = new Style();
-
         public virtual GeoReference GeoReference { get; set; } = new GeoReference();
 
-        public List<Geometry.IGeometry> Geometries { get; set; } = new List<Geometry.IGeometry>();
+        public virtual List<Geometry.IGeometry> Geometries { get; set; } = new List<Geometry.IGeometry>();
 
-        public string Description { get; set; } = "";
+        public virtual string Description { get; set; } = "";
     }
 }
