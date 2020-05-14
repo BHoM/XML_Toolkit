@@ -6,6 +6,7 @@ The XML_Toolkit allows interoperability between the BHoM and XML schemas. Enable
 
 ### Known Versions of Software Supported
 gbXML 6.0.01 - [Scheme](https://www.gbxml.org/)
+KML 2.2 - [Scheme](http://schemas.opengis.net/kml/)
 
 ### Documentation
 For more information about functionality see [the XML_Toolkit wiki](https://github.com/BHoM/XML_Toolkit/wiki)
