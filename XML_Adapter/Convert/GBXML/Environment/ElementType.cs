@@ -77,8 +77,6 @@ namespace BH.Adapter.XML
                     return "Shade";
                 case BHE.PanelType.SlabOnGrade:
                     return "SlabOnGrade";
-                case BHE.PanelType.SolarPanel:
-                    return "SolarPanel";
                 case BHE.PanelType.UndergroundCeiling:
                     return "UndergroundCeiling";
                 case BHE.PanelType.UndergroundSlab:
