@@ -42,9 +42,9 @@ namespace BH.Adapter.XML
                     mesh.Vertices[face.A].DeepClone(),
                     mesh.Vertices[face.B].DeepClone(),
                     mesh.Vertices[face.C].DeepClone(),
-                    mesh.Vertices[face.D].DeepClone(),
                     mesh.Vertices[face.A].DeepClone()
                 };
+                if (face.D > -1) points.Insert(3, mesh.Vertices[face.D].DeepClone());
                 foreach (BHG.Point p in points)
                 {
                     BHG.Point kmlpoint = p.ToLatLon(geoReference);
