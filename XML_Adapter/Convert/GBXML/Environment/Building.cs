@@ -70,8 +70,8 @@ namespace BH.Adapter.XML
         public static BHX.Location ToGBXMLLocation(this BHE.Building building)
         {
             BHX.Location location = new BHX.Location();
-            location.Longitude = Math.Round(building.Longitude, 5);
-            location.Latitude = Math.Round(building.Latitude, 5);
+            location.Longitude = Math.Round(building.Location.Longitude, 5);
+            location.Latitude = Math.Round(building.Location.Latitude, 5);
             location.Elevation = Math.Round(building.Elevation, 5);
 
             BHP.BuildingContextFragment context = building.FindFragment<BHP.BuildingContextFragment>(typeof(BHP.BuildingContextFragment));
@@ -109,8 +109,8 @@ namespace BH.Adapter.XML
             BHE.Building building = new oM.Environment.Elements.Building();
 
             building.Elevation = location.Elevation;
-            building.Longitude = location.Longitude;
-            building.Latitude = location.Latitude;
+            building.Location.Longitude = location.Longitude;
+            building.Location.Latitude = location.Latitude;
 
             BHP.BuildingContextFragment props = new BHP.BuildingContextFragment();
             props.PlaceName = location.Name;
