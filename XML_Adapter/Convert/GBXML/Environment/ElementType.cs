@@ -114,6 +114,7 @@ namespace BH.Adapter.XML
                     return "OperableSkylight";
                 case BHE.OpeningType.VehicleDoor:
                     return "VehicleDoor";
+                case BHE.OpeningType.Hole:
                 default:
                     return "Air"; //Adiabatic
             }
@@ -174,6 +175,8 @@ namespace BH.Adapter.XML
                     return BHE.OpeningType.Rooflight;
                 case "VehicleDoor":
                     return BHE.OpeningType.VehicleDoor;
+                case "Air":
+                    return BHE.OpeningType.Hole;
                 default:
                     return BHE.OpeningType.Undefined;
             }
