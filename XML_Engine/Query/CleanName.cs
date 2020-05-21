@@ -27,12 +27,12 @@ using BH.Engine.Geometry;
 using System.Linq;
 using BHE = BH.oM.Environment.Elements;
 
-using BH.oM.External.XML.Enums;
+using BH.oM.Adapters.XML.Enums;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.External.XML
+namespace BH.Engine.Adapters.XML
 {
     public static partial class Query
     {

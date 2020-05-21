@@ -32,12 +32,12 @@ using BHE = BH.oM.Environment.Elements;
 using BH.oM.Environment.Fragments;
 using BHG = BH.oM.Geometry;
 
-using BH.oM.External.XML;
-using BH.oM.External.XML.Enums;
+using BH.oM.Adapters.XML;
+using BH.oM.Adapters.XML.Enums;
 using BHX = BH.Adapter.XML.GBXMLSchema;
 using BHC = BH.oM.Physical.Constructions;
 
-using BH.oM.Adapter;
+using BH.oM.Adapters;
 using BH.Engine.Adapter;
 
 namespace BH.Adapter.XML

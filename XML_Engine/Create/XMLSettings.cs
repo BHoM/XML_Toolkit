@@ -26,14 +26,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BH.oM.External.XML.Settings;
-using BH.oM.External.XML.Enums;
+using BH.oM.Adapters.XML.Settings;
+using BH.oM.Adapters.XML.Enums;
 
 using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace BH.Engine.External.XML
+namespace BH.Engine.Adapters.XML
 {
     public static partial class Create
     {

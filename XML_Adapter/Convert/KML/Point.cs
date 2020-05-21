@@ -20,10 +20,10 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.External.XML;
+using BH.oM.Adapters.XML;
 using System.Collections.Generic;
 using BHG = BH.oM.Geometry;
-using KML = BH.oM.External.XML.KMLSchema;
+using KML = BH.oM.Adapters.XML.KMLSchema;
 
 namespace BH.Adapter.XML
 {

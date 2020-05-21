@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace BH.oM.External.XML.KMLSchema
+namespace BH.oM.Adapters.XML.KMLSchema
 {
     public interface IFeature
     {

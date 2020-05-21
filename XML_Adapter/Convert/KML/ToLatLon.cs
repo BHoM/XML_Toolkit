@@ -21,11 +21,11 @@
  */
 
 using BH.Engine.Geometry;
-using BH.oM.External.XML;
-using BH.oM.External.XML.Enums;
+using BH.oM.Adapters.XML;
+using BH.oM.Adapters.XML.Enums;
 using System;
 using BHG = BH.oM.Geometry;
-using KML = BH.oM.External.XML.KMLSchema;
+using KML = BH.oM.Adapters.XML.KMLSchema;
 
 namespace BH.Adapter.XML
 {

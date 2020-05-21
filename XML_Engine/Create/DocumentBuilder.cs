@@ -28,14 +28,14 @@ using System.Threading.Tasks;
 using BH.oM.Reflection.Attributes;
 
 using BH.oM.Environment.Elements;
-using GBXML = BH.oM.External.XML;
+using GBXML = BH.oM.Adapters.XML;
 using BH.oM.Base;
 using BH.oM.Geometry.SettingOut;
 using BH.Engine.Environment;
 
 using System.ComponentModel;
 
-namespace BH.Engine.External.XML
+namespace BH.Engine.Adapters.XML
 {
     public static partial class Create
     {

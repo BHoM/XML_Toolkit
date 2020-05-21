@@ -28,15 +28,15 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
 
-using BH.oM.External.XML;
-using BH.oM.External.XML;
-using BH.oM.External.XML.Settings;
+using BH.oM.Adapters.XML;
+using BH.oM.Adapters.XML;
+using BH.oM.Adapters.XML.Settings;
 using BH.oM.Environment.Elements;
 using BH.oM.Base;
 using BH.Adapter.XML.GBXMLSchema;
 
 using BH.Engine.Adapter;
-using BH.Engine.External.XML;
+using BH.Engine.Adapters.XML;
 
 namespace BH.Adapter.XML
 {
@@ -73,12 +73,12 @@ namespace BH.Adapter.XML
             bhomObjects.AddRange(doc.ShadingElements);
             bhomObjects.AddRange(doc.UnassignedPanels);
 
-            if (settings.ExportDetail == oM.External.XML.Enums.ExportDetail.Full)
+            if (settings.ExportDetail == oM.Adapters.XML.Enums.ExportDetail.Full)
             {
                 foreach (List<Panel> p in doc.ElementsAsSpaces)
                     bhomObjects.AddRange(p);
             }
-            else if(settings.ExportDetail == oM.External.XML.Enums.ExportDetail.BuildingShell)
+            else if(settings.ExportDetail == oM.Adapters.XML.Enums.ExportDetail.BuildingShell)
             {
                 bhomObjects.AddRange(doc.ElementsAsSpaces.ExternalElements());
             }

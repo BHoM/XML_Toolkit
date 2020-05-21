@@ -26,8 +26,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BH.oM.External.XML;
-using BH.oM.External.XML.Enums;
+using BH.oM.Adapters.XML;
+using BH.oM.Adapters.XML.Enums;
 
 using BH.oM.Adapter;
 

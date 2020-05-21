@@ -34,12 +34,12 @@ using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
-using BH.oM.External.XML.Settings;
+using BH.oM.Adapters.XML.Settings;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-using BH.Engine.External.XML;
+using BH.Engine.Adapters.XML;
 
 namespace BH.Adapter.XML
 {

@@ -23,11 +23,11 @@
 using System;
 using System.Collections.Generic;
 using BH.oM.Base;
-using BH.oM.External.XML.Enums;
+using BH.oM.Adapters.XML.Enums;
 
 using System.ComponentModel;
 
-namespace BH.oM.External.XML.Settings
+namespace BH.oM.Adapters.XML.Settings
 {
     public class KMLSettings : BHoMObject, IXMLSettings
     {
