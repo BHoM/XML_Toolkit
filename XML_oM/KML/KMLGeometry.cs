@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using BH.oM.Base;
 
-namespace BH.oM.External.XML
+namespace BH.oM.Adapters.XML
 { 
     public class KMLGeometry : BHoMObject
     {

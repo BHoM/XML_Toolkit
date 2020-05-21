@@ -28,15 +28,15 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using System.IO;
 
-using BH.oM.External.XML;
-using KML = BH.oM.External.XML;
-using KMLSchema = BH.oM.External.XML.KMLSchema;
-using BH.oM.External.XML.Settings;
+using BH.oM.Adapters.XML;
+using KML = BH.oM.Adapters.XML;
+using KMLSchema = BH.oM.Adapters.XML.KMLSchema;
+using BH.oM.Adapters.XML.Settings;
 using BH.oM.Environment.Elements;
 using BH.oM.Base;
 
 using BH.Engine.Adapter;
-using BH.Engine.External.XML;
+using BH.Engine.Adapters.XML;
 
 namespace BH.Adapter.XML
 {
@@ -78,7 +78,7 @@ namespace BH.Adapter.XML
                     overrides.Add(typeof(BHoMObject), pi.Name, new XmlAttributes { XmlIgnore = true });
 
                 XmlSerializerNamespaces xns = new XmlSerializerNamespaces();
-                XmlSerializer szer = new XmlSerializer(typeof(BH.oM.External.XML.KMLSchema.KML), overrides);
+                XmlSerializer szer = new XmlSerializer(typeof(BH.oM.Adapters.XML.KMLSchema.KML), overrides);
                 TextWriter ms = new StreamWriter(_fileSettings.GetFullFileName());
                 szer.Serialize(ms, kml, xns);
                 ms.Close();

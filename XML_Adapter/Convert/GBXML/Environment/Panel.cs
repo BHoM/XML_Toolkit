@@ -33,14 +33,14 @@ using BHG = BH.oM.Geometry;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
-using BH.oM.External.XML.Settings;
+using BH.oM.Adapters.XML.Settings;
 
 using BHP = BH.oM.Environment.Fragments;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-using BH.Engine.External.XML;
+using BH.Engine.Adapters.XML;
 
 using BH.Engine.Base;
 
@@ -136,7 +136,7 @@ namespace BH.Adapter.XML
                     }
                     //Update the host elements element type
                     surface.SurfaceType = (panel.ConnectedSpaces.Count == 1 ? BHE.PanelType.WallExternal : BHE.PanelType.WallInternal).ToGBXML();
-                    surface.ExposedToSun = BH.Engine.External.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
+                    surface.ExposedToSun = BH.Engine.Adapters.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
                 }
             }
             else
@@ -145,7 +145,7 @@ namespace BH.Adapter.XML
                 if (panel.Type == BHE.PanelType.CurtainWall)
                 {
                     surface.SurfaceType = (panel.ConnectedSpaces.Count == 1 ? BHE.PanelType.WallExternal : BHE.PanelType.WallInternal).ToGBXML();
-                    surface.ExposedToSun = BH.Engine.External.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
+                    surface.ExposedToSun = BH.Engine.Adapters.XML.Query.ExposedToSun(surface.SurfaceType).ToString().ToLower();
                 }
             }
 

@@ -20,7 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-namespace BH.oM.External.XML.Enums
+namespace BH.oM.Adapters.XML.Enums
 {
     public enum ExportDetail
     {

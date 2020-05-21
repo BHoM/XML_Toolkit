@@ -29,7 +29,7 @@ using BH.Engine.Environment;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.External.XML
+namespace BH.Engine.Adapters.XML
 {
     public static partial class Query
     {

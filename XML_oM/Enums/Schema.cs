@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 using System.ComponentModel;
 
-namespace BH.oM.External.XML.Enums
+namespace BH.oM.Adapters.XML.Enums
 {
     [Description("Defines the XML Schema that is being used within the context of the XML Toolkit")]
     public enum Schema

@@ -28,14 +28,14 @@ using System.Linq;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
 
-using BH.oM.External.XML.Enums;
+using BH.oM.Adapters.XML.Enums;
 
 using BH.Engine.Environment;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.External.XML
+namespace BH.Engine.Adapters.XML
 {
     public static partial class Query
     {

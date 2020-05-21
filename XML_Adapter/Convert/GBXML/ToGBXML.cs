@@ -27,7 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using GBXML = BH.Adapter.XML.GBXMLSchema;
-using BH.oM.External.XML.Settings;
+using BH.oM.Adapters.XML.Settings;
 using BH.oM.Base;
 using BH.oM.Environment.Elements;
 using BH.oM.Environment.Fragments;

@@ -27,7 +27,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using BH.oM.Environment.Elements;
-using BH.oM.External.XML.Settings;
+using BH.oM.Adapters.XML.Settings;
 using GBXML = BH.Adapter.XML.GBXMLSchema;
 using BH.oM.Geometry.SettingOut;
 using BH.oM.Geometry;
@@ -45,7 +45,7 @@ namespace BH.Adapter.XML
 
             xmlSpace.Name = panelsAsSpace.ConnectedSpaceName();
             xmlSpace.ID = "Space" + xmlSpace.Name.Replace(" ", "").Replace("-", "");
-            xmlSpace.CADObjectID = BH.Engine.External.XML.Query.CADObjectID(panelsAsSpace);
+            xmlSpace.CADObjectID = BH.Engine.Adapters.XML.Query.CADObjectID(panelsAsSpace);
 
             List<Polyline> shellGeometry = panelsAsSpace.ClosedShellGeometry();
             List<GBXML.Polyloop> loopShell = new List<GBXML.Polyloop>();

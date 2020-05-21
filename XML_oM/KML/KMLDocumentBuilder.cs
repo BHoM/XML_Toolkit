@@ -23,7 +23,7 @@
 using BH.oM.Base;
 using System.Collections.Generic;
 
-namespace BH.oM.External.XML
+namespace BH.oM.Adapters.XML
 {
     public class KMLDocumentBuilder : BHoMObject
     {

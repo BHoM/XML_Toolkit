@@ -23,12 +23,12 @@
 using System;
 using System.Collections.Generic;
 using BH.oM.Base;
-using BH.oM.External.XML.Enums;
+using BH.oM.Adapters.XML.Enums;
 
 using System.ComponentModel;
 using BH.oM.Geometry;
 
-namespace BH.oM.External.XML
+namespace BH.oM.Adapters.XML
 {
     public class GeoReference : BHoMObject
     {

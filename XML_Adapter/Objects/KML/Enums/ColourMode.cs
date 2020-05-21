@@ -22,7 +22,7 @@
 
 using System.Xml.Serialization;
 
-namespace BH.oM.External.XML.KMLSchema
+namespace BH.oM.Adapters.XML.KMLSchema
 {
     public enum ColourMode
     {

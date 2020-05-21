@@ -34,7 +34,7 @@ using BH.oM.Reflection.Attributes;
 using System.ComponentModel;
 using System.IO;
 
-using BH.oM.External.XML.Settings;
+using BH.oM.Adapters.XML.Settings;
 
 namespace BH.Adapter.XML
 {
