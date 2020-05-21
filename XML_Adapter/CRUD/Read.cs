@@ -35,7 +35,7 @@ using BHX = BH.Adapter.XML.GBXMLSchema;
 using BHC = BH.oM.Physical.Constructions;
 
 using BH.oM.Adapter;
-using BH.Engine.Adapters;
+using BH.Engine.Adapter;
 
 namespace BH.Adapter.XML
 {
