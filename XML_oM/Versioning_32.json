@@ -1,20 +1,20 @@
 {
   "Namespace": {
     "ToNew": {
-      "BH.oM.XML":  "BH.oM.External.XML",
+      "BH.oM.XML":  "BH.oM.Adapters.XML",
     },
     "ToOld": {
-      "BH.oM.External.XML": "BH.oM.XML",
+      "BH.oM.Adapters.XML": "BH.oM.XML",
     }
   },
   "Type": {
     "ToNew": {
-      "BH.oM.XML.Settings.XMLSettings": "BH.oM.External.XML.Settings.GBXMLSettings",
-      "BH.oM.XML.Environment.DocumentBuilder": "BH.oM.External.XML.GBXML.GBXMLDocumentBuilder"
+      "BH.oM.XML.Settings.XMLSettings": "BH.oM.Adapters.XML.Settings.GBXMLSettings",
+      "BH.oM.XML.Environment.DocumentBuilder": "BH.oM.Adapters.XML.GBXML.GBXMLDocumentBuilder"
     },
     "ToOld": {
-      "BH.oM.External.XML.Settings.GBXMLSettings": "BH.oM.XML.Settings.XMLSettings",
-      "BH.oM.External.XML.GBXML.GBXMLDocumentBuilder": "BH.oM.XML.Environment.DocumentBuilder"
+      "BH.oM.Adapters.XML.Settings.GBXMLSettings": "BH.oM.XML.Settings.XMLSettings",
+      "BH.oM.Adapters.XML.GBXML.GBXMLDocumentBuilder": "BH.oM.XML.Environment.DocumentBuilder"
     }
   }
 }
