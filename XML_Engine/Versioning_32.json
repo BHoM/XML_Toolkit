@@ -1,10 +1,10 @@
 {
   "Namespace": {
     "ToNew": {
-      "BH.Engine.XML":  "BH.Engine.External.XML"
+      "BH.Engine.XML":  "BH.Engine.Adapters.XML"
     },
     "ToOld": {
-      "BH.Engine.External.XML": "BH.Engine.XML"
+      "BH.Engine.Adapters.XML": "BH.Engine.XML"
     }
   },
   "Type": {
