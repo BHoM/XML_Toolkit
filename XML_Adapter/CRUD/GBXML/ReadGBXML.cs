@@ -100,6 +100,7 @@ namespace BH.Adapter.XML
                     {
                         BHE.Space bhomS = new oM.Environment.Elements.Space();
                         bhomS.Name = space.Name;
+                        bhomS.Perimeter = space.PlanarGeoemtry.PolyLoop.FromGBXML();
                         OriginContextFragment f = new OriginContextFragment();
                         f.ElementID = space.ID;
                         bhomS.Fragments.Add(f);
