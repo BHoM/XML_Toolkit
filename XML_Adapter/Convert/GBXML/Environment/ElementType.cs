@@ -88,6 +88,7 @@ namespace BH.Adapter.XML
                     return "ExteriorWall";
                 case BHE.PanelType.WallInternal:
                     return "InteriorWall";
+                case BHE.PanelType.Air:
                 default:
                     return "Air"; //Adiabatic
             }
@@ -127,6 +128,8 @@ namespace BH.Adapter.XML
         {
             switch (type)
             {
+                case "Air":
+                    return BHE.PanelType.Air;
                 case "Ceiling":
                     return BHE.PanelType.Ceiling;
                 case "ExposedFloor":
