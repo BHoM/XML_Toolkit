@@ -39,6 +39,9 @@ using BHC = BH.oM.Physical.Constructions;
 
 using BH.oM.Adapter;
 using BH.Engine.Adapter;
+using BH.Engine.Geometry;
+using BH.oM.Environment.Elements;
+using BH.Engine.Environment;
 
 namespace BH.Adapter.XML
 {
@@ -65,6 +68,8 @@ namespace BH.Adapter.XML
                 return ReadMaterials(gbx);*/
             else if (type == typeof(BHG.SettingOut.Level))
                 return ReadLevels(gbx);
+            else if (type == typeof(BHE.Space))
+                return ReadSpaces(gbx);
             else
                 return ReadFullXMLFile(gbx);
         }
@@ -101,6 +106,14 @@ namespace BH.Adapter.XML
                         BHE.Space bhomS = new oM.Environment.Elements.Space();
                         bhomS.Name = space.Name;
                         bhomS.Perimeter = space.PlanarGeoemtry.PolyLoop.FromGBXML();
+
+                        if(bhomS.Perimeter.IControlPoints().Count == 1)
+                        {
+                            //Pulling from IES probably means it's wrong...
+                            List<Panel> panelsAsSpace = space.SpaceBoundary.Select(x => gbx.Campus.Surface.Where(y => y.ID == x.SurfaceIDRef).FirstOrDefault().FromGBXML()).ToList();
+                            bhomS.Perimeter = panelsAsSpace.FloorGeometry();
+                        }
+
                         OriginContextFragment f = new OriginContextFragment();
                         f.ElementID = space.ID;
                         bhomS.Fragments.Add(f);
@@ -193,7 +206,7 @@ namespace BH.Adapter.XML
 
         private List<BHG.SettingOut.Level> ReadLevels(BHX.GBXML gbx, List<string> ids = null)
         {
-            if (gbx.Campus.Building.Length > 0)
+            if (gbx.Campus.Building.Length > 0 && gbx.Campus.Building[0].BuildingStorey != null)
                 return gbx.Campus.Building[0].BuildingStorey.Select(x => x.FromGBXML()).ToList();
             else
                 return new List<BHG.SettingOut.Level>();
