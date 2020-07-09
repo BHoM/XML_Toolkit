@@ -34,6 +34,7 @@ using BH.oM.Geometry;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
+using BH.oM.Environment.Fragments;
 
 namespace BH.Adapter.XML
 {
@@ -49,7 +50,7 @@ namespace BH.Adapter.XML
 
             List<Polyline> shellGeometry = panelsAsSpace.ClosedShellGeometry();
             List<GBXML.Polyloop> loopShell = new List<GBXML.Polyloop>();
-            foreach(Polyline p in shellGeometry)
+            foreach (Polyline p in shellGeometry)
             {
                 if (p.NormalAwayFromSpace(panelsAsSpace, settings.PlanarTolerance))
                     loopShell.Add(p.ToGBXML());
@@ -80,6 +81,18 @@ namespace BH.Adapter.XML
             }
 
             return xmlSpace;
+        }
+
+        public static Space FromGBXML(this GBXML.Space space, GBXMLSettings settings = null)
+        {
+            Space bhomS = new oM.Environment.Elements.Space();
+            bhomS.Name = space.Name;
+            bhomS.Perimeter = space.PlanarGeoemtry.PolyLoop.FromGBXML();
+
+            OriginContextFragment f = new OriginContextFragment();
+            f.ElementID = space.ID;
+            bhomS.Fragments.Add(f);
+            return bhomS;
         }
     }
 }

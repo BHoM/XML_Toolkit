@@ -103,20 +103,13 @@ namespace BH.Adapter.XML
                 {
                     foreach (BHX.Space space in b.Space)
                     {
-                        BHE.Space bhomS = new oM.Environment.Elements.Space();
-                        bhomS.Name = space.Name;
-                        bhomS.Perimeter = space.PlanarGeoemtry.PolyLoop.FromGBXML();
-
-                        if(bhomS.Perimeter.IControlPoints().Count == 1)
+                        BHE.Space bhomS = space.FromGBXML();
+                        if (bhomS.Perimeter.IControlPoints().Count == 1)
                         {
                             //Pulling from IES probably means it's wrong...
                             List<Panel> panelsAsSpace = space.SpaceBoundary.Select(x => gbx.Campus.Surface.Where(y => y.ID == x.SurfaceIDRef).FirstOrDefault().FromGBXML()).ToList();
                             bhomS.Perimeter = panelsAsSpace.FloorGeometry();
                         }
-
-                        OriginContextFragment f = new OriginContextFragment();
-                        f.ElementID = space.ID;
-                        bhomS.Fragments.Add(f);
                         s.Add(bhomS);
                     }
                 }
