@@ -38,13 +38,13 @@ namespace BH.oM.XML.EnergyPlus
         [XmlElement("for")]
         public string For { get; set; } = "";
 
-        [XmlAttribute("EstimatedCoolingPeakLoadComponents")]
+        [XmlElement("EstimatedCoolingPeakLoadComponents")]
         public EstimatedCoolingPeakLoadComponent[] EstimatedCoolingPeakLoadComponent { get; set; } = new List<EstimatedCoolingPeakLoadComponent>().ToArray();
 
-        [XmlAttribute("CoolingPeakConditions")]
+        [XmlElement("CoolingPeakConditions")]
         public CoolingPeakCondition CoolingPeakConditions { get; set; } = new CoolingPeakCondition();
 
-        [XmlAttribute("HeatingPeakConditions")]
+        [XmlElement("HeatingPeakConditions")]
         public HeatingPeakCondition HeatingPeakConditions { get; set; } = new HeatingPeakCondition();
     }
 }
