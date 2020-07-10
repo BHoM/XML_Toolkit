@@ -26,19 +26,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.ComponentModel;
+using System.Xml.Serialization;
+using BH.oM.Base;
 
-namespace BH.oM.Adapters.XML.Enums
+namespace BH.oM.XML.EnergyPlus
 {
-    [Description("Defines the XML Schema that is being used within the context of the XML Toolkit")]
-    public enum Schema
+    [Serializable]
+    [XmlRoot(ElementName = "EnergyPlusTabularReports", IsNullable = false, Namespace = "")]
+    public class Total : BHoMObject
     {
-        Undefined,
-        [Description("EnergyPlusLoads is the XML schema for load results calculated using the EnergyPlus software")]
-        EnergyPlusLoads,
-        [Description("gbXML Schema is the Green Building XML Schema, used by environment modelling software for the transfer of building geometry and data to tools such as IES, TAS, and more")]
-        GBXML,
-        [Description("KML is a file format used to display geographic data in an Earth browser such as Google Earth")]
-        KML,
+        [XmlAttribute("units")]
+        public string Unit { get; set; } = "";
+
+        [XmlText]
+        public string Value { get; set; } = "";
     }
 }

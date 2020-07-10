@@ -56,6 +56,9 @@ namespace BH.Adapter.XML
                     return CreateGBXML(objects, config);
                 case Schema.KML:
                     return CreateKML(objects, config);
+                case Schema.EnergyPlusLoads:
+                    BH.Engine.Reflection.Compute.RecordError("The EnergyPlusLoads Schema is not supported for push operations at this time");
+                    return false;
                 default:
                     BH.Engine.Reflection.Compute.RecordError("The XML Schema you have supplied is not currently supported by the XML Toolkit");
                     return false;

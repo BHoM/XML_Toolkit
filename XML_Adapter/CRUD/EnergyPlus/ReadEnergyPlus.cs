@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -24,6 +24,9 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.IO;
+
 using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BH.oM.Environment.Fragments;
@@ -36,40 +39,25 @@ using BHC = BH.oM.Physical.Constructions;
 
 using BH.oM.Adapter;
 using BH.Engine.Adapter;
+using BH.Engine.Geometry;
+using BH.oM.Environment.Elements;
+using BH.Engine.Environment;
 
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
-        
-        protected override IEnumerable<IBHoMObject> IRead(Type type, IList indices = null, ActionConfig actionConfig = null)
+
+        private IEnumerable<IBHoMObject> ReadEnergyPlus(Type type = null, XMLConfig config = null)
         {
-            if (actionConfig == null)
-            {
-                BH.Engine.Reflection.Compute.RecordError("Please provide configuration settings to push to an XML file");
-                return new List<IBHoMObject>();
-            }
+            BH.oM.XML.EnergyPlus.EnergyPlusTabularReport report = null;
 
-            XMLConfig config = actionConfig as XMLConfig;
-            if (config == null)
-            {
-                BH.Engine.Reflection.Compute.RecordError("Please provide valid a XMLConfig object for pushing to an XML file");
-                return new List<IBHoMObject>();
-            }
+            TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
+            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.EnergyPlus.EnergyPlusTabularReport));
+            report = (BH.oM.XML.EnergyPlus.EnergyPlusTabularReport)szer.Deserialize(reader);
+            reader.Close();
 
-            switch (config.Schema)
-            {
-                case Schema.GBXML:
-                    return ReadGBXML(type, config);
-                case Schema.EnergyPlusLoads:
-                    return ReadEnergyPlus(type, config);
-                case Schema.KML:
-                    BH.Engine.Reflection.Compute.RecordError("The KML Schema is not supported for pull operations at this time");
-                    return new List<IBHoMObject>();
-                default:
-                    BH.Engine.Reflection.Compute.RecordError("The XML Schema you have supplied is not currently supported by the XML Toolkit");
-                    return new List<IBHoMObject>();
-            }
+            return new List<IBHoMObject> { report };
         }
     }
 }
