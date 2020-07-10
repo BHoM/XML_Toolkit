@@ -33,7 +33,7 @@ namespace BH.oM.XML.EnergyPlus
 {
     [Serializable]
     [XmlRoot(ElementName = "EnergyPlusTabularReports", IsNullable = false, Namespace = "")]
-    public class ZoneComponentLoadSummary : BHoMObject
+    public class ZoneComponentLoadSummary : EnergyPlusObject
     {
         [XmlElement("for")]
         public string For { get; set; } = "";

@@ -20,6 +20,7 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
+using BH.oM.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,18 +28,25 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Xml.Serialization;
-using BH.oM.Base;
 
 namespace BH.oM.XML.EnergyPlus
 {
-    [Serializable]
-    [XmlRoot(ElementName = "EnergyPlusTabularReports", IsNullable = false, Namespace = "")]
-    public class ZoneDryBulbTemperature : EnergyPlusObject
+    public class EnergyPlusObject : IBHoMObject
     {
-        [XmlAttribute("units")]
-        public string Unit { get; set; } = "";
+        [XmlIgnore]
+        public virtual Guid BHoM_Guid { get; set; }
+        [XmlIgnore]
+        public virtual Dictionary<string, object> CustomData { get; set; }
+        [XmlIgnore]
+        public virtual string Name { get; set; }
+        [XmlIgnore]
+        public virtual FragmentSet Fragments { get; set; }
+        [XmlIgnore]
+        public virtual HashSet<string> Tags { get; set; }
 
-        [XmlText]
-        public string Value { get; set; } = "";
+        public IBHoMObject GetShallowClone(bool newGuid = false)
+        {
+            return this;
+        }
     }
 }

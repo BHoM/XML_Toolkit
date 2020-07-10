@@ -33,7 +33,7 @@ namespace BH.oM.XML.EnergyPlus
 {
     [Serializable]
     [XmlRoot(ElementName = "EnergyPlusTabularReports", IsNullable = false, Namespace = "")]
-    public class EstimatedCoolingPeakLoadComponent : BHoMObject
+    public class EstimatedCoolingPeakLoadComponent : EnergyPlusObject
     {
         [XmlElement("name")]
         public override string Name { get; set; } = "";

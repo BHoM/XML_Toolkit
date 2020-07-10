@@ -33,7 +33,7 @@ namespace BH.oM.XML.EnergyPlus
 {
     [Serializable]
     [XmlRoot(ElementName = "EnergyPlusTabularReports", IsNullable = false, Namespace = "")]
-    public class PeakDesignSensibleLoad : BHoMObject
+    public class PeakDesignSensibleLoad : EnergyPlusObject
     {
         [XmlAttribute("units")]
         public string Unit { get; set; } = "";

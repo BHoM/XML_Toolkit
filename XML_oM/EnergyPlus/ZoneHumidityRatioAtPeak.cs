@@ -33,7 +33,7 @@ namespace BH.oM.XML.EnergyPlus
 {
     [Serializable]
     [XmlRoot(ElementName = "EnergyPlusTabularReports", IsNullable = false, Namespace = "")]
-    public class ZoneHumidityRatioAtPeak : BHoMObject
+    public class ZoneHumidityRatioAtPeak : EnergyPlusObject
     {
         [XmlAttribute("units")]
         public string Unit { get; set; } = "";
