@@ -29,7 +29,6 @@ using System.Xml.Serialization;
 using System.IO;
 
 using BH.oM.Adapters.XML;
-using BH.oM.Adapters.XML;
 using BH.oM.Adapters.XML.Settings;
 using BH.oM.Environment.Elements;
 using BH.oM.Base;
