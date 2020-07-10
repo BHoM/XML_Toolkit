@@ -41,31 +41,31 @@ namespace BH.oM.XML.EnergyPlus
         [XmlAttribute("TimeOfPeakLoad")]
         public string TimeOfPeakLoad { get; set; } = "";
 
-        [XmlAttribute("OutsideDryBulbTemperature")]
+        [XmlElement("OutsideDryBulbTemperature")]
         public OutsideDryBulbTemperature OutsideDryBulbTemperature { get; set; } = new OutsideDryBulbTemperature();
 
-        [XmlAttribute("OutsideWetBulbTemperature")]
+        [XmlElement("OutsideWetBulbTemperature")]
         public OutsideWetBulbTemperature OutsideWetBulbTemperature { get; set; } = new OutsideWetBulbTemperature();
 
-        [XmlAttribute("OutsideHumidityRatioAtPeak")]
+        [XmlElement("OutsideHumidityRatioAtPeak")]
         public OutsideHumidityRatioAtPeak OutsideHumidityRatioAtPeak { get; set; } = new OutsideHumidityRatioAtPeak();
 
-        [XmlAttribute("ZoneDryBulbTemperature")]
+        [XmlElement("ZoneDryBulbTemperature")]
         public ZoneDryBulbTemperature ZoneDryBulbTemperature { get; set; } = new ZoneDryBulbTemperature();
 
-        [XmlAttribute("ZoneRelativeHumdity")]
+        [XmlElement("ZoneRelativeHumdity")]
         public ZoneRelativeHumdity ZoneRelativeHumdity { get; set; } = new ZoneRelativeHumdity();
 
-        [XmlAttribute("ZoneHumidityRatioAtPeak")]
+        [XmlElement("ZoneHumidityRatioAtPeak")]
         public ZoneHumidityRatioAtPeak ZoneHumidityRatioAtPeak { get; set; } = new ZoneHumidityRatioAtPeak();
 
-        [XmlAttribute("PeakDesignSensibleLoad")]
+        [XmlElement("PeakDesignSensibleLoad")]
         public PeakDesignSensibleLoad PeakDesignSensibleLoad { get; set; } = new PeakDesignSensibleLoad();
 
-        [XmlAttribute("EstimatedInstantDelayedSensibleLoad")]
+        [XmlElement("EstimatedInstantDelayedSensibleLoad")]
         public EstimatedInstantDelayedSensibleLoad EstimatedInstantDelayedSensibleLoad { get; set; } = new EstimatedInstantDelayedSensibleLoad();
 
-        [XmlAttribute("Difference")]
+        [XmlElement("Difference")]
         public Difference Difference { get; set; } = new Difference();
     }
 }
