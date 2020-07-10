@@ -33,7 +33,7 @@ namespace BH.oM.XML.EnergyPlus
 {
     [Serializable]
     [XmlRoot(ElementName = "EnergyPlusTabularReports", IsNullable = false, Namespace = "")]
-    public class SimulationTimestamp : BHoMObject
+    public class SimulationTimestamp : EnergyPlusObject
     {
         [XmlElement("Date")]
         public string Date { get; set; } = "";

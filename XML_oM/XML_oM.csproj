@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="EnergyPlus\CoolingPeakCondition.cs" />
     <Compile Include="EnergyPlus\Difference.cs" />
+    <Compile Include="EnergyPlus\EnergyPlusObject.cs" />
     <Compile Include="EnergyPlus\EnergyPlusTabularReport.cs" />
     <Compile Include="EnergyPlus\EstimatedCoolingPeakLoadComponent.cs" />
     <Compile Include="EnergyPlus\EstimatedInstantDelayedSensibleLoad.cs" />
