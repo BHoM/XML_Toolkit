@@ -71,7 +71,7 @@
     <Compile Include="EnergyPlus\Latent.cs" />
     <Compile Include="EnergyPlus\OutsideDryBulbTemperature.cs" />
     <Compile Include="EnergyPlus\OutsideHumidityRatioAtPeak.cs" />
-    <Compile Include="EnergyPlus\OutsideWebBulbTemperature.cs" />
+    <Compile Include="EnergyPlus\OutsideWetBulbTemperature.cs" />
     <Compile Include="EnergyPlus\PeakDesignSensibleLoad.cs" />
     <Compile Include="EnergyPlus\SensibleDelayed.cs" />
     <Compile Include="EnergyPlus\SensibleInstant.cs" />
@@ -81,7 +81,7 @@
     <Compile Include="EnergyPlus\ZoneComponentLoadSummary.cs" />
     <Compile Include="EnergyPlus\ZoneDryBulbTemperature.cs" />
     <Compile Include="EnergyPlus\ZoneHumidityRatioAtPeak.cs" />
-    <Compile Include="EnergyPlus\ZoneRelativeHumidty.cs" />
+    <Compile Include="EnergyPlus\ZoneRelativeHumidity.cs" />
     <Compile Include="Enums\AltitudeMode.cs" />
     <Compile Include="GBXML\GBXMLDocumentBuilder.cs" />
     <Compile Include="Enums\ExportDetail.cs" />

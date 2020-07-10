@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -39,21 +39,21 @@ namespace BH.oM.XML.EnergyPlus
         public override string Name { get; set; } = "";
 
         [XmlElement("SensibleInstant")]
-        public SensibleInstant SensibleInstant { get; set; } = new SensibleInstant();
+        public virtual SensibleInstant SensibleInstant { get; set; } = new SensibleInstant();
 
         [XmlElement("SensibleDelayed")]
-        public SensibleDelayed SensibleDelayed { get; set; } = new SensibleDelayed();
+        public virtual SensibleDelayed SensibleDelayed { get; set; } = new SensibleDelayed();
 
         [XmlElement("SensibleReturnAir")]
-        public SensibleReturnAir SensibleReturnAir { get; set; } = new SensibleReturnAir();
+        public virtual SensibleReturnAir SensibleReturnAir { get; set; } = new SensibleReturnAir();
 
         [XmlElement("Latent")]
-        public Latent Latent { get; set; } = new Latent();
+        public virtual Latent Latent { get; set; } = new Latent();
 
         [XmlElement("Total")]
-        public Total Total { get; set; } = new Total();
+        public virtual Total Total { get; set; } = new Total();
 
-        [XmlAttribute("GrandTotal")]
-        public double GrandTotal { get; set; } = 0.0;
+        [XmlElement("GrandTotal")]
+        public virtual double GrandTotal { get; set; } = 0.0;
     }
 }

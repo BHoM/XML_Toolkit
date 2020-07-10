@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -39,33 +39,33 @@ namespace BH.oM.XML.EnergyPlus
         public override string Name { get; set; } = "";
 
         [XmlAttribute("TimeOfPeakLoad")]
-        public string TimeOfPeakLoad { get; set; } = "";
+        public virtual string TimeOfPeakLoad { get; set; } = "";
 
         [XmlElement("OutsideDryBulbTemperature")]
-        public OutsideDryBulbTemperature OutsideDryBulbTemperature { get; set; } = new OutsideDryBulbTemperature();
+        public virtual OutsideDryBulbTemperature OutsideDryBulbTemperature { get; set; } = new OutsideDryBulbTemperature();
 
         [XmlElement("OutsideWetBulbTemperature")]
-        public OutsideWetBulbTemperature OutsideWetBulbTemperature { get; set; } = new OutsideWetBulbTemperature();
+        public virtual OutsideWetBulbTemperature OutsideWetBulbTemperature { get; set; } = new OutsideWetBulbTemperature();
 
         [XmlElement("OutsideHumidityRatioAtPeak")]
-        public OutsideHumidityRatioAtPeak OutsideHumidityRatioAtPeak { get; set; } = new OutsideHumidityRatioAtPeak();
+        public virtual OutsideHumidityRatioAtPeak OutsideHumidityRatioAtPeak { get; set; } = new OutsideHumidityRatioAtPeak();
 
         [XmlElement("ZoneDryBulbTemperature")]
-        public ZoneDryBulbTemperature ZoneDryBulbTemperature { get; set; } = new ZoneDryBulbTemperature();
+        public virtual ZoneDryBulbTemperature ZoneDryBulbTemperature { get; set; } = new ZoneDryBulbTemperature();
 
         [XmlElement("ZoneRelativeHumdity")]
-        public ZoneRelativeHumdity ZoneRelativeHumdity { get; set; } = new ZoneRelativeHumdity();
+        public virtual ZoneRelativeHumidity ZoneRelativeHumdity { get; set; } = new ZoneRelativeHumidity();
 
         [XmlElement("ZoneHumidityRatioAtPeak")]
-        public ZoneHumidityRatioAtPeak ZoneHumidityRatioAtPeak { get; set; } = new ZoneHumidityRatioAtPeak();
+        public virtual ZoneHumidityRatioAtPeak ZoneHumidityRatioAtPeak { get; set; } = new ZoneHumidityRatioAtPeak();
 
         [XmlElement("PeakDesignSensibleLoad")]
-        public PeakDesignSensibleLoad PeakDesignSensibleLoad { get; set; } = new PeakDesignSensibleLoad();
+        public virtual PeakDesignSensibleLoad PeakDesignSensibleLoad { get; set; } = new PeakDesignSensibleLoad();
 
         [XmlElement("EstimatedInstantDelayedSensibleLoad")]
-        public EstimatedInstantDelayedSensibleLoad EstimatedInstantDelayedSensibleLoad { get; set; } = new EstimatedInstantDelayedSensibleLoad();
+        public virtual EstimatedInstantDelayedSensibleLoad EstimatedInstantDelayedSensibleLoad { get; set; } = new EstimatedInstantDelayedSensibleLoad();
 
         [XmlElement("Difference")]
-        public Difference Difference { get; set; } = new Difference();
+        public virtual Difference Difference { get; set; } = new Difference();
     }
 }

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -36,21 +36,21 @@ namespace BH.oM.XML.EnergyPlus
     public class EnergyPlusTabularReport : EnergyPlusObject
     {
         [XmlElement("BuildingName")]
-        public string BuildingName { get; set; } = "";
+        public virtual string BuildingName { get; set; } = "";
 
         [XmlElement("EnvironmentName")]
-        public string EnvironmentName { get; set; } = "";
+        public virtual string EnvironmentName { get; set; } = "";
 
         [XmlElement("WeatherFileLocationTitle")]
-        public string WeatherFileLocationTitle { get; set; } = "";
+        public virtual string WeatherFileLocationTitle { get; set; } = "";
 
         [XmlElement("ProgramVersion")]
-        public string ProgramVersion { get; set; } = "";
+        public virtual string ProgramVersion { get; set; } = "";
 
         [XmlElement("SimulationTimestamp")]
-        public SimulationTimestamp SimulationTimestamp { get; set; } = new SimulationTimestamp();
+        public virtual SimulationTimestamp SimulationTimestamp { get; set; } = new SimulationTimestamp();
 
         [XmlElement("ZoneComponentLoadSummary")]
-        public ZoneComponentLoadSummary[] ZoneComponentLoadSummary { get; set; } = new List<ZoneComponentLoadSummary>().ToArray();
+        public virtual ZoneComponentLoadSummary[] ZoneComponentLoadSummary { get; set; } = new List<ZoneComponentLoadSummary>().ToArray();
     }
 }

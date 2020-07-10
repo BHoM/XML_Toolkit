@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -36,15 +36,15 @@ namespace BH.oM.XML.EnergyPlus
     public class ZoneComponentLoadSummary : EnergyPlusObject
     {
         [XmlElement("for")]
-        public string For { get; set; } = "";
+        public virtual string For { get; set; } = "";
 
         [XmlElement("EstimatedCoolingPeakLoadComponents")]
-        public EstimatedCoolingPeakLoadComponent[] EstimatedCoolingPeakLoadComponent { get; set; } = new List<EstimatedCoolingPeakLoadComponent>().ToArray();
+        public virtual EstimatedCoolingPeakLoadComponent[] EstimatedCoolingPeakLoadComponent { get; set; } = new List<EstimatedCoolingPeakLoadComponent>().ToArray();
 
         [XmlElement("CoolingPeakConditions")]
-        public CoolingPeakCondition CoolingPeakConditions { get; set; } = new CoolingPeakCondition();
+        public virtual CoolingPeakCondition CoolingPeakConditions { get; set; } = new CoolingPeakCondition();
 
         [XmlElement("HeatingPeakConditions")]
-        public HeatingPeakCondition HeatingPeakConditions { get; set; } = new HeatingPeakCondition();
+        public virtual HeatingPeakCondition HeatingPeakConditions { get; set; } = new HeatingPeakCondition();
     }
 }

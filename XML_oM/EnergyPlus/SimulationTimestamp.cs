@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -36,9 +36,9 @@ namespace BH.oM.XML.EnergyPlus
     public class SimulationTimestamp : EnergyPlusObject
     {
         [XmlElement("Date")]
-        public string Date { get; set; } = "";
+        public virtual string Date { get; set; } = "";
 
         [XmlElement("Time")]
-        public string Time { get; set; } = "";
+        public virtual string Time { get; set; } = "";
     }
 }

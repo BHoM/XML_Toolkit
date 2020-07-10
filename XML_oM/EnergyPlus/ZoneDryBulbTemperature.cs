@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -36,9 +36,9 @@ namespace BH.oM.XML.EnergyPlus
     public class ZoneDryBulbTemperature : EnergyPlusObject
     {
         [XmlAttribute("units")]
-        public string Unit { get; set; } = "";
+        public virtual string Unit { get; set; } = "";
 
         [XmlText]
-        public string Value { get; set; } = "";
+        public virtual string Value { get; set; } = "";
     }
 }
