@@ -56,14 +56,14 @@ namespace BH.Adapter.XML
 
             gbOpening.Name = opening.Name;
             gbOpening.ID = "opening" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
-            gbOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML();
+            gbOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML(settings);
             gbOpening.PlanarGeometry.ID = "openingPGeom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
-            gbOpening.RectangularGeometry.CartesianPoint = BH.Engine.Geometry.Query.Centre(pLine).ToGBXML();
-            gbOpening.RectangularGeometry.Height = Math.Round(opening.Height(), 3);
+            gbOpening.RectangularGeometry.CartesianPoint = BH.Engine.Geometry.Query.Centre(pLine).ToGBXML(settings);
+            gbOpening.RectangularGeometry.Height = Math.Round(opening.Height(), settings.RoundingSettings.GeometryHeight);
             //TODO: temporary solution to get valid file to be replaced with correct height
             if (opening.Height() == 0)
                gbOpening.RectangularGeometry.Height = 0.1;
-            gbOpening.RectangularGeometry.Width = Math.Round(opening.Width(), 3);
+            gbOpening.RectangularGeometry.Width = Math.Round(opening.Width(), settings.RoundingSettings.GeometryWidth);
             gbOpening.RectangularGeometry.ID = "rGeomOpening-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
 
             pLine = pLine.CleanPolyline(minimumSegmentLength: settings.DistanceTolerance);
@@ -77,7 +77,7 @@ namespace BH.Adapter.XML
                 if (pLine == null)
                     pLine = opening.Polyline(); //Reset the polyline if something went wrong with the offset
                 
-                gbOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML();
+                gbOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML(settings);
             }
 
             //Normals away from space

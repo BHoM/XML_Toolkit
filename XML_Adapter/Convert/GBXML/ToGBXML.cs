@@ -63,7 +63,7 @@ namespace BH.Adapter.XML
             List<Construction> windowConstructions = panels.OpeningsFromElements().UniqueConstructions();
 
             List<GBXML.Building> xmlBuildings = buildings.Select(x => x.ToGBXML()).ToList();
-            List<GBXML.BuildingStorey> xmlLevels = levels.Where(x => x.StoreyGeometry(panelsAsSpaces) != null).Select(x => x.ToGBXML(x.StoreyGeometry(panelsAsSpaces))).ToList();
+            List<GBXML.BuildingStorey> xmlLevels = levels.Where(x => x.StoreyGeometry(panelsAsSpaces) != null).Select(x => x.ToGBXML(x.StoreyGeometry(panelsAsSpaces), settings)).ToList();
             List<GBXML.Space> xmlSpaces = panelsAsSpaces.Select(x => x.ToGBXML(x.Level(levels), settings)).OrderBy(x => x.Name).ToList();
             List<GBXML.Surface> xmlSurfaces = new List<GBXML.Surface>();
             List<GBXML.Construction> xmlConstructions = new List<GBXML.Construction>();
@@ -109,7 +109,7 @@ namespace BH.Adapter.XML
 
                 List<GBXML.Material> layerMaterials = new List<GBXML.Material>();
                 foreach (Layer l in c.Layers)
-                    layerMaterials.Add(l.ToGBXML());
+                    layerMaterials.Add(l.ToGBXML(settings));
 
                 xmlMaterials.AddRange(layerMaterials);
 
@@ -138,7 +138,7 @@ namespace BH.Adapter.XML
             GBXML.GBXML gbx = new GBXML.GBXML();
 
             gbx.Campus.Building = xmlBuildings.ToArray();
-            gbx.Campus.Location = buildings[0].ToGBXMLLocation();
+            gbx.Campus.Location = buildings[0].ToGBXMLLocation(settings);
             gbx.Campus.Building[0].BuildingStorey = xmlLevels.ToArray();
             gbx.Campus.Building[0].Space = xmlSpaces;
             gbx.Campus.Surface = xmlSurfaces;

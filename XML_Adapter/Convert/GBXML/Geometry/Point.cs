@@ -33,6 +33,7 @@ using BH.Engine.Geometry;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+using BH.oM.Adapters.XML.Settings;
 
 namespace BH.Adapter.XML
 {
@@ -41,14 +42,14 @@ namespace BH.Adapter.XML
         [Description("Get the GBXML representation of a BHoM Point")]
         [Input("pt", "The BHoM Geometry Point to convert into a GBXML Cartesian Point")]
         [Output("cartesianPoint", "The GBXML representation of a BHoM Point")]
-        public static BHX.CartesianPoint ToGBXML(this BHG.Point pt)
+        public static BHX.CartesianPoint ToGBXML(this BHG.Point pt, GBXMLSettings settings)
         {
             BHX.CartesianPoint cartPoint = new BHX.CartesianPoint();
             List<string> coord = new List<string>();
 
-            coord.Add(Math.Round(pt.X, 4).ToString());
-            coord.Add(Math.Round(pt.Y, 4).ToString());
-            coord.Add(Math.Round(pt.Z, 4).ToString());
+            coord.Add(Math.Round(pt.X, settings.RoundingSettings.GeometricPoints).ToString());
+            coord.Add(Math.Round(pt.Y, settings.RoundingSettings.GeometricPoints).ToString());
+            coord.Add(Math.Round(pt.Z, settings.RoundingSettings.GeometricPoints).ToString());
 
             cartPoint.Coordinate = coord.ToArray();
 

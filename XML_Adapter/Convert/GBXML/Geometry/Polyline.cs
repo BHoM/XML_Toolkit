@@ -34,6 +34,7 @@ using BH.Engine.Geometry;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+using BH.oM.Adapters.XML.Settings;
 
 namespace BH.Adapter.XML
 {
@@ -43,7 +44,7 @@ namespace BH.Adapter.XML
         [Input("pLine", "The BHoM Geometry Point to convert into a GBXML Polyloop")]
         [Input("tolerance", "The tolerance to determine whether the polyline is closed or not, default to BH.oM.Geometry.Tolerance.Distance")]
         [Output("polyloop", "The GBXML representation of a BHoM Polyline")]
-        public static BHX.Polyloop ToGBXML(this BHG.Polyline pLine, double tolerance = BHG.Tolerance.Distance)
+        public static BHX.Polyloop ToGBXML(this BHG.Polyline pLine, GBXMLSettings settings, double tolerance = BHG.Tolerance.Distance)
         {
             BHX.Polyloop polyloop = new BHX.Polyloop();
 
@@ -56,7 +57,7 @@ namespace BH.Adapter.XML
             List<BHX.CartesianPoint> cartpoint = new List<BHX.CartesianPoint>();
             for (int i = 0; i < count; i++)
             {
-                BHX.CartesianPoint cpt = pts[i].ToGBXML();
+                BHX.CartesianPoint cpt = pts[i].ToGBXML(settings);
                 List<string> coord = new List<string>();
                 cartpoint.Add(cpt);
             }

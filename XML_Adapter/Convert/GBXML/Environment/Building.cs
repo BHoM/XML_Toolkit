@@ -36,6 +36,7 @@ using BH.Engine.Environment;
 
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+using BH.oM.Adapters.XML.Settings;
 
 namespace BH.Adapter.XML
 {
@@ -67,12 +68,12 @@ namespace BH.Adapter.XML
         [Description("Get the GBXML representation of a BHoM Environments Building")]
         [Input("building", "The BHoM Environments Building to convert into a GBXML Location")]
         [Output("location", "The GBXML representation of a BHoM Environment Building")]
-        public static BHX.Location ToGBXMLLocation(this BHE.Building building)
+        public static BHX.Location ToGBXMLLocation(this BHE.Building building, GBXMLSettings settings)
         {
             BHX.Location location = new BHX.Location();
-            location.Longitude = Math.Round(building.Location.Longitude, 5);
-            location.Latitude = Math.Round(building.Location.Latitude, 5);
-            location.Elevation = Math.Round(building.Elevation, 5);
+            location.Longitude = Math.Round(building.Location.Longitude, settings.RoundingSettings.BuildingLocation);
+            location.Latitude = Math.Round(building.Location.Latitude, settings.RoundingSettings.BuildingLocation);
+            location.Elevation = Math.Round(building.Elevation, settings.RoundingSettings.BuildingLocation);
 
             BHP.BuildingContextFragment context = building.FindFragment<BHP.BuildingContextFragment>(typeof(BHP.BuildingContextFragment));
 
