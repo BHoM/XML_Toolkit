@@ -26,6 +26,7 @@ using BH.oM.Base;
 using BH.oM.Adapters.XML.Enums;
 
 using System.ComponentModel;
+using BH.oM.XML.GBXML;
 
 namespace BH.oM.Adapters.XML.Settings
 {
@@ -67,6 +68,9 @@ namespace BH.oM.Adapters.XML.Settings
 
         [Description("Set the tolerance for angle calculations when exporting to XML. Default is set to BH.oM.Geometry.Tolerance.Angle")]
         public virtual double AngleTolerance { get; set; } = BH.oM.Geometry.Tolerance.Angle;
+
+        [Description("Set the rounding options for numerical outputs to be used within gbXML creation. Default is per the Rounding Settings defaults")]
+        public virtual RoundingSettings RoundingSettings { get; set; } = new RoundingSettings();
 
         /***************************************************/
     }

@@ -87,6 +87,7 @@
     <Compile Include="Enums\ExportDetail.cs" />
     <Compile Include="Enums\Schema.cs" />
     <Compile Include="Enums\UnitType.cs" />
+    <Compile Include="GBXML\RoundingSettings.cs" />
     <Compile Include="KML\GeoReference.cs" />
     <Compile Include="KML\KMLDocumentBuilder.cs" />
     <Compile Include="KML\KMLGeometry.cs" />

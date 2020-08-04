@@ -42,6 +42,7 @@ using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
 using BH.Engine.Adapters.XML;
+using BH.oM.Adapters.XML.Settings;
 
 namespace BH.Adapter.XML
 {
@@ -109,7 +110,7 @@ namespace BH.Adapter.XML
         [Input("construction", "The BHoM Construction to convert to a GBXML Construction")]
         [Input("opening", "The BHoM Environment Opening which hosts the construction")]
         [Output("windowType", "The GBXML Window Construction")]
-        public static BHX.WindowType ToGBXMLWindow(this BHC.Construction construction, BHE.Opening opening)
+        public static BHX.WindowType ToGBXMLWindow(this BHC.Construction construction, BHE.Opening opening, GBXMLSettings settings)
         {
             BHX.WindowType window = new BHX.WindowType();
 
@@ -122,11 +123,11 @@ namespace BH.Adapter.XML
             window.Transmittance.Value = (extraProperties == null ? "0" : extraProperties.LTValue.ToString());
             window.SolarHeatGainCoefficient.Value = (extraProperties == null ? "0" : extraProperties.GValue.ToString());
             if (construction.Layers.Count > 0)
-                window.InternalGlaze = (construction.Layers[0]).ToGBXGlazed();
+                window.InternalGlaze = (construction.Layers[0]).ToGBXGlazed(settings);
             if (construction.Layers.Count > 1)
-                window.Gap = (construction.Layers[1]).ToGBXGap();
+                window.Gap = (construction.Layers[1]).ToGBXGap(settings);
             if (construction.Layers.Count > 2)
-                window.ExternalGlaze = (construction.Layers[2]).ToGBXGlazed();
+                window.ExternalGlaze = (construction.Layers[2]).ToGBXGlazed(settings);
 
             return window;
         }

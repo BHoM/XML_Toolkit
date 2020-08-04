@@ -53,18 +53,18 @@ namespace BH.Adapter.XML
             foreach (Polyline p in shellGeometry)
             {
                 if (p.NormalAwayFromSpace(panelsAsSpace, settings.PlanarTolerance))
-                    loopShell.Add(p.ToGBXML());
+                    loopShell.Add(p.ToGBXML(settings));
                 else
-                    loopShell.Add(p.Flip().ToGBXML());
+                    loopShell.Add(p.Flip().ToGBXML(settings));
             }
 
             xmlSpace.ShellGeometry.ClosedShell.PolyLoop = loopShell.ToArray();
             xmlSpace.ShellGeometry.ID = "SpaceShellGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
-            xmlSpace.SpaceBoundary = SpaceBoundaries(panelsAsSpace, settings.PlanarTolerance);
+            xmlSpace.SpaceBoundary = SpaceBoundaries(panelsAsSpace, settings, settings.PlanarTolerance);
             xmlSpace.PlanarGeoemtry.ID = "SpacePlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             if (BH.Engine.Environment.Query.FloorGeometry(panelsAsSpace) != null)
             {
-                xmlSpace.PlanarGeoemtry.PolyLoop = ToGBXML(BH.Engine.Environment.Query.FloorGeometry(panelsAsSpace));
+                xmlSpace.PlanarGeoemtry.PolyLoop = ToGBXML(BH.Engine.Environment.Query.FloorGeometry(panelsAsSpace), settings);
                 xmlSpace.Area = BH.Engine.Environment.Query.FloorGeometry(panelsAsSpace).Area();
                 xmlSpace.Volume = panelsAsSpace.Volume();
             }

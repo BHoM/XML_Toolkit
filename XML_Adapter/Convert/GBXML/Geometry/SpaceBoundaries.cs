@@ -34,6 +34,8 @@ using BH.Engine.Environment;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
+using BH.oM.Adapters.XML.Settings;
+
 namespace BH.Adapter.XML
 {
     public static partial class Convert
@@ -47,7 +49,7 @@ namespace BH.Adapter.XML
         [Input("uniqueBEs", "A collection of unique Environment Panels used in the model as a whole")]
         [Input("planarTolerance", "The tolerance to define planarity - default to BH.oM.Geometry.Tolerance.Distance")]
         [Output("spaceBoundaries", "GBXML representation of space boundaries")]
-        public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
+        public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, GBXMLSettings settings, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             List<Polyloop> pLoops = new List<Polyloop>();
             List<BHG.Polyline> panels = spaceBoundaries.Select(x => x.Polyline()).ToList();
@@ -55,9 +57,9 @@ namespace BH.Adapter.XML
             foreach (BHG.Polyline pLine in panels)
             {
                 if (BH.Engine.Environment.Query.NormalAwayFromSpace(pLine, spaceBoundaries, planarTolerance))
-                    pLoops.Add(ToGBXML(pLine));
+                    pLoops.Add(ToGBXML(pLine, settings));
                 else
-                    pLoops.Add(ToGBXML(pLine.Flip()));
+                    pLoops.Add(ToGBXML(pLine.Flip(), settings));
             }
 
             SpaceBoundary[] boundaries = new SpaceBoundary[pLoops.Count];

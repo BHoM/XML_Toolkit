@@ -84,11 +84,11 @@ namespace BH.Adapter.XML
             if(space != null && panel.ConnectedSpaces[0] == space.ConnectedSpaceName() && !pLine.NormalAwayFromSpace(space, settings.PlanarTolerance))
             {
                 pLine = pLine.Flip();
-                surface.PlanarGeometry.PolyLoop = pLine.ToGBXML();
-                surface.RectangularGeometry.Tilt = Math.Round(pLine.Tilt(settings.AngleTolerance), 3);
-                surface.RectangularGeometry.Azimuth = Math.Round(pLine.Azimuth(BHG.Vector.YAxis), 3);
+                surface.PlanarGeometry.PolyLoop = pLine.ToGBXML(settings);
+                surface.RectangularGeometry.Tilt = Math.Round(pLine.Tilt(settings.AngleTolerance), settings.RoundingSettings.GeometryTilt);
+                surface.RectangularGeometry.Azimuth = Math.Round(pLine.Azimuth(BHG.Vector.YAxis), settings.RoundingSettings.GeometryAzimuth);
             }
-            planarGeom.PolyLoop = pLine.ToGBXML();
+            planarGeom.PolyLoop = pLine.ToGBXML(settings);
 
             surface.PlanarGeometry = planarGeom;
 
@@ -192,7 +192,7 @@ namespace BH.Adapter.XML
             planarGeom.ID = "PlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
             BHG.Polyline pLine = element.Polyline();
-            planarGeom.PolyLoop = pLine.ToGBXML();
+            planarGeom.PolyLoop = pLine.ToGBXML(settings);
 
             gbSrf.PlanarGeometry = planarGeom;
             gbSrf.RectangularGeometry = geom;
@@ -229,17 +229,17 @@ namespace BH.Adapter.XML
 
             BHG.Polyline pLine = element.Polyline();
 
-            geom.Tilt = Math.Round(element.Tilt(settings.AngleTolerance), 3);
-            geom.Azimuth = Math.Round(element.Azimuth(BHG.Vector.YAxis), 3);
-            geom.Height = Math.Round(element.Height(), 3);
-            geom.Width = Math.Round(element.Width(), 3);
-            geom.CartesianPoint = pLine.ControlPoints.First().ToGBXML();
+            geom.Tilt = Math.Round(element.Tilt(settings.AngleTolerance), settings.RoundingSettings.GeometryTilt);
+            geom.Azimuth = Math.Round(element.Azimuth(BHG.Vector.YAxis), settings.RoundingSettings.GeometryAzimuth);
+            geom.Height = Math.Round(element.Height(), settings.RoundingSettings.GeometryHeight);
+            geom.Width = Math.Round(element.Width(), settings.RoundingSettings.GeometryWidth);
+            geom.CartesianPoint = pLine.ControlPoints.First().ToGBXML(settings);
             geom.ID = "geom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
 
             if(geom.Height == 0)
-                geom.Height = Math.Round(element.Area() / geom.Width, 3);
+                geom.Height = Math.Round(element.Area() / geom.Width, settings.RoundingSettings.GeometryHeight);
             if (geom.Width == 0)
-                geom.Width = Math.Round(element.Area() / geom.Height, 3);
+                geom.Width = Math.Round(element.Area() / geom.Height, settings.RoundingSettings.GeometryWidth);
             if (geom.Tilt == -1)
                 BH.Engine.Reflection.Compute.RecordWarning("Warning, panel " + element.BHoM_Guid + " has been calculated to have a tilt of -1.");
 

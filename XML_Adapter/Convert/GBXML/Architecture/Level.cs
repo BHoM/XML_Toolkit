@@ -35,6 +35,7 @@ using BH.Engine.Geometry;
 using BH.Engine.Environment;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+using BH.oM.Adapters.XML.Settings;
 
 namespace BH.Adapter.XML
 {
@@ -44,12 +45,12 @@ namespace BH.Adapter.XML
         [Input("level", "A BHoM level to find the storey for")]
         [Input("spaces", "A list of BHoM spaces that sits on the given level")]
         [Output("buildingStorey", "The gbXML building storey")]
-        public static BHX.BuildingStorey ToGBXML(this BHG.SettingOut.Level level, BHG.Polyline storeyGeometry)
+        public static BHX.BuildingStorey ToGBXML(this BHG.SettingOut.Level level, BHG.Polyline storeyGeometry, GBXMLSettings settings)
         {
             BHX.BuildingStorey storey = new BHX.BuildingStorey();
 
             if (storeyGeometry != null)
-                storey.PlanarGeometry.PolyLoop = storeyGeometry.ToGBXML();
+                storey.PlanarGeometry.PolyLoop = storeyGeometry.ToGBXML(settings);
 
             storey.PlanarGeometry.ID = "LevelPlanarGeometry-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             storey.Name = level.Name;
