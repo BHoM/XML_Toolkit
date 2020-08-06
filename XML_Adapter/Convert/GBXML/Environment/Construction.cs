@@ -71,10 +71,10 @@ namespace BH.Adapter.XML
         [Input("construction", "The BHoM Construction to convert to a GBXML Construction")]
         [Input("opening", "The BHoM Environment Opening which hosts the construction")]
         [Output("windowType", "The GBXML Window Construction")]
-        public static BHX.WindowType ToGBXMLWindow(this BHC.IConstruction construction, BHE.Opening opening = null)
+        public static BHX.WindowType ToGBXMLWindow(this BHC.IConstruction construction, GBXMLSettings settings, BHE.Opening opening = null)
         {
             if (construction == null) return null;
-            return ToGBXMLWindow(construction as dynamic, opening);
+            return ToGBXMLWindow(construction as dynamic, opening, settings);
         }
 
         [Description("Get the GBXML representation of a BHoM Construction")]

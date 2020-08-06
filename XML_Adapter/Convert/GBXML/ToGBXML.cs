@@ -132,7 +132,7 @@ namespace BH.Adapter.XML
 
                 var t = xmlWindows.Where(a => a.Name == nameCheck).FirstOrDefault();
                 if (t == null && o.OpeningConstruction != null)
-                    xmlWindows.Add(o.OpeningConstruction.ToGBXMLWindow(o));
+                    xmlWindows.Add(o.OpeningConstruction.ToGBXMLWindow(settings, o));
             }
 
             GBXML.GBXML gbx = new GBXML.GBXML();
