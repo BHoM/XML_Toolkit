@@ -55,8 +55,8 @@ namespace BH.Adapter.XML
                 buildings.Add(new Building());
             }
 
-            List<Panel> shadingElements = panels.PanelsByType(PanelType.Shade);
-            panels = panels.PanelsNotByType(PanelType.Shade); //Remove shading if it exists
+            List<Panel> shadingElements = panels.FilterPanelsByType(PanelType.Shade).Item1;
+            panels = panels.FilterPanelsByType(PanelType.Shade).Item2; //Remove shading if it exists
 
             List<List<Panel>> panelsAsSpaces = panels.ToSpaces();
             List<Construction> constructions = panels.Select(x => x.Construction as Construction).ToList();
