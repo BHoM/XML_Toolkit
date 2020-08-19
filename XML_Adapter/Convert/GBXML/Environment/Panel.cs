@@ -118,7 +118,7 @@ namespace BH.Adapter.XML
 
                     foreach (BHG.Polyline b in newOpeningBounds)
                     {
-                        BH.oM.Environment.Elements.Opening curtainWallOpening = BH.Engine.Environment.Create.Opening(externalEdges: b.ToEdges());
+                        BH.oM.Environment.Elements.Opening curtainWallOpening = new BHE.Opening() { Edges = b.ToEdges() };
                         curtainWallOpening.Name = panel.Name;
                         BHP.OriginContextFragment curtainWallProperties = new BHP.OriginContextFragment();
                         if (contextProperties != null)

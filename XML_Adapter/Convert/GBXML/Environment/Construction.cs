@@ -53,7 +53,9 @@ namespace BH.Adapter.XML
         [Output("construction", "The GBXML Construction")]
         public static BHX.Construction ToGBXMLConstruction(this BHE.Panel element)
         {
-            if (element.Construction == null) return null;
+            if (element.Construction == null)
+                return null;
+
             return element.Construction.ToGBXML(element);
         }
 
@@ -63,7 +65,9 @@ namespace BH.Adapter.XML
         [Output("construction", "The GBXML Construction")]
         public static BHX.Construction ToGBXML(this BHC.IConstruction construction, BHE.Panel panel = null)
         {
-            if (construction == null) return null;
+            if (construction == null)
+                return null;
+
             return ToGBXML(construction as dynamic, panel);
         }
 
@@ -73,7 +77,9 @@ namespace BH.Adapter.XML
         [Output("windowType", "The GBXML Window Construction")]
         public static BHX.WindowType ToGBXMLWindow(this BHC.IConstruction construction, GBXMLSettings settings, BHE.Opening opening = null)
         {
-            if (construction == null) return null;
+            if (construction == null)
+                return null;
+
             return ToGBXMLWindow(construction as dynamic, opening, settings);
         }
 
@@ -83,7 +89,9 @@ namespace BH.Adapter.XML
         [Output("construction", "The GBXML Construction")]
         public static BHX.Construction ToGBXML(this BHC.Construction construction, BHE.Panel element = null)
         {
-            if (construction == null) return null;
+            if (construction == null)
+                return null;
+
             BHX.Construction gbConstruction = new BHX.Construction();
 
             BHP.OriginContextFragment contextProperties = null;
