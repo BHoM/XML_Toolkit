@@ -61,11 +61,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CSProject\Configuration.cs" />
+    <Compile Include="CSProject\ItemGroup\IncludedFile.cs" />
+    <Compile Include="CSProject\ItemGroup\Reference.cs" />
+    <Compile Include="CSProject\PropertyGroup\Configuration.cs" />
     <Compile Include="CSProject\CSProjectObject.cs" />
     <Compile Include="CSProject\Import.cs" />
+    <Compile Include="CSProject\ItemGroup\ItemGroup.cs" />
     <Compile Include="CSProject\Project.cs" />
-    <Compile Include="CSProject\PropertyGroup.cs" />
+    <Compile Include="CSProject\PropertyGroup\PropertyGroup.cs" />
     <Compile Include="EnergyPlus\CoolingPeakCondition.cs" />
     <Compile Include="EnergyPlus\Difference.cs" />
     <Compile Include="EnergyPlus\EnergyPlusObject.cs" />

@@ -32,7 +32,7 @@ using BH.oM.Base;
 namespace BH.oM.XML.CSProject
 {
     [Serializable]
-    [XmlRoot(ElementName = "csproj", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
+    [XmlRoot(ElementName = "Project", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
     public class Project : CSProjectObject
     {
         [XmlAttribute("ToolsVersion")]
@@ -45,9 +45,12 @@ namespace BH.oM.XML.CSProject
         public virtual string XMLNamespace { get; set; } = "";
 
         [XmlElement("Import")]
-        public virtual Import Import { get; set; } = new Import();
+        public virtual Import[] Imports { get; set; } = new List<Import>().ToArray();
 
         [XmlElement("PropertyGroup")]
         public virtual PropertyGroup[] PropertyGroups { get; set; } = new List<PropertyGroup>().ToArray();
+
+        [XmlElement("ItemGroup")]
+        public virtual ItemGroup[] ItemGroups { get; set; } = new List<ItemGroup>().ToArray();
     }
 }
