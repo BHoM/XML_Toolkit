@@ -47,13 +47,13 @@ namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
-        private IEnumerable<IBHoMObject> ReadEnergyPlus(Type type = null, XMLConfig config = null)
+        private IEnumerable<IBHoMObject> ReadCSProject(Type type = null, XMLConfig config = null)
         {
-            BH.oM.XML.EnergyPlus.EnergyPlusTabularReport report = null;
+            BH.oM.XML.CSProject.Project report = null;
 
             TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
-            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.EnergyPlus.EnergyPlusTabularReport));
-            report = (BH.oM.XML.EnergyPlus.EnergyPlusTabularReport)szer.Deserialize(reader);
+            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.CSProject.Project));
+            report = (BH.oM.XML.CSProject.Project)szer.Deserialize(reader);
             reader.Close();
 
             return new List<IBHoMObject> { report };
