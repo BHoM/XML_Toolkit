@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
@@ -26,44 +26,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using BH.Engine;
+using System.Xml.Serialization;
 using BH.oM.Base;
-using System.Reflection;
 
-using BH.oM.Reflection.Attributes;
-using System.ComponentModel;
-using System.IO;
-
-using BH.oM.Adapters.XML.Settings;
-
-namespace BH.Adapter.XML
+namespace BH.oM.XML.CSProject
 {
-    public partial class XMLAdapter : BHoMAdapter
+    [Serializable]
+    [XmlRoot(ElementName = "Project", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
+    public class ItemGroup : CSProjectObject
     {
-        [Description("Specify XML file and properties for data transfer")]
-        [Input("fileSettings", "Input the file settings to get the file name and directory the XML Adapter should use")]
-        [Input("xmlSettings", "Input the additional XML Settings the adapter should use. Only used when pushing to an XML file. Default null")]
-        [Output("adapter", "Adapter to XML")]
-        [PreviousVersion("3.2", "BH.Adapter.XML.XMLAdapter(BH.oM.Adapter.FileSettings, BH.oM.XML.Settings.XMLSettings)")]
-        public XMLAdapter(BH.oM.Adapter.FileSettings fileSettings = null)
-        {
-            if (fileSettings == null)
-            {
-                BH.Engine.Reflection.Compute.RecordError("Please set the File Settings correctly to enable the XML Adapter to work correctly");
-                return;
-            }
+        [XmlElement("Reference")]
+        public virtual Reference[] References { get; set; } = new List<Reference>().ToArray();
 
-            if (!Path.HasExtension(fileSettings.FileName) || (Path.GetExtension(fileSettings.FileName) != ".xml" && Path.GetExtension(fileSettings.FileName) != ".csproj"))
-            {
-                BH.Engine.Reflection.Compute.RecordError("File name must contain a file extension");
-                return;
-            }
+        [XmlElement("Compile")]
+        public virtual IncludedFile[] CompiledFiles { get; set; } = new List<IncludedFile>().ToArray();
 
-            _fileSettings = fileSettings;
-
-            AdapterIdName = "XML_Adapter";
-        }
-
-        private BH.oM.Adapter.FileSettings _fileSettings { get; set; } = null;
+        [XmlElement("None")]
+        public virtual IncludedFile[] OtherFiles { get; set; } = new List<IncludedFile>().ToArray();
     }
 }

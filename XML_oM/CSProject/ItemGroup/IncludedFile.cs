@@ -32,37 +32,10 @@ using BH.oM.Base;
 namespace BH.oM.XML.CSProject
 {
     [Serializable]
-    [XmlRoot(ElementName = "csproj", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
-    public class PropertyGroup : CSProjectObject
+    [XmlRoot(ElementName = "Project", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
+    public class IncludedFile : CSProjectObject
     {
-        [XmlAttribute("Condition")]
-        public virtual string Condition { get; set; } = null;
-
-        [XmlElement("Configuration")]
-        public virtual Configuration Configuration { get; set; } = new Configuration();
-
-        [XmlElement("Platform")]
-        public virtual Configuration Platform { get; set; } = new Configuration();
-
-        [XmlElement("ProjectGuid")]
-        public virtual string ProjectGUID { get; set; } = "";
-
-        [XmlElement("OutputType")]
-        public virtual string OutputType { get; set; } = "";
-
-        [XmlElement("AppDesignerFolder")]
-        public virtual string AppDesignerFolder { get; set; } = "";
-
-        [XmlElement("RootNamespace")]
-        public virtual string RootNamespace { get; set; } = "";
-
-        [XmlElement("AssemblyName")]
-        public virtual string AssemblyName { get; set; } = "";
-
-        [XmlElement("TargetFrameworkVersion")]
-        public virtual string TargetFrameworkVersion { get; set; } = "";
-
-        [XmlElement("FileAlignment")]
-        public virtual string FileAlignment { get; set; } = "";
+        [XmlAttribute("Include")]
+        public virtual string IncludeName { get; set; } = null;
     }
 }
