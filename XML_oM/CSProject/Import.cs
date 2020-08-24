@@ -21,42 +21,24 @@
  */
 
 using System;
-using System.Linq;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using System.Xml.Serialization;
-using System.IO;
-
 using BH.oM.Base;
-using BHE = BH.oM.Environment.Elements;
-using BH.oM.Environment.Fragments;
-using BHG = BH.oM.Geometry;
 
-using BH.oM.Adapters.XML;
-using BH.oM.Adapters.XML.Enums;
-using BHX = BH.Adapter.XML.GBXMLSchema;
-using BHC = BH.oM.Physical.Constructions;
-
-using BH.oM.Adapter;
-using BH.Engine.Adapter;
-using BH.Engine.Geometry;
-using BH.oM.Environment.Elements;
-using BH.Engine.Environment;
-
-namespace BH.Adapter.XML
+namespace BH.oM.XML.CSProject
 {
-    public partial class XMLAdapter : BHoMAdapter
+    [Serializable]
+    [XmlRoot(ElementName = "csproj", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
+    public class Import : CSProjectObject
     {
-        private IEnumerable<IBHoMObject> ReadEnergyPlus(Type type = null, XMLConfig config = null)
-        {
-            BH.oM.XML.EnergyPlus.EnergyPlusTabularReport report = null;
+        [XmlAttribute("Project")]
+        public virtual string Project { get; set; } = "";
 
-            TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
-            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.EnergyPlus.EnergyPlusTabularReport));
-            report = (BH.oM.XML.EnergyPlus.EnergyPlusTabularReport)szer.Deserialize(reader);
-            reader.Close();
-
-            return new List<IBHoMObject> { report };
-        }
+        [XmlAttribute("Condition")]
+        public virtual string Condition { get; set; } = "";
     }
 }

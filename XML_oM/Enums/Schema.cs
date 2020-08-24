@@ -34,6 +34,8 @@ namespace BH.oM.Adapters.XML.Enums
     public enum Schema
     {
         Undefined,
+        [Description("CSProject files are used to work out compiling information for code projects. Typically seen in Visual Studio solution files")]
+        CSProject,
         [Description("EnergyPlusLoads is the XML schema for load results calculated using the EnergyPlus software")]
         EnergyPlusLoads,
         [Description("gbXML Schema is the Green Building XML Schema, used by environment modelling software for the transfer of building geometry and data to tools such as IES, TAS, and more")]

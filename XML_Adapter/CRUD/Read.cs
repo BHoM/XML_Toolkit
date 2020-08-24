@@ -59,10 +59,12 @@ namespace BH.Adapter.XML
 
             switch (config.Schema)
             {
-                case Schema.GBXML:
-                    return ReadGBXML(type, config);
+                case Schema.CSProject:
+                    return ReadCSProject(type, config);
                 case Schema.EnergyPlusLoads:
                     return ReadEnergyPlus(type, config);
+                case Schema.GBXML:
+                    return ReadGBXML(type, config);
                 case Schema.KML:
                     BH.Engine.Reflection.Compute.RecordError("The KML Schema is not supported for pull operations at this time");
                     return new List<IBHoMObject>();
