@@ -141,6 +141,7 @@
     <Compile Include="Convert\KML\ToKML.cs" />
     <Compile Include="Convert\KML\ToLatLon.cs" />
     <Compile Include="CRUD\Create.cs" />
+    <Compile Include="CRUD\CSProject\CreateCSProject.cs" />
     <Compile Include="CRUD\CSProject\ReadCSProject.cs" />
     <Compile Include="CRUD\EnergyPlus\ReadEnergyPlus.cs" />
     <Compile Include="CRUD\GBXML\CreateGBXML.cs" />

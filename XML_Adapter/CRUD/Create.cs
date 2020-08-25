@@ -52,6 +52,8 @@ namespace BH.Adapter.XML
 
             switch(config.Schema)
             {
+                case Schema.CSProject:
+                    return CreateCSProject(objects, config);
                 case Schema.GBXML:
                     return CreateGBXML(objects, config);
                 case Schema.KML:
