@@ -32,7 +32,7 @@ using BH.oM.Base;
 namespace BH.oM.XML.CSProject
 {
     [Serializable]
-    [XmlRoot(ElementName = "Project", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
+    [XmlRoot(ElementName = "ItemGroup", IsNullable = false)]
     public class ItemGroup : CSProjectObject
     {
         [XmlElement("Reference")]

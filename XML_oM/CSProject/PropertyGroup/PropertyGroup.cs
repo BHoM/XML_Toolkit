@@ -32,17 +32,17 @@ using BH.oM.Base;
 namespace BH.oM.XML.CSProject
 {
     [Serializable]
-    [XmlRoot(ElementName = "Project", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
+    [XmlRoot(ElementName = "PropertyGroup", IsNullable = false)]
     public class PropertyGroup : CSProjectObject
     {
         [XmlAttribute("Condition")]
         public virtual string Condition { get; set; } = null;
 
         [XmlElement("Configuration")]
-        public virtual Configuration Configuration { get; set; } = new Configuration();
+        public virtual Configuration Configuration { get; set; } = null;
 
         [XmlElement("Platform")]
-        public virtual Configuration Platform { get; set; } = new Configuration();
+        public virtual Configuration Platform { get; set; } = null;
 
         [XmlElement("ProjectGuid")]
         public virtual string ProjectGUID { get; set; } = null;
@@ -72,7 +72,7 @@ namespace BH.oM.XML.CSProject
         public virtual string DebugType { get; set; } = null;
 
         [XmlElement("Optimize")]
-        public virtual bool Optimise { get; set; } = false;
+        public virtual bool? Optimise { get; set; } = null;
 
         [XmlElement("OutputPath")]
         public virtual string OutputPath { get; set; } = null;
@@ -80,13 +80,23 @@ namespace BH.oM.XML.CSProject
         [XmlElement("DefineConstants")]
         public virtual string DefineConstants { get; set; } = null;
 
-        [XmlElement("ErrorReort")]
+        [XmlElement("ErrorReport")]
         public virtual string ErrorReport { get; set; } = null;
 
         [XmlElement("WarningLevel")]
-        public virtual int WarningLevel { get; set; } = -1;
+        public virtual int? WarningLevel { get; set; } = null;
 
         [XmlElement("PostBuildEvent")]
         public virtual string PostBuildEvent { get; set; } = null;
+
+        public bool ShouldSerializeOptimise()
+        {
+            return Optimise.HasValue;
+        }
+
+        public bool ShouldSerializeWarningLevel()
+        {
+            return WarningLevel.HasValue;
+        }
     }
 }

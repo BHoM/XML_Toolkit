@@ -32,7 +32,7 @@ using BH.oM.Base;
 namespace BH.oM.XML.CSProject
 {
     [Serializable]
-    [XmlRoot(ElementName = "Project", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
+    [XmlRoot(ElementName = "Project", IsNullable = false)]
     public class Reference : CSProjectObject
     {
         [XmlAttribute("Include")]
@@ -41,7 +41,10 @@ namespace BH.oM.XML.CSProject
         [XmlElement("HintPath")]
         public virtual string HintPath { get; set; } = null;
 
-        [XmlAttribute("Private")]
-        public virtual bool IsCopyLocal { get; set; } = false;
+        [XmlElement("Private")]
+        public virtual string IsCopyLocal { get; set; } = null;
+
+        [XmlElement("SpecificVersion")]
+        public virtual string SpecificVersion { get; set; } = null;
     }
 }
