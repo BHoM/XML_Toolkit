@@ -59,7 +59,7 @@ namespace BH.Adapter.XML
             panels = panels.FilterPanelsByType(PanelType.Shade).Item2; //Remove shading if it exists
 
             List<List<Panel>> panelsAsSpaces = panels.ToSpaces();
-            List<Construction> constructions = panels.Select(x => x.Construction as Construction).ToList();
+            List<Construction> constructions = panels.Where(x => x.Construction != null).Select(x => x.Construction as Construction).ToList();
             List<Construction> windowConstructions = panels.OpeningsFromElements().UniqueConstructions();
 
             List<GBXML.Building> xmlBuildings = buildings.Select(x => x.ToGBXML()).ToList();
@@ -103,6 +103,9 @@ namespace BH.Adapter.XML
 
             foreach (Construction c in constructions)
             {
+                if (c == null)
+                    continue;
+
                 GBXML.Construction xmlConc = c.ToGBXML();
                 if (xmlConstructions.Where(x => x.ID == xmlConc.ID).FirstOrDefault() != null)
                     continue; //Don't add the same construction twice
