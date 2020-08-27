@@ -43,5 +43,8 @@ namespace BH.oM.XML.CSProject
 
         [XmlElement("None")]
         public virtual IncludedFile[] OtherFiles { get; set; } = new List<IncludedFile>().ToArray();
+
+        [XmlElement("ProjectReference")]
+        public virtual ProjectReference[] ProjectReferences { get; set; } = new List<ProjectReference>().ToArray();
     }
 }
