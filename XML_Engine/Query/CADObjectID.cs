@@ -124,22 +124,6 @@ namespace BH.Engine.Adapters.XML
         [Output("cadObjectID", "The CAD Object ID for the software where this collection of Panels came from")]
         public static string CADObjectID(this List<BHE.Panel> panelsAsSpace)
         {
-            /*string CADObjectID = "";
-
-            BHE.BuildingElement spaceCustomData = space.Where(x => x.CustomData.ContainsKey("Space_Custom_Data")).FirstOrDefault();
-
-            if (spaceCustomData == null) return CADObjectID;
-
-            Dictionary<string, object> data = spaceCustomData.CustomData["Space_Custom_Data"] as Dictionary<string, object>;
-
-            if (spaceCustomData != null)
-            {
-                if (data.ContainsKey("Revit_elementId"))
-                    CADObjectID = data["Revit_elementId"].ToString();
-            }
-
-            return CADObjectID;*/
-
             return "[" + panelsAsSpace.ConnectedSpaceName() + "]"; //ToDo: Fix this properly when the oM changes are made
         }
 
