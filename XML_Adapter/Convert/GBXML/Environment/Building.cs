@@ -37,6 +37,7 @@ using BH.Engine.Environment;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 using BH.oM.Adapters.XML.Settings;
+using BH.oM.XML.Fragments;
 
 namespace BH.Adapter.XML
 {
@@ -56,8 +57,10 @@ namespace BH.Adapter.XML
             if (context != null)
                 gbBuilding.StreetAddress = context.PlaceName;
 
-            if (building.CustomData.ContainsKey("Building Name"))
-                gbBuilding.BuildingType = (building.CustomData["Building Name"]).ToString();
+            XMLBuildingType fragment = building.FindFragment<XMLBuildingType>(typeof(XMLBuildingType));
+
+            if (fragment != null)
+                gbBuilding.BuildingType = fragment.Type;
 
             if (gbBuilding.BuildingType == "")
                 gbBuilding.BuildingType = "Unknown";
@@ -97,7 +100,9 @@ namespace BH.Adapter.XML
             BHP.BuildingContextFragment props = new BHP.BuildingContextFragment();
             props.PlaceName = gbBuilding.StreetAddress;
             building.Fragments.Add(props);
-            building.CustomData.Add("Building Name", gbBuilding.BuildingType);
+            XMLBuildingType fragment = new XMLBuildingType();
+            fragment.Type = gbBuilding.BuildingType;
+            building.Fragments.Add(fragment);
 
             return building;
         }
