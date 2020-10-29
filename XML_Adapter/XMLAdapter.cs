@@ -61,7 +61,6 @@ namespace BH.Adapter.XML
 
             _fileSettings = fileSettings;
 
-            AdapterIdName = "XML_Adapter";
         }
 
         private BH.oM.Adapter.FileSettings _fileSettings { get; set; } = null;
