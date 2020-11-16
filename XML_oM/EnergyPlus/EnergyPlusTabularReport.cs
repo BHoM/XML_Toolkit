@@ -51,6 +51,6 @@ namespace BH.oM.XML.EnergyPlus
         public virtual SimulationTimestamp SimulationTimestamp { get; set; } = new SimulationTimestamp();
 
         [XmlElement("ZoneComponentLoadSummary")]
-        public virtual ZoneComponentLoadSummary[] ZoneComponentLoadSummary { get; set; } = new List<ZoneComponentLoadSummary>().ToArray();
+        public virtual List<ZoneComponentLoadSummary> ZoneComponentLoadSummary { get; set; } = new List<ZoneComponentLoadSummary>();
     }
 }

@@ -39,7 +39,7 @@ namespace BH.oM.XML.EnergyPlus
         public virtual string For { get; set; } = "";
 
         [XmlElement("EstimatedCoolingPeakLoadComponents")]
-        public virtual EstimatedCoolingPeakLoadComponent[] EstimatedCoolingPeakLoadComponent { get; set; } = new List<EstimatedCoolingPeakLoadComponent>().ToArray();
+        public virtual List<EstimatedCoolingPeakLoadComponent> EstimatedCoolingPeakLoadComponent { get; set; } = new List<EstimatedCoolingPeakLoadComponent>();
 
         [XmlElement("CoolingPeakConditions")]
         public virtual CoolingPeakCondition CoolingPeakConditions { get; set; } = new CoolingPeakCondition();
