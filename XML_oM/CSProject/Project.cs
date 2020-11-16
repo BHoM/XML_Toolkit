@@ -45,12 +45,12 @@ namespace BH.oM.XML.CSProject
         public virtual string XMLNamespace { get; set; } = "";
 
         [XmlElement("Import")]
-        public virtual Import[] Imports { get; set; } = new List<Import>().ToArray();
+        public virtual List<Import> Imports { get; set; } = new List<Import>();
 
         [XmlElement("PropertyGroup")]
-        public virtual PropertyGroup[] PropertyGroups { get; set; } = new List<PropertyGroup>().ToArray();
+        public virtual List<PropertyGroup> PropertyGroups { get; set; } = new List<PropertyGroup>();
 
         [XmlElement("ItemGroup")]
-        public virtual ItemGroup[] ItemGroups { get; set; } = new List<ItemGroup>().ToArray();
+        public virtual List<ItemGroup> ItemGroups { get; set; } = new List<ItemGroup>();
     }
 }

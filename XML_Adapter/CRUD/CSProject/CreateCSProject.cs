@@ -72,7 +72,7 @@ namespace BH.Adapter.XML
                 StringWriter textWriter = new StringWriter();
 
                 XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.CSProject.Import), overrides);
-                for (int x = 0; x < doc.Imports.Length - 1; x++)
+                for (int x = 0; x < doc.Imports.Count - 1; x++)
                 {
                     szer.Serialize(textWriter, doc.Imports[x], xns);
                     xmlParts.Add(textWriter.ToString());
@@ -80,7 +80,7 @@ namespace BH.Adapter.XML
                 }
 
                 szer = new XmlSerializer(typeof(BH.oM.XML.CSProject.PropertyGroup), overrides);
-                for (int x = 0; x < doc.PropertyGroups.Length - 1; x++)
+                for (int x = 0; x < doc.PropertyGroups.Count - 1; x++)
                 {
                     szer.Serialize(textWriter, doc.PropertyGroups[x], xns);
                     xmlParts.Add(textWriter.ToString());

@@ -107,9 +107,6 @@
     <Compile Include="Settings\KMLSettings.cs" />
     <Compile Include="XMLConfig.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Versioning_32.json" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" Condition="" />
   <PropertyGroup>
     <PostBuildEvent>
