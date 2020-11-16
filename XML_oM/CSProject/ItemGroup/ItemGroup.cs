@@ -36,15 +36,15 @@ namespace BH.oM.XML.CSProject
     public class ItemGroup : CSProjectObject
     {
         [XmlElement("Reference")]
-        public virtual Reference[] References { get; set; } = new List<Reference>().ToArray();
+        public virtual List<Reference> References { get; set; } = new List<Reference>();
 
         [XmlElement("Compile")]
-        public virtual IncludedFile[] CompiledFiles { get; set; } = new List<IncludedFile>().ToArray();
+        public virtual List<IncludedFile> CompiledFiles { get; set; } = new List<IncludedFile>();
 
         [XmlElement("None")]
-        public virtual IncludedFile[] OtherFiles { get; set; } = new List<IncludedFile>().ToArray();
+        public virtual List<IncludedFile> OtherFiles { get; set; } = new List<IncludedFile>();
 
         [XmlElement("ProjectReference")]
-        public virtual ProjectReference[] ProjectReferences { get; set; } = new List<ProjectReference>().ToArray();
+        public virtual List<ProjectReference> ProjectReferences { get; set; } = new List<ProjectReference>();
     }
 }

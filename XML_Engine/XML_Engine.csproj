@@ -113,9 +113,6 @@
     <Folder Include="Modify\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Versioning_32.json" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\XML_oM\XML_oM.csproj">
       <Project>{43c9dc2f-18c1-48a9-b06f-b89cf188616e}</Project>
       <Name>XML_oM</Name>
