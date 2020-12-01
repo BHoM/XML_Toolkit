@@ -89,8 +89,9 @@ namespace BH.Adapter.XML
                 case BHE.PanelType.WallInternal:
                     return "InteriorWall";
                 case BHE.PanelType.Air:
+                case BHE.PanelType.Adiabatic:
                 default:
-                    return "Air"; //Adiabatic
+                    return "Air";
             }
         }
 
