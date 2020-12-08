@@ -7,7 +7,7 @@
     <ProjectGuid>{DC706F55-E26D-4463-9EC3-5A9827B24BC6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XML_Engine</RootNamespace>
+    <RootNamespace>BH.Engine.Adapters.XML</RootNamespace>
     <AssemblyName>XML_Engine</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -99,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create\DocumentBuilder.cs" />
-    <Compile Include="Create\XMLSettings.cs" />
+    <Compile Include="Create\GBXMLUnitSetUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\CleanName.cs" />
     <Compile Include="Query\ExposedToSun.cs" />
