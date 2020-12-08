@@ -51,7 +51,7 @@ namespace BH.oM.Adapters.XML.Settings
         [Description("Set to false if you want to append to a file when pushing XML. If set to true then a file will be created. If a file exists, it will be overwritten. Default true")]
         public virtual bool NewFile { get; set; } = true;
 
-        [Description("Set the unit type for the export to be either SI or Imperial. Default SI")]
+        [Description("Set the unit type for the results to be either SI or Imperial. Default SI")]
         public virtual UnitType UnitType { get; set; } = UnitType.SI;
 
         [Description("Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
@@ -71,6 +71,9 @@ namespace BH.oM.Adapters.XML.Settings
 
         [Description("Set the rounding options for numerical outputs to be used within gbXML creation. Default is per the Rounding Settings defaults")]
         public virtual RoundingSettings RoundingSettings { get; set; } = new RoundingSettings();
+
+        [Description("Set the units to be used for the export of a gbXML file. Default units will be in SI using the defaults of the GBXMLSetUp object if none are provided")]
+        public virtual GBXMLUnitSetUp UnitSetUp { get; set; } = new GBXMLUnitSetUp();
 
         /***************************************************/
     }
