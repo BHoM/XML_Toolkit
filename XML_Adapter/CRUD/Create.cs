@@ -65,31 +65,6 @@ namespace BH.Adapter.XML
                     BH.Engine.Reflection.Compute.RecordError("The XML Schema you have supplied is not currently supported by the XML Toolkit");
                     return false;
             }
-
-            /*string fileName = _fileSettings.GetFullFileName();
-
-            GBXML gbx = new GBXML();
-
-            if(!_xmlSettings.NewFile)
-                gbx = XMLReader.Load(_fileSettings.GetFullFileName()); //Load up the previous file to append to
-
-            if(_xmlSettings.UnitType == UnitType.Imperial)
-            {
-                gbx.TemperatureUnit = "F";
-                gbx.LengthUnit = "Feet";
-                gbx.AreaUnit = "SquareFeet";
-                gbx.VolumeUnit = "CubicFeet";
-                gbx.UseSIUnitsForResults = "false";
-            }
-
-            if (typeof(IBHoMObject).IsAssignableFrom(typeof(T)))
-            {
-                XML.GBXMLSerializer.Serialize(objects, gbx, _fileSettings, _xmlSettings);
-                if(_xmlSettings.ExportDetail != ExportDetail.IndividualSpaces)
-                    XMLWriter.Save(fileName, gbx);
-            }
-
-            return true;*/
         }
     }
 }
