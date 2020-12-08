@@ -93,11 +93,16 @@
     <Compile Include="EnergyPlus\ZoneRelativeHumidity.cs" />
     <Compile Include="Enums\AltitudeMode.cs" />
     <Compile Include="Fragments\XMLBuildingType.cs" />
+    <Compile Include="GBXML\Enums\AreaUnit.cs" />
+    <Compile Include="GBXML\Enums\LengthUnit.cs" />
+    <Compile Include="GBXML\Enums\TemperatureUnit.cs" />
+    <Compile Include="GBXML\Enums\VolumeUnit.cs" />
     <Compile Include="GBXML\GBXMLDocumentBuilder.cs" />
     <Compile Include="Enums\ExportDetail.cs" />
     <Compile Include="Enums\Schema.cs" />
     <Compile Include="Enums\UnitType.cs" />
     <Compile Include="GBXML\RoundingSettings.cs" />
+    <Compile Include="GBXML\GBXMLUnitSetUp.cs" />
     <Compile Include="KML\GeoReference.cs" />
     <Compile Include="KML\KMLDocumentBuilder.cs" />
     <Compile Include="KML\KMLGeometry.cs" />
