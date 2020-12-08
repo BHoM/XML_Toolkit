@@ -35,6 +35,7 @@ using BH.oM.Geometry.SettingOut;
 using BH.oM.Physical.Constructions;
 
 using BH.Engine.Environment;
+using BH.oM.Adapters.XML;
 
 namespace BH.Adapter.XML
 {
@@ -165,12 +166,111 @@ namespace BH.Adapter.XML
 
             gbx.Campus.Building[0].Area = buildingFloorArea;
 
-            // Document History                          
+            //Document History                          
             GBXML.DocumentHistory DocumentHistory = new GBXML.DocumentHistory();
             DocumentHistory.CreatedBy.Date = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
             gbx.DocumentHistory = DocumentHistory;
 
+            //Unit set up
+            gbx.TemperatureUnit = settings.UnitSetUp.TemperatureUnit.ToGBX();
+            gbx.LengthUnit = settings.UnitSetUp.LengthUnit.ToGBX();
+            gbx.AreaUnit = settings.UnitSetUp.AreaUnit.ToGBX();
+            gbx.VolumeUnit = settings.UnitSetUp.VolumeUnit.ToGBX();
+            gbx.UseSIUnitsForResults = (settings.UnitType == oM.Adapters.XML.Enums.UnitType.SI ? "true" : "false");
+
             return gbx;
+        }
+
+        private static string ToGBX(this AreaUnit areaUnit)
+        {
+            switch(areaUnit)
+            {
+                case AreaUnit.SquareCentimeters:
+                    return "SquareCentimeters";
+                case AreaUnit.SquareFeet:
+                    return "SquareFeet";
+                case AreaUnit.SquareInches:
+                    return "SquareInches";
+                case AreaUnit.SquareKilometers:
+                    return "SquareKilometers";
+                case AreaUnit.SquareMeters:
+                    return "SquareMeters";
+                case AreaUnit.SquareMiles:
+                    return "SquareMiles";
+                case AreaUnit.SquareMillimeters:
+                    return "SquareMillimeters";
+                case AreaUnit.SquareYards:
+                    return "SquareYards";
+                default:
+                    return "SquareMeters";
+            }
+        }
+
+        private static string ToGBX(this LengthUnit lengthUnit)
+        {
+            switch(lengthUnit)
+            {
+                case LengthUnit.Centimeters:
+                    return "Centimeters";
+                case LengthUnit.Feet:
+                    return "Feet";
+                case LengthUnit.Inches:
+                    return "Inches";
+                case LengthUnit.Kilometers:
+                    return "Kilometers";
+                case LengthUnit.Meters:
+                    return "Meters";
+                case LengthUnit.Miles:
+                    return "Miles";
+                case LengthUnit.Millimeters:
+                    return "Millimeters";
+                case LengthUnit.Yards:
+                    return "Yards";
+                default:
+                    return "Meters";
+            }
+        }
+
+        private static string ToGBX(this TemperatureUnit temperatureUnit)
+        {
+            switch(temperatureUnit)
+            {
+                case TemperatureUnit.Celcius:
+                    return "C";
+                case TemperatureUnit.Fahrenheit:
+                    return "F";
+                case TemperatureUnit.Kelvin:
+                    return "K";
+                case TemperatureUnit.Rankine:
+                    return "R";
+                default:
+                    return "C";
+            }
+        }
+
+        private static string ToGBX(this VolumeUnit volumeUnit)
+        {
+            switch(volumeUnit)
+            {
+                case VolumeUnit.CubicCentimeters:
+                    return "CubicCentimeters";
+                case VolumeUnit.CubicFeet:
+                    return "CubicFeet";
+                case VolumeUnit.CubicInches:
+                    return "CubicInches";
+                case VolumeUnit.CubicKilometers:
+                    return "CubicKilometers";
+                case VolumeUnit.CubicMeters:
+                    return "CubicMeters";
+                case VolumeUnit.CubicMiles:
+                    return "CubicMiles";
+                case VolumeUnit.CubicMillimeters:
+                    return "CubicMillimeters";
+                case VolumeUnit.CubicYards:
+                    return "CubicYards";
+                default:
+                    return "CubicMeters";
+            }
         }
     }
 }
