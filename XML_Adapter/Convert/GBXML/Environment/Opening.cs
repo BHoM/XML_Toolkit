@@ -58,7 +58,7 @@ namespace BH.Adapter.XML
             gbOpening.ID = "opening" + opening.BHoM_Guid.ToString().Replace("-", "").Substring(0, 5);
             gbOpening.PlanarGeometry.PolyLoop = pLine.ToGBXML(settings);
             gbOpening.PlanarGeometry.ID = "openingPGeom-" + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 5);
-            gbOpening.RectangularGeometry.CartesianPoint = BH.Engine.Geometry.Query.Centre(pLine).ToGBXML(settings);
+            gbOpening.RectangularGeometry.CartesianPoint = BH.Engine.Geometry.Query.Centroid(pLine).ToGBXML(settings);
             gbOpening.RectangularGeometry.Height = Math.Round(opening.Height(), settings.RoundingSettings.GeometryHeight);
             //TODO: temporary solution to get valid file to be replaced with correct height
             if (opening.Height() == 0)
