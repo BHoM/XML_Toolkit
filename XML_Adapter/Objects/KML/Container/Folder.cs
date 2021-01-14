@@ -30,8 +30,6 @@ namespace BH.oM.Adapters.XML.KMLSchema
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
     public class Folder : Container
     {
-        [XmlAttribute(AttributeName = "id")]
-        public new string ID { get; set; } = "";
 
         [XmlElement("Placemark")]
         public Placemark[] Placemarks { get; set; } = new List<Placemark> { }.ToArray();
