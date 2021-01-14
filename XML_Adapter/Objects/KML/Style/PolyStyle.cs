@@ -29,8 +29,6 @@ namespace BH.oM.Adapters.XML.KMLSchema
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
     public class PolyStyle : ColourStyle
     {
-        [XmlAttribute(AttributeName = "id")]
-        public new string ID { get; set; } = "";
 
         [XmlElement("fill")]
         public bool Fill { get; set; } = true;

@@ -30,8 +30,6 @@ namespace BH.oM.Adapters.XML.KMLSchema
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
     public class Document : Container
     {
-        [XmlAttribute(AttributeName = "id")]
-        public new string ID { get; set; } = "";
 
         [XmlElement("Style")]
         public Style[] Styles { get; set; } = new List<Style> { }.ToArray();
