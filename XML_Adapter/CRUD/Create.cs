@@ -62,9 +62,8 @@ namespace BH.Adapter.XML
                     BH.Engine.Reflection.Compute.RecordError("The EnergyPlusLoads Schema is not supported for push operations at this time");
                     return false;
                 default:
-                    BH.Engine.Reflection.Compute.RecordError("The XML Schema you have supplied is not currently supported by the XML Toolkit");
+                    BH.Engine.Reflection.Compute.RecordNote("You have not supplied a supported XML Schema to push. Data is being pushed either using a schema set by XML Attributes on the objects, or a default schema based on object properties.");
                     return CreateDefault(objects, config);
-                    //return false;
             }
         }
     }
