@@ -51,6 +51,7 @@ namespace BH.Adapter.XML
     {
         private IEnumerable<IBHoMObject> ReadDefault(Type type = null, XMLConfig config = null)
         {
+            //Due to needing to read an XML file without a schema, we read each node instead and convert it to a JSON string which we then deserialise via Serialiser_Engine to get the custom objects
             XmlTextReader reader = new XmlTextReader(_fileSettings.GetFullFileName());
             XmlDocument doc = new XmlDocument();
             XmlNode node = doc.ReadNode(reader);
