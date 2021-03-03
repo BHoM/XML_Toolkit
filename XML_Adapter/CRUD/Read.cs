@@ -37,6 +37,10 @@ using BHC = BH.oM.Physical.Constructions;
 using BH.oM.Adapter;
 using BH.Engine.Adapter;
 
+using System.Xml.Serialization;
+using System.IO;
+using System.Xml;
+
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
@@ -70,8 +74,135 @@ namespace BH.Adapter.XML
                     return new List<IBHoMObject>();
                 default:
                     BH.Engine.Reflection.Compute.RecordError("The XML Schema you have supplied is not currently supported by the XML Toolkit");
-                    return new List<IBHoMObject>();
+                    return ReadBasicFile();// new List<IBHoMObject>();
             }
         }
+
+        private IEnumerable<CustomObject> ReadBasicFile()
+        {
+            /*string line = "";
+            StreamReader sr = new StreamReader(_fileSettings.GetFullFileName());
+            line = sr.ReadLine();
+
+            if (line == null)
+            {
+                sr.Close();
+                return null;
+            }
+
+            if(line.StartsWith("<?xml"))
+            {
+                int index = line.IndexOf("?>");
+                if (line.Length == index + 1)
+                    line = sr.ReadLine(); //Go for the next line
+                else
+                    line = line.Substring(index + 1);
+            }
+
+            sr.Close();
+
+            int start = line.IndexOf("<");
+            int end = line.IndexOf(" ");
+            line = line.Substring(start + 1, (end - start));
+
+            TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
+            XmlRootAttribute xRoot = new XmlRootAttribute();
+            xRoot.ElementName = line;
+            xRoot.IsNullable = true;
+
+            XmlSerializer szer = new XmlSerializer(typeof(Blah), xRoot);
+            Blah obj = (Blah)szer.Deserialize(reader);
+            reader.Close();
+
+            string s = BH.Engine.Serialiser.Convert.ToJson(obj);
+
+            return new List<CustomObject>() { BH.Engine.Serialiser.Convert.FromJson(s) as CustomObject };*/
+
+            XmlTextReader reader = new XmlTextReader(_fileSettings.GetFullFileName());
+            XmlDocument doc = new XmlDocument();
+            XmlNode node = doc.ReadNode(reader);
+
+            if (node.NodeType == XmlNodeType.XmlDeclaration)
+                node = doc.ReadNode(reader); //Try the next node...
+
+            string obj = Recursive(node);
+
+            if (obj.EndsWith(","))
+                obj = obj.Substring(0, obj.Length - 1);
+
+            obj = "{" + obj + "}";
+
+            //string s = BH.Engine.Serialiser.Convert.ToJson(node);
+
+            return new List<CustomObject>() { BH.Engine.Serialiser.Convert.FromJson(obj) as CustomObject };
+        }
+
+        private string Recursive(XmlNode node, string previousName = null)
+        {
+            if (node == null || node.Name.ToLower().Contains("whitespace"))
+                return "";
+
+            string line = "";
+
+            if (previousName != node.Name.Replace("#", ""))
+            {
+                previousName = node.Name.Replace("#", "");
+                line += "\"" + previousName + "\":";
+            }
+
+            //string line = "";
+
+            if (node.HasChildNodes)
+            {
+                line += "{";
+
+                List<XmlNode> nodes1 = new List<XmlNode>();
+                foreach (XmlNode n in node.ChildNodes)
+                    nodes1.Add(n);
+
+                var nodes = nodes1.GroupBy(x => x.Name.Replace("#", ""));
+                foreach(var group in nodes)
+                {
+                    if (group.Count() > 1)
+                    {
+                        line += "\"" + group.Key + "\":[";
+                        previousName = group.Key;
+                    }
+
+                    foreach(var v in group)
+                    {
+                        line += Recursive(v, previousName);
+                    }
+
+                    if (group.Count() > 1)
+                    {
+                        if(line.EndsWith(","))
+                            line = line.Substring(0, line.Length - 1); //Remove last ','
+                        line += "],";
+                    }
+                }
+
+                /*foreach (XmlNode n in node.ChildNodes)
+                {
+                    _nodes[parentName].Add(n);
+                    //line += Recursive(n, parentName);
+                    Dictionary<string, string> l = Recursive(n, parentName);
+                }*/
+
+                if(line.EndsWith(","))
+                    line = line.Substring(0, line.Length - 1); //Remove last ','
+
+                line += "}";
+            }
+            else if (node.Value != null)
+                line += "\"" + node.Value.Replace("\r", "").Replace("\n", "").Replace("\"", "'").Trim() + "\"";
+            else
+                line += "\"\"";
+
+            return line + ",";
+            //return new Dictionary<string, string>().Add(parentName, line);
+        }
     }
+
+    public class Blah { public object Property = null; }
 }
