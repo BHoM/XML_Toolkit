@@ -98,7 +98,6 @@ namespace BH.Adapter.XML
 
             if (node.HasChildNodes)
             {
-
                 List<XmlNode> nodes1 = new List<XmlNode>();
                 foreach (XmlNode n in node.ChildNodes)
                     nodes1.Add(n);
