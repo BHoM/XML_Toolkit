@@ -198,7 +198,6 @@
     <Compile Include="Objects\GBXML\Window\Transmittance.cs" />
     <Compile Include="Objects\GBXML\Window\WindowType.cs" />
     <Compile Include="Objects\GBXML\Zone\Zone.cs" />
-    <Compile Include="Objects\GlazingTemplate.cs" />
     <Compile Include="Objects\KML\Container\Container.cs" />
     <Compile Include="Objects\KML\Container\Document.cs" />
     <Compile Include="Objects\KML\Container\Folder.cs" />
