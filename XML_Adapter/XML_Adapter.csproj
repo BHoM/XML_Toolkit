@@ -109,6 +109,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -144,6 +145,7 @@
     <Compile Include="CRUD\Create.cs" />
     <Compile Include="CRUD\CSProject\CreateCSProject.cs" />
     <Compile Include="CRUD\CSProject\ReadCSProject.cs" />
+    <Compile Include="CRUD\Default\CreateDefault.cs" />
     <Compile Include="CRUD\Default\ReadDefault.cs" />
     <Compile Include="CRUD\EnergyPlus\ReadEnergyPlus.cs" />
     <Compile Include="CRUD\GBXML\CreateGBXML.cs" />

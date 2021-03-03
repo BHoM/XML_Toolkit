@@ -63,7 +63,8 @@ namespace BH.Adapter.XML
                     return false;
                 default:
                     BH.Engine.Reflection.Compute.RecordError("The XML Schema you have supplied is not currently supported by the XML Toolkit");
-                    return false;
+                    return CreateDefault(objects, config);
+                    //return false;
             }
         }
     }

@@ -111,8 +111,6 @@ namespace BH.Adapter.XML
 
             return success;
         }
-
-
     }
 }
 
