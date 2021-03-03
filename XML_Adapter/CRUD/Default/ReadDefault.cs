@@ -59,17 +59,25 @@ namespace BH.Adapter.XML
             if (node.NodeType == XmlNodeType.XmlDeclaration)
                 node = doc.ReadNode(reader); //Try the next node...
 
-            string obj = ExtractData(node);
+            bool isBHoM = node.Name.ToLower() == "bhom";
+
+            string obj = ExtractData(node, null, isBHoM);
 
             if (obj.EndsWith(","))
                 obj = obj.Substring(0, obj.Length - 1);
 
-            obj = "{" + obj + "}"; //Wrap the json string
+            if(obj.StartsWith("\"BHoM\":{"))
+            {
+                //An XML deserialised that was previously serialised as BHoM - remove the BHoM heading
+                obj = obj.Replace("\"BHoM\":{", "{");
+            }
+            else
+                obj = "{" + obj + "}"; //Wrap the json string
 
             return new List<CustomObject>() { BH.Engine.Serialiser.Convert.FromJson(obj) as CustomObject };
         }
 
-        private string ExtractData(XmlNode node, string previousName = null)
+        private string ExtractData(XmlNode node, string previousName = null, bool isBHoM = false)
         {
             //This is a recursive method
             if (node == null || node.Name.ToLower().Contains("whitespace"))
@@ -77,25 +85,36 @@ namespace BH.Adapter.XML
 
             string line = "";
 
-            if (previousName != node.Name.Replace("#", ""))
+            string nodeName = node.Name.Replace("#", "");
+
+            if (previousName != nodeName)
             {
-                previousName = node.Name.Replace("#", "");
-                line += "\"" + previousName + "\":";
+                if (!isBHoM || (isBHoM && nodeName.ToLower() != "text"))
+                {
+                    previousName = nodeName;
+                    line += "\"" + previousName + "\":";
+                }
             }
 
             if (node.HasChildNodes)
             {
-                line += "{";
 
                 List<XmlNode> nodes1 = new List<XmlNode>();
                 foreach (XmlNode n in node.ChildNodes)
                     nodes1.Add(n);
 
                 var nodes = nodes1.GroupBy(x => x.Name.Replace("#", ""));
+
+                if(nodes.Any(x => x.Key.ToLower() != "text") || !isBHoM)
+                    line += "{";
+
                 foreach (var group in nodes)
                 {
                     if (group.Key.ToLower().Contains("whitespace"))
                         continue;
+
+                    if (group.Key.ToLower() == previousName.ToLower() && group.Count() == 1)
+                        line += "\"" + previousName + "\":{";
 
                     if (group.Count() > 1)
                     {
@@ -105,7 +124,16 @@ namespace BH.Adapter.XML
 
                     foreach (var v in group)
                     {
-                        line += ExtractData(v, previousName);
+                        string s = ExtractData(v, previousName, isBHoM);
+                        if(!string.IsNullOrEmpty(s) && s != "\"\",")
+                            line += s;
+                    }
+
+                    if (group.Key.ToLower() == previousName.ToLower() && group.Count() == 1)
+                    {
+                        if (line.EndsWith(","))
+                            line = line.Substring(0, line.Length - 1); //Remove last ','
+                        line += "},";
                     }
 
                     if (group.Count() > 1)
@@ -119,7 +147,8 @@ namespace BH.Adapter.XML
                 if (line.EndsWith(","))
                     line = line.Substring(0, line.Length - 1); //Remove last ','
 
-                line += "}";
+                if (nodes.Any(x => x.Key.ToLower() != "text") || !isBHoM)
+                    line += "}";
             }
             else if (node.Value != null)
                 line += "\"" + node.Value.Replace("\r", "").Replace("\n", "").Replace("\"", "'").Trim() + "\"";

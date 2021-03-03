@@ -32,16 +32,25 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        public static string ToXML(this object o)
+        public static string ToXML(this object o, bool includeHead = true)
         {
             if (o == null)
                 return "";
 
             Type objectType = o.GetType();
-            if (objectType.IsPrimitiveOrString())
+            if (objectType.IsPrimitiveOrStringOrGuid())
                 return o.ToString(); //For primitive types, just return the value
 
-            string line = "<" + objectType.Name + ">";
+            string line = "";
+
+            if (!objectType.IsEnum)
+            {
+                //Whatever you change here, make sure you change at the bottom too!
+                if(includeHead)
+                    line = "<" + objectType.Name + ">";
+
+                line += "<_t>" + objectType.FullName + "</_t>";
+            }
 
             PropertyInfo[] props = objectType.GetProperties();
             if (props.Length == 0)
@@ -51,7 +60,6 @@ namespace BH.Adapter.XML
                 foreach (PropertyInfo pi in props)
                 {
                     object value = pi.GetValue(o);
-                    line += "<" + pi.Name + ">";
 
                     if (value != null && typeof(System.Collections.IEnumerable).IsAssignableFrom(value.GetType()))
                     {
@@ -63,34 +71,33 @@ namespace BH.Adapter.XML
                             list.Add(enumerator.Current);
                         }
 
-                        bool includeSubHeadings = (list.FirstOrDefault() != null && list.FirstOrDefault().GetType().IsPrimitiveOrString()); //If the list is just a list of strings or primitives then each item should have its own header to separate it. If it is a list of complex objects then the original pi.name header is sufficent
+                        bool includeSubHeadings = (list.FirstOrDefault() != null && list.FirstOrDefault().GetType().IsPrimitiveOrStringOrGuid()); //If the list is just a list of strings or primitives then each item should have its own header to separate it. If it is a list of complex objects then the original pi.name header is sufficent
 
                         for (int x = 0; x < list.Count; x++)
                         {
-                            if (includeSubHeadings)
-                                line += "<Item" + x.ToString() + ">";
-
-                            line += list[x].ToXML();
-
-                            if (includeSubHeadings)
-                                line += "</Item" + x.ToString() + ">";
+                            line += "<" + pi.Name + ">";
+                            line += list[x].ToXML(false);
+                            line += "</" + pi.Name + ">";
                         }
                     }
-                    else
-                        line += value.ToXML();
-
-                    line += "</" + pi.Name + ">";
+                    else if(value != null)
+                    {
+                        line += "<" + pi.Name + ">";
+                        line += value.ToXML(!pi.PropertyType.IsInterface); //If this property is an interface, don't include its type as the header cause it'll confuse the issue when reading it back
+                        line += "</" + pi.Name + ">";
+                    }
                 }
             }
 
-            line += "</" + objectType.Name + ">";
+            if (!objectType.IsEnum && includeHead)
+                line += "</" + objectType.Name + ">";
 
             return line;
         }
 
-        private static bool IsPrimitiveOrString(this Type type)
+        private static bool IsPrimitiveOrStringOrGuid(this Type type)
         {
-            return type.IsPrimitive || typeof(string).IsAssignableFrom(type);
+            return type.IsPrimitive || typeof(string).IsAssignableFrom(type) || typeof(Guid).IsAssignableFrom(type);
         }
     }
 }
