@@ -73,7 +73,7 @@ namespace BH.Adapter.XML
                     szer.Serialize(stringWriter, obj[x], xns);
                     string line = stringWriter.ToString();
                     if (x > 0)
-                        line = line.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n", "");
+                        line = line.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n", ""); //Don't need this header on every item
                     sw.WriteLine(line);
 
                     StringBuilder sb = stringWriter.GetStringBuilder();
@@ -81,137 +81,34 @@ namespace BH.Adapter.XML
                 }
 
                 sw.Close();
-
-                /*var xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings() { OmitXmlDeclaration = true });
-                foreach(T t in objects)
-                {
-                    XElement e = Blah.ToXML(t);
-                    lines.Add(e.ToString());
-                }
-
-                */
-
             }
             catch (Exception e)
             {
                 //Try exporting the objects manually if automatic serialisation didn't work
                 try
                 {
-                    List<string> strings = objects.Select(x => (x as object).ToXML()).ToList();
+                    List<string> xmlStrings = objects.Select(x => (x as object).ToXML()).ToList();
 
-                    StreamWriter sw = new StreamWriter(_fileSettings.GetFullFileName());
-                    sw.WriteLine("<BHoM>");
-                    strings.ForEach(x => sw.WriteLine(x));
-                    sw.WriteLine("</BHoM>");
+                    string xml = "<BHoM>";
+                    xmlStrings.ForEach(x => xml += x);
+                    xml += "</BHoM>";
 
-                    sw.Close();
+                    XmlDocument xdoc = new XmlDocument();
+                    xdoc.LoadXml(xml);
+                    xdoc.Save(_fileSettings.GetFullFileName());
                 }
                 catch(Exception ex)
                 {
+                    //Well something went terribly wrong so lets give the user both error messages to help with debugging
+                    BH.Engine.Reflection.Compute.RecordError("An error occurred in serialising the objects of type " + objects.GetType() + ". Error messages will follow.");
                     BH.Engine.Reflection.Compute.RecordError(e.ToString());
+                    BH.Engine.Reflection.Compute.RecordError(ex.ToString());
                     success = false;
-
                 }
-
-
-
-                BH.Engine.Reflection.Compute.RecordError(e.ToString());
-                success = false;
             }
 
             return success;
         }
-
-        
-    }
-
-    public static class Blah
-    {
-        public static string ToXML(this object o)
-        {
-            if (o == null)
-                return "";
-
-            Type t = o.GetType();
-
-
-            if (t.IsPrimitive || typeof(string).IsAssignableFrom(t))
-                return o.ToString(); //For primitive types, just return the value
-
-            string line = "";
-            line += "<" + t.Name + ">";
-
-            PropertyInfo[] props = t.GetProperties();
-            if (props.Length == 0)
-                line += o.ToString();
-            else
-            {
-                foreach (PropertyInfo pi in props)
-                {
-                    object value = pi.GetValue(o);
-                    line += "<" + pi.Name + ">";
-
-                    if (value != null && typeof(System.Collections.IEnumerable).IsAssignableFrom(value.GetType()))
-                    {
-                        List<object> list = new List<object>();
-                        var enumerator = ((System.Collections.IEnumerable)value).GetEnumerator();
-                        while (enumerator.MoveNext())
-                        {
-                            list.Add(enumerator.Current);
-                        }
-
-                        bool includeSubHeadings = (list.FirstOrDefault() != null && list.FirstOrDefault().GetType().IsAssignableFrom(typeof(string)));
-
-                        for (int x = 0; x < list.Count; x++)
-                        {
-                            if (includeSubHeadings)
-                                line += "<Item" + x.ToString() + ">";
-                            line += list[x].ToXML();
-
-                            if (includeSubHeadings)
-                                line += "</Item" + x.ToString() + ">";
-                        }
-                    }
-                    else
-                    {
-                        line += value.ToXML();
-                    }
-
-                    line += "</" + pi.Name + ">";
-                }
-            }
-
-            line += "</" + t.Name + ">";
-
-            return line;
-        }
-
-        /*public static XElement ToXML(this object o)
-        {
-            Type t = o.GetType();
-
-            List<Type> extraTypes = t.GetProperties()
-                .Where(p => p.PropertyType.IsInterface)
-                .Select(p =>
-                {
-                    object val = p.GetValue(o, null);
-                    if (val != null)
-                        return val.GetType();
-                    else
-                        return null;
-                })
-                .ToList();
-
-            extraTypes = BH.Engine.Reflection.Query.BHoMTypeList();
-
-            extraTypes = extraTypes.Where(x => x != null && !x.IsGenericType && !x.IsInterface).ToList();           
-
-            DataContractSerializer serializer = new DataContractSerializer(t, extraTypes);
-            StringWriter sw = new StringWriter();
-            XmlTextWriter xw = new XmlTextWriter(sw);
-            serializer.WriteObject(xw, o);
-            return XElement.Parse(sw.ToString());
-        }*/
     }
 }
 
