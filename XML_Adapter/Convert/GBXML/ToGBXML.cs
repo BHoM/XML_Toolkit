@@ -176,7 +176,7 @@ namespace BH.Adapter.XML
             gbx.LengthUnit = settings.UnitSetUp.LengthUnit.ToGBX();
             gbx.AreaUnit = settings.UnitSetUp.AreaUnit.ToGBX();
             gbx.VolumeUnit = settings.UnitSetUp.VolumeUnit.ToGBX();
-            gbx.UseSIUnitsForResults = (settings.UnitType == oM.Adapters.XML.Enums.UnitType.SI ? "true" : "false");
+            gbx.UseSIUnitsForResults = (settings.ResultsUnitType == oM.Adapters.XML.Enums.UnitType.SI ? "true" : "false");
 
             return gbx;
         }

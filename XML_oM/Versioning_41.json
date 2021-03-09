@@ -1,0 +1,27 @@
+{
+  "Namespace": {
+    "ToNew": {
+      
+    },
+    "ToOld": {
+      
+    }
+  },
+  "Type": {
+    "ToNew": {
+      
+    },
+    "ToOld": {
+      
+    }
+  },
+  "Property": {
+    "ToNew": {
+      "BH.oM.Adapters.XML.Settings.GBXMLSettings.UnitType": "ResultsUnitType"
+    },
+    "ToOld": {
+      "BH.oM.Adapters.XML.Settings.GBXMLSettings.ResultsUnitType": "UnitType"
+    }
+  }
+
+}
