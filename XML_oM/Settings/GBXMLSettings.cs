@@ -52,7 +52,7 @@ namespace BH.oM.Adapters.XML.Settings
         public virtual bool NewFile { get; set; } = true;
 
         [Description("Set the unit type for the results to be either SI or Imperial. Default SI")]
-        public virtual UnitType UnitType { get; set; } = UnitType.SI;
+        public virtual UnitType ResultsUnitType { get; set; } = UnitType.SI;
 
         [Description("Set the detail of your export to be either full (whole building), shell (exterior walls only), or spaces (each individual space as its own XML file). Default full")]
         public virtual ExportDetail ExportDetail { get; set; } = ExportDetail.Full;
