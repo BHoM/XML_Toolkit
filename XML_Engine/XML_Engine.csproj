@@ -106,8 +106,6 @@
     <Compile Include="Query\ExposedToSun.cs" />
     <Compile Include="Query\ExternalElements.cs" />
     <Compile Include="Query\IsExternal.cs" />
-    <Compile Include="Query\ConstructionID.cs" />
-    <Compile Include="Query\CADObjectID.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Convert\" />

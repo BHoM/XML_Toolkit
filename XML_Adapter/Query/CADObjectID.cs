@@ -35,7 +35,7 @@ using BH.Engine.Environment;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.Adapters.XML
+namespace BH.Adapter.XML
 {
     public static partial class Query
     {
@@ -50,7 +50,8 @@ namespace BH.Engine.Adapters.XML
         public static string CADObjectID(this BHE.Panel element, bool replaceCurtainWalls = false)
         {
             string CADObjectID = "";
-            if (element == null) return CADObjectID;
+            if (element == null)
+                return CADObjectID;
 
             BHP.OriginContextFragment contextProperties = element.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
 
@@ -135,15 +136,18 @@ namespace BH.Engine.Adapters.XML
         public static string CADObjectID(this BHE.Opening opening)
         {
             BHP.OriginContextFragment contextProp = opening.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
-            if (contextProp == null) return "WinInst: SIM_EXT_GLZ [000000]";
+            if (contextProp == null)
+                return "WinInst: SIM_EXT_GLZ [000000]";
 
             string cadID = "";
-            if (contextProp.TypeName == "") cadID += "WinInst: SIM_EXT_GLZ";
+            if (contextProp.TypeName == "")
+                cadID += "WinInst: SIM_EXT_GLZ";
             else cadID += contextProp.TypeName;
 
             cadID += " [";
 
-            if (contextProp.ElementID == "") cadID += "000000";
+            if (contextProp.ElementID == "")
+                cadID += "000000";
             else cadID += contextProp.ElementID;
 
             cadID += "]";
@@ -159,7 +163,8 @@ namespace BH.Engine.Adapters.XML
         public static string CADObjectID(this BHE.Space space)
         {
             BHP.OriginContextFragment contextProp = space.FindFragment<BHP.OriginContextFragment>(typeof(BHP.OriginContextFragment));
-            if (contextProp == null) return "";
+            if (contextProp == null)
+                return "";
 
             return contextProp.TypeName + " [" + contextProp.ElementID + "]";
         }

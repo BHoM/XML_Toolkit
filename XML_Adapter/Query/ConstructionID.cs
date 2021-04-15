@@ -30,7 +30,7 @@ using BHC = BH.oM.Physical.Constructions;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.Adapters.XML
+namespace BH.Adapter.XML
 {
     public static partial class Query
     {
@@ -43,7 +43,8 @@ namespace BH.Engine.Adapters.XML
         [Output("contstructionID", "The unique ID for the construction on the panel")]
         public static string ConstructionID(this BHE.Panel panel)
         {
-            if (panel == null || panel.Construction == null) return null;
+            if (panel == null || panel.Construction == null)
+                return null;
             return panel.Construction.ConstructionID();
         }
 
@@ -52,7 +53,8 @@ namespace BH.Engine.Adapters.XML
         [Output("contstructionID", "The unique ID for the construction")]
         public static string ConstructionID(this BHC.IConstruction construction)
         {
-            if (construction == null) return null;
+            if (construction == null)
+                return null;
             return ConstructionID(construction as dynamic);
         }
 
@@ -66,7 +68,8 @@ namespace BH.Engine.Adapters.XML
             //Originally we used the GUID and got the combinations below - but each name is unique so each returned string ID will be unique anyway - but the following comment line is being left in as a nice little factoid for the next person... (//TD)
             //Using the first 8 digits of the GUID gives 218,340,105,584,896 possible combinations of IDs, so the liklihood of 2 different GUIDs producing the same result from this function is fairly small...
 
-            if (construction.Name == "") return null;
+            if (construction.Name == "")
+                return null;
 
             String rtnID = construction.Name[0].ToString();
 
