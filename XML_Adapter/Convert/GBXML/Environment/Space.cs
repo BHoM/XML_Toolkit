@@ -46,7 +46,7 @@ namespace BH.Adapter.XML
 
             xmlSpace.Name = panelsAsSpace.ConnectedSpaceName();
             xmlSpace.ID = "Space" + xmlSpace.Name.Replace(" ", "").Replace("-", "");
-            xmlSpace.CADObjectID = BH.Engine.Adapters.XML.Query.CADObjectID(panelsAsSpace);
+            xmlSpace.CADObjectID = BH.Adapter.XML.Query.CADObjectID(panelsAsSpace);
 
             List<Polyline> shellGeometry = panelsAsSpace.ClosedShellGeometry();
             List<GBXML.Polyloop> loopShell = new List<GBXML.Polyloop>();

@@ -220,6 +220,8 @@
     <Compile Include="Objects\KML\Style\LineStyle.cs" />
     <Compile Include="Objects\KML\Style\PolyStyle.cs" />
     <Compile Include="Objects\KML\Style\Style.cs" />
+    <Compile Include="Query\CADObjectID.cs" />
+    <Compile Include="Query\ConstructionID.cs" />
     <Compile Include="XMLAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -235,7 +237,9 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Versioning_42.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

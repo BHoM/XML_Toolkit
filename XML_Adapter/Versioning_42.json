@@ -1,0 +1,44 @@
+{
+  "Namespace": {
+    "ToNew": {
+    },
+    "ToOld": {
+    }
+  },
+  "Type": {
+    "ToNew": {
+
+    },
+    "ToOld": {
+
+    }
+  },
+  "Method": {
+    "ToNew": {
+
+    },
+    "ToOld": {
+
+    }
+  },
+  "Property": {
+    "ToNew": {
+
+    },
+    "ToOld": {
+
+    }
+  },
+  "MessageForDeleted": {
+    "BH.Engine.Adapters.XML.Query.ConstructionID(BH.oM.Physical.Constructions.Construction)" : "The ConstructionID method has moved to the XML Adapter as it was primarily for internal querying of data for XML serialisation to the gbXML schema. The method has been deleted to avoid cluttering the UIs. If this causes you an issue please raise an issue at https://github.com/BHoM/XML_Toolkit/issues",
+    "BH.Engine.Adapters.XML.Query.ConstructionID(BH.oM.Physical.Constructions.IConstruction)" : "The ConstructionID method has moved to the XML Adapter as it was primarily for internal querying of data for XML serialisation to the gbXML schema. The method has been deleted to avoid cluttering the UIs. If this causes you an issue please raise an issue at https://github.com/BHoM/XML_Toolkit/issues",
+    "BH.Engine.Adapters.XML.Query.ConstructionID(BH.oM.Environment.Elements.Panel)" : "The ConstructionID method has moved to the XML Adapter as it was primarily for internal querying of data for XML serialisation to the gbXML schema. The method has been deleted to avoid cluttering the UIs. If this causes you an issue please raise an issue at https://github.com/BHoM/XML_Toolkit/issues",
+    "BH.Engine.Adapters.XML.Query.CADObjectID(BH.oM.Environment.Elements.Panel, System.Boolean)" : "The CADObjectID method has moved to the XML Adapter as it was primarily for internal querying of data for XML serialisation to the gbXML schema. The method has been deleted to avoid cluttering the UIs. If this causes you an issue please raise an issue at https://github.com/BHoM/XML_Toolkit/issues",
+    "BH.Engine.Adapters.XML.Query.CADObjectID(System.Collections.Generic.List<BH.oM.Environment.Elements.Panel>)" : "The CADObjectID method has moved to the XML Adapter as it was primarily for internal querying of data for XML serialisation to the gbXML schema. The method has been deleted to avoid cluttering the UIs. If this causes you an issue please raise an issue at https://github.com/BHoM/XML_Toolkit/issues",
+    "BH.Engine.Adapters.XML.Query.CADObjectID(BH.oM.Environment.Elements.Opening)" : "The CADObjectID method has moved to the XML Adapter as it was primarily for internal querying of data for XML serialisation to the gbXML schema. The method has been deleted to avoid cluttering the UIs. If this causes you an issue please raise an issue at https://github.com/BHoM/XML_Toolkit/issues",
+    "BH.Engine.Adapters.XML.Query.CADObjectID(BH.oM.Environment.Elements.Space)" : "The CADObjectID method has moved to the XML Adapter as it was primarily for internal querying of data for XML serialisation to the gbXML schema. The method has been deleted to avoid cluttering the UIs. If this causes you an issue please raise an issue at https://github.com/BHoM/XML_Toolkit/issues",
+  },
+  "MessageForNoUpgrade": {
+
+  }
+}
