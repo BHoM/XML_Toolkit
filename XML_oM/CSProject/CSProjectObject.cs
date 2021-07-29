@@ -43,11 +43,6 @@ namespace BH.oM.XML.CSProject
         public virtual FragmentSet Fragments { get; set; }
         [XmlIgnore]
         public virtual HashSet<string> Tags { get; set; }
-
-        public IBHoMObject GetShallowClone(bool newGuid = false)
-        {
-            return this;
-        }
     }
 }
 
