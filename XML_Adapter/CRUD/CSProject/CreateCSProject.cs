@@ -67,7 +67,7 @@ namespace BH.Adapter.XML
 
                 List<string> xmlParts = new List<string>();
 
-                xmlParts.Add("<Project ToolsVersion=\"" + doc.ToolsVersion + "\" DefaultTarget=\"" + doc.DefaultTargets + "\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">");
+                //xmlParts.Add("<Project ToolsVersion=\"" + doc.ToolsVersion + "\" DefaultTarget=\"" + doc.DefaultTargets + "\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">");
 
                 StringWriter textWriter = new StringWriter();
 

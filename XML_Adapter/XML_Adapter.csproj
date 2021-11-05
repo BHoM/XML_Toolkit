@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -143,6 +143,7 @@
     <Compile Include="Convert\KML\Point.cs" />
     <Compile Include="Convert\KML\ToKML.cs" />
     <Compile Include="Convert\KML\ToLatLon.cs" />
+    <Compile Include="CRUD\Bluebeam\ReadBluebeam.cs" />
     <Compile Include="CRUD\Create.cs" />
     <Compile Include="CRUD\CSProject\CreateCSProject.cs" />
     <Compile Include="CRUD\CSProject\ReadCSProject.cs" />

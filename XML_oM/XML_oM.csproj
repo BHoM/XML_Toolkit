@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTarget="" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -61,6 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bluebeam\BluebeamObject.cs" />
+    <Compile Include="Bluebeam\Markup.cs" />
+    <Compile Include="Bluebeam\MarkupSummary.cs" />
     <Compile Include="CSProject\ItemGroup\IncludedFile.cs" />
     <Compile Include="CSProject\ItemGroup\ProjectReference.cs" />
     <Compile Include="CSProject\ItemGroup\Reference.cs" />
