@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
  * Copyright (c) 2015 - 2021, the respective contributors. All rights reserved.
  *
@@ -21,37 +21,42 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Collections;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.IO;
+
 using BH.oM.Base;
+using BHE = BH.oM.Environment.Elements;
+using BH.oM.Environment.Fragments;
+using BHG = BH.oM.Geometry;
 
-namespace BH.oM.XML.CSProject
+using BH.oM.Adapters.XML;
+using BH.oM.Adapters.XML.Enums;
+using BHX = BH.Adapter.XML.GBXMLSchema;
+using BHC = BH.oM.Physical.Constructions;
+
+using BH.oM.Adapter;
+using BH.Engine.Adapter;
+using BH.Engine.Geometry;
+using BH.oM.Environment.Elements;
+using BH.Engine.Environment;
+
+namespace BH.Adapter.XML
 {
-    [Serializable]
-    [XmlRoot(ElementName = "Project", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
-    public class Project : CSProjectObject
+    public partial class XMLAdapter : BHoMAdapter
     {
-        /*[XmlAttribute("ToolsVersion")]
-        public virtual string ToolsVersion { get; set; } = "";
+        private IEnumerable<IBHoMObject> ReadBluebeam(Type type = null, XMLConfig config = null)
+        {
+            BH.oM.XML.Bluebeam.BluebeamObject report = null;
 
-        [XmlAttribute("DefaultTargets")]
-        public virtual string DefaultTargets { get; set; } = "";
+            TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
+            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.Bluebeam.BluebeamObject));
+            report = (BH.oM.XML.Bluebeam.BluebeamObject)szer.Deserialize(reader);
+            reader.Close();
 
-        [XmlAttribute("xmlns")]
-        public virtual string XMLNamespace { get; set; } = "";*/
-
-        [XmlElement("Import")]
-        public virtual List<Import> Imports { get; set; } = new List<Import>();
-
-        [XmlElement("PropertyGroup")]
-        public virtual List<PropertyGroup> PropertyGroups { get; set; } = new List<PropertyGroup>();
-
-        [XmlElement("ItemGroup")]
-        public virtual List<ItemGroup> ItemGroups { get; set; } = new List<ItemGroup>();
+            return new List<IBHoMObject> { report };
+        }
     }
 }
-

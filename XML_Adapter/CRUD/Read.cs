@@ -72,6 +72,8 @@ namespace BH.Adapter.XML
                 case Schema.KML:
                     BH.Engine.Reflection.Compute.RecordError("The KML Schema is not supported for pull operations at this time");
                     return new List<IBHoMObject>();
+                case Schema.Bluebeam:
+                    return ReadBluebeam(type, config);
                 default:
                     BH.Engine.Reflection.Compute.RecordNote("You have not supplied a supported XML Schema to pull. Data is being returned as Custom Objects.");
                     return ReadDefault();

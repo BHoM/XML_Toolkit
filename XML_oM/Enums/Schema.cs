@@ -34,6 +34,8 @@ namespace BH.oM.Adapters.XML.Enums
     public enum Schema
     {
         Undefined,
+        [Description("Bluebeam markup files with data pulled through for specific workflows.")]
+        Bluebeam,
         [Description("CSProject files are used to work out compiling information for code projects. Typically seen in Visual Studio solution files")]
         CSProject,
         [Description("EnergyPlusLoads is the XML schema for load results calculated using the EnergyPlus software")]
