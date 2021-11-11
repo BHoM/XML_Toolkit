@@ -34,40 +34,40 @@ namespace BH.oM.XML.Bluebeam
     [XmlRoot(ElementName = "Markup", IsNullable = false)]
     public class Markup : BluebeamObject
     {
-        [XmlAttribute("Page_Label")]
+        [XmlElement("Page_Label")]
         public virtual int PageLabel { get; set; }
 
-        [XmlAttribute("Subject")]
+        [XmlElement("Subject")]
         public virtual string Subject { get; set; }
 
-        [XmlAttribute("Space")]
+        [XmlElement("Space")]
         public virtual string Space { get; set; }
 
-        [XmlAttribute("Author")]
+        [XmlElement("Author")]
         public virtual string Author { get; set; }
 
-        [XmlAttribute("Date")]
+        [XmlElement("Date")]
         public virtual DateTime Date { get; set; }
 
-        [XmlAttribute("Colour")]
+        [XmlElement("Colour")]
         public virtual string Colour { get; set; }
 
-        [XmlAttribute("Comments")]
+        [XmlElement("Comments")]
         public virtual string Comments { get; set; }
 
-        [XmlAttribute("Length")]
+        [XmlElement("Length")]
         public virtual double Length { get; set; }
 
-        [XmlAttribute("Area")]
+        [XmlElement("Area")]
         public virtual double Area { get; set; }
 
-        [XmlAttribute("Label")]
+        [XmlElement("Label")]
         public virtual string Label { get; set; }
 
-        [XmlAttribute("Depth")]
+        [XmlElement("Depth")]
         public virtual double Depth { get; set; }
 
-        [XmlAttribute("Layer")]
+        [XmlElement("Layer")]
         public virtual string Layer { get; set; }
     }
 }
