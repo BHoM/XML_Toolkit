@@ -52,7 +52,7 @@ namespace BH.Adapter.XML
             BH.oM.XML.Bluebeam.BluebeamObject report = null;
 
             TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
-            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.Bluebeam.BluebeamObject));
+            XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.Bluebeam.MarkupSummary));
             report = (BH.oM.XML.Bluebeam.BluebeamObject)szer.Deserialize(reader);
             reader.Close();
 

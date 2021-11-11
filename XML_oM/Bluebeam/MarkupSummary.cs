@@ -13,7 +13,7 @@ namespace BH.oM.XML.Bluebeam
     [XmlRoot(ElementName = "MarkupSummary", IsNullable = false)]
     public class MarkupSummary : BluebeamObject
     {
-        [XmlAttribute("Markup")]
+        [XmlElement("Markup")]
         public virtual List<Markup> Markup { get; set; }
     }
 }
