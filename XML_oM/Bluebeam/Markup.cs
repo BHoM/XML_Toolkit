@@ -47,7 +47,7 @@ namespace BH.oM.XML.Bluebeam
         public virtual string Author { get; set; }
 
         [XmlElement("Date")]
-        public virtual DateTime Date { get; set; }
+        public virtual string Date { get; set; }
 
         [XmlElement("Colour")]
         public virtual string Colour { get; set; }
