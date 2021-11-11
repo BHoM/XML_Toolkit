@@ -35,14 +35,14 @@ namespace BH.oM.XML.CSProject
     [XmlRoot(ElementName = "Project", IsNullable = false, Namespace = "http://schemas.microsoft.com/developer/msbuild/2003")]
     public class Project : CSProjectObject
     {
-        /*[XmlAttribute("ToolsVersion")]
+        [XmlAttribute("ToolsVersion")]
         public virtual string ToolsVersion { get; set; } = "";
 
         [XmlAttribute("DefaultTargets")]
         public virtual string DefaultTargets { get; set; } = "";
 
         [XmlAttribute("xmlns")]
-        public virtual string XMLNamespace { get; set; } = "";*/
+        public virtual string XMLNamespace { get; set; } = "";
 
         [XmlElement("Import")]
         public virtual List<Import> Imports { get; set; } = new List<Import>();
