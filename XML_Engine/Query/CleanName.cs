@@ -30,7 +30,7 @@ using BHE = BH.oM.Environment.Elements;
 using BH.oM.Adapters.XML.Enums;
 
 using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 
 namespace BH.Engine.Adapters.XML
 {

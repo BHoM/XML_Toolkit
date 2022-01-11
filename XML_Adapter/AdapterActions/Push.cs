@@ -43,7 +43,7 @@ namespace BH.Adapter.XML
 
            /*if (_xmlSettings == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Please set some XML Settings on the XML Adapter before pushing to an XML File");
+                BH.Engine.Base.Compute.RecordError("Please set some XML Settings on the XML Adapter before pushing to an XML File");
                 return new List<object>();
             }*/
 

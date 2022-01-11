@@ -28,7 +28,7 @@ using BHE = BH.oM.Environment.Elements;
 using BHC = BH.oM.Physical.Constructions;
 
 using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 
 namespace BH.Adapter.XML
 {

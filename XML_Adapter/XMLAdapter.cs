@@ -30,7 +30,7 @@ using BH.Engine;
 using BH.oM.Base;
 using System.Reflection;
 
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 using System.ComponentModel;
 using System.IO;
 
@@ -47,13 +47,13 @@ namespace BH.Adapter.XML
         {
             if (fileSettings == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Please set the File Settings correctly to enable the XML Adapter to work correctly");
+                BH.Engine.Base.Compute.RecordError("Please set the File Settings correctly to enable the XML Adapter to work correctly");
                 return;
             }
 
             if (!Path.HasExtension(fileSettings.FileName) || (Path.GetExtension(fileSettings.FileName) != ".xml" && Path.GetExtension(fileSettings.FileName) != ".csproj"))
             {
-                BH.Engine.Reflection.Compute.RecordError("File name must contain a file extension");
+                BH.Engine.Base.Compute.RecordError("File name must contain a file extension");
                 return;
             }
 

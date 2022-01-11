@@ -49,10 +49,10 @@ namespace BH.Adapter.XML
             List<Building> buildings = objs.Buildings();
 
             if (buildings.Count > 1)
-                BH.Engine.Reflection.Compute.RecordWarning("More than 1 building has been supplied. Space information will be assigned to the first building but all buildings will be serialised");
+                BH.Engine.Base.Compute.RecordWarning("More than 1 building has been supplied. Space information will be assigned to the first building but all buildings will be serialised");
             else if (buildings.Count == 0)
             {
-                BH.Engine.Reflection.Compute.RecordWarning("No building was supplied, generic empty building is being used to group the data");
+                BH.Engine.Base.Compute.RecordWarning("No building was supplied, generic empty building is being used to group the data");
                 buildings.Add(new Building());
             }
 

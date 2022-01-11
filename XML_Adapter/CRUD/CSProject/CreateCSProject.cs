@@ -50,7 +50,7 @@ namespace BH.Adapter.XML
 
             if (doc == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("The CSProject schema requires a full system to be provided as a single push operation.");
+                BH.Engine.Base.Compute.RecordError("The CSProject schema requires a full system to be provided as a single push operation.");
                 return false;
             }
 
@@ -121,7 +121,7 @@ namespace BH.Adapter.XML
             }
             catch (Exception e)
             {
-                BH.Engine.Reflection.Compute.RecordError(e.ToString());
+                BH.Engine.Base.Compute.RecordError(e.ToString());
                 success = false;
             }
 

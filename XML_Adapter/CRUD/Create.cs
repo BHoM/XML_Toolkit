@@ -39,14 +39,14 @@ namespace BH.Adapter.XML
         {
             if(actionConfig == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Please provide configuration settings to push to an XML file");
+                BH.Engine.Base.Compute.RecordError("Please provide configuration settings to push to an XML file");
                 return false;
             }
 
             XMLConfig config = actionConfig as XMLConfig;
             if(config == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Please provide valid a XMLConfig object for pushing to an XML file");
+                BH.Engine.Base.Compute.RecordError("Please provide valid a XMLConfig object for pushing to an XML file");
                 return false;
             }
 
@@ -59,13 +59,13 @@ namespace BH.Adapter.XML
                 case Schema.KML:
                     return CreateKML(objects, config);
                 case Schema.EnergyPlusLoads:
-                    BH.Engine.Reflection.Compute.RecordError("The EnergyPlusLoads Schema is not supported for push operations at this time");
+                    BH.Engine.Base.Compute.RecordError("The EnergyPlusLoads Schema is not supported for push operations at this time");
                     return false;
                 case Schema.Bluebeam:
-                    BH.Engine.Reflection.Compute.RecordError("The Bluebeam markup schema is not supported for push operations at this time.");
+                    BH.Engine.Base.Compute.RecordError("The Bluebeam markup schema is not supported for push operations at this time.");
                     return false;
                 default:
-                    BH.Engine.Reflection.Compute.RecordNote("You have not supplied a supported XML Schema to push. Data is being pushed either using a schema set by XML Attributes on the objects, or a default schema based on object properties.");
+                    BH.Engine.Base.Compute.RecordNote("You have not supplied a supported XML Schema to push. Data is being pushed either using a schema set by XML Attributes on the objects, or a default schema based on object properties.");
                     return CreateDefault(objects, config);
             }
         }

@@ -48,14 +48,14 @@ namespace BH.Adapter.XML
 
             if (config.Settings == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Please provide a suitable set of KMLSettings with the XMLConfig to determine how the KML file should be created");
+                BH.Engine.Base.Compute.RecordError("Please provide a suitable set of KMLSettings with the XMLConfig to determine how the KML file should be created");
                 return false;
             }
 
             KMLSettings settings = config.Settings as KMLSettings;
             if (settings == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Please provide a suitable set of KMLSettings with the XMLConfig to determine how the KML file should be created");
+                BH.Engine.Base.Compute.RecordError("Please provide a suitable set of KMLSettings with the XMLConfig to determine how the KML file should be created");
                 return false;
             }
 
@@ -63,7 +63,7 @@ namespace BH.Adapter.XML
 
             if (docBuilder == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("The KML schema requires a full model to be provided as a single push operation. For pushing to the KML version, you need to plug your objects into a KMLDocumentBuilder which collates the objects for pushing and push that to KML via this adapter.");
+                BH.Engine.Base.Compute.RecordError("The KML schema requires a full model to be provided as a single push operation. For pushing to the KML version, you need to plug your objects into a KMLDocumentBuilder which collates the objects for pushing and push that to KML via this adapter.");
                 return false;
             }
 
@@ -85,7 +85,7 @@ namespace BH.Adapter.XML
             }
             catch (Exception e)
             {
-                BH.Engine.Reflection.Compute.RecordError(e.ToString());
+                BH.Engine.Base.Compute.RecordError(e.ToString());
                 success = false;
             }
 

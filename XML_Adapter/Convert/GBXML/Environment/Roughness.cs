@@ -31,7 +31,7 @@ using BH.oM.Environment.MaterialFragments;
 using BHX = BH.Adapter.XML.GBXMLSchema;
 
 using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 
 namespace BH.Adapter.XML
 {
