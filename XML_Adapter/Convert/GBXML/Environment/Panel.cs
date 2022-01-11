@@ -38,7 +38,7 @@ using BH.oM.Adapters.XML.Settings;
 using BHP = BH.oM.Environment.Fragments;
 
 using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 
 using BH.Engine.Adapters.XML;
 
@@ -241,7 +241,7 @@ namespace BH.Adapter.XML
             if (geom.Width == 0)
                 geom.Width = Math.Round(element.Area() / geom.Height, settings.RoundingSettings.GeometryWidth);
             if (geom.Tilt == -1)
-                BH.Engine.Reflection.Compute.RecordWarning("Warning, panel " + element.BHoM_Guid + " has been calculated to have a tilt of -1.");
+                BH.Engine.Base.Compute.RecordWarning("Warning, panel " + element.BHoM_Guid + " has been calculated to have a tilt of -1.");
 
             return geom;
         }

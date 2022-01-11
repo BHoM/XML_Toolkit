@@ -29,7 +29,7 @@ using System.Threading.Tasks;
 using BHE = BH.oM.Environment.Elements;
 
 using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 
 namespace BH.Adapter.XML
 {

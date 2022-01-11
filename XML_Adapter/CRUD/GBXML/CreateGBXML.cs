@@ -47,14 +47,14 @@ namespace BH.Adapter.XML
 
             if(config.Settings == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Please provide a suitable set of GBXMLSettings with the XMLConfig to determine how the GBXML file should be created");
+                BH.Engine.Base.Compute.RecordError("Please provide a suitable set of GBXMLSettings with the XMLConfig to determine how the GBXML file should be created");
                 return false;
             }
 
             GBXMLSettings settings = config.Settings as GBXMLSettings;
             if(settings == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("Please provide a suitable set of GBXMLSettings with the XMLConfig to determine how the GBXML file should be created");
+                BH.Engine.Base.Compute.RecordError("Please provide a suitable set of GBXMLSettings with the XMLConfig to determine how the GBXML file should be created");
                 return false;
             }
 
@@ -62,7 +62,7 @@ namespace BH.Adapter.XML
 
             if(doc == null)
             {
-                BH.Engine.Reflection.Compute.RecordError("The GBXML schema requires a full model to be provided as a single push operation. For pushing to the GBXML version, you need to plug your objects into a GBXMLDocumentBuilder which collates the objects for pushing and push that to GBXML via this adapter.");
+                BH.Engine.Base.Compute.RecordError("The GBXML schema requires a full model to be provided as a single push operation. For pushing to the GBXML version, you need to plug your objects into a GBXMLDocumentBuilder which collates the objects for pushing and push that to GBXML via this adapter.");
                 return false;
             }
 
@@ -83,7 +83,7 @@ namespace BH.Adapter.XML
             }
             else
             {
-                BH.Engine.Reflection.Compute.RecordError("The ExportDetail has not been appropriately set. Please set the ExportDetail to continue");
+                BH.Engine.Base.Compute.RecordError("The ExportDetail has not been appropriately set. Please set the ExportDetail to continue");
                 return false;
             }
 
@@ -105,7 +105,7 @@ namespace BH.Adapter.XML
             }
             catch (Exception e)
             {
-                BH.Engine.Reflection.Compute.RecordError(e.ToString());
+                BH.Engine.Base.Compute.RecordError(e.ToString());
                 success = false;
             }
 

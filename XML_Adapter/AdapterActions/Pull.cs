@@ -39,7 +39,7 @@ namespace BH.Adapter.XML
         {
             if (!System.IO.File.Exists(_fileSettings.GetFullFileName()))
             {
-                BH.Engine.Reflection.Compute.RecordError("File does not exist to pull from");
+                BH.Engine.Base.Compute.RecordError("File does not exist to pull from");
                 return new List<IBHoMObject>();
             }
 

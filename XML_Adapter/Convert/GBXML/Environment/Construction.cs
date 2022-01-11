@@ -39,7 +39,7 @@ using BHEM = BH.oM.Environment.MaterialFragments;
 using BHM = BH.oM.Physical.Materials;
 
 using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 
 using BH.Engine.Adapters.XML;
 using BH.oM.Adapters.XML.Settings;
@@ -109,7 +109,7 @@ namespace BH.Adapter.XML
             gbConstruction.UValue.Value = (analysisProperties == null || analysisProperties.UValue == 0 ? (construction.UValue() == double.NaN || double.IsInfinity(construction.UValue()) ? 10 : construction.UValue()) : analysisProperties.UValue).ToString();
 
             if (gbConstruction.UValue.Value == "10")
-                BH.Engine.Reflection.Compute.RecordWarning(string.Format("U-Value has been calculated to Infinity or NaN. Has been set to default 10"));
+                BH.Engine.Base.Compute.RecordWarning(string.Format("U-Value has been calculated to Infinity or NaN. Has been set to default 10"));
 
             return gbConstruction;
         }

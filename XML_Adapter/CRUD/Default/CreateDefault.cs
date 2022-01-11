@@ -100,9 +100,9 @@ namespace BH.Adapter.XML
                 catch(Exception ex)
                 {
                     //Well something went terribly wrong so lets give the user both error messages to help with debugging
-                    BH.Engine.Reflection.Compute.RecordError("An error occurred in serialising the objects of type " + objects.GetType() + ". Error messages will follow.");
-                    BH.Engine.Reflection.Compute.RecordError(e.ToString());
-                    BH.Engine.Reflection.Compute.RecordError(ex.ToString());
+                    BH.Engine.Base.Compute.RecordError("An error occurred in serialising the objects of type " + objects.GetType() + ". Error messages will follow.");
+                    BH.Engine.Base.Compute.RecordError(e.ToString());
+                    BH.Engine.Base.Compute.RecordError(ex.ToString());
                     success = false;
                 }
             }
