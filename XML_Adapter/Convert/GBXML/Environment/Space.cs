@@ -29,7 +29,7 @@ using System.Threading.Tasks;
 using BH.oM.Environment.Elements;
 using BH.oM.Adapters.XML.Settings;
 using GBXML = BH.Adapter.XML.GBXMLSchema;
-using BH.oM.Geometry.SettingOut;
+using BH.oM.Spatial.SettingOut;
 using BH.oM.Geometry;
 
 using BH.Engine.Geometry;

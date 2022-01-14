@@ -30,7 +30,7 @@ using BH.oM.Base.Attributes;
 using BH.oM.Environment.Elements;
 using GBXML = BH.oM.Adapters.XML;
 using BH.oM.Base;
-using BH.oM.Geometry.SettingOut;
+using BH.oM.Spatial.SettingOut;
 using BH.Engine.Environment;
 
 using System.ComponentModel;
