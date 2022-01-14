@@ -31,7 +31,7 @@ using BH.oM.Adapters.XML.Settings;
 using BH.oM.Base;
 using BH.oM.Environment.Elements;
 using BH.oM.Environment.Fragments;
-using BH.oM.Geometry.SettingOut;
+using BH.oM.Spatial.SettingOut;
 using BH.oM.Physical.Constructions;
 
 using BH.Engine.Environment;

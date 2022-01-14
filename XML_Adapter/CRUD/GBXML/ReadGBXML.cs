@@ -31,6 +31,7 @@ using BH.oM.Base;
 using BHE = BH.oM.Environment.Elements;
 using BH.oM.Environment.Fragments;
 using BHG = BH.oM.Geometry;
+using BHS = BH.oM.Spatial;
 
 using BH.oM.Adapters.XML;
 using BH.oM.Adapters.XML.Enums;
@@ -66,7 +67,7 @@ namespace BH.Adapter.XML
                 return ReadConstructions(gbx);
             else if (type == typeof(BH.oM.Physical.Properties.Material))
                 return ReadMaterials(gbx);*/
-            else if (type == typeof(BHG.SettingOut.Level))
+            else if (type == typeof(BHS.SettingOut.Level))
                 return ReadLevels(gbx);
             else if (type == typeof(BHE.Space))
                 return ReadSpaces(gbx);
@@ -197,12 +198,12 @@ namespace BH.Adapter.XML
                 return new List<BH.oM.Environment.Materials.Material>();
         }*/
 
-        private List<BHG.SettingOut.Level> ReadLevels(BHX.GBXML gbx, List<string> ids = null)
+        private List<BHS.SettingOut.Level> ReadLevels(BHX.GBXML gbx, List<string> ids = null)
         {
             if (gbx.Campus.Building.Length > 0 && gbx.Campus.Building[0].BuildingStorey != null)
                 return gbx.Campus.Building[0].BuildingStorey.Select(x => x.FromGBXML()).ToList();
             else
-                return new List<BHG.SettingOut.Level>();
+                return new List<BHS.SettingOut.Level>();
         }
     }
 }

@@ -30,6 +30,7 @@ using BHE = BH.oM.Environment.Elements;
 using BHA = BH.oM.Architecture.Elements;
 using BHX = BH.Adapter.XML.GBXMLSchema;
 using BHG = BH.oM.Geometry;
+using BHS = BH.oM.Spatial;
 
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
@@ -45,7 +46,7 @@ namespace BH.Adapter.XML
         [Input("level", "A BHoM level to find the storey for")]
         [Input("spaces", "A list of BHoM spaces that sits on the given level")]
         [Output("buildingStorey", "The gbXML building storey")]
-        public static BHX.BuildingStorey ToGBXML(this BHG.SettingOut.Level level, BHG.Polyline storeyGeometry, GBXMLSettings settings)
+        public static BHX.BuildingStorey ToGBXML(this BHS.SettingOut.Level level, BHG.Polyline storeyGeometry, GBXMLSettings settings)
         {
             BHX.BuildingStorey storey = new BHX.BuildingStorey();
 
@@ -63,9 +64,9 @@ namespace BH.Adapter.XML
         [Description("Returns a BHoM Level represention of a gbXML storey")]
         [Input("storey", "Set a gbXML storey to get the Level from")]
         [Output("level", "The BHoM level")]
-        public static BHG.SettingOut.Level FromGBXML(this BHX.BuildingStorey storey)
+        public static BHS.SettingOut.Level FromGBXML(this BHX.BuildingStorey storey)
         {
-            BHG.SettingOut.Level level = new BHG.SettingOut.Level();
+            BHS.SettingOut.Level level = new BHS.SettingOut.Level();
 
             level.Name = storey.Name;
             level.Elevation = storey.Level;
