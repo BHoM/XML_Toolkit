@@ -43,6 +43,7 @@ using BH.oM.Base.Attributes;
 
 using BH.Engine.Adapters.XML;
 using BH.oM.Adapters.XML.Settings;
+using BH.Engine.Base;
 
 namespace BH.Adapter.XML
 {

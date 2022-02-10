@@ -30,14 +30,13 @@ using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
 using BHX = BH.Adapter.XML.GBXMLSchema;
 using BHG = BH.oM.Geometry;
-
 using BH.Engine.Geometry;
 using BH.Engine.Environment;
-
 using System.ComponentModel;
 using BH.oM.Base.Attributes;
 using BH.oM.Adapters.XML.Settings;
 using BH.oM.XML.Fragments;
+using BH.Engine.Base;
 
 namespace BH.Adapter.XML
 {
