@@ -40,6 +40,7 @@ using System.ComponentModel;
 using BH.oM.Base.Attributes;
 
 using BH.Engine.Adapters.XML;
+using BH.Engine.Base;
 
 namespace BH.Adapter.XML
 {

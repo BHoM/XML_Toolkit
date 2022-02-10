@@ -27,13 +27,11 @@ using BH.Engine.Geometry;
 using System.Linq;
 using BHE = BH.oM.Environment.Elements;
 using BHP = BH.oM.Environment.Fragments;
-
 using BH.oM.Adapters.XML.Enums;
-
 using BH.Engine.Environment;
-
 using System.ComponentModel;
 using BH.oM.Base.Attributes;
+using BH.Engine.Base;
 
 namespace BH.Adapter.XML
 {

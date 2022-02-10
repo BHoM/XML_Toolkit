@@ -36,6 +36,7 @@ using BH.oM.Physical.Constructions;
 
 using BH.Engine.Environment;
 using BH.oM.Adapters.XML;
+using BH.Engine.Base;
 
 namespace BH.Adapter.XML
 {
