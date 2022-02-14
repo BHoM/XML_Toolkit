@@ -74,8 +74,8 @@ namespace BH.Engine.Adapters.XML
 
             List<Panel> unassignedPanels = new List<Panel>();
 
-            List<Panel> shadingElements = panels.FilterPanelsByType(PanelType.Shade).Item1;
-            panels = panels.FilterPanelsByType(PanelType.Shade).Item2; //Remove shading if it exists
+            List<Panel> shadingElements = panels.FilterPanelsByType(new List<PanelType>() { PanelType.Shade }).Item1;
+            panels = panels.FilterPanelsByType(new List<PanelType>() { PanelType.Shade }).Item2; //Remove shading if it exists
 
             List<List<Panel>> elementsAsSpaces = panels.ToSpaces();
             unassignedPanels.AddRange(panels.Where(x => !elementsAsSpaces.IsContaining(x)).ToList());
