@@ -51,11 +51,7 @@ namespace BH.Adapter.XML
     {
         private IEnumerable<IBHoMObject> ReadDefault(Type type = null, XMLConfig config = null)
         {
-            //Most XML files include header information, which causes the XmlTextReader to fail. Removing the header information fixes this failure. 
-            //Assuming the header information isn't important to us, we can remove it. 
             List<string> docLines = File.ReadAllLines(_fileSettings.GetFullFileName()).ToList();
-            if (docLines[0].StartsWith(@"<?xml"))
-                docLines.RemoveAt(0);
 
             //Due to needing to read an XML file without a schema, we read each node instead and convert it to a JSON string which we then deserialise via Serialiser_Engine to get the custom objects
             XmlTextReader reader = new XmlTextReader(new StringReader(string.Join(Environment.NewLine, docLines)));
