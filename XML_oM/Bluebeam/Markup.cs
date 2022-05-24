@@ -80,7 +80,6 @@ namespace BH.oM.XML.Bluebeam
                     return null;
                 }
             }
-            set { XMLDepth = value.ToString(); }
         }
         
         [XmlElement("Layer")]
