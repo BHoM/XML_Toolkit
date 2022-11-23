@@ -65,22 +65,7 @@ namespace BH.oM.XML.Bluebeam
         public virtual string Label { get; set; }
 
         [XmlElement("Depth")]
-        public string XMLDepth;
-        
-        public virtual double? Depth
-        {
-            get
-            {
-                try
-                {
-                    return Convert.ToDouble(XMLDepth);
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-        }
+        public string XMLDepth { get; set; }
         
         [XmlElement("Layer")]
         public virtual string Layer { get; set; }
