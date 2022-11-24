@@ -43,7 +43,7 @@ namespace BH.Engine.Adapters.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Returns the 'depth' property of a markup object as a double. If the value cannot be converted to a double (if the value is null or blank for example) then an error will be returned.")]
+        [Description("Returns the 'depth' property of a markup object as a double. If the value cannot be converted to a double (if the value is null or blank for example) then an error will be provided and -1 will be returned.")]
         [Input("markup", "A markup object which contains the 'depth' property.")]
         [Output("depth", "The depth value as a double, or -1 if the value could not be converted to a double.")]
         public static double Depth(this Markup markup)
