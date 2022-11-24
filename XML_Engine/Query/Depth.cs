@@ -48,6 +48,9 @@ namespace BH.Engine.Adapters.XML
         [Output("depth", "The depth value as a double, or -1 if the value could not be converted to a double.")]
         public static double Depth(this Markup markup)
         {
+            if (markup == null)
+                return -1;
+
             try
             {
                 return System.Convert.ToDouble(markup.XMLDepth);
