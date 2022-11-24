@@ -43,10 +43,9 @@ namespace BH.Engine.Adapters.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Determines whether a collection of Environment Panels representing a single space contains any panels which are externally facing")]
-        [Input("elementsAsSpace", "A collection of Environment Panels that represent closed spaced")]
-        [Input("elementsAsSpaces", "A nested collection of Environment Panels which represent all spaces in the model")]
-        [Output("isExternal", "True if the space has at least one externally facing Panel")]
+        [Description("Returns the 'depth' property of a markup object as a double. If the value cannot be converted to a double (if the value is null or blank for example) then an error will be returned.")]
+        [Input("markup", "A markup object which contains the 'depth' property.")]
+        [Output("Depth", "The depth value as a double, or -1 if the value could not be converted to a double.")]
         public static double Depth(this Markup markup)
         {
             try
@@ -55,7 +54,7 @@ namespace BH.Engine.Adapters.XML
             }
             catch (Exception e)
             {
-                BH.Engine.Base.Compute.RecordError("Could not convert XMLDepth to numerical depth.");
+                BH.Engine.Base.Compute.RecordError($"Could not convert XMLDepth value {markup.XMLDepth} to numerical depth.");
                 return -1;
             }
         }
