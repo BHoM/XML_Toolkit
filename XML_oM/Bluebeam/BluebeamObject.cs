@@ -34,7 +34,7 @@ namespace BH.oM.XML.Bluebeam
     public class BluebeamObject : IBHoMObject
     {
         [XmlIgnore]
-        public virtual Guid BHoM_Guid { get; set; }
+        public virtual Guid BHoM_Guid { get; set; } = Guid.NewGuid();
         [XmlIgnore]
         public virtual Dictionary<string, object> CustomData { get; set; }
         [XmlIgnore]

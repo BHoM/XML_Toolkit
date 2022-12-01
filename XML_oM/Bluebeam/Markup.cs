@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,6 +65,7 @@ namespace BH.oM.XML.Bluebeam
         [XmlElement("Label")]
         public virtual string Label { get; set; }
 
+        [Description("By default this is an XML String representation. Most software will automatically handle the conversion to a numerical representation but users can also use the Query.Depth(Markup) method if necessary.")]
         [XmlElement("Depth")]
         public virtual string Depth { get; set; }
         
