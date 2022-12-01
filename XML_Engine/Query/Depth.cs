@@ -53,11 +53,11 @@ namespace BH.Engine.Adapters.XML
 
             try
             {
-                return System.Convert.ToDouble(markup.XMLDepth);
+                return System.Convert.ToDouble(markup.Depth);
             }
             catch (Exception e)
             {
-                BH.Engine.Base.Compute.RecordError($"Could not convert XMLDepth value {markup.XMLDepth} to numerical depth.");
+                BH.Engine.Base.Compute.RecordError($"Could not convert XMLDepth value {markup.Depth} to numerical depth.");
                 return -1;
             }
         }
