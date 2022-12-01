@@ -65,7 +65,7 @@ namespace BH.oM.XML.Bluebeam
         public virtual string Label { get; set; }
 
         [XmlElement("Depth")]
-        public virtual string XMLDepth { get; set; }
+        public virtual string Depth { get; set; }
         
         [XmlElement("Layer")]
         public virtual string Layer { get; set; }
