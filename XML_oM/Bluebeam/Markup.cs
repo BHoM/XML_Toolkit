@@ -71,6 +71,46 @@ namespace BH.oM.XML.Bluebeam
         
         [XmlElement("Layer")]
         public virtual string Layer { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("TFA-FloorType")]
+        public virtual string TFAFloorType { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("TFA-Storey")]
+        public virtual int TFAStorey { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("TFA-Height")]
+        public virtual double TFAHeight { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("Opening-Type")]
+        public virtual string OpeningType { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("Opening-Location")]
+        public virtual string OpeningLocation { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("Opening-Height")]
+        public virtual double OpeningHeight { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("Opening-Orientation")]
+        public virtual string OpeningOrientation { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("Opening-Pitch")]
+        public virtual string OpeningPitch { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("Wall-Type")]
+        public virtual string WallType { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("Wall-Height")]
+        public virtual double WallHeight { get; set; }
     }
 }
 
