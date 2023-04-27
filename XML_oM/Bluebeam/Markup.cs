@@ -77,8 +77,12 @@ namespace BH.oM.XML.Bluebeam
         public virtual string TFAFloorType { get; set; }
 
         [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
-        [XmlElement("TFA-Storey")]
-        public virtual int TFAStorey { get; set; }
+        [XmlElement("TFA-DwellingStorey")]
+        public virtual int TFADwellingStorey { get; set; }
+
+        [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
+        [XmlElement("TFA-BuildingLevel")]
+        public virtual int TFABuildingLevel { get; set; }
 
         [Description("This is a custom property which can be added to Bluebeam for SAP workflow interoperability.")]
         [XmlElement("TFA-Height")]
