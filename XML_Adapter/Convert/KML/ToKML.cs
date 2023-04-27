@@ -21,11 +21,11 @@
  */
 
 using System.Collections.Generic;
-using KML = BH.oM.Adapters.XML.KMLSchema;
+using KML = BH.Adapter.XML.KMLSchema;
 using BH.oM.Base;
 using BH.oM.Adapters.XML.Settings;
 using BH.oM.Adapters.XML;
-using BH.oM.Adapters.XML.KMLSchema;
+using BH.Adapter.XML.KMLSchema;
 using BHG = BH.oM.Geometry;
 using System.Linq;
 using BH.Engine.Geometry;
