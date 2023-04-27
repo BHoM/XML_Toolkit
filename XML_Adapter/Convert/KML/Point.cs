@@ -23,7 +23,7 @@
 using BH.oM.Adapters.XML;
 using System.Collections.Generic;
 using BHG = BH.oM.Geometry;
-using KML = BH.oM.Adapters.XML.KMLSchema;
+using KML = BH.Adapter.XML.KMLSchema;
 
 namespace BH.Adapter.XML
 {
