@@ -25,7 +25,7 @@ using BH.oM.Adapters.XML;
 using BH.oM.Adapters.XML.Enums;
 using System;
 using BHG = BH.oM.Geometry;
-using KML = BH.oM.Adapters.XML.KMLSchema;
+using KML = BH.Adapter.XML.KMLSchema;
 
 namespace BH.Adapter.XML
 {

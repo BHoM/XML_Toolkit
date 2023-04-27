@@ -21,7 +21,7 @@
  */
 
 using BHG = BH.oM.Geometry;
-using KML = BH.oM.Adapters.XML.KMLSchema;
+using KML = BH.Adapter.XML.KMLSchema;
 using BH.oM.Adapters.XML;
 using System.Collections.Generic;
 using BH.Engine.Geometry;

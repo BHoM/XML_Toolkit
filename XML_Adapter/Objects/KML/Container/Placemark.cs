@@ -24,7 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace BH.oM.Adapters.XML.KMLSchema
+namespace BH.Adapter.XML.KMLSchema
 {
     [Serializable]
     [XmlRoot(ElementName = "kml", IsNullable = false, Namespace = "http://www.opengis.net/kml/2.2")]
