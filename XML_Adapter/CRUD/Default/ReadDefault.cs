@@ -51,112 +51,32 @@ namespace BH.Adapter.XML
     {
         private IEnumerable<IBHoMObject> ReadDefault(Type type = null, XMLConfig config = null)
         {
-            List<string> docLines = File.ReadAllLines(_fileSettings.GetFullFileName()).ToList();
-
-            //Due to needing to read an XML file without a schema, we read each node instead and convert it to a JSON string which we then deserialise via Serialiser_Engine to get the custom objects
-            XmlTextReader reader = new XmlTextReader(new StringReader(string.Join(Environment.NewLine, docLines)));
-            XmlDocument doc = new XmlDocument();
-            XmlNode node = doc.ReadNode(reader);
-
-            if (node.NodeType == XmlNodeType.XmlDeclaration)
-                node = doc.ReadNode(reader); //Try the next node...
-
-            bool isBHoM = node.Name.ToLower() == "bhom";
-
-            string obj = ExtractData(node, null, isBHoM);
-
-            if (obj.EndsWith(","))
-                obj = obj.Substring(0, obj.Length - 1);
-
-            if(obj.StartsWith("\"BHoM\":{"))
+            object obj = null;
+            try
             {
-                //An XML deserialised that was previously serialised as BHoM - remove the BHoM heading
-                obj = obj.Replace("\"BHoM\":{", "{");
+                TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
+                XmlSerializer szer = new XmlSerializer(type);
+                obj = System.Convert.ChangeType(szer.Deserialize(reader), type);
+                reader.Close();
             }
-            else
-                obj = "{" + obj + "}"; //Wrap the json string
-
-            return new List<CustomObject>() { BH.Engine.Serialiser.Convert.FromJson(obj) as CustomObject };
-        }
-
-        private string ExtractData(XmlNode node, string previousName = null, bool isBHoM = false)
-        {
-            //This is a recursive method
-            if (node == null || node.Name.ToLower().Contains("whitespace"))
-                return "";
-
-            string line = "";
-
-            string nodeName = node.Name.Replace("#", "");
-
-            if (previousName != nodeName)
+            catch(Exception e)
             {
-                if (!isBHoM || (isBHoM && nodeName.ToLower() != "text"))
-                {
-                    previousName = nodeName;
-                    line += "\"" + previousName + "\":";
-                }
+                BH.Engine.Base.Compute.RecordError($"Error occurred while deserialising the XML to object of type {type}. Error received was: {e.ToString()}.");
+                return null;
             }
 
-            if (node.HasChildNodes)
+            try
             {
-                List<XmlNode> nodes1 = new List<XmlNode>();
-                foreach (XmlNode n in node.ChildNodes)
-                    nodes1.Add(n);
-
-                var nodes = nodes1.GroupBy(x => x.Name.Replace("#", ""));
-
-                if(nodes.Any(x => x.Key.ToLower() != "text") || !isBHoM)
-                    line += "{";
-
-                foreach (var group in nodes)
-                {
-                    if (group.Key.ToLower().Contains("whitespace"))
-                        continue;
-
-                    if (group.Key.ToLower() == previousName.ToLower() && group.Count() == 1)
-                        line += "\"" + previousName + "\":{";
-
-                    if (group.Count() > 1)
-                    {
-                        line += "\"" + group.Key + "\":[";
-                        previousName = group.Key;
-                    }
-
-                    foreach (var v in group)
-                    {
-                        string s = ExtractData(v, previousName, isBHoM);
-                        if(!string.IsNullOrEmpty(s) && s != "\"\",")
-                            line += s;
-                    }
-
-                    if (group.Key.ToLower() == previousName.ToLower() && group.Count() == 1)
-                    {
-                        if (line.EndsWith(","))
-                            line = line.Substring(0, line.Length - 1); //Remove last ','
-                        line += "},";
-                    }
-
-                    if (group.Count() > 1)
-                    {
-                        if (line.EndsWith(","))
-                            line = line.Substring(0, line.Length - 1); //Remove last ','
-                        line += "],";
-                    }
-                }
-
-                if (line.EndsWith(","))
-                    line = line.Substring(0, line.Length - 1); //Remove last ','
-
-                if (nodes.Any(x => x.Key.ToLower() != "text") || !isBHoM)
-                    line += "}";
+                var bhomObj = (IBHoMObject)obj;
+                return new List<IBHoMObject> { bhomObj };
             }
-            else if (node.Value != null)
-                line += "\"" + node.Value.Replace("\r", "").Replace("\n", "").Replace("\"", "'").Trim() + "\"";
-            else
-                line += "\"\""; //Empty element
-
-            return line + ",";
+            catch(Exception e)
+            {
+                BH.Engine.Base.Compute.RecordWarning($"Could not cast deserialised object back to an IBHoMObject. Data returned as CustomObject instead.");
+                CustomObject cObj = new CustomObject();
+                cObj.CustomData["Data"] = obj;
+                return new List<IBHoMObject> { cObj };
+            }
         }
     }
 }
