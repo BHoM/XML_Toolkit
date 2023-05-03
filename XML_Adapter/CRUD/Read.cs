@@ -40,6 +40,9 @@ using BH.Engine.Adapter;
 using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
+using System.CodeDom;
+
+using System.Reflection;
 
 namespace BH.Adapter.XML
 {
@@ -50,14 +53,14 @@ namespace BH.Adapter.XML
         {
             if (actionConfig == null)
             {
-                BH.Engine.Base.Compute.RecordError("Please provide configuration settings to push to an XML file");
+                BH.Engine.Base.Compute.RecordError("Please provide configuration settings to pull from an XML file");
                 return new List<IBHoMObject>();
             }
 
             XMLConfig config = actionConfig as XMLConfig;
             if (config == null)
             {
-                BH.Engine.Base.Compute.RecordError("Please provide valid a XMLConfig object for pushing to an XML file");
+                BH.Engine.Base.Compute.RecordError("Please provide valid a XMLConfig object for pulling from an XML file");
                 return new List<IBHoMObject>();
             }
 
@@ -70,13 +73,12 @@ namespace BH.Adapter.XML
                 case Schema.GBXML:
                     return ReadGBXML(type, config);
                 case Schema.KML:
-                    BH.Engine.Base.Compute.RecordError("The KML Schema is not supported for pull operations at this time");
+                    BH.Engine.Base.Compute.RecordError("The KML Schema is not supported for pull operations at this time.");
                     return new List<IBHoMObject>();
                 case Schema.Bluebeam:
                     return ReadBluebeam(type, config);
                 default:
-                    BH.Engine.Base.Compute.RecordNote("You have not supplied a supported XML Schema to pull. Data is being returned as Custom Objects.");
-                    return ReadDefault();
+                    return ReadDefault(type, config);
             }
         }
     }

@@ -58,53 +58,26 @@ namespace BH.Adapter.XML
                 foreach (System.Reflection.PropertyInfo pi in bhomProperties)
                     overrides.Add(typeof(BHoMObject), pi.Name, new XmlAttributes { XmlIgnore = true });
 
-                StringWriter stringWriter = new StringWriter();
-
                 XmlSerializerNamespaces xns = new XmlSerializerNamespaces();
-                xns.Add("", "");
                 XmlSerializer szer = new XmlSerializer(typeof(T), overrides);
-
-                StreamWriter sw = new StreamWriter(_fileSettings.GetFullFileName());
-
-                List<T> obj = objects.ToList();
-
-                for(int x = 0; x < obj.Count; x++)
+                TextWriter ms = new StreamWriter(_fileSettings.GetFullFileName());
+                foreach (var obj in objects)
                 {
-                    szer.Serialize(stringWriter, obj[x], xns);
-                    string line = stringWriter.ToString();
-                    if (x > 0)
-                        line = line.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n", ""); //Don't need this header on every item
-                    sw.WriteLine(line);
-
-                    StringBuilder sb = stringWriter.GetStringBuilder();
-                    sb.Remove(0, sb.Length);
+                    try
+                    {
+                        szer.Serialize(ms, obj, xns);
+                    }
+                    catch(Exception e)
+                    {
+                        BH.Engine.Base.Compute.RecordError($"Error occurred when serialising object {obj.GetType()}. Error received was: {e.ToString()}.");
+                    }
                 }
-
-                sw.Close();
+                ms.Close();
             }
             catch (Exception e)
             {
-                //Try exporting the objects manually if automatic serialisation didn't work
-                try
-                {
-                    List<string> xmlStrings = objects.Select(x => (x as object).ToXML()).ToList();
-
-                    string xml = "<BHoM>";
-                    xmlStrings.ForEach(x => xml += x);
-                    xml += "</BHoM>";
-
-                    XmlDocument xdoc = new XmlDocument();
-                    xdoc.LoadXml(xml);
-                    xdoc.Save(_fileSettings.GetFullFileName());
-                }
-                catch(Exception ex)
-                {
-                    //Well something went terribly wrong so lets give the user both error messages to help with debugging
-                    BH.Engine.Base.Compute.RecordError("An error occurred in serialising the objects of type " + objects.GetType() + ". Error messages will follow.");
-                    BH.Engine.Base.Compute.RecordError(e.ToString());
-                    BH.Engine.Base.Compute.RecordError(ex.ToString());
-                    success = false;
-                }
+                BH.Engine.Base.Compute.RecordError($"Error serialising objects to XML. Error received: {e.ToString()}.");
+                success = false;
             }
 
             return success;

@@ -65,7 +65,6 @@ namespace BH.Adapter.XML
                     BH.Engine.Base.Compute.RecordError("The Bluebeam markup schema is not supported for push operations at this time.");
                     return false;
                 default:
-                    BH.Engine.Base.Compute.RecordNote("You have not supplied a supported XML Schema to push. Data is being pushed either using a schema set by XML Attributes on the objects, or a default schema based on object properties.");
                     return CreateDefault(objects, config);
             }
         }
