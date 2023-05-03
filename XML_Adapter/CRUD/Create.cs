@@ -30,6 +30,7 @@ using BH.oM.Adapters.XML;
 using BH.oM.Adapters.XML.Enums;
 
 using BH.oM.Adapter;
+using System.IO;
 
 namespace BH.Adapter.XML
 {
@@ -50,23 +51,50 @@ namespace BH.Adapter.XML
                 return false;
             }
 
+            bool success = false;
+
             switch(config.Schema)
             {
                 case Schema.CSProject:
-                    return CreateCSProject(objects, config);
+                    success = CreateCSProject(objects, config);
+                    break;
                 case Schema.GBXML:
-                    return CreateGBXML(objects, config);
+                    success = CreateGBXML(objects, config);
+                    break;
                 case Schema.KML:
-                    return CreateKML(objects, config);
+                    success = CreateKML(objects, config);
+                    break;
                 case Schema.EnergyPlusLoads:
                     BH.Engine.Base.Compute.RecordError("The EnergyPlusLoads Schema is not supported for push operations at this time");
-                    return false;
+                    success = false;
+                    break;
                 case Schema.Bluebeam:
                     BH.Engine.Base.Compute.RecordError("The Bluebeam markup schema is not supported for push operations at this time.");
-                    return false;
+                    success = false;
+                    break;
                 default:
-                    return CreateDefault(objects, config);
+                    success = CreateDefault(objects, config);
+                    break;
             }
+
+            if (success && config.RemoveNils)
+                RemoveNil(_fileSettings);
+
+            return success;
+        }
+
+        private static bool RemoveNil(FileSettings file)
+        {
+            var path = Path.Combine(file.Directory, file.FileName);
+            var xmlFile = File.ReadAllLines(path);
+
+            xmlFile = xmlFile.Where(x => !x.Trim().Contains("xsi:nil")).ToArray();
+            xmlFile = xmlFile.Where(x => x != null).ToArray();
+
+            File.Delete(path);
+            File.WriteAllLines(path, xmlFile);
+
+            return true;
         }
     }
 }
