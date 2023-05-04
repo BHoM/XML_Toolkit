@@ -26,7 +26,7 @@ using BH.oM.Base;
 using BH.oM.Adapters.XML.Enums;
 
 using System.ComponentModel;
-using BH.oM.XML.GBXML;
+using BH.oM.Adapters.XML.GBXML;
 
 namespace BH.oM.Adapters.XML.Settings
 {

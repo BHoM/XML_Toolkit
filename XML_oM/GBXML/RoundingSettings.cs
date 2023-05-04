@@ -30,7 +30,7 @@ using System.Threading.Tasks;
 
 using BH.oM.Base;
 
-namespace BH.oM.XML.GBXML
+namespace BH.oM.Adapters.XML.GBXML
 {
     public class RoundingSettings : BHoMObject
     {

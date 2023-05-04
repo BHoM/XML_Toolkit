@@ -1,0 +1,26 @@
+{
+  "Namespace": {
+    "ToNew": {
+    },
+    "ToOld": {
+    }
+  },
+  "Type": {
+    "ToNew": {
+      "BH.oM.XML.GBXML.RoundingSettings": "BH.oM.Adapters.XML.GBXML.RoundingSettings"
+    },
+    "ToOld": {
+      "BH.oM.Adapters.XML.GBXML.RoundingSettings": "BH.oM.XML.GBXML.RoundingSettings"
+    }
+  },
+  "Property": {
+    "ToNew": {
+    },
+    "ToOld": {
+    }
+  },
+  "MessageForDeleted": {
+  },
+  "MessageForNoUpgrade": {
+  }
+}
