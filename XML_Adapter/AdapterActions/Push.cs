@@ -30,6 +30,9 @@ using BH.oM.Data.Requests;
 using BH.oM.Adapter;
 using BH.oM.Base;
 using System.Reflection;
+using BH.oM.Adapters.XML;
+using BH.oM.Adapters.XML.Enums;
+using System.IO;
 
 namespace BH.Adapter.XML
 {
@@ -41,25 +44,64 @@ namespace BH.Adapter.XML
             if (pushType == PushType.AdapterDefault)
                 pushType = m_AdapterSettings.DefaultPushType;
 
-           /*if (_xmlSettings == null)
+            if (actionConfig == null)
             {
-                BH.Engine.Base.Compute.RecordError("Please set some XML Settings on the XML Adapter before pushing to an XML File");
+                BH.Engine.Base.Compute.RecordError("Please provide configuration settings to push to an XML file");
                 return new List<object>();
-            }*/
+            }
+
+            XMLConfig config = actionConfig as XMLConfig;
+            if (config == null)
+            {
+                BH.Engine.Base.Compute.RecordError("Please provide valid a XMLConfig object for pushing to an XML file");
+                return new List<object>();
+            }
 
             IEnumerable<IBHoMObject> objectsToPush = ProcessObjectsForPush(objects, actionConfig); // Note: default Push only supports IBHoMObjects.
 
-            bool success = true;
-
-            MethodInfo methodInfos = typeof(Enumerable).GetMethod("Cast");
-            foreach (var typeGroup in objectsToPush.GroupBy(x => x.GetType()))
+            bool success = false;
+            switch (config.Schema)
             {
-                MethodInfo mInfo = methodInfos.MakeGenericMethod(new[] { typeGroup.Key });
-                var list = mInfo.Invoke(typeGroup, new object[] { typeGroup });
-                success &= ICreate(list as dynamic, actionConfig);
+                case Schema.CSProject:
+                    success = CreateCSProject(objectsToPush, config);
+                    break;
+                case Schema.GBXML:
+                    success = CreateGBXML(objectsToPush, config);
+                    break;
+                case Schema.KML:
+                    success = CreateKML(objectsToPush, config);
+                    break;
+                case Schema.EnergyPlusLoads:
+                    BH.Engine.Base.Compute.RecordError("The EnergyPlusLoads Schema is not supported for push operations at this time");
+                    success = false;
+                    break;
+                case Schema.Bluebeam:
+                    BH.Engine.Base.Compute.RecordError("The Bluebeam markup schema is not supported for push operations at this time.");
+                    success = false;
+                    break;
+                default:
+                    success = CreateDefault(objectsToPush, config);
+                    break;
             }
 
+            if (success && config.RemoveNils)
+                RemoveNil(_fileSettings);
+
             return success ? objects.ToList() : new List<object>();
+        }
+
+        private static bool RemoveNil(FileSettings file)
+        {
+            var path = Path.Combine(file.Directory, file.FileName);
+            var xmlFile = File.ReadAllLines(path);
+
+            xmlFile = xmlFile.Where(x => !x.Trim().Contains("xsi:nil")).ToArray();
+            xmlFile = xmlFile.Where(x => x != null).ToArray();
+
+            File.Delete(path);
+            File.WriteAllLines(path, xmlFile);
+
+            return true;
         }
     }
 }

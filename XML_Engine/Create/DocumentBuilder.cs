@@ -59,7 +59,7 @@ namespace BH.Engine.Adapters.XML
                 ShadingElements = shadingElements,
                 Levels = levels,
                 UnassignedPanels = unassignedPanels,
-            };         
+            };
         }
 
         [Description("Create a Document Builder object to collate data required for GBXML schema documents automatically from a given list of BHoM Objects")]
