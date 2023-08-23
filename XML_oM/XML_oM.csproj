@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTarget="" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -109,7 +109,6 @@
     <Compile Include="GBXML\Enums\LengthUnit.cs" />
     <Compile Include="GBXML\Enums\TemperatureUnit.cs" />
     <Compile Include="GBXML\Enums\VolumeUnit.cs" />
-    <Compile Include="GBXML\GBXMLDocumentBuilder.cs" />
     <Compile Include="Enums\ExportDetail.cs" />
     <Compile Include="Enums\Schema.cs" />
     <Compile Include="Enums\UnitType.cs" />
