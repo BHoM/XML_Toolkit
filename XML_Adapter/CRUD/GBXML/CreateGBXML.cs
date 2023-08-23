@@ -37,6 +37,9 @@ using BH.Adapter.XML.GBXMLSchema;
 using BH.Engine.Adapter;
 using BH.Engine.Adapters.XML;
 
+using BH.oM.Spatial.SettingOut;
+using BH.Engine.Environment;
+
 namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
@@ -58,29 +61,16 @@ namespace BH.Adapter.XML
                 return false;
             }
 
-            GBXMLDocumentBuilder doc = objects.ToList()[0] as GBXMLDocumentBuilder;
-
-            if(doc == null)
-            {
-                BH.Engine.Base.Compute.RecordError("The GBXML schema requires a full model to be provided as a single push operation. For pushing to the GBXML version, you need to plug your objects into a GBXMLDocumentBuilder which collates the objects for pushing and push that to GBXML via this adapter.");
-                return false;
-            }
+            List<Panel> panels = objects.Where(x => x.GetType() == typeof(Panel)).Cast<Panel>().ToList();
 
             List<IBHoMObject> bhomObjects = new List<IBHoMObject>();
-            bhomObjects.AddRange(doc.Buildings);
-            bhomObjects.AddRange(doc.Levels);
-            bhomObjects.AddRange(doc.ShadingElements);
-            bhomObjects.AddRange(doc.UnassignedPanels);
+            bhomObjects.AddRange(objects.Where(x => x.GetType() == typeof(oM.Environment.Elements.Building)).Cast<oM.Environment.Elements.Building>());
+            bhomObjects.AddRange(objects.Where(x => x.GetType() == typeof(Level)).Cast<Level>());
 
             if (settings.ExportDetail == oM.Adapters.XML.Enums.ExportDetail.Full)
-            {
-                foreach (List<Panel> p in doc.ElementsAsSpaces)
-                    bhomObjects.AddRange(p);
-            }
+                bhomObjects.AddRange(panels);
             else if(settings.ExportDetail == oM.Adapters.XML.Enums.ExportDetail.BuildingShell)
-            {
-                bhomObjects.AddRange(doc.ElementsAsSpaces.ExternalElements());
-            }
+                bhomObjects.AddRange(panels.ToSpaces().ExternalElements());
             else
             {
                 BH.Engine.Base.Compute.RecordError("The ExportDetail has not been appropriately set. Please set the ExportDetail to continue");
