@@ -58,8 +58,12 @@ namespace BH.Adapter.XML
                 foreach (System.Reflection.PropertyInfo pi in bhomProperties)
                     overrides.Add(typeof(BHoMObject), pi.Name, new XmlAttributes { XmlIgnore = true });
 
+                var exportType = typeof(T);
+                if (exportType == typeof(IBHoMObject))
+                    exportType = objects.First().GetType();
+
                 XmlSerializerNamespaces xns = new XmlSerializerNamespaces();
-                XmlSerializer szer = new XmlSerializer(typeof(T), overrides);
+                XmlSerializer szer = new XmlSerializer(exportType, overrides);
                 TextWriter ms = new StreamWriter(_fileSettings.GetFullFileName());
                 foreach (var obj in objects)
                 {
