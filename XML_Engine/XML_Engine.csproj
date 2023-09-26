@@ -10,15 +10,12 @@
     <FileVersion>7.0.0.0</FileVersion>
     <OutputPath>..\Build\</OutputPath>
   </PropertyGroup>
-
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot;  &quot;C:\ProgramData\BHoM\Assemblies&quot; /Y" />
   </Target>
-
   <ItemGroup>
     <ProjectReference Include="..\XML_oM\XML_oM.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="BHoM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\BHoM.dll</HintPath>
@@ -56,5 +53,4 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
-
 </Project>
