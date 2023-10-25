@@ -40,7 +40,7 @@ namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
-        [PreviousVersion("7.0", "BH.Adapter.XML.XMLAdapter(BH.oM.Adapter.Filesettings)")]
+        [PreviousVersion("7.0", "BH.Adapter.XML.XMLAdapter(BH.oM.Adapter.FileSettings)")]
         [Description("Specify XML file and properties for data transfer.")]
         [Output("adapter", "Adapter to XML.")]
         public XMLAdapter()
