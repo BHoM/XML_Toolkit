@@ -52,7 +52,7 @@ namespace BH.Adapter.XML
         private IEnumerable<IBHoMObject> ReadGBXML(Type type = null, XMLConfig config = null)
         {
             BH.Adapter.XML.GBXMLSchema.GBXML gbx = null;
-            TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
+            TextReader reader = new StreamReader(config.File.GetFullFileName());
             XmlSerializer szer = new XmlSerializer(typeof(BH.Adapter.XML.GBXMLSchema.GBXML));
             gbx = (BH.Adapter.XML.GBXMLSchema.GBXML)szer.Deserialize(reader);
             reader.Close();

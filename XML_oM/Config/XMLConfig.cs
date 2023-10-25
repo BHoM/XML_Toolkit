@@ -35,8 +35,11 @@ using System.ComponentModel;
 namespace BH.oM.Adapters.XML
 {
     [Description("Define configuration settings for pushing and pulling XML files using the XML Adapter.")]
-    public class XMLConfig : ActionConfig
+    public class XMLConfig : ActionConfig, IXMLConfig
     {
+        [Description("File settings for the file to push to or pull from.")]
+        public virtual FileSettings File { get; set; } = null;
+
         [Description("Define the schema which the XML Adapter should be operating with.")]
         public virtual Schema Schema { get; set; } = Schema.Undefined;
 
@@ -47,6 +50,3 @@ namespace BH.oM.Adapters.XML
         public virtual bool RemoveNils { get; set; } = false;
     }
 }
-
-
-

@@ -60,7 +60,7 @@ namespace BH.Adapter.XML
                 foreach (System.Reflection.PropertyInfo pi in bhomProperties)
                     overrides.Add(typeof(BHoMObject), pi.Name, new XmlAttributes { XmlIgnore = true });
 
-                TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
+                TextReader reader = new StreamReader(config.File.GetFullFileName());
                 XmlSerializer szer = new XmlSerializer(type, overrides);
                 obj = System.Convert.ChangeType(szer.Deserialize(reader), type);
                 reader.Close();

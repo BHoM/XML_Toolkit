@@ -79,7 +79,7 @@ namespace BH.Adapter.XML
 
                 XmlSerializerNamespaces xns = new XmlSerializerNamespaces();
                 XmlSerializer szer = new XmlSerializer(typeof(BH.Adapter.XML.KMLSchema.KML), overrides);
-                TextWriter ms = new StreamWriter(_fileSettings.GetFullFileName());
+                TextWriter ms = new StreamWriter(config.File.GetFullFileName());
                 szer.Serialize(ms, kml, xns);
                 ms.Close();
             }
