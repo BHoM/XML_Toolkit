@@ -41,7 +41,6 @@ namespace BH.Adapter.XML
     public partial class XMLAdapter : BHoMAdapter
     {
         [Description("Specify XML file and properties for data transfer")]
-        [Input("fileSettings", "Input the file settings to get the file name and directory the XML Adapter should use")]
         [Output("adapter", "Adapter to XML")]
         public XMLAdapter()
         {
