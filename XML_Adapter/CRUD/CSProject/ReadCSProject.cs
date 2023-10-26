@@ -51,7 +51,7 @@ namespace BH.Adapter.XML
         {
             BH.oM.XML.CSProject.Project report = null;
 
-            TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
+            TextReader reader = new StreamReader(config.File.GetFullFileName());
             XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.CSProject.Project));
             report = (BH.oM.XML.CSProject.Project)szer.Deserialize(reader);
             reader.Close();

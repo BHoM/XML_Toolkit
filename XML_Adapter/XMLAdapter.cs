@@ -40,28 +40,12 @@ namespace BH.Adapter.XML
 {
     public partial class XMLAdapter : BHoMAdapter
     {
-        [Description("Specify XML file and properties for data transfer")]
-        [Input("fileSettings", "Input the file settings to get the file name and directory the XML Adapter should use")]
-        [Output("adapter", "Adapter to XML")]
-        public XMLAdapter(BH.oM.Adapter.FileSettings fileSettings = null)
+        [PreviousVersion("7.0", "BH.Adapter.XML.XMLAdapter(BH.oM.Adapter.FileSettings)")]
+        [Description("Connect to XML interoperability within the BHoM.")]
+        [Output("adapter", "Adapter to XML.")]
+        public XMLAdapter()
         {
-            if (fileSettings == null)
-            {
-                BH.Engine.Base.Compute.RecordError("Please set the File Settings correctly to enable the XML Adapter to work correctly");
-                return;
-            }
-
-            if (!Path.HasExtension(fileSettings.FileName) || (Path.GetExtension(fileSettings.FileName) != ".xml" && Path.GetExtension(fileSettings.FileName) != ".csproj"))
-            {
-                BH.Engine.Base.Compute.RecordError("File name must contain a file extension");
-                return;
-            }
-
-            _fileSettings = fileSettings;
-
         }
-
-        private BH.oM.Adapter.FileSettings _fileSettings { get; set; } = null;
     }
 }
 

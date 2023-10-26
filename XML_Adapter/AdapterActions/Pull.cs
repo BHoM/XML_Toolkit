@@ -30,6 +30,7 @@ using BH.oM.Data.Requests;
 using BH.oM.Adapter;
 using BH.oM.Base;
 using BH.Engine.Adapter;
+using BH.oM.Adapters.XML;
 
 namespace BH.Adapter.XML
 {
@@ -37,9 +38,10 @@ namespace BH.Adapter.XML
     {
         public override IEnumerable<object> Pull(IRequest request, PullType pullType = PullType.AdapterDefault, ActionConfig actionConfig = null)
         {
-            if (!System.IO.File.Exists(_fileSettings.GetFullFileName()))
+            IXMLConfig config = actionConfig as IXMLConfig;
+            if (!System.IO.File.Exists(config.File.GetFullFileName()))
             {
-                BH.Engine.Base.Compute.RecordError($"The file at {_fileSettings.GetFullFileName()} does not exist to pull from.");
+                BH.Engine.Base.Compute.RecordError($"The file at {config.File.GetFullFileName()} does not exist to pull from.");
                 return new List<IBHoMObject>();
             }
 

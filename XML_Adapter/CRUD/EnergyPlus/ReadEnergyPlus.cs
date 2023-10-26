@@ -51,7 +51,7 @@ namespace BH.Adapter.XML
         {
             BH.oM.XML.EnergyPlus.EnergyPlusTabularReport report = null;
 
-            TextReader reader = new StreamReader(_fileSettings.GetFullFileName());
+            TextReader reader = new StreamReader(config.File.GetFullFileName());
             XmlSerializer szer = new XmlSerializer(typeof(BH.oM.XML.EnergyPlus.EnergyPlusTabularReport));
             report = (BH.oM.XML.EnergyPlus.EnergyPlusTabularReport)szer.Deserialize(reader);
             reader.Close();

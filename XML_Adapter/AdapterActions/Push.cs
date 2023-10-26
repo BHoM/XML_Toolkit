@@ -33,6 +33,7 @@ using System.Reflection;
 using BH.oM.Adapters.XML;
 using BH.oM.Adapters.XML.Enums;
 using System.IO;
+using BH.Engine.Adapter;
 
 namespace BH.Adapter.XML
 {
@@ -85,7 +86,7 @@ namespace BH.Adapter.XML
             }
 
             if (success && config.RemoveNils)
-                RemoveNil(_fileSettings);
+                RemoveNil(config.File);
 
             return success ? objects.ToList() : new List<object>();
         }
