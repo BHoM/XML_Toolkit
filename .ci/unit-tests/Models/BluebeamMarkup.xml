@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MarkupSummary Version="1.0" Document="Document1.pdf">
+  <Markup>
+    <Page_Label>1</Page_Label>
+    <Subject>Balc Slid 00</Subject>
+    <Space>Dwelling 1</Space>
+    <Author>rboulton</Author>
+    <Date>28/10/2021 09:03:58</Date>
+    <Colour>#00A499</Colour>
+    <Comments>2.83 m</Comments>
+    <Length>2.83</Length>
+    <Area>0</Area>
+    <Label>W</Label>
+    <Depth>2.05</Depth>
+    <Layer>Openings</Layer>
+  </Markup>
+  <Markup>
+    <Page_Label>1</Page_Label>
+    <Subject>External Wall</Subject>
+    <Space>Dwelling 1</Space>
+    <Author>rboulton</Author>
+    <Date>28/10/2021 09:03:49</Date>
+    <Colour>#24135E</Colour>
+    <Comments>20.61 m</Comments>
+    <Length>20.61</Length>
+    <Area>0</Area>
+    <Label>Ext. Wall</Label>
+    <Depth>1.00</Depth>
+    <Layer>External Wall</Layer>
+  </Markup>
+  <Markup>
+    <Page_Label>1</Page_Label>
+    <Subject>Extract</Subject>
+    <Space>Dwelling 1</Space>
+    <Author>rboulton</Author>
+    <Date>28/10/2021 09:04:12</Date>
+    <Colour>#00A499</Colour>
+    <Comments>Mechanical</Comments>
+    <Length>0</Length>
+    <Area>0</Area>
+    <Layer>Ventilation</Layer>
+  </Markup>
+  <Markup>
+    <Page_Label>1</Page_Label>
+    <Subject>Extract</Subject>
+    <Space>Dwelling 1</Space>
+    <Author>rboulton</Author>
+    <Date>28/10/2021 09:04:14</Date>
+    <Colour>#00A499</Colour>
+    <Comments>Mechanical</Comments>
+    <Length>0</Length>
+    <Area>0</Area>
+    <Layer>Ventilation</Layer>
+  </Markup>
+  <Markup>
+    <Page_Label>1</Page_Label>
+    <Subject>Living Room</Subject>
+    <Space>Dwelling 1</Space>
+    <Author>rboulton</Author>
+    <Date>28/10/2021 09:03:32</Date>
+    <Colour>#1B3660</Colour>
+    <Comments>14.85 sq m</Comments>
+    <Length>15.83</Length>
+    <Area>14.85</Area>
+    <Label>Living Room</Label>
+    <Depth>0.00</Depth>
+    <Layer>Zone 1</Layer>
+  </Markup>
+  <Markup>
+    <Page_Label>1</Page_Label>
+    <Subject>TFA</Subject>
+    <Space>Dwelling 1</Space>
+    <Author>rboulton</Author>
+    <Date>28/10/2021 09:04:12</Date>
+    <Colour>#BC204B</Colour>
+    <Comments>L = 41.23 m
+A = 105.34 sq m</Comments>
+    <Length>41.23</Length>
+    <Area>105.34</Area>
+    <Label>TFA</Label>
+    <Depth>0.00</Depth>
+    <Layer>Floor Areas</Layer>
+  </Markup>
+  <Markup>
+    <Page_Label>1</Page_Label>
+    <Subject>Win Fix 00</Subject>
+    <Space>Dwelling 1</Space>
+    <Author>rboulton</Author>
+    <Date>28/10/2021 09:04:01</Date>
+    <Colour>#6CC24E</Colour>
+    <Comments>2.84 m</Comments>
+    <Length>2.84</Length>
+    <Area>0</Area>
+    <Label>W</Label>
+    <Depth>2.10</Depth>
+    <Layer>Openings</Layer>
+  </Markup>
+  <Markup>
+    <Page_Label>1</Page_Label>
+    <Subject>Win Fix 00</Subject>
+    <Space>Dwelling 1</Space>
+    <Author>rboulton</Author>
+    <Date>28/10/2021 09:04:03</Date>
+    <Colour>#6CC24E</Colour>
+    <Comments>1.73 m</Comments>
+    <Length>1.73</Length>
+    <Area>0</Area>
+    <Label>W</Label>
+    <Depth>2.10</Depth>
+    <Layer>Openings</Layer>
+  </Markup>
+</MarkupSummary>
