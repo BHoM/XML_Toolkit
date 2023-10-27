@@ -1,14 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-
-    <IsPackable>false</IsPackable>
-    <IsTestProject>true</IsTestProject>
-    <Configurations>Debug;Release;Test</Configurations>
-  </PropertyGroup>
+	<PropertyGroup>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <AssemblyVersion>7.0.0.0</AssemblyVersion>
+	  <Description>https://github.com/BHoM/XML_Toolkit</Description>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+	  <IsPackable>false</IsPackable>
+	  <IsTestProject>true</IsTestProject>
+	  <Configurations>Debug;Release;Test</Configurations>
+	  <Authors>BHoM</Authors>
+	  <Copyright>Copyright © https://github.com/BHoM</Copyright>
+	  <RootNamespace>BH.Tests.Adapter.XML</RootNamespace>
+	  <FileVersion>7.0.0.0</FileVersion>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
@@ -19,6 +24,12 @@
     <PackageReference Include="coverlet.collector" Version="3.2.0" />
   </ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\XML_Adapter\XML_Adapter.csproj" />
+	  <ProjectReference Include="..\..\..\XML_Engine\XML_Engine.csproj" />
+	  <ProjectReference Include="..\..\..\XML_oM\XML_oM.csproj" />
+	</ItemGroup>
+	
   <ItemGroup>
     <Reference Include="Adapter_Engine">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Adapter_Engine.dll</HintPath>
@@ -72,21 +83,6 @@
     </Reference>
     <Reference Include="Physical_oM">
       <HintPath>$(ProgramData)\BHoM\Assemblies\Physical_oM.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="XML_Adapter">
-      <HintPath>$(ProgramData)\BHoM\Assemblies\XML_Adapter.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="XML_Engine">
-      <HintPath>$(ProgramData)\BHoM\Assemblies\XML_Engine.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="XML_oM">
-      <HintPath>$(ProgramData)\BHoM\Assemblies\XML_oM.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
