@@ -86,6 +86,11 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
+    <Reference Include="TriangleNet_Engine">
+      <HintPath>$(ProgramData)\BHoM\Assemblies\TriangleNet_Engine.dll</HintPath>
+		<SpecificVersion>False</SpecificVersion>
+		<Private>True</Private>
+    </Reference>
   </ItemGroup>
 
 </Project>

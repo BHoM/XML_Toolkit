@@ -9,6 +9,12 @@ using BH.Adapter.XML;
 using BH.oM.Adapters.XML;
 using BH.oM.Adapter;
 using BH.Engine.Adapter;
+using BH.oM.Adapters.XML.Settings;
+using BH.oM.Base;
+using BH.oM.Data.Requests;
+using BH.oM.Environment.Elements;
+using BH.oM.Physical.Constructions;
+using BH.Engine.Environment;
 
 namespace BH.Tests.Adapter.XML
 {
@@ -16,6 +22,7 @@ namespace BH.Tests.Adapter.XML
     {
         XMLAdapter m_adapter;
         XMLConfig m_config;
+        GBXMLSettings m_settings;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -27,8 +34,9 @@ namespace BH.Tests.Adapter.XML
             m_adapter = new XMLAdapter();
             m_config = new XMLConfig()
             {
-                File = new FileSettings() { Directory = ModelsPath, FileName = "PushedModel.xml"}
+                File = new FileSettings() { Directory = ModelsPath, FileName = "PushedModel.xml"},
             };
+            m_settings = new GBXMLSettings();
         }
 
         [SetUp]
@@ -50,6 +58,39 @@ namespace BH.Tests.Adapter.XML
                     Console.WriteLine($"{ev.Type}: {ev.Message}");
                 }
             }
+        }
+
+        [Test]
+        public void PushGBXML()
+        {
+            m_config.Schema = oM.Adapters.XML.Enums.Schema.GBXML;
+            m_settings.IncludeConstructions = true;
+            m_config.Settings = m_settings;
+            FilterRequest request = new FilterRequest();
+
+            List<IBHoMObject> jsonObjs = BH.Engine.Adapters.File.Compute.ReadFromJsonFile(Path.Combine(m_config.File.Directory, "TestModel.json"), true).Cast<IBHoMObject>().ToList();
+
+            //Push, then pull objects.
+            m_adapter.Push(jsonObjs, actionConfig: m_config);
+            List<IBHoMObject> objs = m_adapter.Pull(request, actionConfig: m_config).Cast<IBHoMObject>().ToList();
+
+            List<Panel> pulledPanels = BH.Engine.Environment.Query.Panels(objs);
+            List<Panel> jsonPanels = BH.Engine.Environment.Query.Panels(jsonObjs);
+            List<Construction> constructions = objs.Where(x => x.GetType() == typeof(Construction)).Cast<Construction>().ToList();
+            List<Construction> jsonConstructions = objs.Where(x => x.GetType() == typeof(Construction) && x.Name == "generic_construction").Cast<Construction>().ToList();
+
+            pulledPanels = BH.Engine.Data.Query.OrderBy(pulledPanels, "Name");
+            jsonPanels = BH.Engine.Data.Query.OrderBy(jsonPanels, "Name");
+
+            pulledPanels.Count.Should().Be(jsonPanels.Count, "There was a different number of panels pushed then pulled compared to expected.");
+            for (int i = 0; i < pulledPanels.Count; i++)
+            {
+                pulledPanels[i].Name.Should().Be(jsonPanels[i].Name, "The name of the panel pulled was not the same as the json panel.");
+                pulledPanels[i].IsIdentical(jsonPanels[i]).Should().BeTrue("The panel with name {pulledPanels[i].Name} was not identical to the json panel with the same name.");
+            }
+            constructions.Count.Should().Be(jsonConstructions.Count, "There is only one type of construction (generic_construction) used in the building.");
+            
+
         }
     }
 }
