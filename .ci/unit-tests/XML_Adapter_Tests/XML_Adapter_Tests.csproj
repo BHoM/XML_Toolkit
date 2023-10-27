@@ -71,7 +71,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Physical_oM">
-      <HintPath>..\..\..\..\..\ProgramData\BHoM\Assemblies\Physical_oM.dll</HintPath>
+      <HintPath>$(ProgramData)\BHoM\Assemblies\Physical_oM.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="XML_Adapter">
       <HintPath>$(ProgramData)\BHoM\Assemblies\XML_Adapter.dll</HintPath>
