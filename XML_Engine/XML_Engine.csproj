@@ -9,9 +9,10 @@
     <RootNamespace>BH.Engine.Adapters.XML</RootNamespace>
     <FileVersion>7.0.0.0</FileVersion>
     <OutputPath>..\Build\</OutputPath>
+    <Configurations>Debug;Release;Test</Configurations>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot;  &quot;C:\ProgramData\BHoM\Assemblies&quot; /Y" />
+    <Exec Command="if not &quot;$(ConfigurationName)&quot; == &quot;Test&quot; (xcopy &quot;$(TargetDir)$(TargetFileName)&quot;  &quot;C:\ProgramData\BHoM\Assemblies&quot; /Y)" />
   </Target>
   <ItemGroup>
     <ProjectReference Include="..\XML_oM\XML_oM.csproj" />

@@ -1,0 +1,3160 @@
+<?xml version="1.0"?>
+<EnergyPlusTabularReports>
+  <BuildingName>Building 1</BuildingName>
+  <EnvironmentName>RUN PERIOD 1</EnvironmentName>
+  <WeatherFileLocationTitle>New York Central Prk Obs Belv NY USA TMY3 WMO#=725033</WeatherFileLocationTitle>
+  <ProgramVersion>EnergyPlus, Version 8.7.0-78a111df4a, YMD=2020.06.02 15:27</ProgramVersion>
+  <SimulationTimestamp>
+    <Date>
+      2020-06-02
+    </Date>
+    <Time>
+      15:27:51
+    </Time>
+  </SimulationTimestamp>
+
+<ZoneComponentLoadSummary>
+  <for>ROOM_000</for>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">1687.07</SensibleInstant>
+    <SensibleDelayed units="W">1437.79</SensibleDelayed>
+    <Latent units="W">2431.90</Latent>
+    <Total units="W">5556.77</Total>
+    <GrandTotal>13.33</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">4035.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">4035.00</Total>
+    <GrandTotal>9.68</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">20175.02</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">20175.02</Total>
+    <GrandTotal>48.41</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>DoasDirectToZone</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">90.47</SensibleInstant>
+    <Latent units="W">825.52</Latent>
+    <Total units="W">915.99</Total>
+    <GrandTotal>2.20</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">341.67</SensibleDelayed>
+    <Total units="W">341.67</Total>
+    <GrandTotal>0.82</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">468.49</SensibleDelayed>
+    <Total units="W">468.49</Total>
+    <GrandTotal>1.12</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">-837.1</SensibleDelayed>
+    <Total units="W">-837.1</Total>
+    <GrandTotal>-2.0</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">-1370.5</SensibleDelayed>
+    <Total units="W">-1370.5</Total>
+    <GrandTotal>-3.3</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">4812.96</SensibleInstant>
+    <Total units="W">4812.96</Total>
+    <GrandTotal>11.55</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">7580.29</SensibleDelayed>
+    <Total units="W">7580.29</Total>
+    <GrandTotal>18.19</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">30800.53</SensibleInstant>
+    <SensibleDelayed units="W">7620.63</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">3257.42</Latent>
+    <Total units="W">41678.58</Total>
+  </EstimatedCoolingPeakLoadComponents>
+  <CoolingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>7/21 17:40:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+31.15</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+31.09</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.02902</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+26.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+42.55</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00891</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+38209.88</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+38421.16</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-211.3</Difference>
+  </CoolingPeakConditions>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Doas</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">-2425.9</SensibleInstant>
+    <Latent units="W">-1070.1</Latent>
+    <Total units="W">-3496.1</Total>
+    <GrandTotal>33.84</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">0.06</SensibleDelayed>
+    <Total units="W">0.06</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">-610.4</SensibleDelayed>
+    <Total units="W">-610.4</Total>
+    <GrandTotal>5.91</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">268.87</SensibleDelayed>
+    <Total units="W">268.87</Total>
+    <GrandTotal>-2.6</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">0.37</SensibleDelayed>
+    <Total units="W">0.37</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">-6492.9</SensibleInstant>
+    <Total units="W">-6492.9</Total>
+    <GrandTotal>62.85</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">-8918.9</SensibleInstant>
+    <SensibleDelayed units="W">-341.1</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">-1070.1</Latent>
+    <Total units="W">-10330.1</Total>
+  </EstimatedHeatingPeakLoadComponents>
+  <HeatingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>1/21 06:00:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+-11.7</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+-11.7</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.00137</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+20.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+48.57</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00705</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+-9276.1</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+-9260.0</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-16.0</Difference>
+  </HeatingPeakConditions>
+</ZoneComponentLoadSummary>
+<ZoneComponentLoadSummary>
+  <for>ROOM_001</for>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">1063.12</SensibleInstant>
+    <SensibleDelayed units="W">503.26</SensibleDelayed>
+    <Latent units="W">1532.45</Latent>
+    <Total units="W">3098.83</Total>
+    <GrandTotal>7.65</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">2542.66</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">2542.66</Total>
+    <GrandTotal>6.28</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">12713.29</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">12713.29</Total>
+    <GrandTotal>31.40</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>DoasDirectToZone</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">23.97</SensibleInstant>
+    <Latent units="W">1012.64</Latent>
+    <Total units="W">1036.60</Total>
+    <GrandTotal>2.56</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">-104.4</SensibleDelayed>
+    <Total units="W">-104.4</Total>
+    <GrandTotal>-0.3</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">1586.75</SensibleDelayed>
+    <Total units="W">1586.75</Total>
+    <GrandTotal>3.92</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">-2639.5</SensibleDelayed>
+    <Total units="W">-2639.5</Total>
+    <GrandTotal>-6.5</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">-3488.1</SensibleDelayed>
+    <Total units="W">-3488.1</Total>
+    <GrandTotal>-8.6</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">7370.33</SensibleInstant>
+    <Total units="W">7370.33</Total>
+    <GrandTotal>18.20</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">18373.91</SensibleDelayed>
+    <Total units="W">18373.91</Total>
+    <GrandTotal>45.38</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">23713.36</SensibleInstant>
+    <SensibleDelayed units="W">14231.92</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">2545.09</Latent>
+    <Total units="W">40490.37</Total>
+  </EstimatedCoolingPeakLoadComponents>
+  <CoolingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>7/21 08:20:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+27.39</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+27.34</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.02315</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+26.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+42.15</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00882</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+37869.15</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+37945.28</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-76.1</Difference>
+  </CoolingPeakConditions>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Doas</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">-4456.5</SensibleInstant>
+    <Latent units="W">-1947.7</Latent>
+    <Total units="W">-6404.2</Total>
+    <GrandTotal>35.76</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">0.06</SensibleDelayed>
+    <Total units="W">0.06</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">-1085.4</SensibleDelayed>
+    <Total units="W">-1085.4</Total>
+    <GrandTotal>6.06</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">1011.84</SensibleDelayed>
+    <Total units="W">1011.84</Total>
+    <GrandTotal>-5.6</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">0.49</SensibleDelayed>
+    <Total units="W">0.49</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">-11431.8</SensibleInstant>
+    <Total units="W">-11431.8</Total>
+    <GrandTotal>63.83</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">-15888.4</SensibleInstant>
+    <SensibleDelayed units="W">-73.0</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">-1947.7</Latent>
+    <Total units="W">-17909.0</Total>
+  </EstimatedHeatingPeakLoadComponents>
+  <HeatingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>1/21 06:00:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+-11.7</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+-11.7</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.00137</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+20.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+48.21</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00700</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+-15990.6</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+-15961.4</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-29.2</Difference>
+  </HeatingPeakConditions>
+</ZoneComponentLoadSummary>
+<ZoneComponentLoadSummary>
+  <for>ROOM_002</for>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">1042.32</SensibleInstant>
+    <SensibleDelayed units="W">669.07</SensibleDelayed>
+    <Latent units="W">1502.17</Latent>
+    <Total units="W">3213.56</Total>
+    <GrandTotal>10.97</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">2492.67</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">2492.67</Total>
+    <GrandTotal>8.51</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">12463.34</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">12463.34</Total>
+    <GrandTotal>42.54</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>DoasDirectToZone</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">190.80</SensibleInstant>
+    <Latent units="W">1590.00</Latent>
+    <Total units="W">1780.80</Total>
+    <GrandTotal>6.08</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">335.74</SensibleDelayed>
+    <Total units="W">335.74</Total>
+    <GrandTotal>1.15</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">494.80</SensibleDelayed>
+    <Total units="W">494.80</Total>
+    <GrandTotal>1.69</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">-1369.4</SensibleDelayed>
+    <Total units="W">-1369.4</Total>
+    <GrandTotal>-4.7</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">-1314.0</SensibleDelayed>
+    <Total units="W">-1314.0</Total>
+    <GrandTotal>-4.5</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">2085.60</SensibleInstant>
+    <Total units="W">2085.60</Total>
+    <GrandTotal>7.12</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">9117.71</SensibleDelayed>
+    <Total units="W">9117.71</Total>
+    <GrandTotal>31.12</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">18274.73</SensibleInstant>
+    <SensibleDelayed units="W">7933.96</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">3092.17</Latent>
+    <Total units="W">29300.85</Total>
+  </EstimatedCoolingPeakLoadComponents>
+  <CoolingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>7/21 16:10:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+32.21</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+32.16</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.03092</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+26.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+43.30</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00907</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+26102.15</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+26208.68</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-106.5</Difference>
+  </CoolingPeakConditions>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Doas</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">-4363.8</SensibleInstant>
+    <Latent units="W">-1908.6</Latent>
+    <Total units="W">-6272.5</Total>
+    <GrandTotal>35.60</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">0.05</SensibleDelayed>
+    <Total units="W">0.05</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">-1060.3</SensibleDelayed>
+    <Total units="W">-1060.3</Total>
+    <GrandTotal>6.02</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">1014.53</SensibleDelayed>
+    <Total units="W">1014.53</Total>
+    <GrandTotal>-5.8</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">0.48</SensibleDelayed>
+    <Total units="W">0.48</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">-11301.1</SensibleInstant>
+    <Total units="W">-11301.1</Total>
+    <GrandTotal>64.14</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">-15665.0</SensibleInstant>
+    <SensibleDelayed units="W">-45.3</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">-1908.6</Latent>
+    <Total units="W">-17618.9</Total>
+  </EstimatedHeatingPeakLoadComponents>
+  <HeatingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>1/21 06:00:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+-11.7</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+-11.7</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.00137</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+20.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+48.24</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00700</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+-15738.9</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+-15710.2</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-28.6</Difference>
+  </HeatingPeakConditions>
+</ZoneComponentLoadSummary>
+<ZoneComponentLoadSummary>
+  <for>ROOM_003</for>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">117.44</SensibleInstant>
+    <SensibleDelayed units="W">36.73</SensibleDelayed>
+    <Latent units="W">169.26</Latent>
+    <Total units="W">323.43</Total>
+    <GrandTotal>6.67</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">280.86</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">280.86</Total>
+    <GrandTotal>5.79</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">1404.30</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">1404.30</Total>
+    <GrandTotal>28.96</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>DoasDirectToZone</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">7.65</SensibleInstant>
+    <Latent units="W">207.66</Latent>
+    <Total units="W">215.32</Total>
+    <GrandTotal>4.44</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">-16.3</SensibleDelayed>
+    <Total units="W">-16.3</Total>
+    <GrandTotal>-0.3</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">185.09</SensibleDelayed>
+    <Total units="W">185.09</Total>
+    <GrandTotal>3.82</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">-160.9</SensibleDelayed>
+    <Total units="W">-160.9</Total>
+    <GrandTotal>-3.3</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">-318.8</SensibleDelayed>
+    <Total units="W">-318.8</Total>
+    <GrandTotal>-6.6</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">640.24</SensibleInstant>
+    <Total units="W">640.24</Total>
+    <GrandTotal>13.21</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">2295.22</SensibleDelayed>
+    <Total units="W">2295.22</Total>
+    <GrandTotal>47.34</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">2450.49</SensibleInstant>
+    <SensibleDelayed units="W">2021.03</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">376.93</Latent>
+    <Total units="W">4848.44</Total>
+  </EstimatedCoolingPeakLoadComponents>
+  <CoolingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>7/21 08:40:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+27.89</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+27.84</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.02387</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+26.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+42.55</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00891</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+4463.06</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+4471.51</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-8.5</Difference>
+  </CoolingPeakConditions>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Doas</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">-877.8</SensibleInstant>
+    <Latent units="W">-384.4</Latent>
+    <Total units="W">-1262.2</Total>
+    <GrandTotal>35.34</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">0.01</SensibleDelayed>
+    <Total units="W">0.01</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">-206.4</SensibleDelayed>
+    <Total units="W">-206.4</Total>
+    <GrandTotal>5.78</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">74.66</SensibleDelayed>
+    <Total units="W">74.66</Total>
+    <GrandTotal>-2.1</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">0.08</SensibleDelayed>
+    <Total units="W">0.08</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">-2177.8</SensibleInstant>
+    <Total units="W">-2177.8</Total>
+    <GrandTotal>60.97</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">-3055.5</SensibleInstant>
+    <SensibleDelayed units="W">-131.7</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">-384.4</Latent>
+    <Total units="W">-3571.6</Total>
+  </EstimatedHeatingPeakLoadComponents>
+  <HeatingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>1/21 06:00:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+-11.7</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+-11.7</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.00137</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+19.99</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+48.30</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00701</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+-3193.0</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+-3187.2</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-5.8</Difference>
+  </HeatingPeakConditions>
+</ZoneComponentLoadSummary>
+<ZoneComponentLoadSummary>
+  <for>ROOM_004</for>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">1298.63</SensibleInstant>
+    <SensibleDelayed units="W">865.80</SensibleDelayed>
+    <Latent units="W">1872.08</Latent>
+    <Total units="W">4036.51</Total>
+    <GrandTotal>15.02</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">3106.05</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">3106.05</Total>
+    <GrandTotal>11.56</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">15530.24</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">15530.24</Total>
+    <GrandTotal>57.78</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>DoasDirectToZone</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">32.02</SensibleInstant>
+    <Latent units="W">310.42</Latent>
+    <Total units="W">342.43</Total>
+    <GrandTotal>1.27</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">115.35</SensibleDelayed>
+    <Total units="W">115.35</Total>
+    <GrandTotal>0.43</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">161.70</SensibleDelayed>
+    <Total units="W">161.70</Total>
+    <GrandTotal>0.60</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">117.61</SensibleDelayed>
+    <Total units="W">117.61</Total>
+    <GrandTotal>0.44</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">-528.8</SensibleDelayed>
+    <Total units="W">-528.8</Total>
+    <GrandTotal>-2.0</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">1623.26</SensibleInstant>
+    <Total units="W">1623.26</Total>
+    <GrandTotal>6.04</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">2371.80</SensibleDelayed>
+    <Total units="W">2371.80</Total>
+    <GrandTotal>8.82</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">21590.19</SensibleInstant>
+    <SensibleDelayed units="W">3103.46</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">2182.49</Latent>
+    <Total units="W">26876.15</Total>
+  </EstimatedCoolingPeakLoadComponents>
+  <CoolingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>7/21 18:20:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+30.48</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+30.43</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.02789</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+26.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+42.63</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00892</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+24606.14</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+24693.65</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-87.5</Difference>
+  </CoolingPeakConditions>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Doas</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">-955.3</SensibleInstant>
+    <Latent units="W">-430.8</Latent>
+    <Total units="W">-1386.1</Total>
+    <GrandTotal>29.33</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">0.04</SensibleDelayed>
+    <Total units="W">0.04</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">-246.2</SensibleDelayed>
+    <Total units="W">-246.2</Total>
+    <GrandTotal>5.21</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">-491.4</SensibleDelayed>
+    <Total units="W">-491.4</Total>
+    <GrandTotal>10.40</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">0.22</SensibleDelayed>
+    <Total units="W">0.22</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">-2602.5</SensibleInstant>
+    <Total units="W">-2602.5</Total>
+    <GrandTotal>55.07</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">-3557.8</SensibleInstant>
+    <SensibleDelayed units="W">-737.3</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">-430.8</Latent>
+    <Total units="W">-4725.8</Total>
+  </EstimatedHeatingPeakLoadComponents>
+  <HeatingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>1/21 06:00:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+-11.7</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+-11.7</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.00137</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+20.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+49.42</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00718</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+-4301.5</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+-4295.0</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-6.5</Difference>
+  </HeatingPeakConditions>
+</ZoneComponentLoadSummary>
+<ZoneComponentLoadSummary>
+  <for>ROOM_005</for>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">1225.96</SensibleInstant>
+    <SensibleDelayed units="W">829.58</SensibleDelayed>
+    <Latent units="W">1767.34</Latent>
+    <Total units="W">3822.88</Total>
+    <GrandTotal>13.34</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">2932.26</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">2932.26</Total>
+    <GrandTotal>10.23</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">14661.30</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">14661.30</Total>
+    <GrandTotal>51.17</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>DoasDirectToZone</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">35.15</SensibleInstant>
+    <Latent units="W">321.29</Latent>
+    <Total units="W">356.45</Total>
+    <GrandTotal>1.24</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">130.69</SensibleDelayed>
+    <Total units="W">130.69</Total>
+    <GrandTotal>0.46</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">276.03</SensibleDelayed>
+    <Total units="W">276.03</Total>
+    <GrandTotal>0.96</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">-18.6</SensibleDelayed>
+    <Total units="W">-18.6</Total>
+    <GrandTotal>-0.1</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">-819.4</SensibleDelayed>
+    <Total units="W">-819.4</Total>
+    <GrandTotal>-2.9</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">2995.34</SensibleInstant>
+    <Total units="W">2995.34</Total>
+    <GrandTotal>10.45</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">4315.32</SensibleDelayed>
+    <Total units="W">4315.32</Total>
+    <GrandTotal>15.06</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">21850.02</SensibleInstant>
+    <SensibleDelayed units="W">4713.54</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">2088.64</Latent>
+    <Total units="W">28652.20</Total>
+  </EstimatedCoolingPeakLoadComponents>
+  <CoolingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>7/21 17:40:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+31.15</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+31.09</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.02902</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+26.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+42.41</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00888</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+26479.15</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+26563.57</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-84.4</Difference>
+  </CoolingPeakConditions>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Doas</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">-942.8</SensibleInstant>
+    <Latent units="W">-424.8</Latent>
+    <Total units="W">-1367.6</Total>
+    <GrandTotal>29.46</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">0.03</SensibleDelayed>
+    <Total units="W">0.03</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">-242.4</SensibleDelayed>
+    <Total units="W">-242.4</Total>
+    <GrandTotal>5.22</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">-439.7</SensibleDelayed>
+    <Total units="W">-439.7</Total>
+    <GrandTotal>9.47</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">0.21</SensibleDelayed>
+    <Total units="W">0.21</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">-2593.0</SensibleInstant>
+    <Total units="W">-2593.0</Total>
+    <GrandTotal>55.85</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">-3535.8</SensibleInstant>
+    <SensibleDelayed units="W">-681.8</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">-424.8</Latent>
+    <Total units="W">-4642.5</Total>
+  </EstimatedHeatingPeakLoadComponents>
+  <HeatingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>1/21 06:00:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+-11.7</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+-11.7</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.00137</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+20.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+49.40</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00717</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+-4224.0</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+-4217.7</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-6.4</Difference>
+  </HeatingPeakConditions>
+</ZoneComponentLoadSummary>
+<ZoneComponentLoadSummary>
+  <for>ROOM_006</for>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">1294.62</SensibleInstant>
+    <SensibleDelayed units="W">780.41</SensibleDelayed>
+    <Latent units="W">1866.40</Latent>
+    <Total units="W">3941.43</Total>
+    <GrandTotal>16.96</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">3096.54</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">3096.54</Total>
+    <GrandTotal>13.32</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">15482.71</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">15482.71</Total>
+    <GrandTotal>66.60</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>DoasDirectToZone</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">47.82</SensibleDelayed>
+    <Total units="W">47.82</Total>
+    <GrandTotal>0.21</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">843.33</SensibleDelayed>
+    <Total units="W">843.33</Total>
+    <GrandTotal>3.63</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">-166.1</SensibleDelayed>
+    <Total units="W">-166.1</Total>
+    <GrandTotal>-0.7</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">19873.87</SensibleInstant>
+    <SensibleDelayed units="W">1505.50</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">1866.40</Latent>
+    <Total units="W">23245.78</Total>
+  </EstimatedCoolingPeakLoadComponents>
+  <CoolingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>7/21 17:50:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+31.01</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+30.96</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.02879</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+26.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+42.60</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00892</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+21363.04</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+21379.38</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-16.3</Difference>
+  </CoolingPeakConditions>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Doas</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">0.02</SensibleDelayed>
+    <Total units="W">0.02</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">-1113.6</SensibleDelayed>
+    <Total units="W">-1113.6</Total>
+    <GrandTotal>100.01</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">0.10</SensibleDelayed>
+    <Total units="W">0.10</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">-1113.4</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">-1113.4</Total>
+  </EstimatedHeatingPeakLoadComponents>
+  <HeatingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>1/21 06:50:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+-11.7</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+-11.7</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.00137</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+20.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+55.02</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00800</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+-1113.4</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+-1113.4</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-0.0</Difference>
+  </HeatingPeakConditions>
+</ZoneComponentLoadSummary>
+<ZoneComponentLoadSummary>
+  <for>ROOM_007</for>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">366.26</SensibleInstant>
+    <SensibleDelayed units="W">193.73</SensibleDelayed>
+    <Latent units="W">528.04</Latent>
+    <Total units="W">1088.04</Total>
+    <GrandTotal>16.36</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">876.06</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">876.06</Total>
+    <GrandTotal>13.18</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">4380.31</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">4380.31</Total>
+    <GrandTotal>65.88</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>DoasDirectToZone</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">2.34</SensibleDelayed>
+    <Total units="W">2.34</Total>
+    <GrandTotal>0.04</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">351.09</SensibleDelayed>
+    <Total units="W">351.09</Total>
+    <GrandTotal>5.28</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">-48.9</SensibleDelayed>
+    <Total units="W">-48.9</Total>
+    <GrandTotal>-0.7</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>0.00</GrandTotal>
+  </EstimatedCoolingPeakLoadComponents>
+  <EstimatedCoolingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">5622.63</SensibleInstant>
+    <SensibleDelayed units="W">498.31</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">528.04</Latent>
+    <Total units="W">6648.98</Total>
+  </EstimatedCoolingPeakLoadComponents>
+  <CoolingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>7/21 19:00:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+29.68</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+29.63</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.02658</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+26.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+42.58</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00891</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+6116.31</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+6120.94</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-4.6</Difference>
+  </CoolingPeakConditions>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>People</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Lights</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Equipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Refrigeration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>WaterUseEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>HvacEquipmentLosses</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>PowerGenerationEquipment</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Doas</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Infiltration</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ZoneVentilation</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneMixing</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>Roof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneCeiling</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherRoof</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneWall</name>
+    <SensibleDelayed units="W">-325.2</SensibleDelayed>
+    <Total units="W">-325.2</Total>
+    <GrandTotal>100.01</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherWall</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>ExteriorFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>InterzoneFloor</name>
+    <SensibleDelayed units="W">0.02</SensibleDelayed>
+    <Total units="W">0.02</Total>
+    <GrandTotal>-0.0</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GroundContactFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OtherFloor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationConduction</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>FenestrationSolar</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>OpaqueDoor</name>
+    <SensibleDelayed units="W">0.00</SensibleDelayed>
+    <Total units="W">0.00</Total>
+    <GrandTotal>-0.00</GrandTotal>
+  </EstimatedHeatingPeakLoadComponents>
+  <EstimatedHeatingPeakLoadComponents>
+    <name>GrandTotal</name>
+    <SensibleInstant units="W">0.00</SensibleInstant>
+    <SensibleDelayed units="W">-325.2</SensibleDelayed>
+    <SensibleReturnAir units="W">0.00</SensibleReturnAir>
+    <Latent units="W">0.00</Latent>
+    <Total units="W">-325.2</Total>
+  </EstimatedHeatingPeakLoadComponents>
+  <HeatingPeakConditions>
+    <name>Value</name>
+    <TimeOfPeakLoad>1/21 07:00:00</TimeOfPeakLoad>
+    <OutsideDryBulbTemperature units="C">
+-11.7</OutsideDryBulbTemperature>
+    <OutsideWetBulbTemperature units="C">
+-11.7</OutsideWetBulbTemperature>
+    <OutsideHumidityRatioAtPeak units="kgWater/kgAir">
+0.00137</OutsideHumidityRatioAtPeak>
+    <ZoneDryBulbTemperature units="C">
+20.00</ZoneDryBulbTemperature>
+    <ZoneRelativeHumdity units="%">
+55.02</ZoneRelativeHumdity>
+    <ZoneHumidityRatioAtPeak units="kgWater/kgAir">
+0.00800</ZoneHumidityRatioAtPeak>
+    <PeakDesignSensibleLoad units="W">
+-325.2</PeakDesignSensibleLoad>
+    <EstimatedInstantDelayedSensibleLoad units="W">
+-325.2</EstimatedInstantDelayedSensibleLoad>
+    <Difference units="W">
+-0.0</Difference>
+  </HeatingPeakConditions>
+</ZoneComponentLoadSummary>
+</EnergyPlusTabularReports>
