@@ -91,5 +91,50 @@ namespace BH.Tests.Adapter.XML
 
             objs.Count.Should().Be(jsonObjs.Count-3, "The number of pulled objects should be the same as the number of json objects, minus unused constructions.");
         }
+
+        [Test]
+        [Description("Test for pushing a set of BHoM environment objects to xml with constructions set to false.")]
+        public void PushGBXMLNoConstructions()
+        {
+            m_config.Schema = oM.Adapters.XML.Enums.Schema.GBXML;
+            m_config.Settings = new GBXMLSettings() { IncludeConstructions = false };
+            FilterRequest request = new FilterRequest();
+
+            List<IBHoMObject> jsonObjs = BH.Engine.Adapters.File.Compute.ReadFromJsonFile(Path.Combine(m_config.File.Directory, "TestModel.json"), true).Cast<IBHoMObject>().ToList();
+
+            //Push, then pull objects.
+            m_adapter.Push(jsonObjs, actionConfig: m_config);
+            List<IBHoMObject> objs = m_adapter.Pull(request, actionConfig: m_config).Cast<IBHoMObject>().ToList();
+
+            List<Panel> pulledPanels = BH.Engine.Environment.Query.Panels(objs);
+            List<Panel> jsonPanels = BH.Engine.Environment.Query.Panels(jsonObjs);
+            List<Construction> constructions = objs.Where(x => x.GetType() == typeof(Construction)).Cast<Construction>().ToList();
+
+            pulledPanels = BH.Engine.Data.Query.OrderBy(pulledPanels, "Name");
+            jsonPanels = BH.Engine.Data.Query.OrderBy(jsonPanels, "Name");
+
+            //assert correct values
+            pulledPanels.Count.Should().Be(jsonPanels.Count, "There was a different number of panels pushed then pulled compared to expected.");
+            for (int i = 0; i < pulledPanels.Count; i++)
+            {
+                pulledPanels[i].Name.Should().Be(jsonPanels[i].Name, "The name of the panel pulled was not the same as the json panel.");
+                pulledPanels[i].IsIdentical(jsonPanels[i]).Should().BeTrue("The panel with name {pulledPanels[i].Name} was not identical to the json panel with the same name.");
+            }
+            constructions.Count.Should().Be(0, "No constructions are being pulled.");
+
+            objs.Count.Should().Be(jsonObjs.Count - 4, "The number of pulled objects should be the same as the number of json objects, minus constructions.");
+        }
+
+        [Test]
+        [Description("Test for pushing GBXML with exportDetail set to BuildingShell")]
+        public void PushGBXMLBuildingShell()
+        {
+            m_config.Schema = oM.Adapters.XML.Enums.Schema.GBXML;
+            m_config.Settings = new GBXMLSettings()
+            {
+                IncludeConstructions = false,
+                ExportDetail = oM.Adapters.XML.Enums.ExportDetail.BuildingShell
+            };
+        }
     }
 }
