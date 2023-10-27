@@ -127,7 +127,7 @@ namespace BH.Tests.Adapter.XML
 
         [Test]
         [Description("Test pulling EnergyPlus XML file.")]
-        public void PullEnergyPlus() //do this
+        public void PullEnergyPlus()
         {
             m_config.Schema = oM.Adapters.XML.Enums.Schema.EnergyPlusLoads;
             m_config.File.FileName = "EnergyPlusLoadsTest.xml";
