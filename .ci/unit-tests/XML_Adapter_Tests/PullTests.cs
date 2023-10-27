@@ -1,12 +1,33 @@
-﻿using BH.Adapter.XML;
-using BH.Adapter.XML.GBXMLSchema;
+﻿/*
+ * This file is part of the Buildings and Habitats object Model (BHoM)
+ * Copyright (c) 2015 - 2023, the respective contributors. All rights reserved.
+ *
+ * Each contributor holds copyright over their respective contributions.
+ * The project versioning (Git) records all such contribution source information.
+ *                                           
+ *                                                                              
+ * The BHoM is free software: you can redistribute it and/or modify         
+ * it under the terms of the GNU Lesser General Public License as published by  
+ * the Free Software Foundation, either version 3.0 of the License, or          
+ * (at your option) any later version.                                          
+ *                                                                              
+ * The BHoM is distributed in the hope that it will be useful,              
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of               
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the                 
+ * GNU Lesser General Public License for more details.                          
+ *                                                                            
+ * You should have received a copy of the GNU Lesser General Public License     
+ * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
+ */
+
+using BH.Adapter.XML;
 using BH.oM.Adapter;
+using BH.Engine.Adapter;
 using BH.oM.Adapters.XML;
 using BH.oM.Adapters.XML.Settings;
 using BH.oM.Base;
 using BH.oM.Data.Requests;
 using BH.oM.XML.Bluebeam;
-using BH.oM.XML.CSProject;
 using BH.oM.XML.EnergyPlus;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
@@ -16,6 +37,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BH.oM.Environment.Elements;
+using BH.Engine.Environment;
+using BH.oM.Physical.Constructions;
 
 namespace BH.Tests.Adapter.XML
 {
@@ -82,11 +106,23 @@ namespace BH.Tests.Adapter.XML
         }
 
         [Test]
-        [Description("Test pulling Default XML file.")]
+        [Description("Test pulling a Default XML file, using the BlueBeamMarkup.xml file.")]
         public void PullDefault()
         {
-            var String = "Pass";
-            String.Should().Be("Fail");
+            m_config.Schema = oM.Adapters.XML.Enums.Schema.Undefined;
+            m_config.File.FileName = "BlueBeamMarkup.xml";
+            FilterRequest request = new FilterRequest() { Type = typeof(MarkupSummary) };
+
+            MarkupSummary markupSummary = m_Adapter.Pull(request, actionConfig: m_config).Cast<MarkupSummary>().ToList()[0];
+
+            List<Markup> markups = markupSummary.Markup;
+            List<Markup> openings = markups.Where(x => x.Layer == "Openings").ToList();
+
+            List<oM.Base.Debugging.Event> events = BH.Engine.Base.Query.CurrentEvents();
+
+            markups.Count.Should().Be(8, "Wrong number of markups pulled compared to expected.");
+            openings.Count.Should().Be(3, "Wrong number of openings pulled compared to expected.");
+            events.Count.Should().Be(0, "There were errors when serialising the xml, see console for more details on the error.");
         }
 
         [Test]
@@ -110,16 +146,36 @@ namespace BH.Tests.Adapter.XML
 
         [Test]
         [Description("Test pulling GBXML file.")]
-        public void PullGBXML() //do this
+        public void PullGBXML()
         {
             m_config.Schema = oM.Adapters.XML.Enums.Schema.GBXML;
             m_config.File.FileName = "GBXMLTest.xml";
             m_config.Settings = new GBXMLSettings();
             FilterRequest request = new FilterRequest();
 
-            List<IBHoMObject> objs = m_Adapter.Pull(request, actionConfig: m_config).Cast<IBHoMObject>().ToList();
+            //the gbXML file and the json file contain the same BHoM objects.
+            List<IBHoMObject> pulledObjs = m_Adapter.Pull(request, actionConfig: m_config).Cast<IBHoMObject>().ToList();
+            List<IBHoMObject> jsonObjs = BH.Engine.Adapters.File.Compute.ReadFromJsonFile(Path.Combine(m_config.File.Directory, "TestModel.json"), true).Cast<IBHoMObject>().ToList();
 
-            objs.Count.Should().Be(73, "Wrong number of objects pulled compared to expected.");
+            List<Panel> pulledPanels = BH.Engine.Environment.Query.Panels(pulledObjs);
+            List<Panel> jsonPanels = BH.Engine.Environment.Query.Panels(jsonObjs);
+            List<Building> buildings = BH.Engine.Environment.Query.Buildings(pulledObjs);
+            List<Space> spaces = BH.Engine.Environment.Query.Spaces(pulledObjs);
+            List<Construction> constructions = pulledObjs.Where(x => x.GetType() == typeof(Construction)).Cast<Construction>().ToList();
+
+            pulledPanels = BH.Engine.Data.Query.OrderBy(pulledPanels, "Name");
+            jsonPanels = BH.Engine.Data.Query.OrderBy(jsonPanels, "Name");
+
+            //assert that the pulled panels are the same as the panels deserialised from json
+            pulledPanels.Count.Should().Be(jsonPanels.Count, "The number of panels pulled should be the same as the number of panels in the json.");
+            for (int i = 0; i< pulledPanels.Count; i++)
+            {
+                pulledPanels[i].Name.Should().Be(jsonPanels[i].Name, "The names of the pulled panels should be the same as the names of the json panels.");
+                pulledPanels[i].IsIdentical(jsonPanels[i]).Should().BeTrue($"The panel pulled with the name {pulledPanels[i].Name} was not the same as the json panel with the same name.");
+            }
+            buildings.Count.Should().Be(1, "Wrong number of buildings pulled compared to expected.");
+            spaces.Count.Should().Be(9, "Wrong number of buildings pulled compared to expected.");
+            constructions.Count.Should().Be(4, "Wrong number of constructions pulled compared to expected.");
         }
     }
 }
