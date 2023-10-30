@@ -73,8 +73,6 @@ namespace BH.Tests.Adapter.XML
             };
             FilterRequest request = new FilterRequest();
 
-            List<IBHoMObject> jsonObjs = BH.Engine.Adapters.File.Compute.ReadFromJsonFile(Path.Combine(m_config.File.Directory, "TestModel.json"), true).Cast<IBHoMObject>().ToList();
-
             //Push, then pull objects.
             m_adapter.Push(m_jsonObjects, actionConfig: m_config);
             List<IBHoMObject> objs = m_adapter.Pull(request, actionConfig: m_config).Cast<IBHoMObject>().ToList();
@@ -82,7 +80,7 @@ namespace BH.Tests.Adapter.XML
             List<Panel> pulledPanels = BH.Engine.Environment.Query.Panels(objs);
             List<Panel> jsonPanels = BH.Engine.Environment.Query.Panels(m_jsonObjects);
             List<Construction> constructions = objs.Where(x => x.GetType() == typeof(Construction)).Cast<Construction>().ToList();
-            List<Construction> jsonConstructions = objs.Where(x => x.GetType() == typeof(Construction) && x.Name == "generic_construction").Cast<Construction>().ToList();
+            List<Construction> jsonConstructions = m_jsonObjects.Where(x => x.GetType() == typeof(Construction) && x.Name == "generic_construction").Cast<Construction>().ToList();
 
             pulledPanels = BH.Engine.Data.Query.OrderBy(pulledPanels, "Name");
             jsonPanels = BH.Engine.Data.Query.OrderBy(jsonPanels, "Name");
