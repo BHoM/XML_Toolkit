@@ -28,16 +28,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BH.Adapter.XML;
-using BH.oM.Adapters.XML;
-using BH.oM.Adapter;
+using BH.Engine.Environment;
 using BH.Engine.Adapter;
 using BH.Engine.Adapters.XML;
+using BH.oM.Adapters.XML;
+using BH.oM.Adapter;
 using BH.oM.Adapters.XML.Settings;
 using BH.oM.Base;
 using BH.oM.Data.Requests;
 using BH.oM.Environment.Elements;
 using BH.oM.Physical.Constructions;
-using BH.Engine.Environment;
 
 namespace BH.Tests.Adapter.XML
 {
