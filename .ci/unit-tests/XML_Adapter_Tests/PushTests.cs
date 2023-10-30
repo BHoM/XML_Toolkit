@@ -24,6 +24,7 @@ namespace BH.Tests.Adapter.XML
         XMLAdapter m_adapter;
         XMLConfig m_config;
         List<IBHoMObject> m_jsonObjects;
+        List<Panel> m_jsonPanels;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -38,6 +39,7 @@ namespace BH.Tests.Adapter.XML
                 File = new FileSettings() { Directory = ModelsPath, FileName = "PushedModel.xml"},
             };
             m_jsonObjects = BH.Engine.Adapters.File.Compute.ReadFromJsonFile(Path.Combine(ModelsPath, "TestModel.json"), true).Cast<IBHoMObject>().ToList();
+            m_jsonPanels = BH.Engine.Environment.Query.Panels(m_jsonObjects);
         }
 
         [SetUp]
@@ -78,12 +80,11 @@ namespace BH.Tests.Adapter.XML
             List<IBHoMObject> objs = m_adapter.Pull(request, actionConfig: m_config).Cast<IBHoMObject>().ToList();
 
             List<Panel> pulledPanels = BH.Engine.Environment.Query.Panels(objs);
-            List<Panel> jsonPanels = BH.Engine.Environment.Query.Panels(m_jsonObjects);
             List<Construction> constructions = objs.Where(x => x.GetType() == typeof(Construction)).Cast<Construction>().ToList();
             List<Construction> jsonConstructions = m_jsonObjects.Where(x => x.GetType() == typeof(Construction) && x.Name == "generic_construction").Cast<Construction>().ToList();
 
             pulledPanels = BH.Engine.Data.Query.OrderBy(pulledPanels, "Name");
-            jsonPanels = BH.Engine.Data.Query.OrderBy(jsonPanels, "Name");
+            List<Panel> jsonPanels = BH.Engine.Data.Query.OrderBy(m_jsonPanels, "Name");
 
             //assert correct values
             pulledPanels.Count.Should().Be(jsonPanels.Count, "There was a different number of panels pushed then pulled compared to expected.");
@@ -114,11 +115,10 @@ namespace BH.Tests.Adapter.XML
             List<IBHoMObject> objs = m_adapter.Pull(request, actionConfig: m_config).Cast<IBHoMObject>().ToList();
 
             List<Panel> pulledPanels = BH.Engine.Environment.Query.Panels(objs);
-            List<Panel> jsonPanels = BH.Engine.Environment.Query.Panels(m_jsonObjects);
             List<Construction> constructions = objs.Where(x => x.GetType() == typeof(Construction)).Cast<Construction>().ToList();
 
             pulledPanels = BH.Engine.Data.Query.OrderBy(pulledPanels, "Name");
-            jsonPanels = BH.Engine.Data.Query.OrderBy(jsonPanels, "Name");
+            List<Panel> jsonPanels = BH.Engine.Data.Query.OrderBy(m_jsonPanels, "Name");
 
             //assert correct values
             pulledPanels.Count.Should().Be(jsonPanels.Count, "There was a different number of panels pushed then pulled compared to expected.");
@@ -144,16 +144,17 @@ namespace BH.Tests.Adapter.XML
             };
             FilterRequest request = new FilterRequest();
 
+            //push, then pull objects
             m_adapter.Push(m_jsonObjects, actionConfig: m_config);
             List<IBHoMObject> objs = m_adapter.Pull(request, actionConfig: m_config).Cast<IBHoMObject>().ToList();
 
             List<Panel> pulledPanels = BH.Engine.Environment.Query.Panels(objs);
-            List<Panel> jsonPanels = BH.Engine.Environment.Query.Panels(m_jsonObjects); //perhaps refactor to be m_jsonPanels
             List<Construction> constructions = objs.Where(x => x.GetType() == typeof(Construction)).Cast<Construction>().ToList();
 
             pulledPanels = BH.Engine.Data.Query.OrderBy(pulledPanels, "Name");
-            jsonPanels = BH.Engine.Data.Query.OrderBy(jsonPanels.ToSpaces().ExternalElements(), "Name");
+            List<Panel> jsonPanels = BH.Engine.Data.Query.OrderBy(m_jsonPanels.ToSpaces().ExternalElements(), "Name");
 
+            //assert correct values
             pulledPanels.Count.Should().Be(jsonPanels.Count, "There was a different number of external panels pulled compared to expected.");
             for (int i = 0; i < jsonPanels.Count; i++)
             {
