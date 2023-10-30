@@ -73,6 +73,8 @@ namespace BH.Tests.Adapter.XML
             };
             FilterRequest request = new FilterRequest();
 
+            List<IBHoMObject> jsonObjs = BH.Engine.Adapters.File.Compute.ReadFromJsonFile(Path.Combine(m_config.File.Directory, "TestModel.json"), true).Cast<IBHoMObject>().ToList();
+
             //Push, then pull objects.
             m_adapter.Push(m_jsonObjects, actionConfig: m_config);
             List<IBHoMObject> objs = m_adapter.Pull(request, actionConfig: m_config).Cast<IBHoMObject>().ToList();
