@@ -64,7 +64,7 @@ namespace BH.Adapter.XML
 
                 XmlSerializerNamespaces xns = new XmlSerializerNamespaces();
                 XmlSerializer szer = new XmlSerializer(exportType, overrides);
-                TextWriter ms = new StreamWriter(_fileSettings.GetFullFileName());
+                TextWriter ms = new StreamWriter(config.File.GetFullFileName());
                 foreach (var obj in objects)
                 {
                     try

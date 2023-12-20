@@ -107,7 +107,7 @@ namespace BH.Adapter.XML
 
                 xmlParts.Add("</Project>");
 
-                StreamWriter sw = new StreamWriter(_fileSettings.GetFullFileName());
+                StreamWriter sw = new StreamWriter(config.File.GetFullFileName());
 
                 xmlParts = xmlParts.Select(x => Regex.Replace(x, @"<\?xml version=""1.0"" encoding=""utf-[0-9]*""\?>\r\n", "")).ToList();
                 xmlParts = xmlParts.Select(x => x.Replace("q1:", "")).ToList();
