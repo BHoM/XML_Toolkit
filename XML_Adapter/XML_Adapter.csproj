@@ -7,7 +7,7 @@
     <Authors>BHoM</Authors>
     <Copyright>Copyright © https://github.com/BHoM</Copyright>
     <RootNamespace>BH.oM.Adapters.XML</RootNamespace>
-    <FileVersion>7.2.0.0</FileVersion>
+    <FileVersion>7.3.0.0</FileVersion>
     <OutputPath>..\Build\</OutputPath>
     <Configurations>Debug;Release;Test</Configurations>
   </PropertyGroup>
