@@ -12,7 +12,7 @@
 	  <Authors>BHoM</Authors>
 	  <Copyright>Copyright © https://github.com/BHoM</Copyright>
 	  <RootNamespace>BH.Tests.Adapter.XML</RootNamespace>
-	  <FileVersion>8.0.0.0</FileVersion>
+	  <FileVersion>8.1.0.0</FileVersion>
 	</PropertyGroup>
 
   <ItemGroup>
