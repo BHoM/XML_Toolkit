@@ -42,9 +42,9 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Get the GBXML representation of a BHoM Environments Building")]
-        [Input("building", "The BHoM Environments Building to convert into a GBXML Building")]
-        [Output("building", "The GBXML representation of a BHoM Environment Building")]
+        [Description("Get the GBXML representation of a BHoM Environments Building.")]
+        [Input("building", "The BHoM Environments Building to convert into a GBXML Building.")]
+        [Output("building", "The GBXML representation of a BHoM Environment Building.")]
         public static BHX.Building ToGBXML(this BHE.Building building)
         {
             BHX.Building gbBuilding = new BHX.Building();
@@ -67,9 +67,9 @@ namespace BH.Adapter.XML
             return gbBuilding;
         }
 
-        [Description("Get the GBXML representation of a BHoM Environments Building")]
-        [Input("building", "The BHoM Environments Building to convert into a GBXML Location")]
-        [Output("location", "The GBXML representation of a BHoM Environment Building")]
+        [Description("Get the GBXML representation of a BHoM Environments Building.")]
+        [Input("building", "The BHoM Environments Building to convert into a GBXML Location.")]
+        [Output("location", "The GBXML representation of a BHoM Environment Building.")]
         public static BHX.Location ToGBXMLLocation(this BHE.Building building, GBXMLSettings settings)
         {
             BHX.Location location = new BHX.Location();
@@ -88,9 +88,9 @@ namespace BH.Adapter.XML
             return location;
         }
 
-        [Description("Get the BHoM representation of a GBXML Building")]
-        [Input("gbBuilding", "The GBXML Building to convert into a BHoM Building")]
-        [Output("building", "The BHoM representation of a GBXML Building")]
+        [Description("Get the BHoM representation of a GBXML Building.")]
+        [Input("gbBuilding", "The GBXML Building to convert into a BHoM Building.")]
+        [Output("building", "The BHoM representation of a GBXML Building.")]
         public static BHE.Building FromGBXML(this BHX.Building gbBuilding)
         {
             BHE.Building building = new BHE.Building();
@@ -106,9 +106,9 @@ namespace BH.Adapter.XML
             return building;
         }
 
-        [Description("Get the BHoM representation of a GBXML Location")]
-        [Input("location", "The GBXML Location to convert into a BHoM Building")]
-        [Output("building", "The BHoM representation of a GBXML Location")]
+        [Description("Get the BHoM representation of a GBXML Location.")]
+        [Input("location", "The GBXML Location to convert into a BHoM Building.")]
+        [Output("building", "The BHoM representation of a GBXML Location.")]
         public static BHE.Building FromGBXML(this BHX.Location location)
         {
             BHE.Building building = new oM.Environment.Elements.Building();

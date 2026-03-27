@@ -44,11 +44,11 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Gets the GBXML SpaceBoundary representation of a collection of Environment panels which comprise a closed volumetric space")]
-        [Input("spaceBoundaries", "A collection of Environment Panels which comprise a closed volumetric space")]
-        [Input("uniqueBEs", "A collection of unique Environment Panels used in the model as a whole")]
-        [Input("planarTolerance", "The tolerance to define planarity - default to BH.oM.Geometry.Tolerance.Distance")]
-        [Output("spaceBoundaries", "GBXML representation of space boundaries")]
+        [Description("Gets the GBXML SpaceBoundary representation of a collection of Environment panels which comprise a closed volumetric space.")]
+        [Input("spaceBoundaries", "A collection of Environment Panels which comprise a closed volumetric space.")]
+        [Input("settings", "Adapter settings controlling GBXML conversion behaviour.")]
+        [Input("planarTolerance", "The tolerance to define planarity - default to BH.oM.Geometry.Tolerance.Distance.")]
+        [Output("spaceBoundaries", "GBXML representation of space boundaries.")]
         public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, GBXMLSettings settings, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             List<Polyloop> pLoops = new List<Polyloop>();

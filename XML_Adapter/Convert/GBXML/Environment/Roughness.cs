@@ -37,9 +37,9 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Get the GBXML representation of a BHoM Roughness")]
-        [Input("roughness", "The BHoM Roughness to convert into a GBXML Roughness")]
-        [Output("roughnessGBXML", "The GBXML representation of a BHoM Roughness")]
+        [Description("Get the GBXML representation of a BHoM Roughness.")]
+        [Input("roughness", "The BHoM Roughness to convert into a GBXML Roughness.")]
+        [Output("roughnessGBXML", "The GBXML representation of a BHoM Roughness.")]
         public static BHX.Roughness ToGBXML(this Roughness roughness)
         {
             BHX.Roughness r = new BHX.Roughness();
@@ -69,9 +69,9 @@ namespace BH.Adapter.XML
             return r;
         }
 
-        [Description("Get the BHoM representation of a GBXML Roughness")]
-        [Input("roughness", "The GBXML Roughness to convert into a BHoM Roughness")]
-        [Output("roughnessBHoM", "The BHoM representation of a GBXML Roughness")]
+        [Description("Get the BHoM representation of a GBXML Roughness.")]
+        [Input("roughness", "The GBXML Roughness to convert into a BHoM Roughness.")]
+        [Output("roughnessBHoM", "The BHoM representation of a GBXML Roughness.")]
         public static Roughness FromGBXML(this BHX.Roughness roughness)
         {
             if (roughness.Value.Equals("MediumRough"))

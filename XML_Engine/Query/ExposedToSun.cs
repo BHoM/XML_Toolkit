@@ -35,9 +35,9 @@ namespace BH.Engine.Adapters.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("BH.Engine.XML.Query.ExposedToSun => Returns whether a given gbXML surface type string can be classed as being exposed to the sun")]
-        [Input("surfaceType", "A gbXML string representing a surface type")]
-        [Output("exposedToSun", "True if the surface type can be considered to be exposed to the sun, false otherwise")]
+        [Description("BH.Engine.XML.Query.ExposedToSun => Returns whether a given gbXML surface type string can be classed as being exposed to the sun.")]
+        [Input("surfaceType", "A gbXML string representing a surface type.")]
+        [Output("exposedToSun", "True if the surface type can be considered to be exposed to the sun, false otherwise.")]
         public static bool ExposedToSun(string surfaceType)
         {
             if (String.IsNullOrEmpty(surfaceType)) return false;

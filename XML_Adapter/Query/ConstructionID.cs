@@ -38,9 +38,9 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Gets the unique construction ID for an Environment Panel")]
-        [Input("panel", "An Environment Panel with a construction")]
-        [Output("contstructionID", "The unique ID for the construction on the panel")]
+        [Description("Gets the unique construction ID for an Environment Panel.")]
+        [Input("panel", "An Environment Panel with a construction.")]
+        [Output("constructionID", "The unique ID for the construction on the panel.")]
         public static string ConstructionID(this BHE.Panel panel)
         {
             if (panel == null || panel.Construction == null)
@@ -48,9 +48,9 @@ namespace BH.Adapter.XML
             return panel.Construction.ConstructionID();
         }
 
-        [Description("Gets the unique construction ID for a construction")]
-        [Input("construction", "An instance of a construction implementing the Physical IConstruction interface")]
-        [Output("contstructionID", "The unique ID for the construction")]
+        [Description("Gets the unique construction ID for a construction.")]
+        [Input("construction", "An instance of a construction implementing the Physical IConstruction interface.")]
+        [Output("constructionID", "The unique ID for the construction.")]
         public static string ConstructionID(this BHC.IConstruction construction)
         {
             if (construction == null)
@@ -58,9 +58,9 @@ namespace BH.Adapter.XML
             return ConstructionID(construction as dynamic);
         }
 
-        [Description("Gets the unique construction ID for a Physical construction")]
-        [Input("construction", "An instance of a Physical construction")]
-        [Output("contstructionID", "The unique ID for the construction")]
+        [Description("Gets the unique construction ID for a Physical construction.")]
+        [Input("construction", "An instance of a Physical construction.")]
+        [Output("constructionID", "The unique ID for the construction.")]
         public static string ConstructionID(this BHC.Construction construction)
         {
             //Method for constructing an ID based on the name of the property - this allows the same string ID to be generated for the same property for consistency in finding string IDs

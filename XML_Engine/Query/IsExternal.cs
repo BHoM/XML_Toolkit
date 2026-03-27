@@ -37,10 +37,10 @@ namespace BH.Engine.Adapters.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Determines whether a collection of Environment Panels representing a single space contains any panels which are externally facing")]
-        [Input("elementsAsSpace", "A collection of Environment Panels that represent closed spaced")]
-        [Input("elementsAsSpaces", "A nested collection of Environment Panels which represent all spaces in the model")]
-        [Output("isExternal", "True if the space has at least one externally facing Panel")]
+        [Description("Determines whether a collection of Environment Panels representing a single space contains any panels which are externally facing.")]
+        [Input("elementsAsSpace", "A collection of Environment Panels that represent closed spaces.")]
+        [Input("elementsAsSpaces", "A nested collection of Environment Panels which represent all spaces in the model.")]
+        [Output("isExternal", "True if the space has at least one externally facing Panel.")]
         public static bool IsExternal(this List<Panel> elementsAsSpace, List<List<Panel>> elementsAsSpaces)
         {
             //Check whether the space contains at least one external element
