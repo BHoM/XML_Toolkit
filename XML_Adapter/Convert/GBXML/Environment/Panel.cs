@@ -246,9 +246,9 @@ namespace BH.Adapter.XML
             return geom;
         }
 
-        [Description("Get the BHoM representation of a GBXML Surface")]
-        [Input("surface", "The GBXML Surface to convert into a BHoM Environments Panel")]
-        [Output("panel", "The BHoM Environments representation of a GBXML Surface")]
+        [Description("Get the BHoM representation of a GBXML Surface.")]
+        [Input("surface", "The GBXML Surface to convert into a BHoM Environments Panel.")]
+        [Output("panel", "The BHoM Environments representation of a GBXML Surface.")]
         public static BHE.Panel FromGBXML(this BHX.Surface surface)
         {
             BHE.Panel panel = new BHE.Panel();
