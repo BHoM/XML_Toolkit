@@ -42,9 +42,10 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Returns a gbXML BuildingStorey represention of a BHoM level and spaces.")]
+        [Description("Returns a gbXML BuildingStorey represention of a BHoM level and its geometry.")]
         [Input("level", "A BHoM level to find the storey for.")]
-        [Input("spaces", "A list of BHoM spaces that sits on the given level.")]
+        [Input("storeyGeometry", "The plan geometry of the storey as a BHoM polyline.")]
+        [Input("settings", "gbXML adapter settings controlling the conversion.")]
         [Output("buildingStorey", "The gbXML building storey.")]
         public static BHX.BuildingStorey ToGBXML(this BHS.SettingOut.Level level, BHG.Polyline storeyGeometry, GBXMLSettings settings)
         {

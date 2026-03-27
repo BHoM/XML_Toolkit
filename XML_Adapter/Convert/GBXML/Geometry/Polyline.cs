@@ -41,7 +41,7 @@ namespace BH.Adapter.XML
     public static partial class Convert
     {
         [Description("Get the GBXML representation of a BHoM Polyline.")]
-        [Input("pLine", "The BHoM Geometry Point to convert into a GBXML Polyloop.")]
+        [Input("pLine", "The BHoM Geometry Polyline to convert into a GBXML Polyloop.")]
         [Input("tolerance", "The tolerance to determine whether the polyline is closed or not, default to BH.oM.Geometry.Tolerance.Distance.")]
         [Output("polyloop", "The GBXML representation of a BHoM Polyline.")]
         public static BHX.Polyloop ToGBXML(this BHG.Polyline pLine, GBXMLSettings settings, double tolerance = BHG.Tolerance.Distance)

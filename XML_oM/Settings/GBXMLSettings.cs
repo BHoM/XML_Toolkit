@@ -63,7 +63,7 @@ namespace BH.oM.Adapters.XML.Settings
         [Description("Set tolerance for planar surfaces, default is set to BH.oM.Geometry.Tolerance.Distance.")]
         public virtual double PlanarTolerance { get; set; } = BH.oM.Geometry.Tolerance.Distance;
 
-        [Description("Set a distance to offset openings that have a area >= the area of the host panel. Value should be negative. Defaults to -0.001.")]
+        [Description("Set a distance to offset openings that have an area >= the area of the host panel. Value should be negative. Defaults to -0.001.")]
         public virtual double OffsetDistance { get; set; } = -0.001;
 
         [Description("Set the tolerance for angle calculations when exporting to XML. Default is set to BH.oM.Geometry.Tolerance.Angle.")]
