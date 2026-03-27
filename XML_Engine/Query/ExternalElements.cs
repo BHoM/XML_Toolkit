@@ -37,9 +37,9 @@ namespace BH.Engine.Adapters.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Filters a collection of Environment Panels grouped to represent closed spaces to only those which have only one adjacenet space")]
-        [Input("elementsAsSpaces", "A nested collection of Environment Panels that represent closed spaced")]
-        [Output("externalElements", "The collection of Environment Panels which are externally facing")]
+        [Description("Filters a collection of Environment Panels grouped to represent closed spaces to only those which have only one adjacenet space.")]
+        [Input("elementsAsSpaces", "A nested collection of Environment Panels that represent closed spaced.")]
+        [Output("externalElements", "The collection of Environment Panels which are externally facing.")]
         public static List<Panel> ExternalElements(this List<List<Panel>> elementsAsSpaces)
         {
             List<Panel> externalElements = new List<Panel>();

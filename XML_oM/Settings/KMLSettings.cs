@@ -35,7 +35,7 @@ namespace BH.oM.Adapters.XML.Settings
         /**** Properties                                ****/
         /***************************************************/
 
-        [Description("Set to false if you want to append to a file when pushing XML. If set to true then a file will be created. If a file exists, it will be overwritten. Default true")]
+        [Description("Set to false if you want to append to a file when pushing XML. If set to true then a file will be created. If a file exists, it will be overwritten. Default true.")]
         public virtual bool NewFile { get; set; } = true;
 
         /***************************************************/

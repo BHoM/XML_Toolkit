@@ -42,10 +42,10 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Returns a gbXML BuildingStorey represention of a BHoM level and spaces")]
-        [Input("level", "A BHoM level to find the storey for")]
-        [Input("spaces", "A list of BHoM spaces that sits on the given level")]
-        [Output("buildingStorey", "The gbXML building storey")]
+        [Description("Returns a gbXML BuildingStorey represention of a BHoM level and spaces.")]
+        [Input("level", "A BHoM level to find the storey for.")]
+        [Input("spaces", "A list of BHoM spaces that sits on the given level.")]
+        [Output("buildingStorey", "The gbXML building storey.")]
         public static BHX.BuildingStorey ToGBXML(this BHS.SettingOut.Level level, BHG.Polyline storeyGeometry, GBXMLSettings settings)
         {
             BHX.BuildingStorey storey = new BHX.BuildingStorey();
@@ -61,9 +61,9 @@ namespace BH.Adapter.XML
             return storey;
         }
 
-        [Description("Returns a BHoM Level represention of a gbXML storey")]
-        [Input("storey", "Set a gbXML storey to get the Level from")]
-        [Output("level", "The BHoM level")]
+        [Description("Returns a BHoM Level represention of a gbXML storey.")]
+        [Input("storey", "Set a gbXML storey to get the Level from.")]
+        [Output("level", "The BHoM level.")]
         public static BHS.SettingOut.Level FromGBXML(this BHX.BuildingStorey storey)
         {
             BHS.SettingOut.Level level = new BHS.SettingOut.Level();

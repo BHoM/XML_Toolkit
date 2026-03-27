@@ -36,7 +36,7 @@ namespace BH.Engine.Adapters.XML
     {
         [Description("Creates an instance of a GBXMLUnitSetUp object based on the LengthUnit type. If the LengthUnit type is Meters, the Area and Volume Units will become SquareMeters and CubicMeters respectively. Allows for the creation of GBXMLUnitSetUp from just the length and temperature attributes.")]
         [Input("length", "The length unit to build the area and volume units from.")]
-        [Input("temperature", "The temperature unit to use, defaults to Celcius")]
+        [Input("temperature", "The temperature unit to use, defaults to Celcius.")]
         [Output("gbxmlUnitSetUp", "A GBXMLUnitSetUp object containing set up options for the gbXML export.")]
         public static GBXMLUnitSetUp GBXMLUnitSetUp(LengthUnit length, TemperatureUnit temperature = TemperatureUnit.Celcius)
         {

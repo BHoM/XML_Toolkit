@@ -39,9 +39,9 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Get the GBXML representation of a BHoM Point")]
-        [Input("pt", "The BHoM Geometry Point to convert into a GBXML Cartesian Point")]
-        [Output("cartesianPoint", "The GBXML representation of a BHoM Point")]
+        [Description("Get the GBXML representation of a BHoM Point.")]
+        [Input("pt", "The BHoM Geometry Point to convert into a GBXML Cartesian Point.")]
+        [Output("cartesianPoint", "The GBXML representation of a BHoM Point.")]
         public static BHX.CartesianPoint ToGBXML(this BHG.Point pt, GBXMLSettings settings)
         {
             BHX.CartesianPoint cartPoint = new BHX.CartesianPoint();
@@ -56,9 +56,9 @@ namespace BH.Adapter.XML
             return cartPoint;
         }
 
-        [Description("Get the BHoM representation of a GBXML Point")]
-        [Input("pt", "The GBXML Cartesian Point to convert into a BHoM Geometry Point")]
-        [Output("bhomPoint", "The BHoM representation of a GBXML Point")]
+        [Description("Get the BHoM representation of a GBXML Point.")]
+        [Input("pt", "The GBXML Cartesian Point to convert into a BHoM Geometry Point.")]
+        [Output("bhomPoint", "The BHoM representation of a GBXML Point.")]
         public static BHG.Point FromGBXML(this BHX.CartesianPoint pt)
         {
             BHG.Point bhomPt = new BHG.Point();
