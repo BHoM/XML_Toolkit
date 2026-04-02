@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -42,10 +42,11 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Returns a gbXML BuildingStorey represention of a BHoM level and spaces")]
-        [Input("level", "A BHoM level to find the storey for")]
-        [Input("spaces", "A list of BHoM spaces that sits on the given level")]
-        [Output("buildingStorey", "The gbXML building storey")]
+        [Description("Returns a gbXML BuildingStorey representation of a BHoM level and its geometry.")]
+        [Input("level", "A BHoM level to find the storey for.")]
+        [Input("storeyGeometry", "The plan geometry of the storey as a BHoM polyline.")]
+        [Input("settings", "gbXML adapter settings controlling the conversion.")]
+        [Output("buildingStorey", "The gbXML building storey.")]
         public static BHX.BuildingStorey ToGBXML(this BHS.SettingOut.Level level, BHG.Polyline storeyGeometry, GBXMLSettings settings)
         {
             BHX.BuildingStorey storey = new BHX.BuildingStorey();
@@ -61,9 +62,9 @@ namespace BH.Adapter.XML
             return storey;
         }
 
-        [Description("Returns a BHoM Level represention of a gbXML storey")]
-        [Input("storey", "Set a gbXML storey to get the Level from")]
-        [Output("level", "The BHoM level")]
+        [Description("Returns a BHoM Level represention of a gbXML storey.")]
+        [Input("storey", "Set a gbXML storey to get the Level from.")]
+        [Output("level", "The BHoM level.")]
         public static BHS.SettingOut.Level FromGBXML(this BHX.BuildingStorey storey)
         {
             BHS.SettingOut.Level level = new BHS.SettingOut.Level();
@@ -75,6 +76,7 @@ namespace BH.Adapter.XML
         }
     }
 }
+
 
 
 

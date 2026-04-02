@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -49,9 +49,9 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Get the GBXML representation of a BHoM Construction owned by an Environments Panel")]
-        [Input("element", "The BHoM Environment Panel to get the GBXML construction from")]
-        [Output("construction", "The GBXML Construction")]
+        [Description("Get the GBXML representation of a BHoM Construction owned by an Environments Panel.")]
+        [Input("element", "The BHoM Environment Panel to get the GBXML construction from.")]
+        [Output("construction", "The GBXML Construction.")]
         public static BHX.Construction ToGBXMLConstruction(this BHE.Panel element)
         {
             if (element.Construction == null)
@@ -60,10 +60,10 @@ namespace BH.Adapter.XML
             return element.Construction.ToGBXML(element);
         }
 
-        [Description("Get the GBXML representation of a BHoM Construction")]
-        [Input("construction", "The BHoM Construction to convert to a GBXML Construction")]
-        [Input("panel", "The BHoM Environment Panel which hosts the construction")]
-        [Output("construction", "The GBXML Construction")]
+        [Description("Get the GBXML representation of a BHoM Construction.")]
+        [Input("construction", "The BHoM Construction to convert to a GBXML Construction.")]
+        [Input("panel", "The BHoM Environment Panel which hosts the construction.")]
+        [Output("construction", "The GBXML Construction.")]
         public static BHX.Construction ToGBXML(this BHC.IConstruction construction, BHE.Panel panel = null)
         {
             if (construction == null)
@@ -72,10 +72,10 @@ namespace BH.Adapter.XML
             return ToGBXML(construction as dynamic, panel);
         }
 
-        [Description("Get the GBXML representation of a BHoM Construction")]
-        [Input("construction", "The BHoM Construction to convert to a GBXML Construction")]
-        [Input("opening", "The BHoM Environment Opening which hosts the construction")]
-        [Output("windowType", "The GBXML Window Construction")]
+        [Description("Get the GBXML representation of a BHoM Construction.")]
+        [Input("construction", "The BHoM Construction to convert to a GBXML Construction.")]
+        [Input("opening", "The BHoM Environment Opening which hosts the construction.")]
+        [Output("windowType", "The GBXML Window Construction.")]
         public static BHX.WindowType ToGBXMLWindow(this BHC.IConstruction construction, GBXMLSettings settings, BHE.Opening opening = null)
         {
             if (construction == null)
@@ -84,10 +84,10 @@ namespace BH.Adapter.XML
             return ToGBXMLWindow(construction as dynamic, opening, settings);
         }
 
-        [Description("Get the GBXML representation of a BHoM Construction")]
-        [Input("construction", "The BHoM Construction to convert to a GBXML Construction")]
-        [Input("element", "The BHoM Environment Panel which hosts the construction")]
-        [Output("construction", "The GBXML Construction")]
+        [Description("Get the GBXML representation of a BHoM Construction.")]
+        [Input("construction", "The BHoM Construction to convert to a GBXML Construction.")]
+        [Input("element", "The BHoM Environment Panel which hosts the construction.")]
+        [Output("construction", "The GBXML Construction.")]
         public static BHX.Construction ToGBXML(this BHC.Construction construction, BHE.Panel element = null)
         {
             if (construction == null)
@@ -115,10 +115,10 @@ namespace BH.Adapter.XML
             return gbConstruction;
         }
 
-        [Description("Get the GBXML representation of a BHoM Construction")]
-        [Input("construction", "The BHoM Construction to convert to a GBXML Construction")]
-        [Input("opening", "The BHoM Environment Opening which hosts the construction")]
-        [Output("windowType", "The GBXML Window Construction")]
+        [Description("Get the GBXML representation of a BHoM Construction.")]
+        [Input("construction", "The BHoM Construction to convert to a GBXML Construction.")]
+        [Input("opening", "The BHoM Environment Opening which hosts the construction.")]
+        [Output("windowType", "The GBXML Window Construction.")]
         public static BHX.WindowType ToGBXMLWindow(this BHC.Construction construction, BHE.Opening opening, GBXMLSettings settings)
         {
             BHX.WindowType window = new BHX.WindowType();
@@ -141,10 +141,10 @@ namespace BH.Adapter.XML
             return window;
         }
 
-        [Description("Get the BHoM representation of a GBXML construction")]
-        [Input("gbConstruction", "The GBXML Construction to convert to a BHoM Construction")]
-        [Input("layers", "The BHoM layers which will be appended to the construction")]
-        [Output("construction", "The BHoM Construction")]
+        [Description("Get the BHoM representation of a GBXML construction.")]
+        [Input("gbConstruction", "The GBXML Construction to convert to a BHoM Construction.")]
+        [Input("layers", "The BHoM layers which will be appended to the construction.")]
+        [Output("construction", "The BHoM Construction.")]
         public static BHC.Construction FromGBXML(this BHX.Construction gbConstruction, List<BHC.Layer> layers)
         {
             BHC.Construction construction = new BHC.Construction();
@@ -154,11 +154,11 @@ namespace BH.Adapter.XML
             return construction;
         }
 
-        [Description("Get the BHoM representation of a GBXML Layer")]
-        [Input("gbLayer", "The GBXML Layer to convert to a BHoM Layer")]
-        [Input("material", "The BHoM material which will be appended to the layer")]
-        [Input("thickness", "The thickness of the material on the layer")]
-        [Output("layer", "The BHoM Layer")]
+        [Description("Get the BHoM representation of a GBXML Layer.")]
+        [Input("gbLayer", "The GBXML Layer to convert to a BHoM Layer.")]
+        [Input("material", "The BHoM material which will be appended to the layer.")]
+        [Input("thickness", "The thickness of the material on the layer.")]
+        [Output("layer", "The BHoM Layer.")]
         public static BHC.Layer FromGBXML(this BHX.Layer gbLayer, BHM.Material material, double thickness)
         {
             BHC.Layer layer = new BHC.Layer();
@@ -170,6 +170,7 @@ namespace BH.Adapter.XML
         }
     }
 }
+
 
 
 

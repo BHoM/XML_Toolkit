@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -36,7 +36,7 @@ namespace BH.Engine.Adapters.XML
     {
         [Description("Creates an instance of a GBXMLUnitSetUp object based on the LengthUnit type. If the LengthUnit type is Meters, the Area and Volume Units will become SquareMeters and CubicMeters respectively. Allows for the creation of GBXMLUnitSetUp from just the length and temperature attributes.")]
         [Input("length", "The length unit to build the area and volume units from.")]
-        [Input("temperature", "The temperature unit to use, defaults to Celcius")]
+        [Input("temperature", "The temperature unit to use, defaults to Celcius.")]
         [Output("gbxmlUnitSetUp", "A GBXMLUnitSetUp object containing set up options for the gbXML export.")]
         public static GBXMLUnitSetUp GBXMLUnitSetUp(LengthUnit length, TemperatureUnit temperature = TemperatureUnit.Celcius)
         {
@@ -52,6 +52,7 @@ namespace BH.Engine.Adapters.XML
         }
     }
 }
+
 
 
 

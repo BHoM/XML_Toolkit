@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -37,9 +37,9 @@ namespace BH.Engine.Adapters.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Filters a collection of Environment Panels grouped to represent closed spaces to only those which have only one adjacenet space")]
-        [Input("elementsAsSpaces", "A nested collection of Environment Panels that represent closed spaced")]
-        [Output("externalElements", "The collection of Environment Panels which are externally facing")]
+        [Description("Filters a collection of Environment Panels grouped to represent closed spaces to only those which have only one adjacent space.")]
+        [Input("elementsAsSpaces", "A nested collection of Environment Panels that represent closed spaces.")]
+        [Output("externalElements", "The collection of Environment Panels which are externally facing.")]
         public static List<Panel> ExternalElements(this List<List<Panel>> elementsAsSpaces)
         {
             List<Panel> externalElements = new List<Panel>();
@@ -51,6 +51,7 @@ namespace BH.Engine.Adapters.XML
         }
     }
 }
+
 
 
 

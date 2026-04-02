@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -46,9 +46,9 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Get the GBXML representation of a BHoM Environments Opening")]
-        [Input("opening", "The BHoM Environments Opening to convert into a GBXML Opening")]
-        [Output("openingGBXML", "The GBXML representation of a BHoM Environment Opening")]
+        [Description("Get the GBXML representation of a BHoM Environments Opening.")]
+        [Input("opening", "The BHoM Environments Opening to convert into a GBXML Opening.")]
+        [Output("openingGBXML", "The GBXML representation of a BHoM Environment Opening.")]
         public static BHX.Opening ToGBXML(this BHE.Opening opening, BHE.Panel hostPanel, GBXMLSettings settings)
         {
             BHX.Opening gbOpening = new BHX.Opening();
@@ -116,9 +116,9 @@ namespace BH.Adapter.XML
             return gbOpening;
         }
 
-        [Description("Get the BHoM Environments representation of a GBXML Opening")]
-        [Input("gbOpening", "The GBXML Opening to convert into a BHoM Environments Opening")]
-        [Output("openingBHoM", "The BHoM representation of a GBXML Opening")]
+        [Description("Get the BHoM Environments representation of a GBXML Opening.")]
+        [Input("gbOpening", "The GBXML Opening to convert into a BHoM Environments Opening.")]
+        [Output("openingBHoM", "The BHoM representation of a GBXML Opening.")]
         public static BHE.Opening FromGBXML(this BHX.Opening gbOpening)
         {
             BHE.Opening opening = new BHE.Opening();
@@ -145,6 +145,7 @@ namespace BH.Adapter.XML
         }
     }
 }
+
 
 
 

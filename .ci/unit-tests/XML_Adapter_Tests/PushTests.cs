@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -49,6 +49,7 @@ namespace BH.Tests.Adapter.XML
         List<Panel> m_jsonPanels;
 
         [OneTimeSetUp]
+        [Description("On loading tests, instantiate an adapter and push config to be used in all tests, and get the file path to the test files.")]
         public void OneTimeSetUp()
         {
             string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -66,12 +67,14 @@ namespace BH.Tests.Adapter.XML
         }
 
         [SetUp]
+        [Description("When running a new test, clear any errors that have occurred in the previous test.")]
         public void Setup()
         {
             BH.Engine.Base.Compute.ClearCurrentEvents();
         }
 
         [TearDown]
+        [Description("After each test, log types and messages of any BHoM events raised during the test.")]
         public void TearDown()
         {
             File.Delete(m_config.File.GetFullFileName());
@@ -168,7 +171,7 @@ namespace BH.Tests.Adapter.XML
         }
 
         [Test]
-        [Description("Test for pushing GBXML with exportDetail set to BuildingShell")]
+        [Description("Test for pushing GBXML with exportDetail set to BuildingShell.")]
         public void PushGBXMLBuildingShell()
         {
             m_config.Settings = new GBXMLSettings()
@@ -235,4 +238,5 @@ namespace BH.Tests.Adapter.XML
         }
     }
 }
+
 

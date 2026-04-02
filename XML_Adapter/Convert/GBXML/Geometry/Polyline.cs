@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -40,10 +40,10 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Get the GBXML representation of a BHoM Polyline")]
-        [Input("pLine", "The BHoM Geometry Point to convert into a GBXML Polyloop")]
-        [Input("tolerance", "The tolerance to determine whether the polyline is closed or not, default to BH.oM.Geometry.Tolerance.Distance")]
-        [Output("polyloop", "The GBXML representation of a BHoM Polyline")]
+        [Description("Get the GBXML representation of a BHoM Polyline.")]
+        [Input("pLine", "The BHoM Geometry Polyline to convert into a GBXML Polyloop.")]
+        [Input("tolerance", "The tolerance to determine whether the polyline is closed or not, default to BH.oM.Geometry.Tolerance.Distance.")]
+        [Output("polyloop", "The GBXML representation of a BHoM Polyline.")]
         public static BHX.Polyloop ToGBXML(this BHG.Polyline pLine, GBXMLSettings settings, double tolerance = BHG.Tolerance.Distance)
         {
             BHX.Polyloop polyloop = new BHX.Polyloop();
@@ -65,10 +65,10 @@ namespace BH.Adapter.XML
             return polyloop;
         }
 
-        [Description("Get the BHoM representation of a GBXML Polyloop")]
-        [Input("pLoop", "The GBXML Polyloop to convert into a BHoM Polyline")]
-        [Input("tolerance", "The tolerance to determine whether the polyline is closed or not, default to BH.oM.Geometry.Tolerance.Distance")]
-        [Output("polyline", "The BHoM representation of a GBXML Polyloop")]
+        [Description("Get the BHoM representation of a GBXML Polyloop.")]
+        [Input("pLoop", "The GBXML Polyloop to convert into a BHoM Polyline.")]
+        [Input("tolerance", "The tolerance to determine whether the polyline is closed or not, default to BH.oM.Geometry.Tolerance.Distance.")]
+        [Output("polyline", "The BHoM representation of a GBXML Polyloop.")]
         public static BHG.Polyline FromGBXML(this BHX.Polyloop pLoop, double tolerance = BHG.Tolerance.Distance)
         {
             BHG.Polyline pLine = new BHG.Polyline();
@@ -87,6 +87,7 @@ namespace BH.Adapter.XML
         }
     }
 }
+
 
 
 

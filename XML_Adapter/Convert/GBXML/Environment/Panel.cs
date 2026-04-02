@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -48,10 +48,10 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Get the GBXML representation of a BHoM Environments Panel")]
-        [Input("panel", "The BHoM Environments Panel to convert into a GBXML Surface")]
-        [Input("settings", "The XML Settings to use for converting the panel to the surface")]
-        [Output("surface", "The GBXML representation of a BHoM Environment Panel")]
+        [Description("Get the GBXML representation of a BHoM Environments Panel.")]
+        [Input("panel", "The BHoM Environments Panel to convert into a GBXML Surface.")]
+        [Input("settings", "The XML Settings to use for converting the panel to the surface.")]
+        [Output("surface", "The GBXML representation of a BHoM Environment Panel.")]
         public static BHX.Surface ToGBXML(this BHE.Panel element, GBXMLSettings settings, List<BHE.Panel> space = null)
         {
             BHE.Panel panel = element.DeepClone<BHE.Panel>();
@@ -219,10 +219,10 @@ namespace BH.Adapter.XML
             return gbSrf;
         }
 
-        [Description("Get the GBXML geometrical representation of a BHoM Environments Panel")]
-        [Input("element", "The BHoM Environments Panel to convert into a GBXML Rectangular Geometry element")]
-        [Input("settings", "The XML Settings to use to produce the converted surface")]
-        [Output("rectangularGeometry", "The GBXML geometrical representation of a BHoM Environment Panel")]
+        [Description("Get the GBXML geometrical representation of a BHoM Environments Panel.")]
+        [Input("element", "The BHoM Environments Panel to convert into a GBXML Rectangular Geometry element.")]
+        [Input("settings", "The XML Settings to use to produce the converted surface.")]
+        [Output("rectangularGeometry", "The GBXML geometrical representation of a BHoM Environment Panel.")]
         public static BHX.RectangularGeometry ToGBXMLGeometry(this BHE.Panel element, GBXMLSettings settings)
         {
             BHX.RectangularGeometry geom = new BHX.RectangularGeometry();
@@ -246,9 +246,9 @@ namespace BH.Adapter.XML
             return geom;
         }
 
-        [Description("Get the BHoM representation of a GBXML Surface")]
-        [Input("surface", "The GBXML Surface to convert into a BHoM Environments Panel")]
-        [Output("panel", "The BHoM Environments representation of a GBXML Surface")]
+        [Description("Get the BHoM representation of a GBXML Surface.")]
+        [Input("surface", "The GBXML Surface to convert into a BHoM Environments Panel.")]
+        [Output("panel", "The BHoM Environments representation of a GBXML Surface.")]
         public static BHE.Panel FromGBXML(this BHX.Surface surface)
         {
             BHE.Panel panel = new BHE.Panel();
@@ -285,6 +285,7 @@ namespace BH.Adapter.XML
         }
     }
 }
+
 
 
 

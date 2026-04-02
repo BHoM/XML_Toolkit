@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -30,22 +30,23 @@ using System.ComponentModel;
 
 namespace BH.oM.Adapters.XML.Enums
 {
-    [Description("Defines the XML Schema that is being used within the context of the XML Toolkit")]
+    [Description("Defines the XML Schema that is being used within the context of the XML Toolkit.")]
     public enum Schema
     {
         Undefined,
         [Description("Bluebeam markup files with data pulled through for specific workflows.")]
         Bluebeam,
-        [Description("CSProject files are used to work out compiling information for code projects. Typically seen in Visual Studio solution files")]
+        [Description("CSProject files are used to work out compiling information for code projects. Typically seen in Visual Studio solution files.")]
         CSProject,
-        [Description("EnergyPlusLoads is the XML schema for load results calculated using the EnergyPlus software")]
+        [Description("EnergyPlusLoads is the XML schema for load results calculated using the EnergyPlus software.")]
         EnergyPlusLoads,
-        [Description("gbXML Schema is the Green Building XML Schema, used by environment modelling software for the transfer of building geometry and data to tools such as IES, TAS, and more")]
+        [Description("gbXML Schema is the Green Building XML Schema, used by environment modelling software for the transfer of building geometry and data to tools such as IES, TAS, and more.")]
         GBXML,
-        [Description("KML is a file format used to display geographic data in an Earth browser such as Google Earth")]
+        [Description("KML is a file format used to display geographic data in an Earth browser such as Google Earth.")]
         KML,
     }
 }
+
 
 
 

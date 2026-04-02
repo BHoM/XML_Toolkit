@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -35,10 +35,10 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Get the GBXML type for a BHoM Environments Panel")]
-        [Input("element", "The BHoM Environments Panel to get the GBXML Type from")]
-        [Input("adjacentSpaces", "A collection of Environment Panels that are adjacent to the element the type is being obtained from")]
-        [Output("type", "The GBXML type for the BHoM Environment Panel")]
+        [Description("Get the GBXML type for a BHoM Environments Panel.")]
+        [Input("element", "The BHoM Environments Panel to get the GBXML Type from.")]
+        [Input("adjacentSpaces", "A collection of Environment Panels that are adjacent to the element the type is being obtained from.")]
+        [Output("type", "The GBXML type for the BHoM Environment Panel.")]
         public static string ToGBXMLType(this BHE.Panel element, List<List<BHE.Panel>> adjacentSpaces = null)
         {
             if (adjacentSpaces == null) adjacentSpaces = new List<List<BHE.Panel>>();
@@ -55,9 +55,9 @@ namespace BH.Adapter.XML
             return type;
         }
 
-        [Description("Get the GBXML representation of a BHoM Environments Panel Type")]
-        [Input("type", "The BHoM Environments Panel Type to convert into a GBXML Type")]
-        [Output("type", "The GBXML representation of a BHoM Environment Panel Type")]
+        [Description("Get the GBXML representation of a BHoM Environments Panel Type.")]
+        [Input("type", "The BHoM Environments Panel Type to convert into a GBXML Type.")]
+        [Output("type", "The GBXML representation of a BHoM Environment Panel Type.")]
         public static string ToGBXML(this BHE.PanelType type)
         {
             switch(type)
@@ -95,9 +95,9 @@ namespace BH.Adapter.XML
             }
         }
 
-        [Description("Get the GBXML representation of a BHoM Environments Opening Type")]
-        [Input("type", "The BHoM Environments Opening Type to convert into a GBXML Type")]
-        [Output("type", "The GBXML representation of a BHoM Environment Opening Type")]
+        [Description("Get the GBXML representation of a BHoM Environments Opening Type.")]
+        [Input("type", "The BHoM Environments Opening Type to convert into a GBXML Type.")]
+        [Output("type", "The GBXML representation of a BHoM Environment Opening Type.")]
         public static string ToGBXML(this BHE.OpeningType type)
         {
             switch (type)
@@ -122,9 +122,9 @@ namespace BH.Adapter.XML
             }
         }
 
-        [Description("Get the BHoM Environments Panel Type representation of a GBXML Type")]
-        [Input("type", "The GBXML Type to convert into a BHoM Environments Panel Type")]
-        [Output("type", "The BHoM representation of a GBXML Type")]
+        [Description("Get the BHoM Environments Panel Type representation of a GBXML Type.")]
+        [Input("type", "The GBXML Type to convert into a BHoM Environments Panel Type.")]
+        [Output("type", "The BHoM representation of a GBXML Type.")]
         public static BHE.PanelType FromGBXMLPanelType(this string type)
         {
             switch (type)
@@ -162,9 +162,9 @@ namespace BH.Adapter.XML
             }
         }
 
-        [Description("Get the BHoM Environments Opening Type representation of a GBXML Type")]
-        [Input("type", "The GBXML Type to convert into a BHoM Environments Opening Type")]
-        [Output("type", "The BHoM representation of a GBXML Type")]
+        [Description("Get the BHoM Environments Opening Type representation of a GBXML Type.")]
+        [Input("type", "The GBXML Type to convert into a BHoM Environments Opening Type.")]
+        [Output("type", "The BHoM representation of a GBXML Type.")]
         public static BHE.OpeningType FromGBXMLOpeningType(this string type)
         {
             switch (type)
@@ -188,6 +188,7 @@ namespace BH.Adapter.XML
 
     }
 }
+
 
 
 

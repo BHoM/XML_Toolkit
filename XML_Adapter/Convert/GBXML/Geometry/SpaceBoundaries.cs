@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -44,11 +44,11 @@ namespace BH.Adapter.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Gets the GBXML SpaceBoundary representation of a collection of Environment panels which comprise a closed volumetric space")]
-        [Input("spaceBoundaries", "A collection of Environment Panels which comprise a closed volumetric space")]
-        [Input("uniqueBEs", "A collection of unique Environment Panels used in the model as a whole")]
-        [Input("planarTolerance", "The tolerance to define planarity - default to BH.oM.Geometry.Tolerance.Distance")]
-        [Output("spaceBoundaries", "GBXML representation of space boundaries")]
+        [Description("Gets the GBXML SpaceBoundary representation of a collection of Environment panels which comprise a closed volumetric space.")]
+        [Input("spaceBoundaries", "A collection of Environment Panels which comprise a closed volumetric space.")]
+        [Input("settings", "Adapter settings controlling GBXML conversion behaviour.")]
+        [Input("planarTolerance", "The tolerance to define planarity - default to BH.oM.Geometry.Tolerance.Distance.")]
+        [Output("spaceBoundaries", "GBXML representation of space boundaries.")]
         public static SpaceBoundary[] SpaceBoundaries(this List<BHE.Panel> spaceBoundaries, GBXMLSettings settings, double planarTolerance = BH.oM.Geometry.Tolerance.Distance)
         {
             List<Polyloop> pLoops = new List<Polyloop>();
@@ -79,6 +79,7 @@ namespace BH.Adapter.XML
         }
     }
 }
+
 
 
 

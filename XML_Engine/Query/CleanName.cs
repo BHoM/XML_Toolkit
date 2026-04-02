@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -40,9 +40,9 @@ namespace BH.Engine.Adapters.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("Get a clean string name representation of a name suitable for GBXML. Removes colons (replaced with underscores _ ), removes spaces, commas, forward slashes, open and closed round brackets")]
-        [Input("name", "The string name to clean up")]
-        [Output("cleanName", "The clean name suitable for GBXML")]
+        [Description("Get a clean string name representation of a name suitable for GBXML. Removes colons (replaced with underscores _ ), removes spaces, commas, forward slashes, open and closed round brackets.")]
+        [Input("name", "The string name to clean up.")]
+        [Output("cleanName", "The clean name suitable for GBXML.")]
         public static string CleanName(this string name)
         {
             if (name == null)
@@ -62,6 +62,7 @@ namespace BH.Engine.Adapters.XML
         }
     }
 }
+
 
 
 

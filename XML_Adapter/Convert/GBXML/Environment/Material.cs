@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -46,9 +46,9 @@ namespace BH.Adapter.XML
 {
     public static partial class Convert
     {
-        [Description("Get the GBXML representation of a BHoM Construction Layer")]
-        [Input("layer", "The BHoM Construction Layer to convert into a GBXML Material")]
-        [Output("material", "The GBXML representation of a BHoM Construction Layer")]
+        [Description("Get the GBXML representation of a BHoM Construction Layer.")]
+        [Input("layer", "The BHoM Construction Layer to convert into a GBXML Material.")]
+        [Output("material", "The GBXML representation of a BHoM Construction Layer.")]
         public static BHX.Material ToGBXML(this BHC.Layer layer, GBXMLSettings settings)
         {
             BHX.Material gbMaterial = new BHX.Material();
@@ -73,9 +73,9 @@ namespace BH.Adapter.XML
             return gbMaterial;
         }
 
-        [Description("Get the GBXML Layer for a collection of GBXML materials")]
-        [Input("materials", "The GBXML Materials to get the layer for")]
-        [Output("layer", "The GBXML layer for the given GBXML Materials")]
+        [Description("Get the GBXML Layer for a collection of GBXML materials.")]
+        [Input("materials", "The GBXML Materials to get the layer for.")]
+        [Output("layer", "The GBXML layer for the given GBXML Materials.")]
         public static BHX.Layer ToGBXML(this List<BHX.Material> materials)
         {
             BHX.Layer l = new BHX.Layer();
@@ -96,9 +96,9 @@ namespace BH.Adapter.XML
             return l;
         }
 
-        [Description("Get the GBXML glazed representation of a BHoM Construction Layer")]
-        [Input("layer", "The BHoM Construction Layer to convert into a GBXML Glaze Material")]
-        [Output("glaze", "The GBXML glazed representation of a BHoM Construction Layer")]
+        [Description("Get the GBXML glazed representation of a BHoM Construction Layer.")]
+        [Input("layer", "The BHoM Construction Layer to convert into a GBXML Glaze Material.")]
+        [Output("glaze", "The GBXML glazed representation of a BHoM Construction Layer.")]
         public static BHX.Glaze ToGBXGlazed(this BHC.Layer layer, GBXMLSettings settings)
         {
             if (layer == null || layer.Material == null) return null;
@@ -134,9 +134,9 @@ namespace BH.Adapter.XML
             return glaze;
         }
 
-        [Description("Get the GBXML gap (air gap, etc.) representation of a BHoM Construction Layer")]
-        [Input("layer", "The BHoM Construction Layer to convert into a GBXML Gap Material")]
-        [Output("gap", "The GBXML gap representation of a BHoM Construction Layer")]
+        [Description("Get the GBXML gap (air gap, etc.) representation of a BHoM Construction Layer.")]
+        [Input("layer", "The BHoM Construction Layer to convert into a GBXML Gap Material.")]
+        [Output("gap", "The GBXML gap representation of a BHoM Construction Layer.")]
         public static BHX.Gap ToGBXGap(this BHC.Layer layer, GBXMLSettings settings)
         {
             if (layer == null || layer.Material == null) return null;
@@ -169,9 +169,9 @@ namespace BH.Adapter.XML
             return gap;
         }
 
-        [Description("Get the BHoM representation of a GBXML Material")]
-        [Input("gbMaterial", "The GBXML Material to convert into a BHoM Construction Layer")]
-        [Output("layer", "The BHoM representation of a GBXML Material")]
+        [Description("Get the BHoM representation of a GBXML Material.")]
+        [Input("gbMaterial", "The GBXML Material to convert into a BHoM Construction Layer.")]
+        [Output("layer", "The BHoM representation of a GBXML Material.")]
         public static BHC.Layer FromGBXML(this BHX.Material gbMaterial)
         {
             BHC.Layer layer = new BHC.Layer();
@@ -196,6 +196,7 @@ namespace BH.Adapter.XML
         }
     }
 }
+
 
 
 

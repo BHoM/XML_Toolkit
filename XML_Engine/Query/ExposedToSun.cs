@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2025, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2026, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -35,9 +35,9 @@ namespace BH.Engine.Adapters.XML
         /**** Public Methods                            ****/
         /***************************************************/
 
-        [Description("BH.Engine.XML.Query.ExposedToSun => Returns whether a given gbXML surface type string can be classed as being exposed to the sun")]
-        [Input("surfaceType", "A gbXML string representing a surface type")]
-        [Output("exposedToSun", "True if the surface type can be considered to be exposed to the sun, false otherwise")]
+        [Description("BH.Engine.XML.Query.ExposedToSun => Returns whether a given gbXML surface type string can be classed as being exposed to the sun.")]
+        [Input("surfaceType", "A gbXML string representing a surface type.")]
+        [Output("exposedToSun", "True if the surface type can be considered to be exposed to the sun, false otherwise.")]
         public static bool ExposedToSun(string surfaceType)
         {
             if (String.IsNullOrEmpty(surfaceType)) return false;
@@ -48,6 +48,7 @@ namespace BH.Engine.Adapters.XML
         }
     }
 }
+
 
 
 
