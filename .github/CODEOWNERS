@@ -1,4 +1,4 @@
-# XML_Toolkit REPO CODEOWNERS
+# This file is managed by github-governance. Do not edit manually.
+# Source: orgs/BHoM/codeowners.yml
 
-# default global
-* @FraserGreenroyd @tg359
+* @BHoM/devops @BHoM/xml_toolkit
