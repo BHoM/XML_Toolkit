@@ -38,6 +38,7 @@ namespace BH.Adapter.XML
     {
         public override IEnumerable<object> Pull(IRequest request, PullType pullType = PullType.AdapterDefault, ActionConfig actionConfig = null)
         {
+            // sandbox CI test marker (2026-06-24): exercises CI_Toolkit develop after PRs #80-#85; close without merging.
             IXMLConfig config = actionConfig as IXMLConfig;
             if (!System.IO.File.Exists(config.File.GetFullFileName()))
             {
